@@ -20,12 +20,12 @@ class DisplayBlockCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('php_orchestra_cms.display_block_manager')) {
+        if (!$container->hasDefinition('php_orchestra_display.display_block_manager')) {
             return;
         }
 
-        $manager = $container->getDefinition('php_orchestra_cms.display_block_manager');
-        $strategies = $container->findTaggedServiceIds('php_orchestra_cms.display_block.strategy');
+        $manager = $container->getDefinition('php_orchestra_display.display_block_manager');
+        $strategies = $container->findTaggedServiceIds('php_orchestra_display.display_block.strategy');
         foreach ($strategies as $id => $attributes) {
             $manager->addMethodCall('addStrategy', array(new Reference($id)));
         }

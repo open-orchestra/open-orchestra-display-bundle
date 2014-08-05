@@ -5,7 +5,7 @@
         {% if element.child is defined %}
             {% for child in element.child %}
                 {% if child %}
-                    {% include "PHPOrchestraCMSBundle:Block/Menu:show.html.twig" with {"element": child, "class": class} only %}
+                    {% include "PHPOrchestraDisplayBundle:Block/Menu:show.html.twig" with {"element": child, "class": class} only %}
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -13,7 +13,7 @@
 {% elseif tree is defined %}
     <div id="{{ id }}" class="{{ class.div }}">
         {% for element in tree_formatter(tree) %}
-            {% include "PHPOrchestraCMSBundle:Block/Menu:show.html.twig" with {"element": element, "class": class} only %}
+            {% include "PHPOrchestraDisplayBundle:Block/Menu:show.html.twig" with {"element": element, "class": class} only %}
         {% endfor %}
     </div>
 {% endif %}

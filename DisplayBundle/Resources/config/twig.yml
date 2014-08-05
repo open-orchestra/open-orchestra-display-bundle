@@ -5,11 +5,11 @@ parameters:
 services:
     php_orchestra_cms.twig.tree.extension:
         class: %php_orchestra_cms.twig.tree.extension.class%
-        arguments: [@php_orchestra_cms.manager.tree]
+        arguments: [@php_orchestra_display.manager.tree]
         tags:
             - { name: twig.extension }
     php_orchestra_cms.twig.display_field.extension:
         class: %php_orchestra_cms.twig.display_field.extension.class%
-        arguments: [@php_orchestra_cms.display_field_manager]
+        arguments: [@php_orchestra_display.display_field_manager]
         tags:
             - { name: twig.extension }

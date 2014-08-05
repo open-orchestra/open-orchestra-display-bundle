@@ -1,5 +1,5 @@
 {##
- # This file is part of the PHPOrchestra\CMSBundle.
+ # This file is part of the PHPOrchestra\DisplayBundle.
  #
  # @author Benjamin Fouché <benjamin.fouche@businessdecision.com>
  ##}
@@ -13,7 +13,7 @@
                     {% for fieldname, fieldvalue in doc %}
                         {% if fieldname in fieldsdisplayed %}
                             {% include
-                            "PHPOrchestraCMSBundle:Block/SearchResult:showField.html.twig"
+                            "PHPOrchestraDisplayBundle:Block/SearchResult:showField.html.twig"
                             with {"fieldname": fieldname, "fieldvalue": fieldvalue}
                             %}
                             {#% if fieldvalue is iterable %}
