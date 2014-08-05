@@ -1,88 +1,88 @@
 parameters:
-    php_orchestra_cms.display_block_manager.class: PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager
-    php_orchestra_cms.display_field_manager.class: PHPOrchestra\DisplayBundle\DisplayField\DisplayFieldManager
+    php_orchestra_display.display_block_manager.class: PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager
+    php_orchestra_display.display_field_manager.class: PHPOrchestra\DisplayBundle\DisplayField\DisplayFieldManager
 
-    php_orchestra_cms.display.carrousel.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\CarrouselStrategy
-    php_orchestra_cms.display.contact.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
-    php_orchestra_cms.display.footer.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy
-    php_orchestra_cms.display.header.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\HeaderStrategy
-    php_orchestra_cms.display.menu.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\MenuStrategy
-    php_orchestra_cms.display.news.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\NewsStrategy
-    php_orchestra_cms.display.sample.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SampleStrategy
-    php_orchestra_cms.display.search_result.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SearchResultStrategy
-    php_orchestra_cms.display.search.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SearchStrategy
-    php_orchestra_cms.display.tiny_mce_wysiwyg.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\TinyMCEWysiwygStrategy
+    php_orchestra_display.display.carrousel.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\CarrouselStrategy
+    php_orchestra_display.display.contact.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
+    php_orchestra_display.display.footer.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy
+    php_orchestra_display.display.header.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\HeaderStrategy
+    php_orchestra_display.display.menu.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\MenuStrategy
+    php_orchestra_display.display.news.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\NewsStrategy
+    php_orchestra_display.display.sample.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SampleStrategy
+    php_orchestra_display.display.search_result.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SearchResultStrategy
+    php_orchestra_display.display.search.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SearchStrategy
+    php_orchestra_display.display.tiny_mce_wysiwyg.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\TinyMCEWysiwygStrategy
 
-    php_orchestra_cms.display_field.image.class: PHPOrchestra\DisplayBundle\DisplayField\Strategies\ImageStrategy
-    php_orchestra_cms.display_field.text.class: PHPOrchestra\DisplayBundle\DisplayField\Strategies\TextStrategy
+    php_orchestra_display.display_field.image.class: PHPOrchestra\DisplayBundle\DisplayField\Strategies\ImageStrategy
+    php_orchestra_display.display_field.text.class: PHPOrchestra\DisplayBundle\DisplayField\Strategies\TextStrategy
 
 services:
-    php_orchestra_cms.display_block_manager:
-        class: %php_orchestra_cms.display_block_manager.class%
+    php_orchestra_display.display_block_manager:
+        class: %php_orchestra_display.display_block_manager.class%
         arguments: [@templating]
 
-    php_orchestra_cms.display.carrousel:
-        class: %php_orchestra_cms.display.carrousel.class%
+    php_orchestra_display.display.carrousel:
+        class: %php_orchestra_display.display.carrousel.class%
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.contact:
-        class: %php_orchestra_cms.display.contact.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.contact:
+        class: %php_orchestra_display.display.contact.class%
         arguments: [@form.factory]
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.footer:
-        class: %php_orchestra_cms.display.footer.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.footer:
+        class: %php_orchestra_display.display.footer.class%
         arguments: [@php_orchestra_model.repository.node, @router]
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.header:
-        class: %php_orchestra_cms.display.header.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.header:
+        class: %php_orchestra_display.display.header.class%
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.menu:
-        class: %php_orchestra_cms.display.menu.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.menu:
+        class: %php_orchestra_display.display.menu.class%
         arguments: [@php_orchestra_model.repository.node, @router]
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.news:
-        class: %php_orchestra_cms.display.news.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.news:
+        class: %php_orchestra_display.display.news.class%
         arguments: [@php_orchestra_model.repository.content]
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.sample:
-        class: %php_orchestra_cms.display.sample.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.sample:
+        class: %php_orchestra_display.display.sample.class%
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.search_result:
-        class: %php_orchestra_cms.display.search_result.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.search_result:
+        class: %php_orchestra_display.display.search_result.class%
         arguments:
             - @solarium.client
             - @php_orchestra_indexation.search_manager
             - @translator
             - @service_container
             - @php_orchestra_model.repository.field_index
-            - @php_orchestra_cms.display_field_manager
+            - @php_orchestra_display.display_field_manager
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.search:
-        class: %php_orchestra_cms.display.search.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.search:
+        class: %php_orchestra_display.display.search.class%
         arguments: [@form.factory, @router]
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display.tiny_mce_wysiwyg:
-        class: %php_orchestra_cms.display.tiny_mce_wysiwyg.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.tiny_mce_wysiwyg:
+        class: %php_orchestra_display.display.tiny_mce_wysiwyg.class%
         tags:
-            - { name: php_orchestra_cms.display_block.strategy }
-    php_orchestra_cms.display_field_manager:
-        class: %php_orchestra_cms.display_field_manager.class%
-    php_orchestra_cms.display_field.image:
-        class: %php_orchestra_cms.display_field.image.class%
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display_field_manager:
+        class: %php_orchestra_display.display_field_manager.class%
+    php_orchestra_display.display_field.image:
+        class: %php_orchestra_display.display_field.image.class%
         tags:
-            - { name: php_orchestra_cms.display_field.strategy }
-    php_orchestra_cms.display_field.text:
-        class: %php_orchestra_cms.display_field.text.class%
+            - { name: php_orchestra_display.display_field.strategy }
+    php_orchestra_display.display_field.text:
+        class: %php_orchestra_display.display_field.text.class%
         arguments:
             fields:
                 - 'img'
         tags:
-            - { name: php_orchestra_cms.display_field.strategy }
+            - { name: php_orchestra_display.display_field.strategy }

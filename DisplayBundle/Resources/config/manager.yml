@@ -1,5 +1,5 @@
 parameters:
-    php_orchestra_cms.manager.tree.class: PHPOrchestra\CMSBundle\Manager\TreeManager
+    php_orchestra_cms.manager.tree.class: PHPOrchestra\DisplayBundle\Manager\TreeManager
 
 services:
     php_orchestra_cms.manager.tree:

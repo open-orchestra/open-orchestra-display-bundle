@@ -20,12 +20,12 @@ class DisplayFieldCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('php_orchestra_cms.display_field_manager')) {
+        if (!$container->hasDefinition('php_orchestra_display.display_field_manager')) {
             return;
         }
 
-        $manager = $container->getDefinition('php_orchestra_cms.display_field_manager');
-        $strategies = $container->findTaggedServiceIds('php_orchestra_cms.display_field.strategy');
+        $manager = $container->getDefinition('php_orchestra_display.display_field_manager');
+        $strategies = $container->findTaggedServiceIds('php_orchestra_display.display_field.strategy');
         foreach ($strategies as $id => $attributes) {
             $manager->addMethodCall('addStrategy', array(new Reference($id)));
         }
