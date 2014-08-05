@@ -1,6 +1,6 @@
 parameters:
-    php_orchestra_cms.manager.tree.class: PHPOrchestra\DisplayBundle\Manager\TreeManager
+    php_orchestra_display.manager.tree.class: PHPOrchestra\DisplayBundle\Manager\TreeManager
 
 services:
-    php_orchestra_cms.manager.tree:
-        class: %php_orchestra_cms.manager.tree.class%
+    php_orchestra_display.manager.tree:
+        class: %php_orchestra_display.manager.tree.class%
