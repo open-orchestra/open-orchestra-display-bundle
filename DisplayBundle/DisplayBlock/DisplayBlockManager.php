@@ -48,7 +48,8 @@ class DisplayBlockManager
                 return $strategy->show($block);
             }
         }
-        throw new DisplayBlockStrategyNotFoundException();
+
+        throw new DisplayBlockStrategyNotFoundException($block->getComponent());
     }
 
     /**
