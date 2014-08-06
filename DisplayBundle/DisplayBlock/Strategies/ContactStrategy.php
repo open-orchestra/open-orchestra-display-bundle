@@ -53,23 +53,6 @@ class ContactStrategy extends AbstractStrategy
     }
 
     /**
-     * Perform the show action for a block on the backend
-     *
-     * @param BlockInterface $block
-     *
-     * @return Response
-     */
-    public function showBack(BlockInterface $block)
-    {
-        $form = $this->formFactory->create(new ContactType());
-
-        return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Contact:showBack.html.twig',
-            array('form' => $form->createView())
-        );
-    }
-
-    /**
      * Get the name of the strategy
      *
      * @return string

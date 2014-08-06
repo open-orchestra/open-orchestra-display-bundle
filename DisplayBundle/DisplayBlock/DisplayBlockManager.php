@@ -53,25 +53,6 @@ class DisplayBlockManager
     }
 
     /**
-     * Perform the show action for a block on the backend
-     *
-     * @param BlockInterface $block
-     *
-     * @throws DisplayBlockStrategyNotFoundException
-     * @return Response
-     */
-    public function showBack(BlockInterface $block)
-    {
-        /** @var DisplayBlockInterface $strategy */
-        foreach ($this->strategies as $strategy) {
-            if ($strategy->support($block)) {
-                return $strategy->showBack($block);
-            }
-        }
-        throw new DisplayBlockStrategyNotFoundException();
-    }
-
-    /**
      * @return \Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine
      */
     public function getTemplating()

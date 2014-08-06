@@ -61,18 +61,6 @@ class FooterStrategy extends AbstractStrategy
     }
 
     /**
-     * Perform the show action for a block on the backend
-     *
-     * @param BlockInterface $block
-     *
-     * @return Response
-     */
-    public function showBack(BlockInterface $block)
-    {
-       return $this->show($block);
-    }
-
-    /**
      * Get the name of the strategy
      *
      * @return string

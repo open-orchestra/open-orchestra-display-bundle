@@ -55,27 +55,6 @@ class SampleStrategy extends AbstractStrategy
     }
 
     /**
-     * Perform the show action for a block on the backend
-     *
-     * @param BlockInterface $block
-     *
-     * @return Response
-     */
-    public function showBack(BlockInterface $block)
-    {
-        $attributes = $block->getAttributes();
-
-        return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Sample:showBack.html.twig',
-            array(
-                'title' => $attributes['title'],
-                'author' => $attributes['author'],
-                'news' => $attributes['news'],
-            )
-        );
-    }
-
-    /**
      * Get the name of the strategy
      *
      * @return string

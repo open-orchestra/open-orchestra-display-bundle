@@ -52,23 +52,6 @@ class NewsStrategy extends AbstractStrategy
     }
 
     /**
-     * Perform the show action for a block on the backend
-     *
-     * @param BlockInterface $block
-     *
-     * @return Response
-     */
-    public function showBack(BlockInterface $block)
-    {
-        $allNews = $this->contentRepository->findAllNews();
-
-        return $this->render(
-            'PHPOrchestraDisplayBundle:Block/News:showBack.html.twig',
-            array('allNews' => $allNews)
-        );
-    }
-
-    /**
      * Get the name of the strategy
      *
      * @return string
