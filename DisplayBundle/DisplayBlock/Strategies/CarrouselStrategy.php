@@ -39,21 +39,6 @@ class CarrouselStrategy extends AbstractStrategy
     }
 
     /**
-     * Perform the show action for a block on the backend
-     *
-     * @param BlockInterface $block
-     *
-     * @return Response
-     */
-    public function showBack(BlockInterface $block)
-    {
-        return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Carrousel:showBack.html.twig',
-            $block->getAttributes()
-        );
-    }
-
-    /**
      * Get the name of the strategy
      *
      * @return string

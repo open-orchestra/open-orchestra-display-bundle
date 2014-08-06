@@ -40,15 +40,6 @@ interface DisplayBlockInterface
     public function show(BlockInterface $block);
 
     /**
-     * Perform the show action for a block on the backend
-     *
-     * @param BlockInterface $block
-     *
-     * @return Response
-     */
-    public function showBack(BlockInterface $block);
-
-    /**
      * Get the name of the strategy
      *
      * @return string
