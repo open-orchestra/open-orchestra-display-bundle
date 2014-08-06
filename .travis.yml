@@ -10,6 +10,7 @@ php:
 before_script: 
   - phpenv config-add .travis.php.ini
   - composer install
+  - cat vendor/composer/autoload_namespaces.php
 
 script: phpunit DisplayBundle
 
