@@ -24,6 +24,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "symfony/swiftmailer-bundle" : "~2.3",
         "itkg/phporchestra-base-bundle": "dev-master",
         "itkg/phporchestra-model-bundle": "dev-master"
     },
