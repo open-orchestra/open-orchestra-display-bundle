@@ -7,6 +7,7 @@ use PHPOrchestra\DisplayBundle\Form\Type\ContactType;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class ContactStrategy
@@ -14,13 +15,16 @@ use Symfony\Component\HttpFoundation\Response;
 class ContactStrategy extends AbstractStrategy
 {
     protected $formFactory;
+    protected $router;
 
     /**
-     * @param FormFactory $formFactory
+     * @param FormFactory           $formFactory
+     * @param UrlGeneratorInterface $router
      */
-    public function __construct(FormFactory $formFactory)
+    public function __construct(FormFactory $formFactory, UrlGeneratorInterface $router)
     {
         $this->formFactory = $formFactory;
+        $this->router = $router;
     }
 
     /**
@@ -44,7 +48,10 @@ class ContactStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $form = $this->formFactory->create(new ContactType());
+        $form = $this->formFactory->create(new ContactType(), null, array(
+            'action' => $this->router->generate('php_orchestra_display_contact_send'),
+            'method' => 'POST',
+        ));
 
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/Contact:show.html.twig',
