@@ -47,13 +47,13 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider generateDataProvider
      */
-    public function testGenerate($scheme, $nodeId, $refType, $expected)
+    public function testGenerate($scheme, $nodeId, $parameters, $refType, $expected)
     {
         Phake::when($this->context)->getScheme()->thenReturn($scheme);
         Phake::when($this->node)->getAlias()->thenReturn($nodeId);
         Phake::when($this->node)->getParentId()->thenReturn('root');
 
-        $uriGenerated = $this->generator->generate($nodeId, array(), $refType);
+        $uriGenerated = $this->generator->generate($nodeId, $parameters, $refType);
 
         $this->assertEquals($expected, $uriGenerated);
         Phake::verify($this->nodeRepsitory)->findOneByNodeId($nodeId);
@@ -70,20 +70,44 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             array(
                 'http',
                 'page2',
+                array(),
                 PhpOrchestraUrlGenerator::RELATIVE_PATH,
                 'page2'
             ),
             array(
                 'https',
                 'page',
+                array(),
                 PhpOrchestraUrlGenerator::ABSOLUTE_URL,
                 'https://some-site.com:444/page'
             ),
             array(
                 'http',
                 'page1',
+                array(),
                 PhpOrchestraUrlGenerator::NETWORK_PATH,
                 '//some-site.com/page1'
+            ),
+            array(
+                'http',
+                'nodeId',
+                array('content' => 3),
+                PhpOrchestraUrlGenerator::ABSOLUTE_URL,
+                'http://some-site.com/nodeId?content=3'
+            ),
+            array(
+                'http',
+                'pageId',
+                array('news' => 'test'),
+                PhpOrchestraUrlGenerator::RELATIVE_PATH,
+                'pageId?news=test'
+            ),
+            array(
+                'http',
+                'contentId',
+                array('test' => 'encore'),
+                PhpOrchestraUrlGenerator::NETWORK_PATH,
+                '//some-site.com/contentId?test=encore'
             ),
         );
     }
@@ -92,14 +116,15 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
      * test with parent
      *
      * @param string $alias
+     * @param string $parentId
+     * @param string $nodeId
+     * @param string $rootId
+     * @param array  $parameters
      *
      * @dataProvider provideAlias
      */
-    public function testGenerateWithParent($alias)
+    public function testGenerateWithParent($alias, $parentId, $nodeId, $rootId, $parameters)
     {
-        $parentId = 'parent';
-        $nodeId = 'node';
-        $rootId = 'root';
 
         $nodeParent = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
         Phake::when($nodeParent)->getParentId()->thenReturn($rootId);
@@ -109,9 +134,14 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         Phake::when($this->node)->getAlias()->thenReturn($alias);
         Phake::when($this->node)->getParentId()->thenReturn($parentId);
 
-        $uriGenerated = $this->generator->generate($nodeId, array());
+        $uriGenerated = $this->generator->generate($nodeId, $parameters);
 
-        $this->assertEquals('/' . $alias . '/'. $alias, $uriGenerated);
+        if (!empty($parameters)) {
+            $this->assertEquals('/' . $alias . '/' . $alias . '?' . http_build_query($parameters), $uriGenerated);
+        } else {
+            $this->assertEquals('/' . $alias . '/' . $alias, $uriGenerated);
+        }
+
         Phake::verify($this->nodeRepsitory)->findOneByNodeId($nodeId);
         Phake::verify($this->node)->getParentId();
         Phake::verify($this->node)->getAlias();
@@ -123,9 +153,27 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function provideAlias()
     {
         return array(
-            array('test'),
-            array('alias'),
-            array('other'),
+            array(
+                'test',
+                'parent',
+                'node',
+                'root',
+                array()
+            ),
+            array(
+                'alias',
+                'parent',
+                'node',
+                'root',
+                array()
+            ),
+            array(
+                'other',
+                'parent',
+                'node',
+                'root',
+                array('content' => 3)
+            ),
         );
     }
 }
