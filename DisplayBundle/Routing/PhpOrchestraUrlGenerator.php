@@ -90,6 +90,10 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
             $url = $schemeAuthority . $this->context->getBaseUrl() . $url;
         }
 
+        if (!empty($parameters)) {
+            $url = $url . '?' . http_build_query($parameters);
+        }
+
         return $url;
     }
 
