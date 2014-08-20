@@ -26,8 +26,7 @@
     "require": {
         "symfony/swiftmailer-bundle" : "~2.3",
         "itkg/phporchestra-base-bundle": "dev-master",
-        "itkg/phporchestra-model-bundle": "dev-master",
-        "jms/aop-bundle": "1.1.*@dev"
+        "itkg/phporchestra-model-bundle": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.0.14",
