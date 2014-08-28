@@ -40,26 +40,6 @@ class PhpOrchestraRouter extends Router
     }
 
     /**
-     * Override parent getMatcher to inject documents service
-     * in PhpOrchestraUrlMatcher
-     *
-     * @return UrlMatcherInterface|null
-     */
-    public function getMatcher()
-    {
-        if (null !== $this->matcher) {
-            return $this->matcher;
-        }
-
-        return $this->matcher = new $this->options['matcher_class'](
-            $this->getRouteCollection(),
-            $this->context,
-            $this->nodeRepository,
-            $this->cacheService
-        );
-    }
-
-    /**
      * Get the url generator
      *
      * @return UrlGeneratorInterface|null
