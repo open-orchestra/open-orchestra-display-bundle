@@ -40,17 +40,6 @@ class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get matcher
-     */
-    public function testGetMatcher()
-    {
-        $this->assertNotInstanceOf(
-            'PHPOrchestra\\DisplayBundle\\Routing\\PhpOrchestraUrlMatcher',
-            $this->router->getMatcher()
-        );
-    }
-
-    /**
      * test get generator
      */
     public function testGetGenerator()
