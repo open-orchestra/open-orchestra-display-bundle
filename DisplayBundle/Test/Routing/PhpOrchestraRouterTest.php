@@ -11,6 +11,8 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
 {
+    protected $router;
+
     /**
      * Set up the test
      */
@@ -33,20 +35,7 @@ class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
             array(
                 'generator_class' => 'PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator',
                 'generator_base_class' => 'PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator',
-                'matcher_class' => 'PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlMatcher',
-                'matcher_base_class' => 'PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlMatcher'
             )
-        );
-    }
-
-    /**
-     * Test get matcher
-     */
-    public function testGetMatcher()
-    {
-        $this->assertInstanceOf(
-            'PHPOrchestra\\DisplayBundle\\Routing\\PhpOrchestraUrlMatcher',
-            $this->router->getMatcher()
         );
     }
 
