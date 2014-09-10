@@ -20,7 +20,8 @@ interface DisplayBlockInterface
     const SEARCH = 'Search';
     const SEARCH_RESULT = 'SearchResult';
     const TINYMCEWYSIWYG = 'tinyMCEWysiwyg';
-
+    const CONFIGURABLE_CONTENT = 'ConfigurableContent';
+    
     /**
      * Check if the strategy support this block
      *
