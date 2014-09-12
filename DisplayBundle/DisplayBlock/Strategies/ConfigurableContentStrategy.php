@@ -3,6 +3,7 @@
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use PHPOrchestra\ModelBundle\Repository\ContentRepository;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,7 +12,17 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ConfigurableContentStrategy extends AbstractStrategy
 {
+    protected $contentRepository;
+
     /**
+     * @param ContentRepository $contentRepository
+     */
+    public function __construct(ContentRepository $contentRepository)
+    {
+        $this->contentRepository = $contentRepository;
+    }
+
+	/**
      * Check if the strategy support this block
      *
      * @param BlockInterface $block
@@ -33,13 +44,18 @@ class ConfigurableContentStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-
+        
+        $criteria = array(
+            'contentId' => $attributes['contentId']
+        );
+        
+        $content = $this->contentRepository->findBy($criteria);
+        
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/ConfigurableContent:show.html.twig',
-            array(
-                'contentId' => $attributes['contentId']
-            )
+            array('content' => $content)
         );
+        
     }
 
     /**
