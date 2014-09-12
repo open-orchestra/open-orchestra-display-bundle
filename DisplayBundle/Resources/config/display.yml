@@ -57,4 +57,3 @@ services:
         arguments: [@php_orchestra_model.repository.content]
         tags:
             - { name: php_orchestra_display.display_block.strategy }
-            

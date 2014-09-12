@@ -22,7 +22,7 @@ class ConfigurableContentStrategy extends AbstractStrategy
         $this->contentRepository = $contentRepository;
     }
 
-	/**
+    /**
      * Check if the strategy support this block
      *
      * @param BlockInterface $block
