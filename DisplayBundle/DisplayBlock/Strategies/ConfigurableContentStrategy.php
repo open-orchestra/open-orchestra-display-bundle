@@ -49,21 +49,17 @@ class ConfigurableContentStrategy extends AbstractStrategy
             'contentId' => $attributes['contentId']
         );
         
-        $content = $this->contentRepository->findBy($criteria);
+        $attributes = array();
         
-        $datas = array();
+        $content = $this->contentRepository->findOneBy($criteria);
         
-        if (
-            isset($content[0])
-            && !is_null($content[0]->getAttributes())
-            && !is_null($content[0]->getAttributes()->getMongoData())
-        ) {
-            $datas = $content[0]->getAttributes()->getMongoData();
+        if (!is_null($content)) {
+            $attributes = $content->getAttributes();
         }
         
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/ConfigurableContent:show.html.twig',
-            array('content' => $content[0]->getAttributes()->getMongoData())
+            array('contentAttributes' => $attributes)
         );
         
     }
