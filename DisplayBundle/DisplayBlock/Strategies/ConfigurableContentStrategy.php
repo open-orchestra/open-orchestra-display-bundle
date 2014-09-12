@@ -51,9 +51,19 @@ class ConfigurableContentStrategy extends AbstractStrategy
         
         $content = $this->contentRepository->findBy($criteria);
         
+        $datas = array();
+        
+        if (
+            isset($content[0])
+            && !is_null($content[0]->getAttributes())
+            && !is_null($content[0]->getAttributes()->getMongoData())
+        ) {
+            $datas = $content[0]->getAttributes()->getMongoData();
+        }
+        
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/ConfigurableContent:show.html.twig',
-            array('content' => $content)
+            array('content' => $content[0]->getAttributes()->getMongoData())
         );
         
     }

@@ -1,3 +1,5 @@
 <ul>
-    <li>Name : {{ content.0.name }}</li>
+    {% for attribute in content %}
+        <li>{{ attribute.name }} : {{ attribute.value }}</li>
+    {% endfor %}
 </ul>
