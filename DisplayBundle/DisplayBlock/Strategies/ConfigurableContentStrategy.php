@@ -44,24 +44,23 @@ class ConfigurableContentStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        
+
         $criteria = array(
             'contentId' => $attributes['contentId']
         );
-        
-        $attributes = array();
-        
+
         $content = $this->contentRepository->findOneBy($criteria);
-        
-        if (!is_null($content)) {
-            $attributes = $content->getAttributes();
+
+        if ($content) {
+            $contentAttributes = $content->getAttributes();
+        } else {
+            $contentAttributes = array();
         }
-        
+
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/ConfigurableContent:show.html.twig',
-            array('contentAttributes' => $attributes)
+            array('contentAttributes' => $contentAttributes)
         );
-        
     }
 
     /**
@@ -71,6 +70,6 @@ class ConfigurableContentStrategy extends AbstractStrategy
      */
     public function getName()
     {
-        return 'ConfigurableContent';
+        return 'configurable_content';
     }
 }
