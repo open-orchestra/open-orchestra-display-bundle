@@ -43,6 +43,7 @@ class TreeManagerTest extends \PHPUnit_Framework_TestCase
         $childNodeId = 'childNodeId';
         $otherChildNodeId = 'otherChildNodeId';
         $grandChildNodeId = 'grandChildNodeId';
+        $brotherGrandChildNodeId = 'brotherGrandChildNodeId';
         $otherGrandChildNodeId = 'otherGrandChildNodeId';
         $grandGrandChildNodeId = 'grandGrandChildNodeId';
         $otherGrandGrandChildNodeId = 'otherGrandGrandChildNodeId';
@@ -83,6 +84,10 @@ class TreeManagerTest extends \PHPUnit_Framework_TestCase
         $fourthDescendantNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
         Phake::when($fourthDescendantNode)->getNodeId()->thenReturn($fourthDescendantNodeId);
         Phake::when($fourthDescendantNode)->getParentId()->thenReturn($grandGrandChildNodeId);
+
+        $brotherGrandChildNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        Phake::when($brotherGrandChildNode)->getNodeId()->thenReturn($brotherGrandChildNodeId);
+        Phake::when($brotherGrandChildNode)->getParentId()->thenReturn($otherChildNodeId);
 
         return array(
             array(array(), array()),
@@ -260,6 +265,18 @@ class TreeManagerTest extends \PHPUnit_Framework_TestCase
                             array('node' => $grandGrandChildNode, 'child' => array(
                                 array('node' => $fourthDescendantNode, 'child' => array())
                             )),
+                        )),
+                    )),
+                )),
+            )),
+            array(array(
+                $rootNode, $brotherGrandChildNode, $otherGrandGrandChildNode, $otherChildNode, $otherGrandChildNode
+            ), array(
+                array('node' => $rootNode, 'child' => array(
+                    array('node' => $otherChildNode, 'child' => array(
+                        array('node' => $brotherGrandChildNode, 'child' => array()),
+                        array('node' => $otherGrandChildNode, 'child' => array(
+                            array('node' => $otherGrandGrandChildNode, 'child' => array())
                         )),
                     )),
                 )),
