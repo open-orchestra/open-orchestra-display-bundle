@@ -28,11 +28,9 @@ class TreeManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenerateTree($nodes, $tree)
     {
-//        shuffle($nodes);
+        $generateTree = $this->manager->generateTree($nodes);
 
-        $generatedTree = $this->manager->generateTree($nodes);
-
-        $this->assertSame($tree, $generatedTree);
+        $this->assertSame($tree, $generateTree);
     }
 
     /**
@@ -172,17 +170,15 @@ class TreeManagerTest extends \PHPUnit_Framework_TestCase
                 ))
             )),
             array(array($grandGrandChildNode, $rootNode), array(
-                array('node' => $rootNode, 'child' => array(
-                    array('node' => $grandGrandChildNode, 'child' => array())
-                )),
+                array('node' => $grandGrandChildNode, 'child' => array()),
+                array('node' => $rootNode, 'child' => array()),
             )),
             array(array($grandGrandChildNode), array(
                 array('node' => $grandGrandChildNode, 'child' => array())
             )),
             array(array($grandGrandChildNode, $superRootNode), array(
-                array('node' => $superRootNode, 'child' => array(
-                    array('node' => $grandGrandChildNode, 'child' => array())
-                )),
+                array('node' => $grandGrandChildNode, 'child' => array()),
+                array('node' => $superRootNode, 'child' => array()),
             )),
             array(array($rootNode, $childNode, $grandChildNode, $grandChildNode), array(
                 array('node' => $rootNode, 'child' => array(
