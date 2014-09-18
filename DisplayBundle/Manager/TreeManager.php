@@ -2,6 +2,7 @@
 
 namespace PHPOrchestra\DisplayBundle\Manager;
 
+use PHPOrchestra\ModelBundle\Document\Node;
 use PHPOrchestra\ModelBundle\Model\NodeInterface;
 
 /**
@@ -9,9 +10,6 @@ use PHPOrchestra\ModelBundle\Model\NodeInterface;
  */
 class TreeManager
 {
-    protected $withoutParent = array();
-    protected $iteration = 0;
-
     /**
      * @param array $nodes
      *
@@ -19,37 +17,48 @@ class TreeManager
      */
     public function generateTree($nodes)
     {
-        $tree = array();
-        $this->withoutParent = array();
-        $this->iteration = 0;
-        $superParentId = count(array_filter($nodes, function($node) {
+        $superRoot = count(array_filter($nodes, function($node) {
             return '-' == $node->getParentId();
         }))? '-': 'root';
 
-        /** @var NodeInterface $node */
+        $list = array();
+        $list[$superRoot] = array();
+
         foreach ($nodes as $node) {
-            if ($superParentId == $node->getParentId()) {
-                $tree[] = array('node' => $node, 'child' => array());
+            if ( $superRoot === $node->getParentId()) {
+                $list[$superRoot][] = $node;
             } else {
-                $this->withoutParent[$this->iteration][] = $node;
-            }
-        }
-
-        while (!empty($this->withoutParent[$this->iteration]) && $this->iteration < 10) {
-            $this->iteration += 1;
-            foreach ($this->withoutParent[$this->iteration - 1] as $node) {
-                $tree = $this->findParent($tree, $node);
-            }
-        }
-
-        if ($this->iteration > 9) {
-            $rootNodePresent = count($tree);
-            foreach ($this->withoutParent[$this->iteration] as $node) {
-                if ($rootNodePresent > 0) {
-                    $tree[0]['child'][] = array('node' => $node, 'child' => array());
+                if ($this->parentInList($node->getParentId(), $nodes)) {
+                    $list[$node->getParentId()][] = $node;
                 } else {
-                    $tree[] = array('node' => $node, 'child' => array());
+                    $list[$superRoot][] = $node;
                 }
+
+            }
+        }
+
+        $tree = $this->createTree($list[$superRoot], $list);
+
+        return $tree;
+    }
+
+    /**
+     * @param array $nodes
+     * @param array $list
+     *
+     * @return array
+     */
+    protected function createTree($nodes, $list)
+    {
+        $tree = array();
+
+        if (is_array($nodes)) {
+            foreach ($nodes as $node) {
+                $tree[] = array('node' => $node, 'child' => $this->getChild($node, $list));
+            }
+        } else {
+            if (!empty($nodes)) {
+                $tree = array('node' => $nodes, 'child' => $this->getChild($nodes, $list));
             }
         }
 
@@ -57,31 +66,38 @@ class TreeManager
     }
 
     /**
-     * @param array         $tree
-     * @param NodeInterface $node
+     * @param Node  $node
+     * @param array $list
      *
      * @return array
      */
-    protected function findParent($tree, $node)
+    protected function getChild($node, $list)
     {
-        if (empty($tree)) {
-            $this->withoutParent[$this->iteration][] = $node;
+        $childs = array();
 
-            return $tree;
-        }
-        foreach ($tree as $key => $nodeElement) {
-            if ($nodeElement['node']->getNodeId() == $node->getParentId()) {
-                $tree[$key]['child'][] = array('node' => $node, 'child' => array());
-
-                return $tree;
-            }
-        }
-        foreach ($tree as $key => $nodeElement) {
-            if ($nodeElement['node']->getNodeId() != $node->getParentId()) {
-                $tree[$key]['child'] = $this->findParent($nodeElement['child'], $node);
+        if (!empty($list[$node->getNodeId()]) && is_array($list[$node->getNodeId()])) {
+            foreach ($list[$node->getNodeId()] as $child) {
+               $childs[] = $this->createTree($child, $list);
             }
         }
 
-        return $tree;
+        return $childs;
+    }
+
+    /**
+     * @param string $parentId
+     * @param array  $list
+     *
+     * @return bool
+     */
+    protected function parentInList($parentId, $list)
+    {
+        foreach ($list as $node) {
+            if ($parentId === $node->getNodeId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
