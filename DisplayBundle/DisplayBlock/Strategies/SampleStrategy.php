@@ -43,7 +43,6 @@ class SampleStrategy extends AbstractStrategy
                 'author' => $attributes['author'],
                 'news' => $attributes['news'],
                 'parameters' => array(),
-                'datetime' => $datetime,
             )
         );
 
