@@ -33,7 +33,6 @@ class SampleStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $datetime = time();
         $attributes = $block->getAttributes();
 
         $response = $this->render(
