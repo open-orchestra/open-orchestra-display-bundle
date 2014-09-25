@@ -4,7 +4,7 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock;
 
 use PHPOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
-use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
+use Symfony\Bridge\Twig\TwigEngine;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -16,9 +16,9 @@ class DisplayBlockManager
     protected $templating;
 
     /**
-     * @param TimedTwigEngine $templating
+     * @param TwigEngine $templating
      */
-    public function __construct(TimedTwigEngine $templating)
+    public function __construct(TwigEngine $templating)
     {
         $this->templating = $templating;
     }
