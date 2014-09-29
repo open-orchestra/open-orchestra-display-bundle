@@ -33,17 +33,18 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $_htmlContent = $attributes['_htmlContent'];
+        $htmlContent = $attributes['htmlContent'];
 
         $response = $this->render(
             'PHPOrchestraDisplayBundle:Block/TinyMCEWysiwyg:show.html.twig',
             array(
-                'htmlContent' => $_htmlContent
+                'htmlContent' => $htmlContent
             )
         );
 
         $response->setPublic();
         $response->setSharedMaxAge(0);
+
         return $response;
     }
 
