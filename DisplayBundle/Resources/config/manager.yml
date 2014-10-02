@@ -1,6 +1,10 @@
 parameters:
     php_orchestra_display.manager.tree.class: PHPOrchestra\DisplayBundle\Manager\TreeManager
+    php_orchestra_display.manager.site.class: PHPOrchestra\DisplayBundle\Manager\SiteManager
 
 services:
     php_orchestra_display.manager.tree:
         class: %php_orchestra_display.manager.tree.class%
+    php_orchestra_display.manager.site:
+        class: %php_orchestra_display.manager.site.class%
+        arguments: [@request_stack]
