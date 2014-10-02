@@ -39,4 +39,5 @@ class SiteManager {
     {
         $this->siteId = $siteId;
     }
-} 
+}
+
