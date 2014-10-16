@@ -23,7 +23,7 @@ class ContactController extends Controller
      *
      * @return RedirectResponse
      */
-    function contactMailSendAction(Request $request)
+    public function contactMailSendAction(Request $request)
     {
         $mailAdmin = $this->container->getParameter('php_orchestra_display.administrator_contact_email');
 

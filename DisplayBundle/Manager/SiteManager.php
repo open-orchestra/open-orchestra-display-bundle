@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Class SiteManager
  */
-class SiteManager {
+class SiteManager
+{
     /**
      * @var string
      */
@@ -40,4 +41,3 @@ class SiteManager {
         $this->siteId = $siteId;
     }
 }
-

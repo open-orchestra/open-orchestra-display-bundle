@@ -19,7 +19,7 @@ class PhpOrchestraRouter extends Router
     /**
      * Extends parent constructor to get documents service
      * as $container is private in parent class
-     *  
+     *
      * @param ContainerInterface $container
      * @param mixed              $resource
      * @param array              $options

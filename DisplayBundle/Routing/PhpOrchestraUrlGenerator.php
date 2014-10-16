@@ -19,7 +19,7 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
 
     /**
      * Constructor
-     * 
+     *
      * @param RouteCollection $routes
      * @param RequestContext  $context
      * @param NodeRepository  $nodeRepository
@@ -58,7 +58,7 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
 
     /**
      * Generate url for a PHPOrchestra node
-     * 
+     *
      * @param string $nodeId
      * @param array  $parameters
      * @param string $referenceType

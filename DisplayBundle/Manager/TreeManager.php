@@ -17,7 +17,7 @@ class TreeManager
      */
     public function generateTree($nodes)
     {
-        $superRoot = count(array_filter($nodes, function($node) {
+        $superRoot = count(array_filter($nodes, function ($node) {
             return '-' == $node->getParentId();
         }))? '-': 'root';
 
