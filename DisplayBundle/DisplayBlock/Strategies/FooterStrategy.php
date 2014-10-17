@@ -3,7 +3,6 @@
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\DisplayBundle\Manager\SiteManager;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\NodeRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,18 +15,15 @@ class FooterStrategy extends AbstractStrategy
 {
     protected $nodeRepository;
     protected $router;
-    protected $siteManager;
 
     /**
      * @param NodeRepository        $nodeRepository
      * @param UrlGeneratorInterface $router
-     * @param SiteManager           $siteManager
      */
-    public function __construct(NodeRepository $nodeRepository, UrlGeneratorInterface $router, SiteManager $siteManager)
+    public function __construct(NodeRepository $nodeRepository, UrlGeneratorInterface $router)
     {
         $this->nodeRepository = $nodeRepository;
         $this->router = $router;
-        $this->siteManager = $siteManager;
     }
 
     /**
@@ -51,7 +47,7 @@ class FooterStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $nodes = $this->nodeRepository->getFooterTree($this->siteManager->getSiteId());
+        $nodes = $this->nodeRepository->getFooterTree();
         $attributes = $block->getAttributes();
 
         return $this->render(
