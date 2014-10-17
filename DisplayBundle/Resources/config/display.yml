@@ -27,7 +27,7 @@ services:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.footer:
         class: %php_orchestra_display.display.footer.class%
-        arguments: [@php_orchestra_model.repository.node, @router, @php_orchestra_display.manager.site]
+        arguments: [@php_orchestra_model.repository.node, @router]
         tags:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.header:
@@ -36,7 +36,7 @@ services:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.menu:
         class: %php_orchestra_display.display.menu.class%
-        arguments: [@php_orchestra_model.repository.node, @router, @php_orchestra_display.manager.site]
+        arguments: [@php_orchestra_model.repository.node, @router]
         tags:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.news:
