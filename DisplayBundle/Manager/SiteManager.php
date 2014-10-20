@@ -2,12 +2,13 @@
 
 namespace PHPOrchestra\DisplayBundle\Manager;
 
+use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class SiteManager
  */
-class SiteManager
+class SiteManager implements CurrentSiteIdInterface
 {
     /**
      * @var string
@@ -22,13 +23,17 @@ class SiteManager
     {
         $this->requestStack = $requestStack;
         $request = $this->requestStack->getCurrentRequest();
-        $this->siteId = $request->server->get('SYMFONY__SITE');
+        if (!is_null($request)) {
+            $this->siteId = $request->server->get('SYMFONY__SITE');
+        } else {
+            $this->siteId = 1;
+        }
     }
 
     /**
      * @return string
      */
-    public function getSiteId()
+    public function getCurrentSiteId()
     {
         return $this->siteId;
     }
