@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Class SiteManager
  */
-
 class SiteManager implements CurrentSiteIdInterface
 {
     /**

@@ -19,7 +19,6 @@ class MenuStrategy extends AbstractStrategy
     /**
      * @param NodeRepository        $nodeRepository
      * @param UrlGeneratorInterface $router
-<<<<<<< Updated upstream
      */
     public function __construct(NodeRepository $nodeRepository, UrlGeneratorInterface $router)
     {
