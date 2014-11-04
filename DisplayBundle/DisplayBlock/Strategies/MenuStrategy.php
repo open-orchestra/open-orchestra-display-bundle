@@ -15,15 +15,29 @@ class MenuStrategy extends AbstractStrategy
 {
     protected $nodeRepository;
     protected $router;
+<<<<<<< Updated upstream
+=======
+    protected $sitManager;
+>>>>>>> Stashed changes
 
     /**
      * @param NodeRepository        $nodeRepository
      * @param UrlGeneratorInterface $router
+<<<<<<< Updated upstream
      */
     public function __construct(NodeRepository $nodeRepository, UrlGeneratorInterface $router)
     {
         $this->nodeRepository = $nodeRepository;
         $this->router = $router;
+=======
+     * @param SiteManager           $sitManager
+     */
+    public function __construct(NodeRepository $nodeRepository, UrlGeneratorInterface $router, SiteManager $sitManager)
+    {
+        $this->nodeRepository = $nodeRepository;
+        $this->router = $router;
+        $this->sitManager = $sitManager;
+>>>>>>> Stashed changes
     }
 
     /**
@@ -47,7 +61,11 @@ class MenuStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
+<<<<<<< Updated upstream
         $nodes = $this->nodeRepository->getMenuTree();
+=======
+        $nodes = $this->nodeRepository->getMenuTree($this->sitManager->getSiteId());
+>>>>>>> Stashed changes
         $attributes = $block->getAttributes();
 
         return $this->render(
