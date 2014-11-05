@@ -22,6 +22,7 @@ interface DisplayBlockInterface
     const TINYMCEWYSIWYG = 'tiny_mce_wysiwyg';
     const CONFIGURABLE_CONTENT = 'configurable_content';
     const SUBMENU = 'sub_menu';
+    const CONTENT_LIST = 'content_list';
 
     /**
      * Check if the strategy support this block
