@@ -44,7 +44,7 @@ class ContentListStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $contents = $this->contentRepository->findByContentType();
+        $contents = $this->contentRepository->findByContentType($attributes['contentType']);
 
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',

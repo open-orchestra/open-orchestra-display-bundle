@@ -1,1 +1,9 @@
-{{ dump(contents) }}
+<br />
+{% for content in contents %}
+    Content: <i>{{ content.name }}</i><br />
+    {% for attribute in content.attributes %}
+        title: <i>{{ attribute.name }}</i><br />
+        value: <i>{{ attribute.value }}</i><br />
+    {% endfor %}
+    <br />
+{% endfor %}
