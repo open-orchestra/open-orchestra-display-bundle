@@ -63,4 +63,4 @@ class ContentListStrategy extends AbstractStrategy
     {
         return 'content_list';
     }
-} 
+}
