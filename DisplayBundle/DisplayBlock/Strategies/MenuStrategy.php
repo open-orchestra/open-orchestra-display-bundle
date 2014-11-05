@@ -47,8 +47,8 @@ class MenuStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $nodes = $this->nodeRepository->getMenuTree();
         $attributes = $block->getAttributes();
+        $nodes = $this->nodeRepository->getMenuTree();
 
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/Menu:show.html.twig',

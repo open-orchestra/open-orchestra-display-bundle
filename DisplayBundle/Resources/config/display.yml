@@ -10,6 +10,7 @@ parameters:
     php_orchestra_display.display.sample.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SampleStrategy
     php_orchestra_display.display.tiny_mce_wysiwyg.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\TinyMCEWysiwygStrategy
     php_orchestra_display.display.configurable_content.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ConfigurableContentStrategy
+    php_orchestra_display.display.sub_menu.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SubMenuStrategy
 
 services:
     php_orchestra_display.display_block_manager:
@@ -55,5 +56,10 @@ services:
     php_orchestra_display.display.configurable_content:
         class: %php_orchestra_display.display.configurable_content.class%
         arguments: [@php_orchestra_model.repository.content]
+        tags:
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.sub_menu:
+        class: %php_orchestra_display.display.menu.class%
+        arguments: [@php_orchestra_model.repository.node, @router]
         tags:
             - { name: php_orchestra_display.display_block.strategy }

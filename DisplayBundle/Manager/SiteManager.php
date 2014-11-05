@@ -23,6 +23,7 @@ class SiteManager implements CurrentSiteIdInterface
     {
         $this->requestStack = $requestStack;
         $request = $this->requestStack->getCurrentRequest();
+
         if (!is_null($request)) {
             $this->siteId = $request->server->get('SYMFONY__SITE');
         } else {
