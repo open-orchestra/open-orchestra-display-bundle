@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Class FooterStrategy
+ * Class SubMenuStrategy
  */
-class FooterStrategy extends AbstractStrategy
+class SubMenuStrategy extends AbstractStrategy
 {
     protected $nodeRepository;
     protected $router;
@@ -35,7 +35,7 @@ class FooterStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::FOOTER == $block->getComponent();
+        return DisplayBlockInterface::SUBMENU == $block->getComponent();
     }
 
     /**
@@ -48,12 +48,12 @@ class FooterStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $nodes = $this->nodeRepository->getFooterTree();
+        $nodes = $this->nodeRepository->getSubMenu($attributes['node'], $attributes['nbLevel']);
 
         return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Footer:show.html.twig',
+            'PHPOrchestraDisplayBundle:Block/Menu:show.html.twig',
             array(
-                'tree' => $nodes->toArray(),
+                'tree' => $nodes,
                 'id' => $attributes['id'],
                 'class' => $attributes['class'],
             )
@@ -67,6 +67,6 @@ class FooterStrategy extends AbstractStrategy
      */
     public function getName()
     {
-        return 'footer';
+        return 'sub_menu';
     }
 }
