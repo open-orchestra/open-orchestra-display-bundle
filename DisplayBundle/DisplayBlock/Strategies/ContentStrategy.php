@@ -5,21 +5,25 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\ContentRepository;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ContentListStrategy
+ * Class ContentStrategy
  */
-class ContentListStrategy extends AbstractStrategy
+class ContentStrategy extends AbstractStrategy
 {
     protected $contentRepository;
+    protected $container;
 
     /**
      * @param ContentRepository $contentRepository
+     * @param Container         $container
      */
-    public function __construct(ContentRepository $contentRepository)
+    public function __construct(ContentRepository $contentRepository, Container $container)
     {
-       $this->contentRepository = $contentRepository;
+        $this->contentRepository = $contentRepository;
+        $this->container = $container;
     }
 
     /**
@@ -31,7 +35,7 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONTENT_LIST == $block->getComponent();
+        return DisplayBlockInterface::CONTENT == $block->getComponent();
     }
 
     /**
@@ -44,13 +48,20 @@ class ContentListStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $contents = $this->contentRepository->findByContentType($attributes['contentType']);
+        $request = $this->container->get('request');
+
+        $criteria = array(
+            'contentId' => $request->query->get('contentId')
+        );
+
+        $content = $this->contentRepository->findOneBy($criteria);
 
         return $this->render(
-            'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
+            'PHPOrchestraDisplayBundle:Block/Content:show.html.twig',
             array(
-                'contents' => $contents,
-                'url' => 'fixture_bd'
+                'content' => $content,
+                'class' => $attributes['class'],
+                'id' => $attributes['id'],
             )
         );
     }
@@ -62,6 +73,6 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function getName()
     {
-        return 'content_list';
+        return 'content';
     }
 }

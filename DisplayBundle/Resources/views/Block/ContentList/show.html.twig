@@ -1,8 +1,14 @@
-{% for content in contents %}
-    Content: <i>{{ content.name }}</i><br />
-    {% for attribute in content.attributes %}
-        title: <i>{{ attribute.name }}</i><br />
-        value: <i>{{ attribute.value }}</i><br />
+<div class="" id="">
+    {% for content in contents %}
+        <h2 class="">
+            <a href="{{ url{'contentId':content.id}|url_encode }}" class="">{{ content.name }}</a>
+        </h2><br />
+        <ul class="">
+            {% for attribute in content.attributes %}
+                title: <i>{{ attribute.name }}</i><br />
+                value: <i>{{ attribute.value }}</i><br />
+            {% endfor %}
+        </ul>
+        <br />
     {% endfor %}
-    <br />
-{% endfor %}
+</div>

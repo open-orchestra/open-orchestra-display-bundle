@@ -1,0 +1,8 @@
+<div class="{{ class.div }}" id="{{ id }}">
+    <h2 class="{{ class.title }}">{{ content.name }}</h2>
+    <ul class="{{ class.ul }}">
+        {% for attribute in content %}
+            <li class="{{ class.content }}">{{ attribute.name }} : {{ attribute.value }}</li>
+        {% endfor %}
+    </ul>
+</div>
