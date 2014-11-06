@@ -6,6 +6,7 @@ use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\ContentRepository;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -48,7 +49,7 @@ class ContentStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $request = $this->container->get('request');
+        $request = $this->getRequest();
 
         $criteria = array(
             'contentId' => $request->query->get('contentId')
@@ -64,6 +65,14 @@ class ContentStrategy extends AbstractStrategy
                 'id' => $attributes['id'],
             )
         );
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->container->get('request');
     }
 
     /**
