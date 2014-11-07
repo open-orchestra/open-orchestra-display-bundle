@@ -1,16 +1,16 @@
 
 {% if element is defined %}
     <ul class="{{ class.ul }}">
-        <li><a href="{{ url(element.node.nodeId) }}" class="{{ class.link }}">{{ element.node.name }}</a></li>
-        {% if element.child is defined %}
-            {% for child in element.child %}
-                <li>
+        <li>
+            <a href="{{ url(element.node.nodeId) }}" class="{{ class.link }}">{{ element.node.name }}</a>
+            {% if element.child is defined %}
+                {% for child in element.child %}
                     {% if child %}
                         {% include "PHPOrchestraDisplayBundle:Block/Menu:show.html.twig" with {"element": child, "class": class} only %}
                     {% endif %}
-                </li>
-            {% endfor %}
-        {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
     </ul>
 {% elseif tree is defined %}
     <div id="{{ id }}" class="{{ class.div }}">
