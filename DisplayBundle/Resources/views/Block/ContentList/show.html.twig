@@ -1,7 +1,7 @@
 <div class="{{ class.div }}" id="{{ id }}">
     {% for content in contents %}
         <h2 class="{{ class.title }}">
-            {% if url defined %}
+            {% if url is defined %}
                 <a href="{{ url }}?contentId={{ content.contentId }}" class="">{{ content.name }}</a>
             {% else %}
                 {{ content.name }}
