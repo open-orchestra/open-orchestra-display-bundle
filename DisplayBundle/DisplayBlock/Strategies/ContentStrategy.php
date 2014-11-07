@@ -3,28 +3,28 @@
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
-use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\ContentRepository;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ContentListStrategy
+ * Class ContentStrategy
  */
-class ContentListStrategy extends AbstractStrategy
+class ContentStrategy extends AbstractStrategy
 {
     protected $contentRepository;
-    protected $router;
+    protected $container;
 
     /**
      * @param ContentRepository $contentRepository
-     * @param PhpOrchestraRouter $router
+     * @param Container         $container
      */
-    public function __construct(ContentRepository $contentRepository, PhpOrchestraRouter $router)
+    public function __construct(ContentRepository $contentRepository, Container $container)
     {
         $this->contentRepository = $contentRepository;
-        $this->router = $router;
+        $this->container = $container;
     }
 
     /**
@@ -36,7 +36,7 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONTENT_LIST == $block->getComponent();
+        return DisplayBlockInterface::CONTENT == $block->getComponent();
     }
 
     /**
@@ -49,28 +49,34 @@ class ContentListStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $contents = $this->contentRepository->findByContentType($attributes['contentType']);
+        $request = $this->getRequest();
 
-        if (array_key_exists('url', $attributes)) {
+        $criteria = array(
+            'contentId' => $request->query->get('contentId')
+        );
+
+        $content = $this->contentRepository->findOneBy($criteria);
+
+        if ($content != null) {
             return $this->render(
-                'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
+                'PHPOrchestraDisplayBundle:Block/Content:show.html.twig',
                 array(
-                    'contents' => $contents,
+                    'content' => $content,
                     'class' => $attributes['class'],
                     'id' => $attributes['id'],
-                    'url' => $this->router->generate($attributes['url'])
                 )
             );
         } else {
-            return $this->render(
-                'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
-                array(
-                    'contents' => $contents,
-                    'class' => $attributes['class'],
-                    'id' => $attributes['id']
-                )
-            );
+            return new Response();
         }
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->container->get('request');
     }
 
     /**
@@ -80,6 +86,6 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function getName()
     {
-        return 'content_list';
+        return 'content';
     }
 }

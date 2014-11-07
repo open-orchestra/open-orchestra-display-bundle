@@ -23,6 +23,7 @@ interface DisplayBlockInterface
     const CONFIGURABLE_CONTENT = 'configurable_content';
     const SUBMENU = 'sub_menu';
     const CONTENT_LIST = 'content_list';
+    const CONTENT = 'content';
 
     /**
      * Check if the strategy support this block

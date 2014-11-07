@@ -12,6 +12,7 @@ parameters:
     php_orchestra_display.display.configurable_content.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ConfigurableContentStrategy
     php_orchestra_display.display.sub_menu.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SubMenuStrategy
     php_orchestra_display.display.content_list.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentListStrategy
+    php_orchestra_display.display.content.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentStrategy
 
 services:
     php_orchestra_display.display_block_manager:
@@ -66,6 +67,15 @@ services:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.content_list:
         class: %php_orchestra_display.display.content_list.class%
-        arguments: [@php_orchestra_model.repository.content]
+        arguments:
+            - @php_orchestra_model.repository.content
+            - @router
+        tags:
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.content:
+        class: %php_orchestra_display.display.content.class%
+        arguments:
+            - @php_orchestra_model.repository.content
+            - @service_container
         tags:
             - { name: php_orchestra_display.display_block.strategy }
