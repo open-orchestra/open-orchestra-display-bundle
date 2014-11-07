@@ -57,14 +57,18 @@ class ContentStrategy extends AbstractStrategy
 
         $content = $this->contentRepository->findOneBy($criteria);
 
-        return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Content:show.html.twig',
-            array(
-                'content' => $content,
-                'class' => $attributes['class'],
-                'id' => $attributes['id'],
-            )
-        );
+        if ($content != null) {
+            return $this->render(
+                'PHPOrchestraDisplayBundle:Block/Content:show.html.twig',
+                array(
+                    'content' => $content,
+                    'class' => $attributes['class'],
+                    'id' => $attributes['id'],
+                )
+            );
+        } else {
+            return new Response();
+        }
     }
 
     /**

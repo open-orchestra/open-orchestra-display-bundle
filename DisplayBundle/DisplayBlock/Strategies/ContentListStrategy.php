@@ -3,6 +3,8 @@
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
+use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\ContentRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +15,16 @@ use Symfony\Component\HttpFoundation\Response;
 class ContentListStrategy extends AbstractStrategy
 {
     protected $contentRepository;
+    protected $router;
 
     /**
      * @param ContentRepository $contentRepository
+     * @param PhpOrchestraRouter $router
      */
-    public function __construct(ContentRepository $contentRepository)
+    public function __construct(ContentRepository $contentRepository, PhpOrchestraRouter $router)
     {
-       $this->contentRepository = $contentRepository;
+        $this->contentRepository = $contentRepository;
+        $this->router = $router;
     }
 
     /**
@@ -46,13 +51,26 @@ class ContentListStrategy extends AbstractStrategy
         $attributes = $block->getAttributes();
         $contents = $this->contentRepository->findByContentType($attributes['contentType']);
 
-        return $this->render(
-            'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
-            array(
-                'contents' => $contents,
-                'url' => 'fixture_bd'
-            )
-        );
+        if (array_key_exists('url', $attributes)) {
+            return $this->render(
+                'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
+                array(
+                    'contents' => $contents,
+                    'class' => $attributes['class'],
+                    'id' => $attributes['id'],
+                    'url' => $this->router->generate($attributes['url'])
+                )
+            );
+        } else {
+            return $this->render(
+                'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
+                array(
+                    'contents' => $contents,
+                    'class' => $attributes['class'],
+                    'id' => $attributes['id']
+                )
+            );
+        }
     }
 
     /**

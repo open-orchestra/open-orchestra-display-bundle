@@ -1,9 +1,13 @@
-<div class="" id="">
+<div class="{{ class.div }}" id="{{ id }}">
     {% for content in contents %}
-        <h2 class="">
-            <a href="{{ url{'contentId':content.id}|url_encode }}" class="">{{ content.name }}</a>
-        </h2><br />
-        <ul class="">
+        <h2 class="{{ class.title }}">
+            {% if url defined %}
+                <a href="{{ url }}?contentId={{ content.contentId }}" class="">{{ content.name }}</a>
+            {% else %}
+                {{ content.name }}
+            {% endif %}
+        </h2>
+        <ul class="{{ class.ul }}">
             {% for attribute in content.attributes %}
                 title: <i>{{ attribute.name }}</i><br />
                 value: <i>{{ attribute.value }}</i><br />
