@@ -3,3 +3,6 @@ php_orchestra_display:
         contact_received: Votre demande de contact a bien été reçu
         admin_content: La personne %name% avec l'email %mail% a essayé de nous contacter. \n Voiçi son message : \n %message%
         user_content: Bonjour, votre message est bien reçu. Nous reviendrons vers vous le plus vite possible \n Bien codialement, \n %name%
+    language_list:
+        en: English
+        fr: Français

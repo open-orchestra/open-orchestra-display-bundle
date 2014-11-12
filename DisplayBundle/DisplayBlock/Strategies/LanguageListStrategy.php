@@ -53,10 +53,15 @@ class LanguageListStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
 
-        $site = $this->siteRepository->findBySiteId($this->currentSiteIdInterface->getCurrentSiteId());
+        $site = $this->siteRepository->findOneBySiteId($this->currentSiteIdInterface->getCurrentSiteId());
+
+        $choices = array();
+        foreach ($site->getLanguages() as $language) {
+            $choices[$language] = 'php_orchestra_display.language_list.'.$language;
+        }
 
         $form = $this->builder->create('language_choice', 'choice', array(
-            'choices' => $site->getLanguages(),
+            'choices' => $choices,
             'preferred_choices' => array($this->currentSiteIdInterface->getCurrentSiteDefaultLanguage()),
         ))
         ->getForm();
