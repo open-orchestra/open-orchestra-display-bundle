@@ -24,6 +24,7 @@ interface DisplayBlockInterface
     const SUBMENU = 'sub_menu';
     const CONTENT_LIST = 'content_list';
     const CONTENT = 'content';
+    const LANGUAGE_LIST = 'language_list';
 
     /**
      * Check if the strategy support this block
