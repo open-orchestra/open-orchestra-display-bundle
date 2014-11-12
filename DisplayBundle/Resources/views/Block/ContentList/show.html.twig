@@ -1,6 +1,6 @@
 <div class="{{ class.div }}" id="{{ id }}">
     {% for content in contents %}
-        <div class="{{ class.ul }}">
+        <div class="{{ class.each }}">
             <h2 class="{{ class.title }}">{{ content.name }}</h2>
             <div class="attributes">
                 {% for attribute in content.attributes %}
