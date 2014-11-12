@@ -1,18 +1,17 @@
 <div class="{{ class.div }}" id="{{ id }}">
     {% for content in contents %}
-        <h2 class="{{ class.title }}">
+        <div class="{{ class.ul }}">
+            <h2 class="{{ class.title }}">{{ content.name }}</h2>
+            <div class="attributes">
+                {% for attribute in content.attributes %}
+                    title: <i>{{ attribute.name }}</i><br />
+                    value: <i>{{ attribute.value }}</i><br />
+                {% endfor %}
+            </div>
+
             {% if url is defined %}
-                <a href="{{ url }}?contentId={{ content.contentId }}" class="">{{ content.name }}</a>
-            {% else %}
-                {{ content.name }}
+                <a href="{{ url }}?contentId={{ content.contentId }}" class=""></a>
             {% endif %}
-        </h2>
-        <ul class="{{ class.ul }}">
-            {% for attribute in content.attributes %}
-                title: <i>{{ attribute.name }}</i><br />
-                value: <i>{{ attribute.value }}</i><br />
-            {% endfor %}
-        </ul>
-        <br />
+        </div>
     {% endfor %}
 </div>
