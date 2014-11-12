@@ -57,6 +57,7 @@ class LanguageListStrategy extends AbstractStrategy
 
         $form = $this->builder->create('language_choice', 'choice', array(
             'choices' => $site->getLanguages(),
+            'preferred_choices' => array($this->currentSiteIdInterface->getCurrentSiteDefaultLanguage()),
         ))
         ->getForm();
 
