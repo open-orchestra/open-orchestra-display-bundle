@@ -57,7 +57,7 @@ class SiteManager implements CurrentSiteIdInterface
     public function getCurrentSiteDefaultLanguage()
     {
         /** @var SiteInterface $site */
-        $site = $this->siteRepository->findBySiteId($this->getCurrentSiteId());
+        $site = $this->siteRepository->findOneBySiteId($this->getCurrentSiteId());
 
         return $site->getDefaultLanguage();
     }
