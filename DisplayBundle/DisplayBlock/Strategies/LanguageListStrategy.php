@@ -2,8 +2,10 @@
 
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
+use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
+use PHPOrchestra\ModelBundle\Repository\SiteRepository;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,13 +15,19 @@ use Symfony\Component\HttpFoundation\Response;
 class LanguageListStrategy extends AbstractStrategy
 {
     protected $builder;
+    protected $currentSiteIdInterface;
+    protected $siteRepository;
 
     /**
-     * @param FormFactory $formFactory
+     * @param FormFactory            $formFactory
+     * @param CurrentSiteIdInterface $currentSiteIdInterface
+     * @param SiteRepository         $siteRepository
      */
-    public function __construct(FormFactory $formFactory)
+    public function __construct(FormFactory $formFactory, CurrentSiteIdInterface $currentSiteIdInterface, SiteRepository $siteRepository)
     {
         $this->builder = $formFactory->createBuilder('form');
+        $this->currentSiteIdInterface = $currentSiteIdInterface;
+        $this->siteRepository = $siteRepository;
     }
 
     /**
@@ -45,16 +53,19 @@ class LanguageListStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
 
+        $site = $this->siteRepository->findBySiteId($this->currentSiteIdInterface->getCurrentSiteId());
+
         $form = $this->builder->create('language_choice', 'choice', array(
-            'choices' => $attributes['languages'],
-            'preferred_choices' => array($attributes['default']),
+            'choices' => $site->getLanguages(),
         ))
         ->getForm();
 
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/LanguageList:show.html.twig',
             array(
-                'form' => $form->createView(),
+                'class' => $attributes['class'],
+                'id' => $attributes['id'],
+                'form' => $form->createView()
             )
         );
     }

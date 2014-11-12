@@ -84,5 +84,7 @@ services:
         class: %php_orchestra_display.display.language_list.class%
         arguments:
             - @form.factory
+            - @php_orchestra.manager.current_site
+            - @php_orchestra_model.repository.site
         tags:
             - { name: php_orchestra_display.display_block.strategy }
