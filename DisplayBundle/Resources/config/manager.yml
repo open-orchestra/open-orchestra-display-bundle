@@ -7,4 +7,6 @@ services:
         class: %php_orchestra_display.manager.tree.class%
     php_orchestra_display.manager.site:
         class: %php_orchestra_display.manager.site.class%
-        arguments: [@request_stack]
+        arguments:
+            - @request_stack
+            - @php_orchestra_model.repository.site
