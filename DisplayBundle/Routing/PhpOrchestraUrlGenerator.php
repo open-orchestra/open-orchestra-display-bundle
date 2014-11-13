@@ -2,6 +2,7 @@
 
 namespace PHPOrchestra\DisplayBundle\Routing;
 
+use PHPOrchestra\DisplayBundle\Manager\SiteManager;
 use PHPOrchestra\ModelBundle\Model\NodeInterface;
 use PHPOrchestra\ModelBundle\Repository\NodeRepository;
 use Psr\Log\LoggerInterface;
@@ -16,6 +17,7 @@ use Symfony\Component\Routing\RouteCollection;
 class PhpOrchestraUrlGenerator extends UrlGenerator
 {
     protected $nodeRepository;
+    protected $siteManager;
 
     /**
      * Constructor
@@ -23,12 +25,14 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
      * @param RouteCollection $routes
      * @param RequestContext  $context
      * @param NodeRepository  $nodeRepository
+     * @param SiteManager     $siteManager
      * @param LoggerInterface $logger
      */
     public function __construct(
         RouteCollection $routes,
         RequestContext $context,
         NodeRepository $nodeRepository,
+        SiteManager $siteManager,
         LoggerInterface $logger = null
     )
     {
@@ -36,6 +40,7 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
         $this->context = $context;
         $this->logger = $logger;
         $this->nodeRepository = $nodeRepository;
+        $this->siteManager = $siteManager;
     }
 
     /**
@@ -69,6 +74,9 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
     {
         $schemeAuthority = '';
         $url = $this->getNodeAlias($nodeId);
+        if ($this->context->getParameter('_locale') != $this->siteManager->getCurrentSiteDefaultLanguage()) {
+            $url = '/' . $this->context->getParameter('_locale') . $url;
+        }
         $scheme = $this->context->getScheme();
         $host = $this->context->getHost();
 

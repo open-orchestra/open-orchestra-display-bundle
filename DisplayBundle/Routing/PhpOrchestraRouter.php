@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PhpOrchestraRouter extends Router
 {
     protected $nodeRepository;
+    protected $siteManager;
 
     /**
      * Extends parent constructor to get documents service
@@ -35,6 +36,7 @@ class PhpOrchestraRouter extends Router
         parent::__construct($container, $resource, $options, $context);
 
         $this->nodeRepository = $container->get('php_orchestra_model.repository.node');
+        $this->siteManager = $container->get('php_orchestra.manager.current_site');
     }
 
     /**
@@ -52,6 +54,7 @@ class PhpOrchestraRouter extends Router
             $this->getRouteCollection(),
             $this->context,
             $this->nodeRepository,
+            $this->siteManager,
             $this->logger
         );
     }
