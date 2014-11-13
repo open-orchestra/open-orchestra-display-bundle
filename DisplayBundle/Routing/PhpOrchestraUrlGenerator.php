@@ -2,7 +2,7 @@
 
 namespace PHPOrchestra\DisplayBundle\Routing;
 
-use PHPOrchestra\DisplayBundle\Manager\SiteManager;
+use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use PHPOrchestra\ModelBundle\Model\NodeInterface;
 use PHPOrchestra\ModelBundle\Repository\NodeRepository;
 use Psr\Log\LoggerInterface;
@@ -22,17 +22,17 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
     /**
      * Constructor
      *
-     * @param RouteCollection $routes
-     * @param RequestContext  $context
-     * @param NodeRepository  $nodeRepository
-     * @param SiteManager     $siteManager
-     * @param LoggerInterface $logger
+     * @param RouteCollection        $routes
+     * @param RequestContext         $context
+     * @param NodeRepository         $nodeRepository
+     * @param CurrentSiteIdInterface $siteManager
+     * @param LoggerInterface        $logger
      */
     public function __construct(
         RouteCollection $routes,
         RequestContext $context,
         NodeRepository $nodeRepository,
-        SiteManager $siteManager,
+        CurrentSiteIdInterface $siteManager,
         LoggerInterface $logger = null
     )
     {
