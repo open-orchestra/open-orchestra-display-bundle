@@ -4,8 +4,7 @@
             <h2 class="{{ class.title }}">{{ content.name }}</h2>
             <div class="attributes">
                 {% for attribute in content.attributes %}
-                    title: <i>{{ attribute.name }}</i><br />
-                    value: <i>{{ attribute.value }}</i><br />
+                    <div class="{{ attribute.name }}">{{ attribute.value }}</div>
                 {% endfor %}
             </div>
 
