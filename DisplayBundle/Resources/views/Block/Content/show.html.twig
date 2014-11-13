@@ -1,5 +1,5 @@
 <div class="{{ class.div }}" id="{{ id }}">
-    <h2 class="{{ class.title }}">{{ content.name }}</h2>
+    <h1 class="{{ class.title }}">{{ content.name }}</h1>
     {% for attribute in content.attributes %}
         <div class="{{ class.content }} {{ attribute.name }}"> {# {{ attribute.name }} : #}{{ attribute.value }}</div>
     {% endfor %}
