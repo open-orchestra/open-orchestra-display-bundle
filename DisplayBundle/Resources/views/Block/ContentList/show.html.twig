@@ -1,11 +1,11 @@
 <div class="{{ class.div }}" id="{{ id }}">
     {% for content in contents %}
         <div class="{{ class.each }}">
+            <span class="{{ content.attributes.values.1.name }}">{{ content.attributes.values.1.value }}</span>
             <h2 class="{{ class.title }}">{{ content.name }}</h2>
-            <div class="attributes">
-                {{ content.attributes.values.1.value }}<br />
+            <p>
                 {{ content.attributes.values.4.value | truncate(70, true, '...') }}
-            </div>
+            </p>
 
             {% if url is defined %}
                 <a href="{{ url }}?contentId={{ content.contentId }}" class=""></a>
