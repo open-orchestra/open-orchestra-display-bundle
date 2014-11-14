@@ -3,9 +3,8 @@
         <div class="{{ class.each }}">
             <h2 class="{{ class.title }}">{{ content.name }}</h2>
             <div class="attributes">
-                {% for attribute in content.attributes %}
-                    <div class="{{ attribute.name }}">{{ attribute.value }}</div>
-                {% endfor %}
+                {{ content.attributes.values.1.value }}<br />
+                {{ content.attributes.values.4.value | truncate(70, true, '...') }}
             </div>
 
             {% if url is defined %}
