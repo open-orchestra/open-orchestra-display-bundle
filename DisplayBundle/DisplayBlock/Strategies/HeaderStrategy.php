@@ -39,7 +39,7 @@ class HeaderStrategy extends AbstractStrategy
             array(
                 'id' => $attributes['id'],
                 'class' => $attributes['class'],
-                'mediaId' => $attributes['logo']
+                'mediaId' => $attributes['mediaId']
             )
         );
     }
