@@ -1,14 +1,14 @@
-<div class="{{ class.div }}" id="{{ id }}">
+<div class="{{ class }}" id="{{ id }}">
     {% for content in contents %}
-        <div class="{{ class.each }}">
+        <div>
             <span class="{{ content.attributes.values.1.name }}">{{ content.attributes.values.1.value }}</span>
-            <h2 class="{{ class.title }}">{{ content.name }}</h2>
+            <h2>{{ content.name }}</h2>
             <p>
                 {{ content.attributes.values.4.value | truncate(70, true, '...') }}
             </p>
 
             {% if url is defined %}
-                <a href="{{ url }}?contentId={{ content.contentId }}" class=""></a>
+                <a href="{{ url }}?contentId={{ content.contentId }}"></a>
             {% endif %}
         </div>
     {% endfor %}

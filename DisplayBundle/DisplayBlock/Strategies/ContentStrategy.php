@@ -62,8 +62,8 @@ class ContentStrategy extends AbstractStrategy
                 'PHPOrchestraDisplayBundle:Block/Content:show.html.twig',
                 array(
                     'content' => $content,
-                    'class' => $attributes['class'],
-                    'id' => $attributes['id'],
+                    'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
+                    'id' => array_key_exists('class', $attributes)? $attributes['id']:'',
                 )
             );
         } else {

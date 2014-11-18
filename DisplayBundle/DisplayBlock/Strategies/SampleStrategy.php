@@ -2,7 +2,6 @@
 
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use Mandango\Mandango;
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;

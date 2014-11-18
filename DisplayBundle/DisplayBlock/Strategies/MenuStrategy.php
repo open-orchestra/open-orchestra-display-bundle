@@ -54,8 +54,8 @@ class MenuStrategy extends AbstractStrategy
             'PHPOrchestraDisplayBundle:Block/Menu:show.html.twig',
             array(
                 'tree' => $nodes->toArray(),
-                'id' => $attributes['id'],
-                'class' => $attributes['class'],
+                'id' => array_key_exists('id', $attributes)? $attributes['id']: '',
+                'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
             )
         );
     }
