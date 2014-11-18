@@ -63,7 +63,7 @@ services:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.sub_menu:
         class: %php_orchestra_display.display.sub_menu.class%
-        arguments: [@php_orchestra_model.repository.node, @router]
+        arguments: [@php_orchestra_model.repository.node, @router, container]
         tags:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.content_list:
