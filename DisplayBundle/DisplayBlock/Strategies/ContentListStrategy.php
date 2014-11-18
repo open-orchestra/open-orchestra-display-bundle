@@ -56,8 +56,8 @@ class ContentListStrategy extends AbstractStrategy
                 'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
                 array(
                     'contents' => $contents,
-                    'class' => $attributes['class'],
-                    'id' => $attributes['id'],
+                    'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
+                    'id' => array_key_exists('id', $attributes)? $attributes['id']: '',
                     'url' => $this->router->generate($attributes['url'])
                 )
             );
@@ -66,8 +66,8 @@ class ContentListStrategy extends AbstractStrategy
                 'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
                 array(
                     'contents' => $contents,
-                    'class' => $attributes['class'],
-                    'id' => $attributes['id']
+                    'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
+                    'id' => array_key_exists('id', $attributes)? $attributes['id']: '',
                 )
             );
         }

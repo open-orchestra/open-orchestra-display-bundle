@@ -37,8 +37,8 @@ class HeaderStrategy extends AbstractStrategy
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/Header:show.html.twig',
             array(
-                'id' => $attributes['id'],
-                'class' => $attributes['class'],
+                'id' => array_key_exists('id', $attributes)? $attributes['id']: '',
+                'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
                 'mediaId' => $attributes['mediaId']
             )
         );
