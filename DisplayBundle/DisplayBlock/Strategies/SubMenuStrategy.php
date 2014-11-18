@@ -5,6 +5,7 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\NodeRepository;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -15,15 +16,18 @@ class SubMenuStrategy extends AbstractStrategy
 {
     protected $nodeRepository;
     protected $router;
+    protected $request;
 
     /**
      * @param NodeRepository        $nodeRepository
      * @param UrlGeneratorInterface $router
+     * @param RequestStack          $requestStack
      */
-    public function __construct(NodeRepository $nodeRepository, UrlGeneratorInterface $router)
+    public function __construct(NodeRepository $nodeRepository, UrlGeneratorInterface $router, RequestStack $requestStack)
     {
         $this->nodeRepository = $nodeRepository;
         $this->router = $router;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -48,7 +52,7 @@ class SubMenuStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $nodes = $this->nodeRepository->getSubMenu($attributes['node'], $attributes['nbLevel']);
+        $nodes = $this->nodeRepository->getSubMenu($attributes['node'], $attributes['nbLevel'], $this->request->getLocale());
 
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/Menu:show.html.twig',
