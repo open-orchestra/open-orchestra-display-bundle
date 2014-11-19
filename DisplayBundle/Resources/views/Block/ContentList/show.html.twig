@@ -8,7 +8,7 @@
             </p>
 
             {% if url is defined %}
-                <a href="{{ url }}?contentId={{ content.contentId }}"></a>
+                <a href="{{ url }}/{{ content.contentId }}"></a>
             {% endif %}
         </div>
     {% endfor %}
