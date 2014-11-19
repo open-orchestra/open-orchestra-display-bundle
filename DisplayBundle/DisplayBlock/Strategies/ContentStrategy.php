@@ -7,6 +7,7 @@ use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\ContentRepository;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -15,16 +16,16 @@ use Symfony\Component\HttpFoundation\Response;
 class ContentStrategy extends AbstractStrategy
 {
     protected $contentRepository;
-    protected $container;
+    protected $request;
 
     /**
      * @param ContentRepository $contentRepository
-     * @param Container         $container
+     * @param RequestStack      $requestStack
      */
-    public function __construct(ContentRepository $contentRepository, Container $container)
+    public function __construct(ContentRepository $contentRepository, RequestStack $requestStack)
     {
         $this->contentRepository = $contentRepository;
-        $this->container = $container;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -36,7 +37,10 @@ class ContentStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONTENT == $block->getComponent();
+        return DisplayBlockInterface::CONTENT == $block->getComponent() &&
+            !is_null($this->request->get('module_parameters')) &&
+            is_array($this->request->get('module_parameters')) &&
+            count($this->request->get('module_parameters')) > 0;
     }
 
     /**
@@ -49,10 +53,9 @@ class ContentStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $request = $this->getRequest();
 
         $criteria = array(
-            'contentId' => $request->query->get('contentId')
+            'contentId' => $this->request->get('module_parameters')[0],
         );
 
         $content = $this->contentRepository->findOneBy($criteria);
@@ -69,14 +72,6 @@ class ContentStrategy extends AbstractStrategy
         } else {
             return new Response();
         }
-    }
-
-    /**
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->container->get('request');
     }
 
     /**

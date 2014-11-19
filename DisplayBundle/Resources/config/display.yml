@@ -77,7 +77,7 @@ services:
         class: %php_orchestra_display.display.content.class%
         arguments:
             - @php_orchestra_model.repository.content
-            - @service_container
+            - @request_stack
         tags:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.language_list:
