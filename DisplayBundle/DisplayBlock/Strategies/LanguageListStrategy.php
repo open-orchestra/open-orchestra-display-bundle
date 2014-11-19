@@ -7,6 +7,7 @@ use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelBundle\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\SiteRepository;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -14,20 +15,28 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class LanguageListStrategy extends AbstractStrategy
 {
-    protected $builder;
     protected $currentSiteIdInterface;
     protected $siteRepository;
+    protected $request;
+    protected $builder;
 
     /**
      * @param FormFactory            $formFactory
      * @param CurrentSiteIdInterface $currentSiteIdInterface
      * @param SiteRepository         $siteRepository
+     * @param RequestStack           $requestStack
      */
-    public function __construct(FormFactory $formFactory, CurrentSiteIdInterface $currentSiteIdInterface, SiteRepository $siteRepository)
+    public function __construct(
+        FormFactory $formFactory,
+        CurrentSiteIdInterface $currentSiteIdInterface,
+        SiteRepository $siteRepository,
+        RequestStack $requestStack
+    )
     {
         $this->builder = $formFactory->createBuilder('form');
         $this->currentSiteIdInterface = $currentSiteIdInterface;
         $this->siteRepository = $siteRepository;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -62,6 +71,7 @@ class LanguageListStrategy extends AbstractStrategy
 
         $form = $this->builder->create('language_choice', 'choice', array(
             'choices' => $choices,
+            'data' => $this->request->getLocale(),
             'preferred_choices' => array($this->currentSiteIdInterface->getCurrentSiteDefaultLanguage()),
         ))
         ->getForm();
