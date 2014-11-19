@@ -31,7 +31,7 @@ services:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.footer:
         class: %php_orchestra_display.display.footer.class%
-        arguments: [@php_orchestra_model.repository.node, @router]
+        arguments: [@php_orchestra_model.repository.node, @router, @request_stack]
         tags:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.header:
@@ -40,7 +40,7 @@ services:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.menu:
         class: %php_orchestra_display.display.menu.class%
-        arguments: [@php_orchestra_model.repository.node, @router]
+        arguments: [@php_orchestra_model.repository.node, @router, @request_stack]
         tags:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.news:
