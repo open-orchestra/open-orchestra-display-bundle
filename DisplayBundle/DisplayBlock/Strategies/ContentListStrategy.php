@@ -51,15 +51,15 @@ class ContentListStrategy extends AbstractStrategy
         $attributes = $block->getAttributes();
         $contents = $this->contentRepository->findByContentType($attributes['contentType']);
 
-        if (array_key_exists('url', $attributes)) {
+        if ('' != $attributes['url']) {
             return $this->render(
                 'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
                 array(
                     'contents' => $contents,
-                    'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
-                    'id' => array_key_exists('id', $attributes)? $attributes['id']: '',
+                    'class' => $attributes['class'],
+                    'id' => $attributes['id'],
                     'url' => $this->router->generate($attributes['url']),
-                    'characterNumber' => array_key_exists('characterNumber', $attributes)? $attributes['characterNumber']: 50,
+                    'characterNumber' => $attributes['characterNumber'],
                 )
             );
         } else {
@@ -67,8 +67,9 @@ class ContentListStrategy extends AbstractStrategy
                 'PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig',
                 array(
                     'contents' => $contents,
-                    'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
-                    'id' => array_key_exists('id', $attributes)? $attributes['id']: '',
+                    'class' => $attributes['class'],
+                    'id' => $attributes['id'],
+                    'characterNumber' => $attributes['characterNumber'],
                 )
             );
         }
