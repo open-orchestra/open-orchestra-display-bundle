@@ -58,7 +58,8 @@ class ContentListStrategy extends AbstractStrategy
                     'contents' => $contents,
                     'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
                     'id' => array_key_exists('id', $attributes)? $attributes['id']: '',
-                    'url' => $this->router->generate($attributes['url'])
+                    'url' => $this->router->generate($attributes['url']),
+                    'characterNumber' => array_key_exists('characterNumber', $attributes)? $attributes['characterNumber']: 50,
                 )
             );
         } else {
