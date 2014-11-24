@@ -4,7 +4,7 @@
             <span class="{{ content.attributes.values.1.name }}">{{ content.attributes.values.1.value }}</span>
             <h2>{{ content.name }}</h2>
             <p>
-                {{ content.attributes.values.4.value | truncate(70, true, '...') }}
+                {{ content.attributes.values.4.value | truncate(characterNumber, true, '...') }}
             </p>
 
             {% if url is defined %}
