@@ -1,8 +1,8 @@
 php_orchestra_display:
     contact:
-        contact_received: Votre demande de contact a bien été reçu
-        admin_content: La personne %name% avec l'email %mail% a essayé de nous contacter. \n Voiçi son message : \n %message%
-        user_content: Bonjour, votre message est bien reçu. Nous reviendrons vers vous le plus vite possible \n Bien codialement, \n %name%
+        contact_received: Votre demande de contact a été reçue par un administrateur
+        admin_content: Le client %name% avec l'email %mail% essaye de nous contacter. \n Voici le contenu de son message : \n %message%
+        user_content: Bonjour, nous avons reçu votre message et reviendrons vers vous le plus vite possible \n Cordialement, \n %name%
     language_list:
         en: English
         fr: Français
