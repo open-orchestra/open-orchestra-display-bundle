@@ -58,5 +58,5 @@ abstract class AbstractContentListStrategy extends AbstractStrategy
      *
      * @return mixed
      */
-    protected abstract function getContent($attributes);
+    abstract protected function getContent($attributes);
 }
