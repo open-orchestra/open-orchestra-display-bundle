@@ -26,6 +26,7 @@ interface DisplayBlockInterface
     const CONTENT_LIST_BY_KEYWORD = 'content_list_by_keyword';
     const CONTENT = 'content';
     const LANGUAGE_LIST = 'language_list';
+    const MEDIA_LIST_BY_KEYWORD = 'media_list_by_keyword';
 
     /**
      * Check if the strategy support this block
