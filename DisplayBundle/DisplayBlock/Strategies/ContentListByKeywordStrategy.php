@@ -39,7 +39,7 @@ class ContentListByKeywordStrategy extends AbstractContentListStrategy
      */
     protected function getContent($attributes)
     {
-        $contents = $this->contentRepository->findByContentTag($attributes['contentKeyword']);
+        $contents = $this->contentRepository->findByKeyword($attributes['contentKeyword']);
 
         return $contents;
     }
