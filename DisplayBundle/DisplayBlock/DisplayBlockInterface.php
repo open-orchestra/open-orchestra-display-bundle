@@ -2,7 +2,7 @@
 
 namespace PHPOrchestra\DisplayBundle\DisplayBlock;
 
-use PHPOrchestra\ModelBundle\Model\BlockInterface;
+use PHPOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

@@ -3,7 +3,7 @@
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
-use PHPOrchestra\ModelBundle\Model\BlockInterface;
+use PHPOrchestra\ModelInterface\Model\BlockInterface;
 use PHPOrchestra\ModelBundle\Repository\ContentRepository;
 use Symfony\Component\HttpFoundation\Response;
 

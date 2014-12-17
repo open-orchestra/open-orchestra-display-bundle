@@ -3,7 +3,7 @@
 namespace PHPOrchestra\DisplayBundle\Manager;
 
 use PHPOrchestra\ModelBundle\Document\Node;
-use PHPOrchestra\ModelBundle\Model\NodeInterface;
+use PHPOrchestra\ModelInterface\Model\NodeInterface;
 
 /**
  * Class TreeManager

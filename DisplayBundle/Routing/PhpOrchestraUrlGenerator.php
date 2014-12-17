@@ -3,7 +3,7 @@
 namespace PHPOrchestra\DisplayBundle\Routing;
 
 use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
-use PHPOrchestra\ModelBundle\Model\NodeInterface;
+use PHPOrchestra\ModelInterface\Model\NodeInterface;
 use PHPOrchestra\ModelBundle\Repository\NodeRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGenerator;
