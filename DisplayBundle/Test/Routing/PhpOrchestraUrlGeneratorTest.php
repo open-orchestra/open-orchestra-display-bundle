@@ -4,7 +4,7 @@ namespace PHPOrchestra\DisplayBundle\Test\Routing;
 
 use Phake;
 use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator;
-use PHPOrchestra\ModelBundle\Model\NodeInterface;
+use PHPOrchestra\ModelInterface\Model\NodeInterface;
 
 /**
  * Tests of PhpOrchestraUrlGenerator
@@ -38,7 +38,7 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         Phake::when($this->context)->getHost(Phake::anyParameters())->thenReturn($this->host);
         Phake::when($this->context)->getParameter('_locale')->thenReturn($this->defaultLanguage);
 
-        $this->node = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $this->node = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         $this->nodeRepsitory = Phake::mock('PHPOrchestra\ModelBundle\Repository\NodeRepository');
         Phake::when($this->nodeRepsitory)->findOneByNodeId(Phake::anyParameters())->thenReturn($this->node);
 
@@ -141,7 +141,7 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGenerateWithParent($alias, $parentId, $nodeId, $rootId, $parameters)
     {
 
-        $nodeParent = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $nodeParent = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($nodeParent)->getParentId()->thenReturn($rootId);
         Phake::when($nodeParent)->getAlias()->thenReturn($alias);
         Phake::when($this->nodeRepsitory)->findOneByNodeId($parentId)->thenReturn($nodeParent);

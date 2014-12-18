@@ -2,8 +2,7 @@
 
 namespace PHPOrchestra\DisplayBundle\Manager;
 
-use PHPOrchestra\ModelBundle\Document\Node;
-use PHPOrchestra\ModelBundle\Model\NodeInterface;
+use PHPOrchestra\ModelInterface\Model\NodeInterface;
 
 /**
  * Class TreeManager
@@ -66,12 +65,12 @@ class TreeManager
     }
 
     /**
-     * @param Node  $node
-     * @param array $list
+     * @param NodeInterface $node
+     * @param array         $list
      *
      * @return array
      */
-    protected function getChild($node, $list)
+    protected function getChild(NodeInterface $node, $list)
     {
         $childs = array();
 

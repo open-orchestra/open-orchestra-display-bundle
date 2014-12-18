@@ -49,43 +49,43 @@ class TreeManagerTest extends \PHPUnit_Framework_TestCase
         $otherGrandGrandChildNodeId = 'otherGrandGrandChildNodeId';
         $fourthDescendantNodeId = 'fourthDescendantNodeId';
 
-        $superRootNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $superRootNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($superRootNode)->getNodeId()->thenReturn($rootParentId);
         Phake::when($superRootNode)->getParentId()->thenReturn('-');
 
-        $rootNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $rootNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($rootNode)->getNodeId()->thenReturn($rootNodeId);
         Phake::when($rootNode)->getParentId()->thenReturn($rootParentId);
 
-        $childNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $childNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($childNode)->getNodeId()->thenReturn($childNodeId);
         Phake::when($childNode)->getParentId()->thenReturn($rootNodeId);
 
-        $otherChildNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $otherChildNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($otherChildNode)->getNodeId()->thenReturn($otherChildNodeId);
         Phake::when($otherChildNode)->getParentId()->thenReturn($rootNodeId);
 
-        $grandChildNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $grandChildNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($grandChildNode)->getNodeId()->thenReturn($grandChildNodeId);
         Phake::when($grandChildNode)->getParentId()->thenReturn($childNodeId);
 
-        $otherGrandChildNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $otherGrandChildNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($otherGrandChildNode)->getNodeId()->thenReturn($otherGrandChildNodeId);
         Phake::when($otherGrandChildNode)->getParentId()->thenReturn($otherChildNodeId);
 
-        $grandGrandChildNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $grandGrandChildNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($grandGrandChildNode)->getNodeId()->thenReturn($grandGrandChildNodeId);
         Phake::when($grandGrandChildNode)->getParentId()->thenReturn($grandChildNodeId);
 
-        $otherGrandGrandChildNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $otherGrandGrandChildNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($otherGrandGrandChildNode)->getNodeId()->thenReturn($otherGrandGrandChildNodeId);
         Phake::when($otherGrandGrandChildNode)->getParentId()->thenReturn($otherGrandChildNodeId);
 
-        $fourthDescendantNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $fourthDescendantNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($fourthDescendantNode)->getNodeId()->thenReturn($fourthDescendantNodeId);
         Phake::when($fourthDescendantNode)->getParentId()->thenReturn($grandGrandChildNodeId);
 
-        $brotherGrandChildNode = Phake::mock('PHPOrchestra\ModelBundle\Model\NodeInterface');
+        $brotherGrandChildNode = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($brotherGrandChildNode)->getNodeId()->thenReturn($brotherGrandChildNodeId);
         Phake::when($brotherGrandChildNode)->getParentId()->thenReturn($otherChildNodeId);
 
