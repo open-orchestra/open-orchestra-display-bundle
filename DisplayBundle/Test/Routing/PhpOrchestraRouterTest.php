@@ -19,7 +19,7 @@ class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $cacheService = Phake::mock('PHPOrchestra\BaseBundle\Cache\CacheManagerInterface');
-        $nodeRepository = Phake::mock('PHPOrchestra\ModelBundle\Repository\NodeRepository');
+        $nodeRepository = Phake::mock('PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface');
         $siteManager = Phake::mock('PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface');
 
         $mockRoutingLoader = Phake::mock('Symfony\Bundle\FrameworkBundle\Routing\DelegatingLoader');

@@ -5,7 +5,7 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelBundle\Repository\SiteRepository;
+use PHPOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,15 +21,15 @@ class LanguageListStrategy extends AbstractStrategy
     protected $builder;
 
     /**
-     * @param FormFactory            $formFactory
-     * @param CurrentSiteIdInterface $currentSiteIdInterface
-     * @param SiteRepository         $siteRepository
-     * @param RequestStack           $requestStack
+     * @param FormFactory             $formFactory
+     * @param CurrentSiteIdInterface  $currentSiteIdInterface
+     * @param SiteRepositoryInterface $siteRepository
+     * @param RequestStack            $requestStack
      */
     public function __construct(
         FormFactory $formFactory,
         CurrentSiteIdInterface $currentSiteIdInterface,
-        SiteRepository $siteRepository,
+        SiteRepositoryInterface $siteRepository,
         RequestStack $requestStack
     )
     {
