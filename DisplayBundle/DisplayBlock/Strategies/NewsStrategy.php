@@ -4,7 +4,7 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelBundle\Repository\ContentRepository;
+use PHPOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -15,9 +15,9 @@ class NewsStrategy extends AbstractStrategy
     protected $contentRepository;
 
     /**
-     * @param ContentRepository $contentRepository
+     * @param ContentRepositoryInterface $contentRepository
      */
-    public function __construct(ContentRepository $contentRepository)
+    public function __construct(ContentRepositoryInterface $contentRepository)
     {
         $this->contentRepository = $contentRepository;
     }

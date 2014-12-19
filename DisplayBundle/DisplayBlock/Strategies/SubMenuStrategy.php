@@ -4,7 +4,7 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelBundle\Repository\NodeRepository;
+use PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -19,11 +19,11 @@ class SubMenuStrategy extends AbstractStrategy
     protected $request;
 
     /**
-     * @param NodeRepository        $nodeRepository
-     * @param UrlGeneratorInterface $router
-     * @param RequestStack          $requestStack
+     * @param NodeRepositoryInterface $nodeRepository
+     * @param UrlGeneratorInterface   $router
+     * @param RequestStack            $requestStack
      */
-    public function __construct(NodeRepository $nodeRepository, UrlGeneratorInterface $router, RequestStack $requestStack)
+    public function __construct(NodeRepositoryInterface $nodeRepository, UrlGeneratorInterface $router, RequestStack $requestStack)
     {
         $this->nodeRepository = $nodeRepository;
         $this->router = $router;

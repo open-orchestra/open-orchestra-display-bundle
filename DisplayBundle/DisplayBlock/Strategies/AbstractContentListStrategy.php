@@ -4,7 +4,7 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelBundle\Repository\ContentRepository;
+use PHPOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -17,10 +17,10 @@ abstract class AbstractContentListStrategy extends AbstractStrategy
     protected $request;
 
     /**
-     * @param ContentRepository  $contentRepository
-     * @param PhpOrchestraRouter $router
+     * @param ContentRepositoryInterface $contentRepository
+     * @param PhpOrchestraRouter         $router
      */
-    public function __construct(ContentRepository $contentRepository, PhpOrchestraRouter $router)
+    public function __construct(ContentRepositoryInterface $contentRepository, PhpOrchestraRouter $router)
     {
         $this->contentRepository = $contentRepository;
         $this->router = $router;

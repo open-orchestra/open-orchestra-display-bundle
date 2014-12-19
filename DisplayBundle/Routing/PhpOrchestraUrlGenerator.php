@@ -4,7 +4,7 @@ namespace PHPOrchestra\DisplayBundle\Routing;
 
 use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use PHPOrchestra\ModelInterface\Model\NodeInterface;
-use PHPOrchestra\ModelBundle\Repository\NodeRepository;
+use PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -22,16 +22,16 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
     /**
      * Constructor
      *
-     * @param RouteCollection        $routes
-     * @param RequestContext         $context
-     * @param NodeRepository         $nodeRepository
-     * @param CurrentSiteIdInterface $siteManager
-     * @param LoggerInterface        $logger
+     * @param RouteCollection         $routes
+     * @param RequestContext          $context
+     * @param NodeRepositoryInterface $nodeRepository
+     * @param CurrentSiteIdInterface  $siteManager
+     * @param LoggerInterface         $logger
      */
     public function __construct(
         RouteCollection $routes,
         RequestContext $context,
-        NodeRepository $nodeRepository,
+        NodeRepositoryInterface $nodeRepository,
         CurrentSiteIdInterface $siteManager,
         LoggerInterface $logger = null
     )

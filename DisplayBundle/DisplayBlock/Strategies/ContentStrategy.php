@@ -4,9 +4,7 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelBundle\Repository\ContentRepository;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpFoundation\Request;
+use PHPOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,10 +17,10 @@ class ContentStrategy extends AbstractStrategy
     protected $request;
 
     /**
-     * @param ContentRepository $contentRepository
-     * @param RequestStack      $requestStack
+     * @param ContentRepositoryInterface $contentRepository
+     * @param RequestStack               $requestStack
      */
-    public function __construct(ContentRepository $contentRepository, RequestStack $requestStack)
+    public function __construct(ContentRepositoryInterface $contentRepository, RequestStack $requestStack)
     {
         $this->contentRepository = $contentRepository;
         $this->request = $requestStack->getCurrentRequest();
@@ -54,11 +52,7 @@ class ContentStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
 
-        $criteria = array(
-            'contentId' => $this->request->get('module_parameters')[0],
-        );
-
-        $content = $this->contentRepository->findOneBy($criteria);
+        $content = $this->contentRepository->findOneByContentId($this->request->get('module_parameters')[0]);
 
         if ($content != null) {
             return $this->render(

@@ -4,7 +4,7 @@ namespace PHPOrchestra\DisplayBundle\Manager;
 
 use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use PHPOrchestra\ModelInterface\Model\SiteInterface;
-use PHPOrchestra\ModelBundle\Repository\SiteRepository;
+use PHPOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -17,10 +17,10 @@ class SiteManager implements CurrentSiteIdInterface
     protected $siteRepository;
 
     /**
-     * @param RequestStack   $requestStack
-     * @param SiteRepository $siteRepository
+     * @param RequestStack            $requestStack
+     * @param SiteRepositoryInterface $siteRepository
      */
-    public function __construct(RequestStack $requestStack, SiteRepository $siteRepository)
+    public function __construct(RequestStack $requestStack, SiteRepositoryInterface $siteRepository)
     {
         $this->requestStack = $requestStack;
         $this->siteRepository = $siteRepository;

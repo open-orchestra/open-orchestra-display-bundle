@@ -39,7 +39,7 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         Phake::when($this->context)->getParameter('_locale')->thenReturn($this->defaultLanguage);
 
         $this->node = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
-        $this->nodeRepsitory = Phake::mock('PHPOrchestra\ModelBundle\Repository\NodeRepository');
+        $this->nodeRepsitory = Phake::mock('PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface');
         Phake::when($this->nodeRepsitory)->findOneByNodeId(Phake::anyParameters())->thenReturn($this->node);
 
         $this->generator = new PhpOrchestraUrlGenerator(

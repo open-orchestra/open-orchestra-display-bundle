@@ -3,8 +3,8 @@
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\ModelBundle\Repository\ContentRepository;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
+use PHPOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -15,9 +15,9 @@ class ConfigurableContentStrategy extends AbstractStrategy
     protected $contentRepository;
 
     /**
-     * @param ContentRepository $contentRepository
+     * @param ContentRepositoryInterface $contentRepository
      */
-    public function __construct(ContentRepository $contentRepository)
+    public function __construct(ContentRepositoryInterface $contentRepository)
     {
         $this->contentRepository = $contentRepository;
     }
@@ -45,11 +45,7 @@ class ConfigurableContentStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
 
-        $criteria = array(
-            'contentId' => $attributes['contentId']
-        );
-
-        $content = $this->contentRepository->findOneBy($criteria);
+        $content = $this->contentRepository->findOneByContentId($attributes['contentId']);
 
         if ($content) {
             $contentAttributes = $content->getAttributes();
