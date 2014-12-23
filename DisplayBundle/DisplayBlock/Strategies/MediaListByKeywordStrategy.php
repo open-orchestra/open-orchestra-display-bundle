@@ -3,7 +3,7 @@
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\MediaBundle\Repository\MediaRepository;
+use PHPOrchestra\Media\Repository\MediaRepositoryInterface;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,9 +15,9 @@ class MediaListByKeywordStrategy extends AbstractStrategy
     protected $mediaRepository;
 
     /**
-     * @param MediaRepository $mediaRepository
+     * @param MediaRepositoryInterface $mediaRepository
      */
-    public function __construct(MediaRepository $mediaRepository)
+    public function __construct(MediaRepositoryInterface $mediaRepository)
     {
         $this->mediaRepository = $mediaRepository;
     }
