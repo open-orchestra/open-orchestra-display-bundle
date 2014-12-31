@@ -24,16 +24,11 @@ class TreeManager
         $list[$superRoot] = array();
 
         foreach ($nodes as $node) {
-            if ( $superRoot === $node->getParentId()) {
-                $list[$superRoot][] = $node;
-            } else {
-                if ($this->parentInList($node->getParentId(), $nodes)) {
-                    $list[$node->getParentId()][] = $node;
-                } else {
-                    $list[$superRoot][] = $node;
-                }
-
+            if ($superRoot !== $node->getParentId() && $this->parentInList($node->getParentId(), $nodes)) {
+                $list[$node->getParentId()][] = $node;
+                continue;
             }
+            $list[$superRoot][] = $node;
         }
 
         $tree = $this->createTree($list[$superRoot], $list);
@@ -42,8 +37,8 @@ class TreeManager
     }
 
     /**
-     * @param array $nodes
-     * @param array $list
+     * @param array|NodeInterface $nodes
+     * @param array               $list
      *
      * @return array
      */
@@ -55,10 +50,8 @@ class TreeManager
             foreach ($nodes as $node) {
                 $tree[] = array('node' => $node, 'child' => $this->getChild($node, $list));
             }
-        } else {
-            if (!empty($nodes)) {
-                $tree = array('node' => $nodes, 'child' => $this->getChild($nodes, $list));
-            }
+        } elseif (!empty($nodes)) {
+            $tree = array('node' => $nodes, 'child' => $this->getChild($nodes, $list));
         }
 
         return $tree;

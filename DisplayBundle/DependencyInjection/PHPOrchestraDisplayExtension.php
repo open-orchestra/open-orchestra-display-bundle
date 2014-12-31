@@ -28,16 +28,7 @@ class PHPOrchestraDisplayExtension extends Extension
         $loader->load('manager.yml');
         $loader->load('twig.yml');
 
-        if (array_key_exists('administrator_email', $config)) {
-            $container->setParameter('php_orchestra_display.administrator_contact_email', $config['administrator_email']);
-        } else {
-            $container->setParameter('php_orchestra_display.administrator_contact_email', 'nicolas.thal@businessdecision.com');
-        }
-
-        if (array_key_exists('contact_signature', $config)) {
-            $container->setParameter('php_orchestra_display.contact_signature_email', $config['contact_signature']);
-        } else {
-            $container->setParameter('php_orchestra_display.contact_signature_email', 'Orchestra');
-        }
+        $container->setParameter('php_orchestra_display.administrator_contact_email', $config['administrator_email']);
+        $container->setParameter('php_orchestra_display.contact_signature_email', $config['contact_signature']);
     }
 }
