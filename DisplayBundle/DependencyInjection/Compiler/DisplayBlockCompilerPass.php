@@ -5,7 +5,6 @@ namespace PHPOrchestra\DisplayBundle\DependencyInjection\Compiler;
 use PHPOrchestra\BaseBundle\DependencyInjection\Compiler\AbstractTaggedCompiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class DisplayBlockCompilerPass
