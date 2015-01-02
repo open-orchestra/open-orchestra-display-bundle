@@ -120,13 +120,13 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
         if ($nodeId != NodeInterface::ROOT_NODE_ID) {
             $node = $this->nodeRepository->findOneByNodeId($nodeId);
 
-            if (isset($node)) {
-                $alias = $this->getNodeAlias($node->getParentId()) . '/' . $node->getAlias();
-            } else {
+            if (is_null($node)) {
                 throw new RouteNotFoundException(
                     sprintf('Unable to generate a URL for the node "%s" as such node does not exist.', $nodeId)
                 );
             }
+
+            $alias = $this->getNodeAlias($node->getParentId()) . '/' . $node->getAlias();
         }
 
         return $alias;

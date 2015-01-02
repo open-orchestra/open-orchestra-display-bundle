@@ -63,9 +63,9 @@ class ContentStrategy extends AbstractStrategy
                     'id' => array_key_exists('class', $attributes)? $attributes['id']:'',
                 )
             );
-        } else {
-            return new Response();
         }
+
+        return new Response();
     }
 
     /**
