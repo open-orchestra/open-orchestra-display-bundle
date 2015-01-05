@@ -45,7 +45,7 @@ class MediaListByKeywordStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
 
-        $medias = $this->mediaRepository->findByKeyword($attributes['keyword']);
+        $medias = $this->mediaRepository->findByKeywords($attributes['keywords']);
 
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/MediaList:show.html.twig',
