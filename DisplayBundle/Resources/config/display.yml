@@ -11,8 +11,7 @@ parameters:
     php_orchestra_display.display.tiny_mce_wysiwyg.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\TinyMCEWysiwygStrategy
     php_orchestra_display.display.configurable_content.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ConfigurableContentStrategy
     php_orchestra_display.display.sub_menu.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SubMenuStrategy
-    php_orchestra_display.display.content_list_by_type.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentListByTypeStrategy
-    php_orchestra_display.display.content_list_by_keyword.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentListByKeywordStrategy
+    php_orchestra_display.display.content_list.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentListStrategy
     php_orchestra_display.display.media_list_by_keyword.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\MediaListByKeywordStrategy
     php_orchestra_display.display.content.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentStrategy
     php_orchestra_display.display.language_list.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\LanguageListStrategy
@@ -68,15 +67,8 @@ services:
         arguments: [@php_orchestra_model.repository.node, @router, @request_stack]
         tags:
             - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.content_list_by_type:
-        class: %php_orchestra_display.display.content_list_by_type.class%
-        arguments:
-            - @php_orchestra_model.repository.content
-            - @router
-        tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.content_list_by_keyword:
-        class: %php_orchestra_display.display.content_list_by_keyword.class%
+    php_orchestra_display.display.content_list:
+        class: %php_orchestra_display.display.content_list.class%
         arguments:
             - @php_orchestra_model.repository.content
             - @router
