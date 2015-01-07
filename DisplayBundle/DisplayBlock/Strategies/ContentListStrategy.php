@@ -2,15 +2,16 @@
 
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
+use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
 use PHPOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class AbstractContentListStrategy
+ * Class ContentListStrategy
  */
-abstract class AbstractContentListStrategy extends AbstractStrategy
+class ContentListStrategy extends AbstractStrategy
 {
     protected $contentRepository;
     protected $router;
@@ -36,7 +37,7 @@ abstract class AbstractContentListStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $contents = $this->getContent($attributes);
+        $contents = $this->contentRepository->findByContentTypeAndKeywords($attributes['contentType'], $attributes['keywords']);
 
         $parameters = array(
             'contents' => $contents,
@@ -54,9 +55,24 @@ abstract class AbstractContentListStrategy extends AbstractStrategy
     }
 
     /**
-     * @param array $attributes
+     * Check if the strategy support this block
      *
-     * @return mixed
+     * @param BlockInterface $block
+     *
+     * @return boolean
      */
-    abstract protected function getContent($attributes);
+    public function support(BlockInterface $block)
+    {
+        return DisplayBlockInterface::CONTENT_LIST === $block->getComponent();
+    }
+
+    /**
+     * Get the name of the strategy
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'content_list';
+    }
 }
