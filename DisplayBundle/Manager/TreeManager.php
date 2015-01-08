@@ -48,8 +48,10 @@ class TreeManager
 
         if (is_array($nodes)) {
             foreach ($nodes as $node) {
-                $tree[] = array('node' => $node, 'child' => $this->getChild($node, $list));
+                $position = $this->getNodePosition($node, $tree);
+                $tree[$position] = array('node' => $node, 'child' => $this->getChild($node, $list));
             }
+            $tree = $this->sortArray($tree);
         } elseif (!empty($nodes)) {
             $tree = array('node' => $nodes, 'child' => $this->getChild($nodes, $list));
         }
@@ -69,9 +71,12 @@ class TreeManager
 
         if (!empty($list[$node->getNodeId()]) && is_array($list[$node->getNodeId()])) {
             foreach ($list[$node->getNodeId()] as $child) {
-               $childs[] = $this->createTree($child, $list);
+                $position = $this->getNodePosition($child, $childs);
+                $childs[$position] = $this->createTree($child, $list);
             }
         }
+
+        $childs = $this->sortArray($childs);
 
         return $childs;
     }
@@ -91,5 +96,35 @@ class TreeManager
         }
 
         return false;
+    }
+
+    /**
+     * @param NodeInterface $node
+     * @param array         $tree
+     *
+     * @return mixed
+     */
+    protected function getNodePosition($node, $tree)
+    {
+        $position = $node->getOrder();
+        while (array_key_exists($position, $tree)) {
+            $position++;
+        }
+
+        return $position;
+    }
+
+    /**
+     * @param array $tree
+     *
+     * @return mixed
+     */
+    protected function sortArray($tree)
+    {
+        if (!empty($tree)) {
+            ksort($tree);
+        }
+
+        return $tree;
     }
 }
