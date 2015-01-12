@@ -28,6 +28,7 @@ interface DisplayBlockInterface
     const MEDIA_LIST_BY_KEYWORD = 'media_list_by_keyword';
     const YOUTUBE = 'youtube';
     const DAILYMOTION = 'dailymotion';
+    const VIMEO = 'vimeo';
 
     /**
      * Check if the strategy support this block
