@@ -6,3 +6,5 @@ php_orchestra_display:
     language_list:
         en: English
         fr: Français
+    gmap:
+        enlarge: Enlarge the map

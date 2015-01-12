@@ -29,6 +29,7 @@ interface DisplayBlockInterface
     const YOUTUBE = 'youtube';
     const DAILYMOTION = 'dailymotion';
     const VIMEO = 'vimeo';
+    const GMAP = 'gmap';
 
     /**
      * Check if the strategy support this block
