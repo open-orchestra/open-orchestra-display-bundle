@@ -30,6 +30,7 @@ interface DisplayBlockInterface
     const DAILYMOTION = 'dailymotion';
     const VIMEO = 'vimeo';
     const GMAP = 'gmap';
+    const ADDTHIS = 'add_this';
 
     /**
      * Check if the strategy support this block
