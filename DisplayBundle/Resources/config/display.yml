@@ -105,3 +105,7 @@ services:
         class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\GmapStrategy
         tags:
             - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.add_this:
+        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\AddThisStrategy
+        tags:
+            - { name: php_orchestra_display.display_block.strategy }
