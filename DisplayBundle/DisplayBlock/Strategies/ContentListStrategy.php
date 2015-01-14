@@ -37,7 +37,7 @@ class ContentListStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
-        $contents = $this->contentRepository->findByContentTypeAndKeywords($attributes['contentType'], $attributes['keywords']);
+        $contents = $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywords($attributes['contentType'], $attributes['choiceType'], $attributes['keywords']);
 
         $parameters = array(
             'contents' => $contents,
