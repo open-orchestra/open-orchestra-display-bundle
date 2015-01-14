@@ -2,6 +2,7 @@ parameters:
     php_orchestra_display.display_block_manager.class: PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager
 
     php_orchestra_display.display.carrousel.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\CarrouselStrategy
+    php_orchestra_display.display.gallery.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\GalleryStrategy
     php_orchestra_display.display.contact.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
     php_orchestra_display.display.footer.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy
     php_orchestra_display.display.header.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\HeaderStrategy
@@ -22,6 +23,10 @@ services:
 
     php_orchestra_display.display.carrousel:
         class: %php_orchestra_display.display.carrousel.class%
+        tags:
+            - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.gallery:
+        class: %php_orchestra_display.display.gallery.class%
         tags:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.contact:

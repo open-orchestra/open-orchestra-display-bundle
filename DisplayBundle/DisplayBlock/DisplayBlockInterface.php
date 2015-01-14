@@ -12,6 +12,7 @@ interface DisplayBlockInterface
 {
     const CONTACT = 'contact';
     const CARROUSEL = 'carrousel';
+    const GALLERY = 'gallery';
     const FOOTER = 'footer';
     const HEADER = 'header';
     const MENU = 'menu';
