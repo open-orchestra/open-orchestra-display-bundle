@@ -1,0 +1,25 @@
+.gallery {
+    width:996px;
+    background-color:#000000;
+    padding:2px;
+    text-align:center;
+}
+
+.gallery-picture {
+    visibility:hidden;
+    border:1px solid #000000;
+    opacity:0.8;
+}
+.gallery-picture:hover {
+    border:1px solid #FFFFFF;
+    opacity:1;
+}
+
+#fancybox-thumbs.bottom {
+    background-color:#FFFFFF;
+    padding-top:1px;
+}
+
+#fancybox-thumbs ul li.active {
+    opacity: 1;
+}
