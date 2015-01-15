@@ -1,26 +1,29 @@
-function resizeThumbnails(nbCol) {
+function resizeThumbnails(galId, nbCol) {
     var picturePadding = parseInt($(".gallery-picture").css("border-left-width"));
-    var galleryWidth = parseInt($("#gallery").width());
+    var galleryWidth = parseInt($("#" + galId).width());
     var pictureWidth = parseInt((galleryWidth / nbCol) - 2*picturePadding);
 
-    $(".gallery-picture").width(pictureWidth + 'px');
-    $(".gallery-picture").css("visibility", "visible");
+    $("#" + galId + " .gallery-picture").width(pictureWidth + 'px');
+    $("#" + galId + " .gallery-picture").css("visibility", "visible");
 }
 
 $(document).ready(function() {
+
     alert('/!\\ Pause temporaire pour laisser le temps aux js de charger => A remplacer par une solution de configuration générale des js /!\\')
 
-    resizeThumbnails(galleryNbCols);
+    for(var galleryId in orchestraGalCol) {
+        resizeThumbnails(galleryId, orchestraGalCol[galleryId]);
+    }
 
     $(".fancybox-thumb").fancybox({
         prevEffect  : 'none',
         nextEffect  : 'none',
         closeBtn    : false,
-        helpers : {
-            title   : {
-                type: 'inside'
+        helpers     : {
+            title     : {
+                type    : 'inside'
             },
-            thumbs  : {
+            thumbs    : {
                 width   : 50,
                 height  : 50
             }

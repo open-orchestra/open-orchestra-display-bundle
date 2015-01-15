@@ -32,9 +32,16 @@ class GalleryStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
+        $attributes = $block->getAttributes();
+
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/Gallery:show.html.twig',
-            $block->getAttributes()
+            array(
+                'galleryClass' => $block->getClass(),
+                'galleryId' => $block->getId(),
+                'pictures' => $attributes['pictures'],
+                'nbColumns' => $attributes['nb_columns']
+            )
         );
     }
 

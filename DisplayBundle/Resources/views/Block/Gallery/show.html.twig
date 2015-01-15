@@ -1,11 +1,14 @@
-<div id="gallery" class="gallery">
+<div id="{{galleryId}}" class="gallery {{ galleryClass }}">
     <div>
     {% for picture in pictures %}<a class="fancybox-thumb" rel="fancybox-thumb" href="{{ media_preview(picture) }}" title="Not defined for the moment"><img src="{{ media_preview(picture) }}" alt="" class="gallery-picture" /></a>{% endfor %}
     </div>
 </div>
 
 <script type="text/javascript">
-    var galleryNbCols = {{ pictures_per_page }};
+    if (typeof orchestraGalCol == 'undefined') {
+        var orchestraGalCol = {};
+    }
+    orchestraGalCol['{{galleryId}}'] = {{ nbColumns }};
 
     function callCss(file){
         var linkElement = document.createElement("link");
