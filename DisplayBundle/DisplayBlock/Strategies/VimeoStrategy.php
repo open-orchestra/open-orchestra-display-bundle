@@ -39,20 +39,23 @@ class VimeoStrategy extends AbstractStrategy
         if ($attributes['autoplay'] === true) {
             $urlParams['autoplay'] = 1;
         }
-        if ($attributes['title'] === true) {
-            $urlParams['title'] = 1;
+        if ($attributes['title'] === false) {
+            $urlParams['title'] = 0;
         }
         if ($attributes['fullscreen'] === true) {
             $urlParams['fullscreen'] = 1;
         }
-        if ($attributes['byline'] === true) {
-            $urlParams['byline'] = 1;
+        if ($attributes['byline'] === false) {
+            $urlParams['byline'] = 0;
         }
-        if ($attributes['portrait'] === true) {
-            $urlParams['portrait'] = 1;
+        if ($attributes['portrait'] === false) {
+            $urlParams['portrait'] = 0;
         }
         if ($attributes['loop'] === true) {
             $urlParams['loop'] = 1;
+        }
+        if ($attributes['badge'] === false) {
+            $urlParams['badge'] = 0;
         }
         if ($attributes['color'] !== '') {
             $urlParams['color'] = $attributes['color'];

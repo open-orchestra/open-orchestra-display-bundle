@@ -53,6 +53,15 @@ class YoutubeStrategy extends AbstractStrategy
         if ($attributes['loop'] === true) {
             $urlParams['loop'] = 1;
         }
+        if ($attributes['controls'] === false) {
+            $urlParams['controls'] = 0;
+        }
+        if ($attributes['theme'] === true) {
+            $urlParams['theme'] = 'light';
+        }
+        if ($attributes['color'] === true) {
+            $urlParams['color'] = 'white';
+        }
         if ($attributes['hl'] !== '') {
             $urlParams['hl'] = $attributes['hl'];
         }

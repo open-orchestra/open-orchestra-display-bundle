@@ -39,8 +39,17 @@ class DailymotionStrategy extends AbstractStrategy
         if ($attributes['autoplay'] === true) {
             $urlParams['autoplay'] = 1;
         }
-        if ($attributes['info'] === true) {
-            $urlParams['info'] = 1;
+        if ($attributes['info'] === false) {
+            $urlParams['info'] = 0;
+        }
+        if ($attributes['logo'] === false) {
+            $urlParams['logo'] = 0;
+        }
+        if ($attributes['related'] === false) {
+            $urlParams['related'] = 0;
+        }
+        if ($attributes['chromeless'] === true) {
+            $urlParams['chromeless'] = 1;
         }
         if ($attributes['background'] !== '') {
             $urlParams['background'] = $attributes['background'];
@@ -50,6 +59,9 @@ class DailymotionStrategy extends AbstractStrategy
         }
         if ($attributes['highlight'] !== '') {
             $urlParams['highlight'] = $attributes['highlight'];
+        }
+        if ($attributes['quality'] !== '') {
+            $urlParams['quality'] = $attributes['quality'];
         }
 
         $url = "//www.dailymotion.com/embed/video/" . $attributes['videoId'] . "?" . http_build_query($urlParams);
