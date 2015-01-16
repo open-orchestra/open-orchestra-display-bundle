@@ -35,8 +35,31 @@ class DailymotionStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
 
+        $urlParams = array();
+        if ($attributes['autoplay'] === true) {
+            $urlParams['autoplay'] = 1;
+        }
+        if ($attributes['info'] === true) {
+            $urlParams['info'] = 1;
+        }
+        if ($attributes['background'] !== '') {
+            $urlParams['background'] = $attributes['background'];
+        }
+        if ($attributes['foreground'] !== '') {
+            $urlParams['foreground'] = $attributes['foreground'];
+        }
+        if ($attributes['highlight'] !== '') {
+            $urlParams['highlight'] = $attributes['highlight'];
+        }
+
+        $url = "//www.dailymotion.com/embed/video/" . $attributes['videoId'] . "?" . http_build_query($urlParams);
+
         $parameters = array(
-            'videoId' => $attributes['videoId'],
+            'url' => $url,
+            'class' => $attributes['class'],
+            'id' => $attributes['id'],
+            'width' => $attributes['width'],
+            'height' => $attributes['height']
         );
 
         return $this->render('PHPOrchestraDisplayBundle:Block/Dailymotion:show.html.twig', $parameters);

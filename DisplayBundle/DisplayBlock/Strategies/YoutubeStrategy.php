@@ -34,8 +34,37 @@ class YoutubeStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
 
+        $urlParams = array();
+        if ($attributes['autoplay'] === true) {
+            $urlParams['autoplay'] = 1;
+        }
+        if ($attributes['showinfo'] === true) {
+            $urlParams['showinfo'] = 1;
+        }
+        if ($attributes['fs'] === true) {
+            $urlParams['fs'] = 1;
+        }
+        if ($attributes['rel'] === true) {
+            $urlParams['rel'] = 1;
+        }
+        if ($attributes['disablekb'] === true) {
+            $urlParams['disablekb'] = 1;
+        }
+        if ($attributes['loop'] === true) {
+            $urlParams['loop'] = 1;
+        }
+        if ($attributes['hl'] !== '') {
+            $urlParams['hl'] = $attributes['hl'];
+        }
+
+        $url = "//www.youtube.com/embed/" . $attributes['videoId'] ."?" . http_build_query($urlParams, '', '&amp;');
+
         $parameters = array(
-            'videoId' => $attributes['videoId'],
+            'url' => $url,
+            'class' => $attributes['class'],
+            'id' => $attributes['id'],
+            'width' => $attributes['width'],
+            'height' => $attributes['height']
         );
 
         return $this->render('PHPOrchestraDisplayBundle:Block/Youtube:show.html.twig', $parameters);
