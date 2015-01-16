@@ -36,19 +36,19 @@ class DailymotionStrategy extends AbstractStrategy
         $attributes = $block->getAttributes();
 
         $urlParams = array();
-        if ($attributes['autoplay'] === true) {
+        if (array_key_exists('autoplay', $attributes) && $attributes['autoplay'] == true) {
             $urlParams['autoplay'] = 1;
         }
-        if ($attributes['info'] === false) {
+        if (!array_key_exists('info', $attributes) || $attributes['info'] == false) {
             $urlParams['info'] = 0;
         }
-        if ($attributes['logo'] === false) {
+        if (!array_key_exists('logo', $attributes) || $attributes['logo'] == false) {
             $urlParams['logo'] = 0;
         }
-        if ($attributes['related'] === false) {
+        if (!array_key_exists('related', $attributes) || $attributes['related'] == false) {
             $urlParams['related'] = 0;
         }
-        if ($attributes['chromeless'] === true) {
+        if (array_key_exists('chromeless', $attributes) && $attributes['chromeless'] == true) {
             $urlParams['chromeless'] = 1;
         }
         if ($attributes['background'] !== '') {
@@ -68,8 +68,6 @@ class DailymotionStrategy extends AbstractStrategy
 
         $parameters = array(
             'url' => $url,
-            'class' => $attributes['class'],
-            'id' => $attributes['id'],
             'width' => $attributes['width'],
             'height' => $attributes['height']
         );

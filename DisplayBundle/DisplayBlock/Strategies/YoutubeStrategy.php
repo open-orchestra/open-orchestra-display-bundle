@@ -35,31 +35,31 @@ class YoutubeStrategy extends AbstractStrategy
         $attributes = $block->getAttributes();
 
         $urlParams = array();
-        if ($attributes['autoplay'] === true) {
+        if (array_key_exists('autoplay', $attributes) && $attributes['autoplay'] == true) {
             $urlParams['autoplay'] = 1;
         }
-        if ($attributes['showinfo'] === true) {
+        if (array_key_exists('showinfo', $attributes) && $attributes['showinfo'] == true) {
             $urlParams['showinfo'] = 1;
         }
-        if ($attributes['fs'] === true) {
+        if (array_key_exists('fs', $attributes) && $attributes['fs'] == true) {
             $urlParams['fs'] = 1;
         }
-        if ($attributes['rel'] === true) {
+        if (array_key_exists('rel', $attributes) && $attributes['rel'] == true) {
             $urlParams['rel'] = 1;
         }
-        if ($attributes['disablekb'] === true) {
+        if (array_key_exists('disablekb', $attributes) && $attributes['disablekb'] == true) {
             $urlParams['disablekb'] = 1;
         }
-        if ($attributes['loop'] === true) {
+        if (array_key_exists('loop', $attributes) && $attributes['loop'] == true) {
             $urlParams['loop'] = 1;
         }
-        if ($attributes['controls'] === false) {
+        if (!array_key_exists('controls', $attributes) || $attributes['controls'] == false) {
             $urlParams['controls'] = 0;
         }
-        if ($attributes['theme'] === true) {
+        if (array_key_exists('theme', $attributes) && $attributes['theme'] == true) {
             $urlParams['theme'] = 'light';
         }
-        if ($attributes['color'] === true) {
+        if (array_key_exists('color', $attributes) && $attributes['color'] == true) {
             $urlParams['color'] = 'white';
         }
         if ($attributes['hl'] !== '') {

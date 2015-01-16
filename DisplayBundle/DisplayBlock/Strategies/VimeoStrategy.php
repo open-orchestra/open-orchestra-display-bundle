@@ -36,25 +36,25 @@ class VimeoStrategy extends AbstractStrategy
         $attributes = $block->getAttributes();
 
         $urlParams = array();
-        if ($attributes['autoplay'] === true) {
+        if (array_key_exists('autoplay', $attributes) && $attributes['autoplay'] == true) {
             $urlParams['autoplay'] = 1;
         }
-        if ($attributes['title'] === false) {
+        if (!array_key_exists('title', $attributes) || $attributes['title'] == false) {
             $urlParams['title'] = 0;
         }
-        if ($attributes['fullscreen'] === true) {
+        if (array_key_exists('fullscreen', $attributes) && $attributes['fullscreen'] == true) {
             $urlParams['fullscreen'] = 1;
         }
-        if ($attributes['byline'] === false) {
+        if (!array_key_exists('byline', $attributes) || $attributes['byline'] == false) {
             $urlParams['byline'] = 0;
         }
-        if ($attributes['portrait'] === false) {
+        if (!array_key_exists('portrait', $attributes) || $attributes['portrait'] == false) {
             $urlParams['portrait'] = 0;
         }
-        if ($attributes['loop'] === true) {
+        if (array_key_exists('loop', $attributes) && $attributes['loop'] == true) {
             $urlParams['loop'] = 1;
         }
-        if ($attributes['badge'] === false) {
+        if (!array_key_exists('badge', $attributes) || $attributes['badge'] == false) {
             $urlParams['badge'] = 0;
         }
         if ($attributes['color'] !== '') {
@@ -65,8 +65,6 @@ class VimeoStrategy extends AbstractStrategy
 
         $parameters = array(
             'url' => $url,
-            'class' => $attributes['class'],
-            'id' => $attributes['id'],
             'width' => $attributes['width'],
             'height' => $attributes['height']
         );
