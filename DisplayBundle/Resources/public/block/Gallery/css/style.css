@@ -15,20 +15,17 @@
     opacity:1;
 }
 
+#fancybox-thumbs ul li.active {
+    border: 1px solid #444444;
+    opacity: 1;
+}
+
 #fancybox-thumbs.bottom {
     background-color:#111111;
     padding-top:1px;
     border-top:1px solid #444444;
 }
 
-#fancybox-thumbs ul li.active {
-    opacity: 1;
-}
-
 .fancybox-overlay {
     background-color:#000000;
-}
-
-#fancybox-thumbs ul li.active {
-    border: 1px solid #444444;
 }
