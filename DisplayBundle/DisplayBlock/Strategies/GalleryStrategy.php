@@ -40,7 +40,10 @@ class GalleryStrategy extends AbstractStrategy
                 'galleryClass' => $block->getClass(),
                 'galleryId' => $block->getId(),
                 'pictures' => $attributes['pictures'],
-                'nbColumns' => $attributes['nb_columns']
+                'nbColumns' => $attributes['nb_columns'],
+                'nbItems' => $attributes['nb_items'],
+                'thumbnailFormat' => $attributes['thumbnail_format'],
+                'imageFormat' => $attributes['image_format']
             )
         );
     }

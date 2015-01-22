@@ -1,5 +1,7 @@
 function resizeThumbnails(galId, nbCol) {
-    var picturePadding = parseInt($(".gallery-picture").css("border-left-width"));
+    if (galId == '') alert('Error : no id defined for gallery');
+    var picturePadding = parseInt($(".gallery-picture").css("border-left-width")) + parseInt($(".gallery-picture").css("margin-left"));
+    alert(picturePadding);
     var galleryWidth = parseInt($("#" + galId).width());
     var pictureWidth = parseInt((galleryWidth / nbCol) - 2*picturePadding);
 

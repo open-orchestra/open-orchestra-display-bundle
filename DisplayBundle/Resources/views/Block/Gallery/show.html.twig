@@ -1,6 +1,6 @@
 <div id="{{galleryId}}" class="gallery {{ galleryClass }}">
     <div>
-    {% for picture in pictures %}<a class="fancybox-thumb" rel="fancybox-thumb" href="{{ media_preview(picture) }}" title="Not defined for the moment"><img src="{{ media_preview(picture) }}" alt="" class="gallery-picture" /></a>{% endfor %}
+    {% for picture in pictures %}<a class="fancybox-thumb" rel="fancybox-thumb" href="{{ get_media_format_url(picture, imageFormat) }}" title="Title not defined"><img src="{{ get_media_format_url(picture, thumbnailFormat) }}" alt="" class="gallery-picture" /></a>{% endfor %}
     </div>
 </div>
 
