@@ -14,6 +14,9 @@ class GalleryStrategy extends AbstractStrategy
 {
     protected $request;
 
+    /**
+     * @param RequestStack $requestStack
+     */
     public function __construct(RequestStack $requestStack)
     {
         $this->request = $requestStack->getCurrentRequest();
@@ -40,8 +43,42 @@ class GalleryStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $queryParts = explode('&', $this->request->getQueryString());
+        $params = $this->getParams();
+
+        $attributes = $block->getAttributes();
+        $curPage = $this->request->get('page');
+        if (!$curPage) {
+            $curPage = 1;
+        }
+
+        return $this->render(
+            'PHPOrchestraDisplayBundle:Block/Gallery:show.html.twig',
+            array(
+                'galleryClass' => $block->getClass(),
+                'galleryId' => $block->getId(),
+                'pictures' => $this->filterMedias($attributes['pictures'], $curPage, $attributes['nb_items']),
+                'nbColumns' => $attributes['nb_columns'],
+                'thumbnailFormat' => $attributes['thumbnail_format'],
+                'imageFormat' => $attributes['image_format'],
+                'nbPages' => ceil(count($attributes['pictures']) / $attributes['nb_items']),
+                'params' => $params,
+                'curPage' => $curPage,
+                'url' => rtrim($this->request->getUri(), $this->request->getQueryString())
+            )
+        );
+    }
+
+    /**
+     * Generate an indexed array containing query parameters
+     * formatted as (paramName => paramValue)
+     * 
+     * @return array
+     */
+    protected function getParams()
+    {
         $params = array();
+
+        $queryParts = explode('&', $this->request->getQueryString());
         foreach ($queryParts as $parameter) {
             $explodedParameter = explode('=', $parameter);
             if (count($explodedParameter) == 2) {
@@ -49,23 +86,30 @@ class GalleryStrategy extends AbstractStrategy
             }
         }
 
-        $attributes = $block->getAttributes();
+        return $params;
+    }
 
-        return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Gallery:show.html.twig',
-            array(
-                'galleryClass' => $block->getClass(),
-                'galleryId' => $block->getId(),
-                'pictures' => $attributes['pictures'],
-                'nbColumns' => $attributes['nb_columns'],
-                'thumbnailFormat' => $attributes['thumbnail_format'],
-                'imageFormat' => $attributes['image_format'],
-                'nbPages' => ceil(count($attributes['pictures']) / $attributes['nb_items']),
-                'params' => $params,
-                'curPage' => ($curPage = $this->request->get('page')) ? $curPage : 1,
-                'url' => rtrim($this->request->getUri(), $this->request->getQueryString())
-            )
-        );
+    /**
+     * Filter medias to display
+     * 
+     * @param array $medias
+     * @param int   $curPage
+     * @param int   $nbItems
+     * 
+     * @return array
+     */
+    protected function filterMedias($medias, $curPage, $nbItems)
+    {
+        $filteredMedias = array();
+        $offset = ($curPage - 1)* $nbItems;
+        for (
+            $i = $offset;
+            $i < $offset + $nbItems && isset($medias[$i]);
+            $i++
+        ) {
+            $filteredMedias[] = $medias[$i];
+        }
+        return $filteredMedias;
     }
 
     /**
