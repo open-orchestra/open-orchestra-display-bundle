@@ -60,7 +60,7 @@ class GalleryStrategy extends AbstractStrategy
                 'nbColumns' => $attributes['nb_columns'],
                 'thumbnailFormat' => $attributes['thumbnail_format'],
                 'imageFormat' => $attributes['image_format'],
-                'nbPages' => ceil(count($attributes['pictures']) / $attributes['nb_items']),
+                'nbPages' => ($attributes['nb_items'] == 0) ? 1 : ceil(count($attributes['pictures']) / $attributes['nb_items']),
                 'params' => $params,
                 'curPage' => $curPage,
                 'url' => rtrim($this->request->getUri(), $this->request->getQueryString())
@@ -100,6 +100,10 @@ class GalleryStrategy extends AbstractStrategy
      */
     protected function filterMedias($medias, $curPage, $nbItems)
     {
+        if (0 == $nbItems) {
+            return $medias;
+        }
+
         $filteredMedias = array();
         $offset = ($curPage - 1)* $nbItems;
         for (
