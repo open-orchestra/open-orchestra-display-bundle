@@ -8,3 +8,9 @@ php_orchestra_display:
         fr: Français
     gmap:
         enlarge: Enlarge the map
+    twig:
+        navigator:
+            first: First
+            last: Last
+            previous: << Pevious
+            next: Next >>
