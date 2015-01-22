@@ -108,7 +108,9 @@ class NavigatorExtension extends \Twig_Extension
 
         if (is_array($queryParams)) {
             foreach ($queryParams as $key => $value) {
-                $queryStringParts[] = $key . '=' . $value;
+                if ($key != 'page') {
+                    $queryStringParts[] = $key . '=' . $value;
+                }
             }
         }
 

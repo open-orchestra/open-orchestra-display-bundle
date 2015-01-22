@@ -5,12 +5,20 @@ namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class GalleryStrategy
  */
 class GalleryStrategy extends AbstractStrategy
 {
+    protected $request;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->request = $requestStack->getCurrentRequest();
+    }
+
     /**
      * Check if the strategy support this block
      *
@@ -32,6 +40,15 @@ class GalleryStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
+        $queryParts = explode('&', $this->request->getQueryString());
+        $params = array();
+        foreach ($queryParts as $parameter) {
+            $explodedParameter = explode('=', $parameter);
+            if (count($explodedParameter) == 2) {
+                $params[$explodedParameter[0]] = $explodedParameter[1];
+            }
+        }
+
         $attributes = $block->getAttributes();
 
         return $this->render(
@@ -41,9 +58,11 @@ class GalleryStrategy extends AbstractStrategy
                 'galleryId' => $block->getId(),
                 'pictures' => $attributes['pictures'],
                 'nbColumns' => $attributes['nb_columns'],
-                'nbItems' => $attributes['nb_items'],
                 'thumbnailFormat' => $attributes['thumbnail_format'],
-                'imageFormat' => $attributes['image_format']
+                'imageFormat' => $attributes['image_format'],
+                'nbPages' => ceil(count($attributes['pictures']) / $attributes['nb_items']),
+                'params' => $params,
+                'curPage' => $this->request->get('page')
             )
         );
     }
