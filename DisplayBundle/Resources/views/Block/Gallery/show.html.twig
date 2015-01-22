@@ -1,9 +1,10 @@
-{{ navigator('http://demo-phporchestra.dev/app_dev.php/page-start-orchestra', nbPages, curPage, params) }}
-
 <div id="{{galleryId}}" class="gallery {{ galleryClass }}">
     <div>
     {% for picture in pictures %}<a class="fancybox-thumb" rel="fancybox-thumb" href="{{ get_media_format_url(picture, imageFormat) }}" title="Title not defined"><img src="{{ get_media_format_url(picture, thumbnailFormat) }}" alt="" class="gallery-picture" /></a>{% endfor %}
     </div>
+</div>
+<div class="gallery-navigator">
+    {{ navigator(url, nbPages, curPage, params) }}
 </div>
 
 <script type="text/javascript">

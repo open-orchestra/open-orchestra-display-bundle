@@ -40,3 +40,32 @@ div.fancybox-skin {
 .fancybox-image {
     border:1px solid #FFFFFF;
 }
+
+.gallery-navigator {
+    background-color:#000000;
+    color:#fff;
+    padding:4px;
+    text-align:center;
+}
+
+.gallery-navigator a {
+    font-size:14px;
+    color:#888888;
+}
+
+.gallery-navigator a:hover {
+    color:#FFFFFF;
+}
+
+.gallery-navigator .navigatorShortcut1 {
+}
+
+.gallery-navigator .navigatorShortcut2 {
+}
+
+.gallery-navigator .navigatorPage {
+}
+
+.gallery-navigator .navigatorCurrent {
+    font-size:16px;
+}

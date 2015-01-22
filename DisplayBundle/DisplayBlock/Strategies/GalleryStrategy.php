@@ -62,7 +62,8 @@ class GalleryStrategy extends AbstractStrategy
                 'imageFormat' => $attributes['image_format'],
                 'nbPages' => ceil(count($attributes['pictures']) / $attributes['nb_items']),
                 'params' => $params,
-                'curPage' => $this->request->get('page')
+                'curPage' => ($curPage = $this->request->get('page')) ? $curPage : 1,
+                'url' => rtrim($this->request->getUri(), $this->request->getQueryString())
             )
         );
     }
