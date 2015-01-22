@@ -11,6 +11,9 @@ class NavigatorExtension extends \Twig_Extension
 {
     protected $translator;
 
+    /**
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
@@ -27,7 +30,7 @@ class NavigatorExtension extends \Twig_Extension
     }
 
     /**
-     * Render a navigation bar
+     * Render a customizable navigation bar
      * 
      * @param string $url
      * @param int    $nbPages

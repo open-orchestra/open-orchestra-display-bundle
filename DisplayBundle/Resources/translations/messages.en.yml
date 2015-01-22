@@ -14,3 +14,6 @@ php_orchestra_display:
             last: Last
             previous: << Pevious
             next: Next >>
+    block:
+        gallery:
+            no_title_defined: No title defined
