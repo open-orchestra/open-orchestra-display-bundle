@@ -36,9 +36,7 @@ class ContentStrategy extends AbstractStrategy
     public function support(BlockInterface $block)
     {
         return DisplayBlockInterface::CONTENT == $block->getComponent() &&
-            !is_null($this->request->get('module_parameters')) &&
-            is_array($this->request->get('module_parameters')) &&
-            count($this->request->get('module_parameters')) > 0;
+            array_key_exists('newsId', $this->request->get('module_parameters'));
     }
 
     /**
@@ -52,7 +50,7 @@ class ContentStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
 
-        $content = $this->contentRepository->findOneByContentId($this->request->get('module_parameters')[0]);
+        $content = $this->contentRepository->findOneByContentId($this->request->get('module_parameters')['newsId']);
 
         if ($content != null) {
             return $this->render(
