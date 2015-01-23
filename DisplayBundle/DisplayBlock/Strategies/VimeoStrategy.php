@@ -71,7 +71,7 @@ class VimeoStrategy extends AbstractStrategy
             $urlParams['badge'] = 0;
         }
         if ($attributes['color'] !== '') {
-            $urlParams['color'] = $attributes['color'];
+            $urlParams['color'] = str_replace('#', '', $attributes['color']);
         }
 
         $url = "//player.vimeo.com/video/" . $attributes['videoId'] ."?" . http_build_query($urlParams, '', '&amp;');
