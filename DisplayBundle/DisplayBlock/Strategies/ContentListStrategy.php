@@ -43,7 +43,6 @@ class ContentListStrategy extends AbstractStrategy
             'contents' => $contents,
             'class' => $attributes['class'],
             'id' => $attributes['id'],
-            'url' => $this->router->generate($attributes['url']),
             'characterNumber' => $attributes['characterNumber'],
         );
 
