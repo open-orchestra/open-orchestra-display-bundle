@@ -1,10 +1,10 @@
 <div class="{{ class }}" id="{{ id }}">
     {% for content in contents %}
         <div>
-            <span class="{{ content.attributes.values.1.name }}">{{ content.attributes.values.1.value }}</span>
+            <span class="{{ content.attributes.1.name }}">{{ content.attributes.1.value }}</span>
             <h2>{{ content.name }}</h2>
             <p>
-                {{ content.attributes.values.4.value | truncate(characterNumber, true, '...') }}
+                {{ content.attributes.4.value | truncate(characterNumber, true, '...') }}
             </p>
 
             {% if url is defined %}
