@@ -107,18 +107,10 @@ class NavigatorExtension extends \Twig_Extension
      */
     protected function prepareQueryString($queryParameters)
     {
-        $parameters = array();
+        unset($queryParameters[self::PARAMETER_PAGE]);
+        $queryParameters[self::PARAMETER_PAGE] = '';
 
-        if (is_array($queryParameters)) {
-            foreach ($queryParameters as $key => $value) {
-                if (self::PARAMETER_PAGE != $key) {
-                    $parameters[$key] = $value;
-                }
-            }
-        }
-        $parameters[self::PARAMETER_PAGE] = '';
-
-        return '?' . http_build_query($parameters);
+        return '?' . http_build_query($queryParameters);
     }
 
     /**

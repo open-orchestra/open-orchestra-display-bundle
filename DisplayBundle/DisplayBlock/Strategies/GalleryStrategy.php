@@ -76,18 +76,10 @@ class GalleryStrategy extends AbstractStrategy
      */
     protected function getParameters()
     {
-        $parameters = array();
         $queryParams = $this->request->query->all();
+        unset($queryParams['module_parameters']);
 
-        if (is_array($queryParams)) {
-            foreach ($queryParams as $key => $value) {
-                if ($key != 'module_parameters') {
-                    $parameters[$key] = $value;
-                }
-            }
-        }
-
-        return $parameters;
+        return $queryParams;
     }
 
     /**
@@ -95,21 +87,21 @@ class GalleryStrategy extends AbstractStrategy
      * 
      * @param array $medias
      * @param int   $currentPage
-     * @param int   $nbItems
+     * @param int   $itemCount
      * 
      * @return array
      */
-    protected function filterMedias($medias, $currentPage, $nbItems)
+    protected function filterMedias($medias, $currentPage, $itemCount)
     {
-        if (0 == $nbItems) {
+        if (0 == $itemCount) {
             return $medias;
         }
 
         $filteredMedias = array();
-        $offset = ($currentPage - 1)* $nbItems;
+        $offset = ($currentPage - 1)* $itemCount;
         for (
             $i = $offset;
-            $i < $offset + $nbItems && isset($medias[$i]);
+            $i < $offset + $itemCount && isset($medias[$i]);
             $i++
         ) {
             $filteredMedias[] = $medias[$i];
