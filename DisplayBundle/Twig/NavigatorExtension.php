@@ -9,6 +9,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class NavigatorExtension extends \Twig_Extension
 {
+    CONST PARAMETER_PAGE = 'page';
+
     protected $translator;
 
     /**
@@ -32,31 +34,31 @@ class NavigatorExtension extends \Twig_Extension
     /**
      * Render a customizable navigation bar
      * 
-     * @param int    $nbPages
-     * @param int    $curPage
-     * @param array  $queryParams
+     * @param int    $numberOfPages
+     * @param int    $currentPage
+     * @param array  $queryParameters
      * @param int    $maxPagesDisplayedAroundCurrent
      * 
      * @return string
      */
-    public function renderNav($nbPages, $curPage = 1, $queryParams = array(), $maxPagesDisplayedAroundCurrent = 2)
+    public function renderNav($numberOfPages, $currentPage = 1, $queryParameters = array(), $maxPagesDisplayedAroundCurrent = 2)
     {
         $navigation = array();
 
         $firstPageDisplayed = 1;
-        $lastPageDisplayed = (int)$nbPages;
+        $lastPageDisplayed = (int)$numberOfPages;
 
-        $leftPartUrl = $this->prepareQueryString($queryParams);
+        $leftPartUrl = $this->prepareQueryString($queryParameters);
 
-        if ($curPage > $maxPagesDisplayedAroundCurrent) {
-            $firstPageDisplayed = $curPage - $maxPagesDisplayedAroundCurrent;
+        if ($currentPage > $maxPagesDisplayedAroundCurrent) {
+            $firstPageDisplayed = $currentPage - $maxPagesDisplayedAroundCurrent;
             $navigation[] = '<a href="' . $leftPartUrl . '1" class="navigatorShortcut1">'
                 . $this->translator->trans('php_orchestra_display.twig.navigator.first')
                 . '</a>';
         }
 
-        if ($curPage > 1) {
-            $navigation[] = '<a href="' . $leftPartUrl . ($curPage - 1) . ' "class="navigatorShortcut2">'
+        if ($currentPage > 1) {
+            $navigation[] = '<a href="' . $leftPartUrl . ($currentPage - 1) . ' "class="navigatorShortcut2">'
                 . $this->translator->trans('php_orchestra_display.twig.navigator.previous')
                 . '</a>';
         }
@@ -65,30 +67,30 @@ class NavigatorExtension extends \Twig_Extension
             $navigation[] = '...';
         }
 
-        if ($curPage < $nbPages - $maxPagesDisplayedAroundCurrent) {
-            $lastPageDisplayed = $curPage + $maxPagesDisplayedAroundCurrent;
+        if ($currentPage < $numberOfPages - $maxPagesDisplayedAroundCurrent) {
+            $lastPageDisplayed = $currentPage + $maxPagesDisplayedAroundCurrent;
         }
 
         for ($i = $firstPageDisplayed; $i <= $lastPageDisplayed; $i++) {
-            if ($i == $curPage) {
+            if ($i == $currentPage) {
                 $navigation[] = '<span class="navigatorCurrent">' . $i . '</span>';
             } else {
                 $navigation[] = ' <a href="' . $leftPartUrl . $i . '" class="navigatorPage">' . $i . '</a>';
             }
         }
 
-        if ($lastPageDisplayed < $nbPages) {
+        if ($lastPageDisplayed < $numberOfPages) {
             $navigation[] = '...';
         }
 
-        if ($curPage < $nbPages) {
-            $navigation[]= '<a href="' . $leftPartUrl . ($curPage + 1) . '" class="navigatorShortcut2">'
+        if ($currentPage < $numberOfPages) {
+            $navigation[]= '<a href="' . $leftPartUrl . ($currentPage + 1) . '" class="navigatorShortcut2">'
                 . $this->translator->trans('php_orchestra_display.twig.navigator.next')
                 . '</a>';
         }
 
-        if ($curPage < $nbPages - $maxPagesDisplayedAroundCurrent) {
-            $navigation[]= '<a href="' . $leftPartUrl . $nbPages . '" class="navigatorShortcut1">'
+        if ($currentPage < $numberOfPages - $maxPagesDisplayedAroundCurrent) {
+            $navigation[]= '<a href="' . $leftPartUrl . $numberOfPages . '" class="navigatorShortcut1">'
                 . $this->translator->trans('php_orchestra_display.twig.navigator.last')
                 . '</a>';
         }
@@ -99,24 +101,24 @@ class NavigatorExtension extends \Twig_Extension
     /**
      * Generate navigator queryString without page number
      * 
-     * @param array  $queryParams
+     * @param array  $queryParameters
      * 
      * @return string
      */
-    protected function prepareQueryString($queryParams)
+    protected function prepareQueryString($queryParameters)
     {
-        $params = array();
+        $parameters = array();
 
-        if (is_array($queryParams)) {
-            foreach ($queryParams as $key => $value) {
-                if ($key != 'page') {
-                    $params[$key] = $value;
+        if (is_array($queryParameters)) {
+            foreach ($queryParameters as $key => $value) {
+                if (self::PARAMETER_PAGE != $key) {
+                    $parameters[$key] = $value;
                 }
             }
         }
-        $params['page'] = '';
+        $parameters[self::PARAMETER_PAGE] = '';
 
-        return '?' . http_build_query($params);
+        return '?' . http_build_query($parameters);
     }
 
     /**

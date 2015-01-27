@@ -8,9 +8,9 @@
        ><img src="{{ get_media_format_url(picture, thumbnailFormat) }}" alt="" class="gallery-picture" /></a>{% endfor %}
     </div>
 </div>
-{% if (nbPages > 1) %}
+{% if (numberOfPages > 1) %}
     <div class="gallery-navigator">
-        {{ navigator(nbPages, curPage, params) }}
+        {{ navigator(numberOfPages, currentPage, parameters) }}
     </div>
 {%endif%}
 
@@ -18,7 +18,7 @@
     if (typeof orchestraGalCol == 'undefined') {
         var orchestraGalCol = {};
     }
-    orchestraGalCol['{{galleryId}}'] = {{ nbColumns }};
+    orchestraGalCol['{{galleryId}}'] = {{ numberOfColumns }};
 
     function callCss(file){
         var linkElement = document.createElement("link");

@@ -6,6 +6,7 @@ use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
+use PHPOrchestra\DisplayBundle\Twig\NavigatorExtension;
 
 /**
  * Class GalleryStrategy
@@ -43,12 +44,12 @@ class GalleryStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $params = $this->getParams();
+        $parameters = $this->getParameters();
 
         $attributes = $block->getAttributes();
-        $curPage = $this->request->get('page');
-        if (!$curPage) {
-            $curPage = 1;
+        $currentPage = $this->request->get(NavigatorExtension::PARAMETER_PAGE);
+        if (!$currentPage) {
+            $currentPage = 1;
         }
 
         return $this->render(
@@ -56,13 +57,13 @@ class GalleryStrategy extends AbstractStrategy
             array(
                 'galleryClass' => $block->getClass(),
                 'galleryId' => $block->getId(),
-                'pictures' => $this->filterMedias($attributes['pictures'], $curPage, $attributes['nb_items']),
-                'nbColumns' => $attributes['nb_columns'],
+                'pictures' => $this->filterMedias($attributes['pictures'], $currentPage, $attributes['nb_items']),
+                'numberOfColumns' => $attributes['nb_columns'],
                 'thumbnailFormat' => $attributes['thumbnail_format'],
                 'imageFormat' => $attributes['image_format'],
-                'nbPages' => ($attributes['nb_items'] == 0) ? 1 : ceil(count($attributes['pictures']) / $attributes['nb_items']),
-                'params' => $params,
-                'curPage' => $curPage
+                'numberOfPages' => ($attributes['nb_items'] == 0) ? 1 : ceil(count($attributes['pictures']) / $attributes['nb_items']),
+                'parameters' => $parameters,
+                'currentPage' => $currentPage
             )
         );
     }
@@ -73,39 +74,39 @@ class GalleryStrategy extends AbstractStrategy
      * 
      * @return array
      */
-    protected function getParams()
+    protected function getParameters()
     {
-        $params = array();
+        $parameters = array();
         $queryParams = $this->request->query->all();
 
         if (is_array($queryParams)) {
             foreach ($queryParams as $key => $value) {
                 if ($key != 'module_parameters') {
-                    $params[$key] = $value;
+                    $parameters[$key] = $value;
                 }
             }
         }
 
-        return $params;
+        return $parameters;
     }
 
     /**
      * Filter medias to display
      * 
      * @param array $medias
-     * @param int   $curPage
+     * @param int   $currentPage
      * @param int   $nbItems
      * 
      * @return array
      */
-    protected function filterMedias($medias, $curPage, $nbItems)
+    protected function filterMedias($medias, $currentPage, $nbItems)
     {
         if (0 == $nbItems) {
             return $medias;
         }
 
         $filteredMedias = array();
-        $offset = ($curPage - 1)* $nbItems;
+        $offset = ($currentPage - 1)* $nbItems;
         for (
             $i = $offset;
             $i < $offset + $nbItems && isset($medias[$i]);
