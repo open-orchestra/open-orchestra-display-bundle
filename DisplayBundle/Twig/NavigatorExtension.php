@@ -119,7 +119,7 @@ class NavigatorExtension extends \Twig_Extension
 
         $queryStringParts[] = 'page=';
 
-        return '?' . implode('&', $queryStringParts);
+        return $url . '?' . implode('&', $queryStringParts);
     }
 
     /**
