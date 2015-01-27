@@ -62,8 +62,7 @@ class GalleryStrategy extends AbstractStrategy
                 'imageFormat' => $attributes['image_format'],
                 'nbPages' => ($attributes['nb_items'] == 0) ? 1 : ceil(count($attributes['pictures']) / $attributes['nb_items']),
                 'params' => $params,
-                'curPage' => $curPage,
-                'url' => rtrim($this->request->getUri(), $this->request->getQueryString())
+                'curPage' => $curPage
             )
         );
     }
@@ -77,12 +76,13 @@ class GalleryStrategy extends AbstractStrategy
     protected function getParams()
     {
         $params = array();
+        $queryParams = $this->request->query->all();
 
-        $queryParts = explode('&', $this->request->getQueryString());
-        foreach ($queryParts as $parameter) {
-            $explodedParameter = explode('=', $parameter);
-            if (count($explodedParameter) == 2) {
-                $params[$explodedParameter[0]] = $explodedParameter[1];
+        if (is_array($queryParams)) {
+            foreach ($queryParams as $key => $value) {
+                if ($key != 'module_parameters') {
+                    $params[$key] = $value;
+                }
             }
         }
 

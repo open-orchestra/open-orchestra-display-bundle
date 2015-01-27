@@ -32,7 +32,6 @@ class NavigatorExtension extends \Twig_Extension
     /**
      * Render a customizable navigation bar
      * 
-     * @param string $url
      * @param int    $nbPages
      * @param int    $curPage
      * @param array  $queryParams
@@ -40,14 +39,14 @@ class NavigatorExtension extends \Twig_Extension
      * 
      * @return string
      */
-    public function renderNav($url, $nbPages, $curPage = 1, $queryParams = array(), $maxPagesDisplayedAroundCurrent = 2)
+    public function renderNav($nbPages, $curPage = 1, $queryParams = array(), $maxPagesDisplayedAroundCurrent = 2)
     {
         $navigation = array();
 
         $firstPageDisplayed = 1;
         $lastPageDisplayed = (int)$nbPages;
 
-        $leftPartUrl = $this->prepareUrl($url, $queryParams);
+        $leftPartUrl = $this->prepareQueryString($queryParams);
 
         if ($curPage > $maxPagesDisplayedAroundCurrent) {
             $firstPageDisplayed = $curPage - $maxPagesDisplayedAroundCurrent;
@@ -98,28 +97,26 @@ class NavigatorExtension extends \Twig_Extension
     }
 
     /**
-     * Generate navigator url without page number
+     * Generate navigator queryString without page number
      * 
-     * @param string $url
      * @param array  $queryParams
      * 
      * @return string
      */
-    protected function prepareUrl($url, $queryParams)
+    protected function prepareQueryString($queryParams)
     {
-        $queryStringParts = array();
+        $params = array();
 
         if (is_array($queryParams)) {
             foreach ($queryParams as $key => $value) {
                 if ($key != 'page') {
-                    $queryStringParts[] = $key . '=' . $value;
+                    $params[$key] = $value;
                 }
             }
         }
+        $params['page'] = '';
 
-        $queryStringParts[] = 'page=';
-
-        return $url . '?' . implode('&', $queryStringParts);
+        return '?' . http_build_query($params);
     }
 
     /**

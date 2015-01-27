@@ -40,9 +40,9 @@ class NavigatorExtensionTest extends \PHPUnit_Framework_TestCase
      * 
      * @dataProvider provideNavParameters
      */
-    public function testRenderNav($url, $nbPages, $curPage, $params, $maxPages, $expected)
+    public function testRenderNav($nbPages, $curPage, $params, $maxPages, $expected)
     {
-        $navigator = $this->navigator->renderNav($url, $nbPages, $curPage, $params, $maxPages);
+        $navigator = $this->navigator->renderNav($nbPages, $curPage, $params, $maxPages);
         $this->assertSame($navigator, $expected);
     }
 
@@ -51,16 +51,16 @@ class NavigatorExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function provideNavParameters()
     {
-        $full = '<a href="http://www.test.com?var1=val1&var2=val2&page=1" class="navigatorShortcut1">First</a> <a href="http://www.test.com?var1=val1&var2=val2&page=4 "class="navigatorShortcut2">Previous</a> ...  <a href="http://www.test.com?var1=val1&var2=val2&page=4" class="navigatorPage">4</a> <span class="navigatorCurrent">5</span>  <a href="http://www.test.com?var1=val1&var2=val2&page=6" class="navigatorPage">6</a> ... <a href="http://www.test.com?var1=val1&var2=val2&page=6" class="navigatorShortcut2">Next</a> <a href="http://www.test.com?var1=val1&var2=val2&page=10" class="navigatorShortcut1">Last</a>';
-        $firstPage = '<span class="navigatorCurrent">1</span>  <a href="http://www.test2.com?var1=val1&page=2" class="navigatorPage">2</a>  <a href="http://www.test2.com?var1=val1&page=3" class="navigatorPage">3</a> ... <a href="http://www.test2.com?var1=val1&page=2" class="navigatorShortcut2">Next</a> <a href="http://www.test2.com?var1=val1&page=10" class="navigatorShortcut1">Last</a>';
-        $lastPage = '<a href="http://www.test3.com?var2=val2&page=1" class="navigatorShortcut1">First</a> <a href="http://www.test3.com?var2=val2&page=9 "class="navigatorShortcut2">Previous</a> ...  <a href="http://www.test3.com?var2=val2&page=8" class="navigatorPage">8</a>  <a href="http://www.test3.com?var2=val2&page=9" class="navigatorPage">9</a> <span class="navigatorCurrent">10</span>';
+        $full = '<a href="?var1=val1&var2=val2&page=1" class="navigatorShortcut1">First</a> <a href="?var1=val1&var2=val2&page=4 "class="navigatorShortcut2">Previous</a> ...  <a href="?var1=val1&var2=val2&page=4" class="navigatorPage">4</a> <span class="navigatorCurrent">5</span>  <a href="?var1=val1&var2=val2&page=6" class="navigatorPage">6</a> ... <a href="?var1=val1&var2=val2&page=6" class="navigatorShortcut2">Next</a> <a href="?var1=val1&var2=val2&page=10" class="navigatorShortcut1">Last</a>';
+        $firstPage = '<span class="navigatorCurrent">1</span>  <a href="?var1=val1&page=2" class="navigatorPage">2</a>  <a href="?var1=val1&page=3" class="navigatorPage">3</a> ... <a href="?var1=val1&page=2" class="navigatorShortcut2">Next</a> <a href="?var1=val1&page=10" class="navigatorShortcut1">Last</a>';
+        $lastPage = '<a href="?var2=val2&page=1" class="navigatorShortcut1">First</a> <a href="?var2=val2&page=9 "class="navigatorShortcut2">Previous</a> ...  <a href="?var2=val2&page=8" class="navigatorPage">8</a>  <a href="?var2=val2&page=9" class="navigatorPage">9</a> <span class="navigatorCurrent">10</span>';
         $onePage = '<span class="navigatorCurrent">1</span>';
 
         return array(
-            array('http://www.test.com', 10, 5, array('var1' => 'val1', 'var2' => 'val2'), 1, $full),
-            array('http://www.test2.com', 10, 1, array('var1' => 'val1'), 2, $firstPage),
-            array('http://www.test3.com', 10, 10, array('page' => 10, 'var2' => 'val2'), 2, $lastPage),
-            array('http://www.test4.com', 1, 1, array(), 2, $onePage),
+            array(10, 5, array('var1' => 'val1', 'var2' => 'val2'), 1, $full),
+            array(10, 1, array('var1' => 'val1'), 2, $firstPage),
+            array(10, 10, array('page' => 10, 'var2' => 'val2'), 2, $lastPage),
+            array(1, 1, array(), 2, $onePage),
         );
     }
 }
