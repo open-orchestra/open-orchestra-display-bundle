@@ -8,3 +8,12 @@ php_orchestra_display:
         fr: Français
     gmap:
         enlarge: Agrandir le plan
+    twig:
+        navigator:
+            first: Premier
+            last: Dernier
+            previous: << Précédent
+            next: Suivant >>
+    block:
+        gallery:
+            no_title_defined: Pas de titre défini

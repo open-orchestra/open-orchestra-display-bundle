@@ -27,6 +27,8 @@ services:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.gallery:
         class: %php_orchestra_display.display.gallery.class%
+        arguments:
+            - @request_stack
         tags:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.contact:

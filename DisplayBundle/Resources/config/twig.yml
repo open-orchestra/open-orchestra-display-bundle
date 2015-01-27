@@ -1,9 +1,16 @@
 parameters:
     php_orchestra_cms.twig.tree.extension.class: PHPOrchestra\DisplayBundle\Twig\TreeHelperExtension
+    php_orchestra_cms.twig.navigator.extension.class: PHPOrchestra\DisplayBundle\Twig\NavigatorExtension
 
 services:
     php_orchestra_cms.twig.tree.extension:
         class: %php_orchestra_cms.twig.tree.extension.class%
         arguments: [@php_orchestra_display.manager.tree]
+        tags:
+            - { name: twig.extension }
+    php_orchestra_cms.twig.navigator.extension:
+        class: %php_orchestra_cms.twig.navigator.extension.class%
+        arguments:
+            - @translator
         tags:
             - { name: twig.extension }
