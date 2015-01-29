@@ -1,8 +1,8 @@
 requirejs(
-    ['../../../fancybox/source/jquery.fancybox.pack',
-     '../../../fancybox/source/helpers/jquery.fancybox-buttons',
-     '../../../fancybox/source/helpers/jquery.fancybox-media',
-     '../../../fancybox/source/helpers/jquery.fancybox-thumbs'
+    ['../../../libs/fancybox/source/jquery.fancybox.pack',
+     '../../../libs/fancybox/source/helpers/jquery.fancybox-buttons',
+     '../../../libs/fancybox/source/helpers/jquery.fancybox-media',
+     '../../../libs/fancybox/source/helpers/jquery.fancybox-thumbs'
     ],
     function () {
 

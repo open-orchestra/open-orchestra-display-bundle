@@ -14,18 +14,13 @@
     </div>
 {%endif%}
 
-<script src="/bundles/phporchestradisplay/js/requireCss.js"></script>
 
 <script type="text/javascript">
     if (typeof orchestraGalCol == 'undefined') {
         var orchestraGalCol = {};
     }
     orchestraGalCol['{{galleryId}}'] = {{ numberOfColumns }};
-
-    loadCss('/bundles/phporchestradisplay/fancybox/source/jquery.fancybox.css?v=2.1.5');
-    loadCss('/bundles/phporchestradisplay/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5');
-    loadCss('/bundles/phporchestradisplay/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7');
-    loadCss('/bundles/phporchestradisplay/block/Gallery/css/style.css');
 </script>
 
-<script data-main="/bundles/phporchestradisplay/block/Gallery/js/script.js" src="/bundles/phporchestradisplay/js/require.js"></script>
+<script data-main="/bundles/phporchestradisplay/block/Gallery/js/loadJs.js" src="/bundles/phporchestradisplay/js/require.js"></script>
+<script src="/bundles/phporchestradisplay/block/Gallery/js/loadCss.js"></script>
