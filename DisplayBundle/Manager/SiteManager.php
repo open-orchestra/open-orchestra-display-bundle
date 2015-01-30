@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class SiteManager implements CurrentSiteIdInterface
 {
-    protected $siteId = '1';
+    protected $siteId = '0';
     protected $requestStack;
     protected $siteRepository;
 
@@ -27,7 +27,11 @@ class SiteManager implements CurrentSiteIdInterface
         $request = $this->requestStack->getCurrentRequest();
 
         if (!is_null($request)) {
-            $this->siteId = $request->server->get('SYMFONY__SITE');
+            $siteId = $request->server->get('SYMFONY__SITE');
+            $site = $this->siteRepository->findOneBySiteIdNotDeleted($siteId);
+            if ($site) {
+                $this->siteId = $request->server->get('SYMFONY__SITE');
+            }
         }
     }
 
