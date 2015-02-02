@@ -3,14 +3,26 @@
 namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
+use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class AudienceAnalysisStrategy
  */
 class AudienceAnalysisStrategy extends AbstractStrategy
 {
+    protected $request;
+
+    /**
+     * @param RequestStack $requestStack
+     */
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->request = $requestStack->getCurrentRequest();
+    }
+
     /**
      * Check if the strategy support this block
      *
@@ -32,7 +44,15 @@ class AudienceAnalysisStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        return $this->render('PHPOrchestraDisplayBundle:Block/AudienceAnalysis:show.html.twig');
+        $attributes = $block->getAttributes();
+
+        return $this->render(
+            'PHPOrchestraDisplayBundle:Block/AudienceAnalysis:' . $attributes['tag_type'] . '.html.twig',
+            array(
+                'attributes' => $attributes,
+                'page' => $this->request->attributes->get('nodeId')
+            )
+        );
     }
 
     /**

@@ -118,5 +118,7 @@ services:
             - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.audience_analysis:
         class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\AudienceAnalysisStrategy
+        arguments:
+            - @request_stack
         tags:
             - { name: php_orchestra_display.display_block.strategy }
