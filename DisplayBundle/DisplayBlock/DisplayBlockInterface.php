@@ -32,6 +32,7 @@ interface DisplayBlockInterface
     const VIMEO = 'vimeo';
     const GMAP = 'gmap';
     const ADDTHIS = 'add_this';
+    const AUDIENCE_ANALYSIS = 'audience_analysis';
 
     /**
      * Check if the strategy support this block
