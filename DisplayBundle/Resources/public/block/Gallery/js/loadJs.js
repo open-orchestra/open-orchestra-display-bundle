@@ -1,5 +1,7 @@
 requirejs(
-    ['../../../libs/fancybox/source/jquery.fancybox.pack',
+    [
+     '../../../libs/jquery-2.0.2.min',
+     '../../../libs/fancybox/source/jquery.fancybox.pack',
      '../../../libs/fancybox/source/helpers/jquery.fancybox-buttons',
      '../../../libs/fancybox/source/helpers/jquery.fancybox-media',
      '../../../libs/fancybox/source/helpers/jquery.fancybox-thumbs'

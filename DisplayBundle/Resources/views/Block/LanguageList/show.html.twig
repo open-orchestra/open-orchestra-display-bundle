@@ -2,10 +2,4 @@
     {{ form_widget(form) }}
 </div>
 
-<script>
-    $(document).ready(function(){
-        $('#language_choice').change(function(){
-            window.location = '/' + $('#language_choice option:selected').attr('value')
-        });
-    });
-</script>
+<script data-main="{{ asset('/bundles/phporchestradisplay/block/LanguageList/js/loadJs.js') }}" src="{{ asset('/bundles/phporchestradisplay/libs/require.js') }}"></script>
