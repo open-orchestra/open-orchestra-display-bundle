@@ -23,17 +23,7 @@
         document.head.appendChild(linkElement);
     }
 
-    function callJs(file){
-        var scriptElement = document.createElement("script");
-        scriptElement.type = "text/javascript";
-        scriptElement.src = file;
-        document.head.appendChild(scriptElement);
-    }
-
     callCss('/bundles/phporchestradisplay/block/Carrousel/css/style.css');
-
-    callJs('/bundles/phporchestradisplay/block/Carrousel/js/script.js');
-    callJs('/bundles/phporchestradisplay/jssor/js/jssor.core.js');
-    callJs('/bundles/phporchestradisplay/jssor/js/jssor.slider.js');
-    callJs('/bundles/phporchestradisplay/jssor/js/jssor.utils.js');
 </script>
+
+<script data-main="{{ asset('/bundles/phporchestradisplay/block/Carrousel/js/loadJs.js') }}" src="{{ asset('/bundles/phporchestradisplay/libs/require.js') }}"></script>

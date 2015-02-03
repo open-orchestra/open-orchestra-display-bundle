@@ -1,7 +1,16 @@
- jQuery(document).ready(function ($) {
-            var _SlideshowTransitions = [
-            //Fade
-            { $Duration: 1200, $Opacity: 2 }
+requirejs(
+    [
+     '../../../libs/jquery-2.0.2.min',
+     '../../../libs/jssor/jssor.core',
+     '../../../libs/jssor/jssor.slider',
+     '../../../libs/jssor/jssor.utils'
+    ],
+    function () {
+
+        $(document).ready(function(){
+/*            var _SlideshowTransitions = [
+                //Fade
+                { $Duration: 1200, $Opacity: 2 }
             ];
 
             var options = {
@@ -64,9 +73,11 @@
                 $(window).bind('resize', ScaleSlider);
             }
 
-
             //if (navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
             //    $(window).bind("orientationchange", ScaleSlider);
             //}
-            //responsive code end
+            //responsive code end*/
         });
+
+    }
+);
