@@ -53,14 +53,19 @@ class SiteManager implements CurrentSiteIdInterface
 
     /**
      * Get the current default language of the current site
+     * Return false if current site is off
      *
-     * @return string
+     * @return string|false
      */
     public function getCurrentSiteDefaultLanguage()
     {
         /** @var SiteInterface $site */
         $site = $this->siteRepository->findOneBySiteId($this->getCurrentSiteId());
 
-        return $site->getDefaultLanguage();
+        if ($site) {
+            return $site->getDefaultLanguage();
+        }
+
+        return false;
     }
 }
