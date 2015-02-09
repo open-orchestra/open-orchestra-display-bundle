@@ -7,8 +7,8 @@
                 {{ content.attributes.4.value | truncate(characterNumber, true, '...') }}
             </p>
 
-            {% if url is defined %}
-                <a href="{{ url }}/{{ content.contentId }}"></a>
+            {% if newsNodeId is defined %}
+                <a href="{{ url(newsNodeId, {'newsId' : content.contentId} ) }}"></a>
             {% endif %}
         </div>
     {% endfor %}

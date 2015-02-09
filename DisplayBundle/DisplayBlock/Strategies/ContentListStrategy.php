@@ -6,6 +6,7 @@ use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
 use PHPOrchestra\ModelInterface\Model\BlockInterface;
 use PHPOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
+use PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -14,17 +15,17 @@ use Symfony\Component\HttpFoundation\Response;
 class ContentListStrategy extends AbstractStrategy
 {
     protected $contentRepository;
-    protected $router;
+    protected $nodeRepository;
     protected $request;
 
     /**
      * @param ContentRepositoryInterface $contentRepository
-     * @param PhpOrchestraRouter         $router
+     * @param NodeRepositoryInterface    $nodeRepository
      */
-    public function __construct(ContentRepositoryInterface $contentRepository, PhpOrchestraRouter $router)
+    public function __construct(ContentRepositoryInterface $contentRepository, NodeRepositoryInterface $nodeRepository)
     {
         $this->contentRepository = $contentRepository;
-        $this->router = $router;
+        $this->nodeRepository = $nodeRepository;
     }
 
     /**
@@ -46,8 +47,8 @@ class ContentListStrategy extends AbstractStrategy
             'characterNumber' => $attributes['characterNumber'],
         );
 
-        if ('' != $attributes['url']) {
-            $parameters['url'] = $this->router->generate($attributes['url']);
+        if ('' != $attributes['newsNodeId']) {
+            $parameters['newsNodeId'] = $this->nodeRepository->findOneByNodeIdAndLanguageWithPublishedAndLastVersionAndSiteId($attributes['newsNodeId'])->getId();
         }
 
         return $this->render('PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);

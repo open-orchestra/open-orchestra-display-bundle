@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PhpOrchestraRouter extends Router
 {
     protected $nodeRepository;
+    protected $requestStack;
     protected $siteManager;
 
     /**
@@ -37,6 +38,7 @@ class PhpOrchestraRouter extends Router
 
         $this->nodeRepository = $container->get('php_orchestra_model.repository.node');
         $this->siteManager = $container->get('php_orchestra.manager.current_site');
+        $this->requestStack = $container->get('request_stack');
     }
 
     /**
@@ -55,6 +57,7 @@ class PhpOrchestraRouter extends Router
             $this->context,
             $this->nodeRepository,
             $this->siteManager,
+            $this->requestStack,
             $this->logger
         );
     }

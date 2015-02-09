@@ -9,4 +9,3 @@ services:
         class: %php_orchestra_display.manager.site.class%
         arguments:
             - @request_stack
-            - @php_orchestra_model.repository.site

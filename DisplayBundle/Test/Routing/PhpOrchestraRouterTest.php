@@ -18,6 +18,7 @@ class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        $requestStack = Phake::mock('Symfony\Component\HttpFoundation\RequestStack');
         $cacheService = Phake::mock('PHPOrchestra\BaseBundle\Cache\CacheManagerInterface');
         $nodeRepository = Phake::mock('PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface');
         $siteManager = Phake::mock('PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface');
@@ -30,6 +31,7 @@ class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
         Phake::when($container)->get('php_orchestra_model.repository.node')->thenReturn($nodeRepository);
         Phake::when($container)->get('php_orchestra_base.cache_manager')->thenReturn($cacheService);
         Phake::when($container)->get('php_orchestra.manager.current_site')->thenReturn($siteManager);
+        Phake::when($container)->get('request_stack')->thenReturn($requestStack);
 
         $this->router = new PhpOrchestraRouter(
             $container,
