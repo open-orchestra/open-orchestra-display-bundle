@@ -12,27 +12,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class SiteManager implements CurrentSiteIdInterface
 {
-    protected $siteId = '0';
+    protected $siteId;
     protected $requestStack;
-    protected $siteRepository;
+    protected $currentLanguage;
 
     /**
-     * @param RequestStack            $requestStack
-     * @param SiteRepositoryInterface $siteRepository
+     * @param RequestStack $requestStack
      */
-    public function __construct(RequestStack $requestStack, SiteRepositoryInterface $siteRepository)
+    public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
-        $this->siteRepository = $siteRepository;
-        $request = $this->requestStack->getCurrentRequest();
-
-        if (!is_null($request)) {
-            $siteId = $request->server->get('SYMFONY__SITE');
-            $site = $this->siteRepository->findOneBySiteIdNotDeleted($siteId);
-            if ($site) {
-                $this->siteId = $request->server->get('SYMFONY__SITE');
-            }
-        }
     }
 
     /**
@@ -40,6 +29,10 @@ class SiteManager implements CurrentSiteIdInterface
      */
     public function getCurrentSiteId()
     {
+        if (is_null($this->siteId)) {
+            $this->siteId = $this->requestStack->getMasterRequest()->get('siteId');
+        }
+
         return $this->siteId;
     }
 
@@ -59,13 +52,10 @@ class SiteManager implements CurrentSiteIdInterface
      */
     public function getCurrentSiteDefaultLanguage()
     {
-        /** @var SiteInterface $site */
-        $site = $this->siteRepository->findOneBySiteId($this->getCurrentSiteId());
-
-        if ($site) {
-            return $site->getDefaultLanguage();
+        if (is_null($this->currentLanguage)) {
+            $this->currentLanguage = $this->requestStack->getMasterRequest()->getLocale();
         }
 
-        return false;
+        return $this->currentLanguage;
     }
 }

@@ -6,6 +6,7 @@ use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use PHPOrchestra\ModelInterface\Model\NodeInterface;
 use PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RequestContext;
@@ -17,6 +18,7 @@ use Symfony\Component\Routing\RouteCollection;
 class PhpOrchestraUrlGenerator extends UrlGenerator
 {
     protected $nodeRepository;
+    protected $request;
     protected $siteManager;
 
     /**
@@ -26,6 +28,7 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
      * @param RequestContext          $context
      * @param NodeRepositoryInterface $nodeRepository
      * @param CurrentSiteIdInterface  $siteManager
+     * @param RequestStack            $requestStack
      * @param LoggerInterface         $logger
      */
     public function __construct(
@@ -33,14 +36,16 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
         RequestContext $context,
         NodeRepositoryInterface $nodeRepository,
         CurrentSiteIdInterface $siteManager,
+        RequestStack $requestStack,
         LoggerInterface $logger = null
     )
     {
-        $this->routes = $routes;
-        $this->context = $context;
-        $this->logger = $logger;
         $this->nodeRepository = $nodeRepository;
+        $this->request = $requestStack->getCurrentRequest();
         $this->siteManager = $siteManager;
+        $this->context = $context;
+        $this->routes = $routes;
+        $this->logger = $logger;
     }
 
     /**
@@ -55,7 +60,11 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
         try {
             $uri = parent::generate($name, $parameters, $referenceType);
         } catch (RouteNotFoundException $e) {
-            $uri = $this->dynamicGenerate($name, $parameters, $referenceType);
+            try{
+                $uri = parent::generate($this->request->get('aliasId', '0') . '_' . $name, $parameters, $referenceType);
+            } catch (RouteNotFoundException $e) {
+                $uri = $this->dynamicGenerate($name, $parameters, $referenceType);
+            }
         }
 
         return $uri;

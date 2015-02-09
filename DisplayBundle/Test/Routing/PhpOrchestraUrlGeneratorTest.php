@@ -11,10 +11,16 @@ use PHPOrchestra\ModelInterface\Model\NodeInterface;
  */
 class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var PhpOrchestraUrlGenerator
+     */
+    protected $generator;
+
     protected $node;
     protected $context;
-    protected $generator;
+    protected $request;
     protected $siteManager;
+    protected $requestStack;
     protected $nodeRepsitory;
     protected $httpPort = 80;
     protected $httpsPort = 444;
@@ -26,6 +32,10 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        $this->request = Phake::mock('Symfony\Component\HttpFoundation\Request');
+        Phake::when($this->request)->get(Phake::anyParameters())->thenReturn('2');
+        $this->requestStack = Phake::mock('Symfony\Component\HttpFoundation\RequestStack');
+        Phake::when($this->requestStack)->getCurrentRequest(Phake::anyParameters())->thenReturn($this->request);
         $this->siteManager = Phake::mock('PHPOrchestra\DisplayBundle\Manager\SiteManager');
         Phake::when($this->siteManager)->getCurrentSiteDefaultLanguage()->thenReturn($this->defaultLanguage);
 
@@ -46,7 +56,8 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $routes,
             $this->context,
             $this->nodeRepsitory,
-            $this->siteManager
+            $this->siteManager,
+            $this->requestStack
         );
     }
 
