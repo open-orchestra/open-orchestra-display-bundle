@@ -41,7 +41,7 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
     )
     {
         $this->nodeRepository = $nodeRepository;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $requestStack->getMasterRequest();
         $this->siteManager = $siteManager;
         $this->context = $context;
         $this->routes = $routes;

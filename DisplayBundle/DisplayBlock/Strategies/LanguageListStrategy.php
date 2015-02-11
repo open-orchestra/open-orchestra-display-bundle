@@ -36,7 +36,7 @@ class LanguageListStrategy extends AbstractStrategy
         $this->builder = $formFactory->createBuilder('form');
         $this->currentSiteIdInterface = $currentSiteIdInterface;
         $this->siteRepository = $siteRepository;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $requestStack->getMasterRequest();
     }
 
     /**

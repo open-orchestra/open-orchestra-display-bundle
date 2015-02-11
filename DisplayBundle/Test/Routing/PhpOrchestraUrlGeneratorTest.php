@@ -35,7 +35,7 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->request = Phake::mock('Symfony\Component\HttpFoundation\Request');
         Phake::when($this->request)->get(Phake::anyParameters())->thenReturn('2');
         $this->requestStack = Phake::mock('Symfony\Component\HttpFoundation\RequestStack');
-        Phake::when($this->requestStack)->getCurrentRequest(Phake::anyParameters())->thenReturn($this->request);
+        Phake::when($this->requestStack)->getMasterRequest(Phake::anyParameters())->thenReturn($this->request);
         $this->siteManager = Phake::mock('PHPOrchestra\DisplayBundle\Manager\SiteManager');
         Phake::when($this->siteManager)->getCurrentSiteDefaultLanguage()->thenReturn($this->defaultLanguage);
 
