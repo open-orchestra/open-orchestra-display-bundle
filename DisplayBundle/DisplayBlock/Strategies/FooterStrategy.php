@@ -27,7 +27,7 @@ class FooterStrategy extends AbstractStrategy
     {
         $this->nodeRepository = $nodeRepository;
         $this->router = $router;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $requestStack->getMasterRequest();
     }
 
     /**
