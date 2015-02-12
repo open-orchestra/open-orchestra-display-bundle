@@ -60,10 +60,14 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
         try {
             $uri = parent::generate($name, $parameters, $referenceType);
         } catch (RouteNotFoundException $e) {
-            try{
-                $uri = parent::generate($this->request->get('aliasId', '0') . '_' . $name, $parameters, $referenceType);
-            } catch (RouteNotFoundException $e) {
-                $uri = $this->dynamicGenerate($name, $parameters, $referenceType);
+            if ($this->request) {
+                try {
+                    $uri = parent::generate($this->request->get('aliasId', '0') . '_' . $name, $parameters, $referenceType);
+                } catch (RouteNotFoundException $e) {
+                    $uri = $this->dynamicGenerate($name, $parameters, $referenceType);
+                }
+            } else {
+                    $uri = $this->dynamicGenerate($name, $parameters, $referenceType);
             }
         }
 
