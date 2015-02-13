@@ -37,8 +37,8 @@ class AddThisStrategy extends AbstractStrategy
 
         $parameters = array(
             'pubid' => $attributes['pubid'],
-            'class' => $attributes['class'],
-            'id' => $attributes['id'],
+            'class' => $block->getClass(),
+            'id' => $block->getId(),
             'addThisClass' => $attributes['addThisClass'],
         );
 

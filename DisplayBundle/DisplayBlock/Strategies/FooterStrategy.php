@@ -58,8 +58,8 @@ class FooterStrategy extends AbstractStrategy
             'PHPOrchestraDisplayBundle:Block/Footer:show.html.twig',
             array(
                 'tree' => $nodes,
-                'id' => array_key_exists('id', $attributes)? $attributes['id']: '',
-                'class' => array_key_exists('class', $attributes)? $attributes['class']: '',
+                'id' => $block->getId(),
+                'class' => $block->getClass(),
             )
         );
     }
