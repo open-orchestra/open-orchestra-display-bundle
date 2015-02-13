@@ -47,8 +47,8 @@ class ContentListStrategy extends AbstractStrategy
             'characterNumber' => $attributes['characterNumber'],
         );
 
-        if ('' != $attributes['newsNodeId']) {
-            $parameters['newsNodeId'] = $this->nodeRepository->findOneByNodeIdAndLanguageWithPublishedAndLastVersionAndSiteId($attributes['newsNodeId'])->getId();
+        if ('' != $attributes['contentNodeId']) {
+            $parameters['contentNodeId'] = $this->nodeRepository->findOneByNodeIdAndLanguageWithPublishedAndLastVersionAndSiteId($attributes['contentNodeId'])->getId();
         }
 
         return $this->render('PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);
