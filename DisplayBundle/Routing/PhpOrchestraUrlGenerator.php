@@ -81,6 +81,8 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
      * @param array  $parameters
      * @param string $referenceType
      *
+     * @deprecated use dynamic routing
+     *
      * @return string
      */
     protected function dynamicGenerate($nodeId, $parameters, $referenceType)
@@ -139,7 +141,7 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
                 );
             }
 
-            $alias = $this->getNodeAlias($node->getParentId()) . '/' . $node->getAlias();
+            $alias = $this->getNodeAlias($node->getParentId()) . '/' . $node->getRoutePattern();
         }
 
         return $alias;
