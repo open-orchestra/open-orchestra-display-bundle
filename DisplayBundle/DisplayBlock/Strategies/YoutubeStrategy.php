@@ -72,8 +72,8 @@ class YoutubeStrategy extends AbstractStrategy
 
         $parameters = array(
             'url' => $url,
-            'class' => $attributes['class'],
-            'id' => $attributes['id'],
+            'class' => $block->getClass(),
+            'id' => $block->getId(),
             'width' => $attributes['width'],
             'height' => $attributes['height']
         );

@@ -42,8 +42,8 @@ class ContentListStrategy extends AbstractStrategy
 
         $parameters = array(
             'contents' => $contents,
-            'class' => $attributes['class'],
-            'id' => $attributes['id'],
+            'class' => $block->getClass(),
+            'id' => $block->getId(),
             'characterNumber' => $attributes['characterNumber'],
         );
 
