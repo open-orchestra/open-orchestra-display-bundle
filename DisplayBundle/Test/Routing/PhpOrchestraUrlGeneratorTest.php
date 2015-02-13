@@ -69,7 +69,7 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGenerate($scheme, $nodeId, $parameters, $refType, $expected)
     {
         Phake::when($this->context)->getScheme()->thenReturn($scheme);
-        Phake::when($this->node)->getAlias()->thenReturn($nodeId);
+        Phake::when($this->node)->getRoutePattern()->thenReturn($nodeId);
         Phake::when($this->node)->getParentId()->thenReturn('root');
 
         $uriGenerated = $this->generator->generate($nodeId, $parameters, $refType);
@@ -110,7 +110,7 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         Phake::when($this->context)->getScheme()->thenReturn($scheme);
         Phake::when($this->context)->getParameter('_locale')->thenReturn($nodeLanguage);
-        Phake::when($this->node)->getAlias()->thenReturn($nodeId);
+        Phake::when($this->node)->getRoutePattern()->thenReturn($nodeId);
         Phake::when($this->node)->getParentId()->thenReturn('root');
 
         $uriGenerated = $this->generator->generate($nodeId, $parameters, $refType);
@@ -147,17 +147,17 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
      * @param string $rootId
      * @param array  $parameters
      *
-     * @dataProvider provideAlias
+     * @dataProvider provideRoutePattern
      */
     public function testGenerateWithParent($alias, $parentId, $nodeId, $rootId, $parameters)
     {
 
         $nodeParent = Phake::mock('PHPOrchestra\ModelInterface\Model\NodeInterface');
         Phake::when($nodeParent)->getParentId()->thenReturn($rootId);
-        Phake::when($nodeParent)->getAlias()->thenReturn($alias);
+        Phake::when($nodeParent)->getRoutePattern()->thenReturn($alias);
         Phake::when($this->nodeRepsitory)->findOneByNodeId($parentId)->thenReturn($nodeParent);
 
-        Phake::when($this->node)->getAlias()->thenReturn($alias);
+        Phake::when($this->node)->getRoutePattern()->thenReturn($alias);
         Phake::when($this->node)->getParentId()->thenReturn($parentId);
 
         $uriGenerated = $this->generator->generate($nodeId, $parameters);
@@ -170,13 +170,13 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 
         Phake::verify($this->nodeRepsitory)->findOneByNodeId($nodeId);
         Phake::verify($this->node)->getParentId();
-        Phake::verify($this->node)->getAlias();
+        Phake::verify($this->node)->getRoutePattern();
     }
 
     /**
      * @return array
      */
-    public function provideAlias()
+    public function provideRoutePattern()
     {
         return array(
             array('test', 'parent', 'node', 'root', array()),
