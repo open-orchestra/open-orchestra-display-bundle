@@ -122,3 +122,7 @@ services:
             - @request_stack
         tags:
             - { name: php_orchestra_display.display_block.strategy }
+    php_orchestra_display.display.video:
+        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\VideoStrategy
+        tags:
+            - { name: php_orchestra_display.display_block.strategy }
