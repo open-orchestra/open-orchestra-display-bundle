@@ -1,0 +1,6 @@
+<div
+    {% if id is defined %}id="{{ id }}"{% endif %}
+    {% if class is defined %}class="{{ class }}"{% endif %}>
+    {% block content %}
+    {% endblock %}
+</div>

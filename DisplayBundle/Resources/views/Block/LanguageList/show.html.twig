@@ -1,5 +1,8 @@
-<div class="{{ class }}" id="{{ id }}">
-    {{ form_widget(form) }}
-</div>
+{% extends 'PHPOrchestraDisplayBundle:Block:layout.html.twig' %}
 
-<script data-main="{{ asset('/bundles/phporchestradisplay/block/LanguageList/js/loadJs.js') }}" src="{{ asset('/bundles/phporchestradisplay/libs/require.js') }}"></script>
+{% block content %}
+    {{ form_widget(form) }}
+
+    <script data-main="{{ asset('/bundles/phporchestradisplay/block/LanguageList/js/loadJs.js') }}" src="{{ asset('/bundles/phporchestradisplay/libs/require.js') }}"></script>
+
+{% endblock %}
