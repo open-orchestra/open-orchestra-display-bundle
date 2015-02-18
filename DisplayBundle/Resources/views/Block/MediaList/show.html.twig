@@ -1,5 +1,7 @@
-<div class="{{ class }}" id="{{ id }}">
+{% extends 'PHPOrchestraDisplayBundle:Block:layout.html.twig' %}
+
+{% block content %}
     {% for media in medias %}
         {{ display_media(media.id) }}
     {% endfor %}
-</div>
+{% endblock %}

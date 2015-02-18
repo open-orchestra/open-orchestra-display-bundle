@@ -1,4 +1,6 @@
-<div class="{{ class }}" id="{{ id }}">
+{% extends 'PHPOrchestraDisplayBundle:Block:layout.html.twig' %}
+
+{% block content %}
     {% for content in contents %}
         {% if contentFromTemplate[content.id] is defined %}
             {{ contentFromTemplate[content.id]|raw }}
@@ -16,4 +18,4 @@
             </div>
         {% endif %}
     {% endfor %}
-</div>
+{% endblock %}

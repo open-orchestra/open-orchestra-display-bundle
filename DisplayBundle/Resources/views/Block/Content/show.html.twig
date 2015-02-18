@@ -1,6 +1,8 @@
-<div class="{{ class }}" id="{{ id }}">
+{% extends 'PHPOrchestraDisplayBundle:Block:layout.html.twig' %}
+
+{% block content %}
     <h1>{{ content.name }}</h1>
     {% for attribute in content.attributes %}
         <div class="{{ attribute.name }}"> {{ attribute.value }}</div>
     {% endfor %}
-</div>
+{% endblock %}
