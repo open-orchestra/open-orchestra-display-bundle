@@ -1,15 +1,19 @@
 <div class="{{ class }}" id="{{ id }}">
     {% for content in contents %}
-        <div>
-            <span class="{{ content.attributes.1.name }}">{{ content.attributes.1.value }}</span>
-            <h2>{{ content.name }}</h2>
-            <p>
-                {{ content.attributes.4.value | truncate(characterNumber, true, '...') }}
-            </p>
+        {% if contentFromTemplate[content.id] is defined %}
+            {{ contentFromTemplate[content.id]|raw }}
+        {% else %}
+            <div>
+                <span class="{{ content.attributes.1.name }}">{{ content.attributes.1.value }}</span>
+                <h2>{{ content.name }}</h2>
+                <p>
+                    {{ content.attributes.4.value | truncate(characterNumber, true, '...') }}
+                </p>
 
-            {% if contentNodeId is defined %}
-                <a href="{{ url(contentNodeId, {'newsId' : content.contentId} ) }}"></a>
-            {% endif %}
-        </div>
+                {% if contentNodeId is defined %}
+                    <a href="{{ url(contentNodeId, {'newsId' : content.contentId} ) }}"></a>
+                {% endif %}
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
