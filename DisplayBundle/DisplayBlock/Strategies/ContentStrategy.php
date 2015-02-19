@@ -49,8 +49,6 @@ class ContentStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-
         $content = $this->contentRepository->findOneByContentId($this->request->get('module_parameters')['newsId']);
 
         if ($content != null) {

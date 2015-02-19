@@ -16,7 +16,7 @@ class DisplayBlockManager
     protected $templating;
 
     /**
-     * @param TwigEngine $templating
+     * @param EngineInterface $templating
      */
     public function __construct(EngineInterface $templating)
     {
