@@ -42,11 +42,11 @@ class VideoStrategy extends AbstractStrategy
             {
                 case 'youtube':
                     $template = 'PHPOrchestraDisplayBundle:Block/Video:youtube.html.twig';
-                    $parameters = $this->showYoutube($block);
+                    $parameters = $this->getYoutubeParameters($block);
                     break;
                 case 'dailymotion':
                     $template = 'PHPOrchestraDisplayBundle:Block/Video:dailymotion.html.twig';
-                    $parameters = $this->showDailymotion($block);
+                    $parameters = $this->getDailymotionParameters($block);
                     break;
                 case 'vimeo':
                     $template = 'PHPOrchestraDisplayBundle:Block/Video:vimeo.html.twig';
@@ -60,7 +60,51 @@ class VideoStrategy extends AbstractStrategy
 
     protected function getYoutubeParameters(BlockInterface $block)
     {
-        return array();
+        $attributes = $block->getAttributes();
+
+        $initialize = array(
+            'youtubeAutoplay' => false,
+            'youtubeShowinfo' => false,
+            'youtubeFs' => false,
+            'youtubeRel' => false,
+            'youtubeDisablekb' => false,
+            'youtubeLoop' => false,
+            'youtubeControls' => false,
+            'youtubeTheme' => false,
+            'youtubeColor' => false,
+        );
+
+        $attributes = array_merge($initialize, $attributes);
+
+        $urlParams = array();
+        foreach (array('youtubeAutoplay', 'youtubeShowinfo', 'youtubeFs', 'youtubeRel', 'youtubeDisablekb', 'youtubeLoop') as $key) {
+            if ($attributes[$key] === true) {
+                $urlParams[strtolower(substr($key, 7))] = 1;
+            }
+        }
+
+        if ($attributes['youtubeControls'] === false) {
+            $urlParams['controls'] = 0;
+        }
+        if ($attributes['youtubeTheme'] === true) {
+            $urlParams['theme'] = 'light';
+        }
+        if ($attributes['youtubeColor'] === true) {
+            $urlParams['color'] = 'white';
+        }
+        if ($attributes['youtubeHl'] !== '') {
+            $urlParams['hl'] = $attributes['youtubeHl'];
+        }
+
+        $url = "//www.youtube.com/embed/" . $attributes['youtubeVideoId'] ."?" . http_build_query($urlParams, '', '&amp;');
+
+        return array(
+            'url' => $url,
+            'class' => $block->getClass(),
+            'id' => $block->getId(),
+            'width' => $attributes['youtubeWidth'],
+            'height' => $attributes['youtubeHeight']
+        );
     }
 
     protected function getDailymotionParameters(BlockInterface $block)
