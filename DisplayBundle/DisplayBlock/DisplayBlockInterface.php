@@ -28,9 +28,6 @@ interface DisplayBlockInterface
     const LANGUAGE_LIST = 'language_list';
     const MEDIA_LIST_BY_KEYWORD = 'media_list_by_keyword';
     const VIDEO = 'video';
-    const YOUTUBE = 'youtube';
-    const DAILYMOTION = 'dailymotion';
-    const VIMEO = 'vimeo';
     const GMAP = 'gmap';
     const ADDTHIS = 'add_this';
     const AUDIENCE_ANALYSIS = 'audience_analysis';

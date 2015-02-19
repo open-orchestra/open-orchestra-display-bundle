@@ -96,18 +96,6 @@ services:
             - @request_stack
         tags:
             - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.youtube:
-        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\YoutubeStrategy
-        tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.dailymotion:
-        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\DailymotionStrategy
-        tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.vimeo:
-        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\VimeoStrategy
-        tags:
-            - { name: php_orchestra_display.display_block.strategy }
     php_orchestra_display.display.gmap:
         class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\GmapStrategy
         tags:
