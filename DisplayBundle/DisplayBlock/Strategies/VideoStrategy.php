@@ -58,6 +58,13 @@ class VideoStrategy extends AbstractStrategy
         return $this->render($template, $parameters);
     }
 
+    /**
+     * Return view parameters for a youtube video
+     * 
+     * @param BlockInterface $block
+     * 
+     * @return array
+     */
     protected function getYoutubeParameters(BlockInterface $block)
     {
         $attributes = $block->getAttributes();
@@ -107,9 +114,52 @@ class VideoStrategy extends AbstractStrategy
         );
     }
 
+    /**
+     * Return view parameters for a dailymotion video
+     * 
+     * @param BlockInterface $block
+     * 
+     * @return array
+     */
     protected function getDailymotionParameters(BlockInterface $block)
     {
-        return array();
+        $attributes = $block->getAttributes();
+
+        $initialize = array(
+            'dailymotionAutoplay' => false,
+            'dailymotionInfo' => false,
+            'dailymotionLogo' => false,
+            'dailymotionRelated' => false,
+            'dailymotionChromeless' => false,
+        );
+
+        $attributes = array_merge($initialize, $attributes);
+
+        $urlParams = array();
+
+        foreach (array('dailymotionAutoplay', 'dailymotionChromeless') as $key) {
+            if ($attributes[$key] === true) {
+                $urlParams[strtolower(substr($key, 11))] = 1;
+            }
+        }
+        foreach (array('dailymotionLogo', 'dailymotionInfo', 'dailymotionRelated') as $key) {
+            if ($attributes[$key] === false) {
+                $urlParams[strtolower(substr($key, 11))] = 0;
+            }
+        }
+        foreach (array('dailymotionBackground', 'dailymotionForeground', 'dailymotionHighlight', 'dailymotionQuality') as $key) {
+            if ($attributes[$key] !== '') {
+                $urlParams[strtolower(substr($key, 11))] = $attributes[$key];
+            }
+        }
+
+        $url = "//www.dailymotion.com/embed/video/" . $attributes['dailymotionVideoId'] . "?" . http_build_query($urlParams);
+
+        return array(
+            'url' => $url,
+            'width' => $attributes['dailymotionWidth'],
+            'height' => $attributes['dailymotionHeight']
+        );
     }
 
     /**
