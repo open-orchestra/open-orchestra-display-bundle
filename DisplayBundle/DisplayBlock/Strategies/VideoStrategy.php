@@ -20,7 +20,7 @@ class VideoStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return false;
+        return DisplayBlockInterface::VIDEO === $block;
     }
 
     /**
