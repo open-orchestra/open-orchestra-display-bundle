@@ -35,22 +35,36 @@ class VideoStrategy extends AbstractStrategy
     {
         $attributes = $block->getAttributes();
         $template = 'PHPOrchestraDisplayBundle:Block/Video:show.html.twig';
-        $parameters = array();
+        $parameters = array(
+            'class' => (isset($attributes['class'])) ? $attributes['class'] : '',
+            'id' => (isset($attributes['id'])) ? $attributes['id'] : ''
+        );
 
         if (isset($attributes['videoType'])) {
             switch($attributes['videoType'])
             {
                 case 'youtube':
                     $template = 'PHPOrchestraDisplayBundle:Block/Video:youtube.html.twig';
-                    $parameters = $this->getYoutubeParameters($block);
+                    $parameters = array_merge(
+                        $parameters,
+                        $this->getYoutubeParameters($block)
+                    );
                     break;
+
                 case 'dailymotion':
                     $template = 'PHPOrchestraDisplayBundle:Block/Video:dailymotion.html.twig';
-                    $parameters = $this->getDailymotionParameters($block);
+                    $parameters = array_merge(
+                        $parameters,
+                        $this->getDailymotionParameters($block)
+                    );
                     break;
+
                 case 'vimeo':
                     $template = 'PHPOrchestraDisplayBundle:Block/Video:vimeo.html.twig';
-                    $parameters = $this->getVimeoParameters($block);
+                    $parameters = array_merge(
+                        $parameters,
+                        $this->getVimeoParameters($block)
+                    );
                     break;
             }
         }
