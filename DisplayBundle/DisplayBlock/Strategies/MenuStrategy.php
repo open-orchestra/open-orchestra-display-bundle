@@ -51,7 +51,6 @@ class MenuStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
         $nodes = $this->nodeRepository->getMenuTree($this->request->getLocale());
 
         return $this->render(

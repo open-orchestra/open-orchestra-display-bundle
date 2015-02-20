@@ -44,12 +44,10 @@ class AudienceAnalysisStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-
         return $this->render(
-            'PHPOrchestraDisplayBundle:Block/AudienceAnalysis:' . $attributes['tag_type'] . '.html.twig',
+            'PHPOrchestraDisplayBundle:Block/AudienceAnalysis:' . $block->getAttribute('tag_type') . '.html.twig',
             array(
-                'attributes' => $attributes,
+                'attributes' => $block->getAttributes(),
                 'page' => $this->request->attributes->get('nodeId')
             )
         );

@@ -46,7 +46,6 @@ class GalleryStrategy extends AbstractStrategy
     {
         $parameters = $this->getParameters();
 
-        $attributes = $block->getAttributes();
         $currentPage = $this->request->get(NavigatorExtension::PARAMETER_PAGE);
         if (!$currentPage) {
             $currentPage = 1;
@@ -57,11 +56,11 @@ class GalleryStrategy extends AbstractStrategy
             array(
                 'galleryClass' => $block->getClass(),
                 'galleryId' => $block->getId(),
-                'pictures' => $this->filterMedias($attributes['pictures'], $currentPage, $attributes['nb_items']),
-                'numberOfColumns' => $attributes['nb_columns'],
-                'thumbnailFormat' => $attributes['thumbnail_format'],
-                'imageFormat' => $attributes['image_format'],
-                'numberOfPages' => ($attributes['nb_items'] == 0) ? 1 : ceil(count($attributes['pictures']) / $attributes['nb_items']),
+                'pictures' => $this->filterMedias($block->getAttribute('pictures'), $currentPage, $block->getAttribute('nb_items')),
+                'numberOfColumns' => $block->getAttribute('nb_columns'),
+                'thumbnailFormat' => $block->getAttribute('thumbnail_format'),
+                'imageFormat' => $block->getAttribute('image_format'),
+                'numberOfPages' => ($block->getAttribute('nb_items') == 0) ? 1 : ceil(count($block->getAttribute('pictures')) / $block->getAttribute('nb_items')),
                 'parameters' => $parameters,
                 'currentPage' => $currentPage
             )

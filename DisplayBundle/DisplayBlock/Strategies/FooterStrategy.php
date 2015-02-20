@@ -51,7 +51,6 @@ class FooterStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
         $nodes = $this->nodeRepository->getFooterTree($this->request->getLocale());
 
         return $this->render(

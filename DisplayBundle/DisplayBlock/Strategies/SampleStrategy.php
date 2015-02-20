@@ -32,14 +32,12 @@ class SampleStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-
         $response = $this->render(
             'PHPOrchestraDisplayBundle:Block/Sample:show.html.twig',
             array(
-                'title' => $attributes['title'],
-                'author' => $attributes['author'],
-                'news' => $attributes['news'],
+                'title' => $block->getAttribute('title'),
+                'author' => $block->getAttribute('author'),
+                'news' => $block->getAttribute('news'),
                 'parameters' => array(),
             )
         );

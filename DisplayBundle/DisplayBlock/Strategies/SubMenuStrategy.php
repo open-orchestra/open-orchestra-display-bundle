@@ -51,8 +51,7 @@ class SubMenuStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-        $nodes = $this->nodeRepository->getSubMenu($attributes['node'], $attributes['nbLevel'], $this->request->getLocale());
+        $nodes = $this->nodeRepository->getSubMenu($block->getAttribute('node'), $block->getAttribute('nbLevel'), $this->request->getLocale());
 
         return $this->render(
             'PHPOrchestraDisplayBundle:Block/Menu:show.html.twig',

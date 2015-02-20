@@ -60,8 +60,6 @@ class LanguageListStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-
         $site = $this->siteRepository->findOneBySiteId($this->currentSiteIdInterface->getCurrentSiteId());
 
         $choices = array();
