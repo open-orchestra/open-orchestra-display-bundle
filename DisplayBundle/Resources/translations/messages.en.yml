@@ -17,3 +17,5 @@ php_orchestra_display:
     block:
         gallery:
             no_title_defined: No title defined
+        video:
+            missconfiguration: The video can not be correctly displayed
