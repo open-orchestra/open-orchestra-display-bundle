@@ -33,40 +33,37 @@ class VideoStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
         $template = 'PHPOrchestraDisplayBundle:Block/Video:show.html.twig';
         $parameters = array(
-            'class' => (isset($attributes['class'])) ? $attributes['class'] : '',
-            'id' => (isset($attributes['id'])) ? $attributes['id'] : ''
+            'class' => $block->getClass(),
+            'id' => $block->getId()
         );
 
-        if (isset($attributes['videoType'])) {
-            switch($attributes['videoType'])
-            {
-                case 'youtube':
-                    $template = 'PHPOrchestraDisplayBundle:Block/Video:youtube.html.twig';
-                    $parameters = array_merge(
-                        $parameters,
-                        $this->getYoutubeParameters($block)
-                    );
-                    break;
+        switch($block->getAttribute('videoType'))
+        {
+            case 'youtube':
+                $template = 'PHPOrchestraDisplayBundle:Block/Video:youtube.html.twig';
+                $parameters = array_merge(
+                    $parameters,
+                    $this->getYoutubeParameters($block)
+                );
+                break;
 
-                case 'dailymotion':
-                    $template = 'PHPOrchestraDisplayBundle:Block/Video:dailymotion.html.twig';
-                    $parameters = array_merge(
-                        $parameters,
-                        $this->getDailymotionParameters($block)
-                    );
-                    break;
+            case 'dailymotion':
+                $template = 'PHPOrchestraDisplayBundle:Block/Video:dailymotion.html.twig';
+                $parameters = array_merge(
+                    $parameters,
+                    $this->getDailymotionParameters($block)
+                );
+                break;
 
-                case 'vimeo':
-                    $template = 'PHPOrchestraDisplayBundle:Block/Video:vimeo.html.twig';
-                    $parameters = array_merge(
-                        $parameters,
-                        $this->getVimeoParameters($block)
-                    );
-                    break;
-            }
+            case 'vimeo':
+                $template = 'PHPOrchestraDisplayBundle:Block/Video:vimeo.html.twig';
+                $parameters = array_merge(
+                    $parameters,
+                    $this->getVimeoParameters($block)
+                );
+                break;
         }
 
         return $this->render($template, $parameters);
@@ -81,50 +78,34 @@ class VideoStrategy extends AbstractStrategy
      */
     protected function getYoutubeParameters(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-
-        $initialize = array(
-            'youtubeAutoplay' => false,
-            'youtubeShowinfo' => false,
-            'youtubeFs' => false,
-            'youtubeRel' => false,
-            'youtubeDisablekb' => false,
-            'youtubeLoop' => false,
-            'youtubeControls' => false,
-            'youtubeTheme' => false,
-            'youtubeColor' => false,
-        );
-
-        $attributes = array_merge($initialize, $attributes);
-
         $urlParams = array();
         foreach (array('youtubeAutoplay', 'youtubeShowinfo', 'youtubeFs', 'youtubeRel', 'youtubeDisablekb', 'youtubeLoop') as $key) {
-            if ($attributes[$key] === true) {
+            if ($block->getAttribute($key) === true) {
                 $urlParams[strtolower(substr($key, 7))] = 1;
             }
         }
 
-        if ($attributes['youtubeControls'] === false) {
+        if ($block->getAttribute('youtubeControls') === false) {
             $urlParams['controls'] = 0;
         }
-        if ($attributes['youtubeTheme'] === true) {
+        if ($block->getAttribute('youtubeTheme') === true) {
             $urlParams['theme'] = 'light';
         }
-        if ($attributes['youtubeColor'] === true) {
+        if ($block->getAttribute('youtubeColor') === true) {
             $urlParams['color'] = 'white';
         }
-        if ($attributes['youtubeHl'] !== '') {
-            $urlParams['hl'] = $attributes['youtubeHl'];
+        if ($block->getAttribute('youtubeHl') !== '') {
+            $urlParams['hl'] = $block->getAttribute('youtubeHl');
         }
 
-        $url = "//www.youtube.com/embed/" . $attributes['youtubeVideoId'] ."?" . http_build_query($urlParams, '', '&amp;');
+        $url = "//www.youtube.com/embed/" . $block->getAttribute('youtubeVideoId') ."?" . http_build_query($urlParams, '', '&amp;');
 
         return array(
             'url' => $url,
             'class' => $block->getClass(),
             'id' => $block->getId(),
-            'width' => $attributes['youtubeWidth'],
-            'height' => $attributes['youtubeHeight']
+            'width' => $block->getAttribute('youtubeWidth'),
+            'height' => $block->getAttribute('youtubeHeight')
         );
     }
 
@@ -137,42 +118,30 @@ class VideoStrategy extends AbstractStrategy
      */
     protected function getDailymotionParameters(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-
-        $initialize = array(
-            'dailymotionAutoplay' => false,
-            'dailymotionInfo' => false,
-            'dailymotionLogo' => false,
-            'dailymotionRelated' => false,
-            'dailymotionChromeless' => false,
-        );
-
-        $attributes = array_merge($initialize, $attributes);
-
         $urlParams = array();
 
         foreach (array('dailymotionAutoplay', 'dailymotionChromeless') as $key) {
-            if ($attributes[$key] === true) {
+            if ($block->getAttribute($key) === true) {
                 $urlParams[strtolower(substr($key, 11))] = 1;
             }
         }
         foreach (array('dailymotionLogo', 'dailymotionInfo', 'dailymotionRelated') as $key) {
-            if ($attributes[$key] === false) {
+            if ($block->getAttribute($key) === false) {
                 $urlParams[strtolower(substr($key, 11))] = 0;
             }
         }
         foreach (array('dailymotionBackground', 'dailymotionForeground', 'dailymotionHighlight', 'dailymotionQuality') as $key) {
-            if ($attributes[$key] !== '') {
-                $urlParams[strtolower(substr($key, 11))] = $attributes[$key];
+            if ($block->getAttribute($key) !== '') {
+                $urlParams[strtolower(substr($key, 11))] = $block->getAttribute($key);
             }
         }
 
-        $url = "//www.dailymotion.com/embed/video/" . $attributes['dailymotionVideoId'] . "?" . http_build_query($urlParams);
+        $url = "//www.dailymotion.com/embed/video/" . $block->getAttribute('dailymotionVideoId') . "?" . http_build_query($urlParams);
 
         return array(
             'url' => $url,
-            'width' => $attributes['dailymotionWidth'],
-            'height' => $attributes['dailymotionHeight']
+            'width' => $block->getAttribute('dailymotionWidth'),
+            'height' => $block->getAttribute('dailymotionHeight')
         );
     }
 
@@ -185,43 +154,28 @@ class VideoStrategy extends AbstractStrategy
      */
     protected function getVimeoParameters(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-
-        $initialize = array(
-            'vimeoAutoplay' => false,
-            'vimeoTitle' => false,
-            'vimeoFullscreen' => false,
-            'vimeoByline' => false,
-            'vimeoPortrait' => false,
-            'vimeoLoop' => false,
-            'vimeoBadge' => false,
-            'vimeoColor' => false,
-        );
-
-        $attributes = array_merge($initialize, $attributes);
-
         $urlParams = array();
 
         foreach (array('vimeoAutoplay', 'vimeoFullscreen', 'vimeoLoop') as $key) {
-            if ($attributes[$key] === true) {
+            if ($block->getAttribute($key) === true) {
                 $urlParams[strtolower(substr($key, 5))] = 1;
             }
         }
         foreach (array('vimeoTitle', 'vimeoByline', 'vimeoPortrait', 'vimeoBadge') as $key) {
-            if ($attributes[$key] === false) {
+            if ($block->getAttribute($key) === false) {
                 $urlParams[strtolower(substr($key, 5))] = 0;
             }
         }
-        if ($attributes['vimeoColor'] !== '') {
-            $urlParams['color'] = str_replace('#', '', $attributes['vimeoColor']);
+        if ($block->getAttribute('vimeoColor') !== '') {
+            $urlParams['color'] = str_replace('#', '', $block->getAttribute('vimeoColor'));
         }
 
-        $url = "//player.vimeo.com/video/" . $attributes['vimeoVideoId'] ."?" . http_build_query($urlParams, '', '&amp;');
+        $url = "//player.vimeo.com/video/" . $block->getAttribute('vimeoVideoId') ."?" . http_build_query($urlParams, '', '&amp;');
 
         return array(
             'url' => $url,
-            'width' => $attributes['vimeoWidth'],
-            'height' => $attributes['vimeoHeight']
+            'width' => $block->getAttribute('vimeoWidth'),
+            'height' => $block->getAttribute('vimeoHeight')
         );
     }
 

@@ -38,15 +38,14 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $attributes = $block->getAttributes();
-        $contents = $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywords($attributes['contentType'], $attributes['choiceType'], $attributes['keywords']);
+        $contents = $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywords($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
 
         $contentFromTemplate = array();
-        if (array_key_exists('contentTemplate', $attributes) && !empty($attributes['contentTemplate'])) {
+        if (!is_null($block->getAttribute('contentTemplate'))) {
             $twig = new \Twig_Environment(new \Twig_Loader_String());
             /** @var ContentInterface $content */
             foreach ($contents as $content) {
-                $contentFromTemplate[$content->getId()] = $twig->render($attributes['contentTemplate'], array('content' => $content));
+                $contentFromTemplate[$content->getId()] = $twig->render($block->getAttribute('contentTemplate'), array('content' => $content));
             }
         }
 
@@ -54,12 +53,12 @@ class ContentListStrategy extends AbstractStrategy
             'contents' => $contents,
             'class' => $block->getClass(),
             'id' => $block->getId(),
-            'characterNumber' => $attributes['characterNumber'],
+            'characterNumber' => $block->getAttribute('characterNumber'),
             'contentFromTemplate' => $contentFromTemplate,
         );
 
-        if ('' != $attributes['contentNodeId']) {
-            $parameters['contentNodeId'] = $this->nodeRepository->findOneByNodeIdAndLanguageWithPublishedAndLastVersionAndSiteId($attributes['contentNodeId'])->getId();
+        if ('' != $block->getAttribute('contentNodeId')) {
+            $parameters['contentNodeId'] = $this->nodeRepository->findOneByNodeIdAndLanguageWithPublishedAndLastVersionAndSiteId($block->getAttribute('contentNodeId'))->getId();
         }
 
         return $this->render('PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);
