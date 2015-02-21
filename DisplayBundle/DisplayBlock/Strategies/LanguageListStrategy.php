@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
+use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,7 +64,7 @@ class LanguageListStrategy extends AbstractStrategy
 
         $choices = array();
         foreach ($site->getLanguages() as $language) {
-            $choices[$language] = 'php_orchestra_display.language_list.'.$language;
+            $choices[$language] = 'open_orchestra_display.language_list.'.$language;
         }
 
         $form = $this->builder->create('language_choice', 'choice', array(
@@ -75,7 +75,7 @@ class LanguageListStrategy extends AbstractStrategy
         ->getForm();
 
         return $this->render(
-            'PHPOrchestraDisplayBundle:Block/LanguageList:show.html.twig',
+            'OpenOrchestraDisplayBundle:Block/LanguageList:show.html.twig',
             array(
                 'class' => $block->getClass(),
                 'id' => $block->getId(),

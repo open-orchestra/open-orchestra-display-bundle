@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -33,7 +33,7 @@ class CarrouselStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Carrousel:show.html.twig',
+            'OpenOrchestraDisplayBundle:Block/Carrousel:show.html.twig',
             $block->getAttributes()
         );
     }

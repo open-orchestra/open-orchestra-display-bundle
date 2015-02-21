@@ -1,8 +1,8 @@
 parameters:
 #--[EXTEND SYMFONY 2 ROUTING]---#
 
-    router.class : 'PHPOrchestra\DisplayBundle\Routing\PhpOrchestraRouter'
-    router.options.generator_class : 'PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator'
-    router.options.generator_base_class : 'PHPOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator'
+    router.class : 'OpenOrchestra\DisplayBundle\Routing\PhpOrchestraRouter'
+    router.options.generator_class : 'OpenOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator'
+    router.options.generator_base_class : 'OpenOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator'
 
 services:

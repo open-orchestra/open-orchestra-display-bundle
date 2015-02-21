@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Routing;
+namespace OpenOrchestra\DisplayBundle\Routing;
 
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -36,8 +36,8 @@ class PhpOrchestraRouter extends Router
     {
         parent::__construct($container, $resource, $options, $context);
 
-        $this->nodeRepository = $container->get('php_orchestra_model.repository.node');
-        $this->siteManager = $container->get('php_orchestra.manager.current_site');
+        $this->nodeRepository = $container->get('open_orchestra_model.repository.node');
+        $this->siteManager = $container->get('open_orchestra.manager.current_site');
         $this->requestStack = $container->get('request_stack');
     }
 

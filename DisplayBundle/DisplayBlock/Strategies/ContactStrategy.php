@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\DisplayBundle\Form\Type\ContactType;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\DisplayBundle\Form\Type\ContactType;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -49,12 +49,12 @@ class ContactStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $form = $this->formFactory->create(new ContactType(), null, array(
-            'action' => $this->router->generate('php_orchestra_display_contact_send'),
+            'action' => $this->router->generate('open_orchestra_display_contact_send'),
             'method' => 'POST',
         ));
 
         return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Contact:show.html.twig',
+            'OpenOrchestraDisplayBundle:Block/Contact:show.html.twig',
             array('form' => $form->createView())
         );
     }

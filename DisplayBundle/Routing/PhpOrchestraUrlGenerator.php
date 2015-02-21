@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Routing;
+namespace OpenOrchestra\DisplayBundle\Routing;
 
-use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
-use PHPOrchestra\ModelInterface\Model\NodeInterface;
-use PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
+use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
+use OpenOrchestra\ModelInterface\Model\NodeInterface;
+use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -75,7 +75,7 @@ class PhpOrchestraUrlGenerator extends UrlGenerator
     }
 
     /**
-     * Generate url for a PHPOrchestra node
+     * Generate url for a OpenOrchestra node
      *
      * @param string $nodeId
      * @param array  $parameters

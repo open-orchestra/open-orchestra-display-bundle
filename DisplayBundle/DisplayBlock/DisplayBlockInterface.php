@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock;
 
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

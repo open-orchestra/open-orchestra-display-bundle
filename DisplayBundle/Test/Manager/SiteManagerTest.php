@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Test\Manager;
+namespace OpenOrchestra\DisplayBundle\Test\Manager;
 
 use Phake;
-use PHPOrchestra\DisplayBundle\Manager\SiteManager;
+use OpenOrchestra\DisplayBundle\Manager\SiteManager;
 
 /**
  * Test SiteManagerTest

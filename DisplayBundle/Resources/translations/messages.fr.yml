@@ -1,4 +1,4 @@
-php_orchestra_display:
+open_orchestra_display:
     contact:
         contact_received: Votre demande de contact a été reçue par un administrateur
         admin_content: Le client %name% avec l'email %mail% essaye de nous contacter. \n Voici le contenu de son message : \n %message%

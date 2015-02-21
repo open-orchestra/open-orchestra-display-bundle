@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Controller;
+namespace OpenOrchestra\DisplayBundle\Controller;
 
-use PHPOrchestra\DisplayBundle\Form\Type\ContactType;
+use OpenOrchestra\DisplayBundle\Form\Type\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +18,14 @@ class ContactController extends Controller
      *
      * @param Request $request
      *
-     * @Config\Route("/contact/send", name="php_orchestra_display_contact_send")
+     * @Config\Route("/contact/send", name="open_orchestra_display_contact_send")
      * @Config\Method({"POST"})
      *
      * @return RedirectResponse
      */
     public function contactMailSendAction(Request $request)
     {
-        $mailAdmin = $this->container->getParameter('php_orchestra_display.administrator_contact_email');
+        $mailAdmin = $this->container->getParameter('open_orchestra_display.administrator_contact_email');
 
         $form = $this->createForm(new ContactType());
 
@@ -39,7 +39,7 @@ class ContactController extends Controller
                 ->setTo($mailAdmin)
                 ->setBody(
                     $this->renderView(
-                        'PHPOrchestraDisplayBundle:Block/Email:show_admin.txt.twig',
+                        'OpenOrchestraDisplayBundle:Block/Email:show_admin.txt.twig',
                         array(
                             'name' => $formData['name'],
                             'message' => $formData['message'],
@@ -51,13 +51,13 @@ class ContactController extends Controller
 
             //send confirm e-mail for the user
             $messageToUser = \Swift_Message::newInstance()
-                ->setSubject($this->get('translator')->trans('php_orchestra_display.contact.contact_received'))
+                ->setSubject($this->get('translator')->trans('open_orchestra_display.contact.contact_received'))
                 ->setFrom($mailAdmin)
                 ->setTo($formData['email'])
                 ->setBody(
                     $this->renderView(
-                        'PHPOrchestraDisplayBundle:Block/Email:show_user.txt.twig',
-                        array('name' => $this->container->getParameter('php_orchestra_display.contact_signature_email'))
+                        'OpenOrchestraDisplayBundle:Block/Email:show_user.txt.twig',
+                        array('name' => $this->container->getParameter('open_orchestra_display.contact_signature_email'))
                     )
                 );
             $this->get('mailer')->send($messageToUser);

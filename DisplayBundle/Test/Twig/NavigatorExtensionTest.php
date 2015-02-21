@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Test\Twig;
+namespace OpenOrchestra\DisplayBundle\Test\Twig;
 
 use Phake;
-use PHPOrchestra\DisplayBundle\Twig\NavigatorExtension;
+use OpenOrchestra\DisplayBundle\Twig\NavigatorExtension;
 
 /**
  * Class NavigatorExtensionTest
@@ -19,10 +19,10 @@ class NavigatorExtensionTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->translator = Phake::mock('Symfony\Component\Translation\TranslatorInterface');
-        Phake::when($this->translator)->trans('php_orchestra_display.twig.navigator.first')->thenReturn('First');
-        Phake::when($this->translator)->trans('php_orchestra_display.twig.navigator.previous')->thenReturn('Previous');
-        Phake::when($this->translator)->trans('php_orchestra_display.twig.navigator.next')->thenReturn('Next');
-        Phake::when($this->translator)->trans('php_orchestra_display.twig.navigator.last')->thenReturn('Last');
+        Phake::when($this->translator)->trans('open_orchestra_display.twig.navigator.first')->thenReturn('First');
+        Phake::when($this->translator)->trans('open_orchestra_display.twig.navigator.previous')->thenReturn('Previous');
+        Phake::when($this->translator)->trans('open_orchestra_display.twig.navigator.next')->thenReturn('Next');
+        Phake::when($this->translator)->trans('open_orchestra_display.twig.navigator.last')->thenReturn('Last');
 
         $this->navigator = new NavigatorExtension($this->translator);
     }

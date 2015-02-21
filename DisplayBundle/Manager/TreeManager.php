@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Manager;
+namespace OpenOrchestra\DisplayBundle\Manager;
 
-use PHPOrchestra\ModelInterface\Model\NodeInterface;
+use OpenOrchestra\ModelInterface\Model\NodeInterface;
 
 /**
  * Class TreeManager

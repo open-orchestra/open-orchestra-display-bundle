@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Twig;
+namespace OpenOrchestra\DisplayBundle\Twig;
 
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -53,13 +53,13 @@ class NavigatorExtension extends \Twig_Extension
         if ($currentPage > $maxPagesDisplayedAroundCurrent) {
             $firstPageDisplayed = $currentPage - $maxPagesDisplayedAroundCurrent;
             $navigation[] = '<a href="' . $leftPartUrl . '1" class="navigatorShortcut1">'
-                . $this->translator->trans('php_orchestra_display.twig.navigator.first')
+                . $this->translator->trans('open_orchestra_display.twig.navigator.first')
                 . '</a>';
         }
 
         if ($currentPage > 1) {
             $navigation[] = '<a href="' . $leftPartUrl . ($currentPage - 1) . ' "class="navigatorShortcut2">'
-                . $this->translator->trans('php_orchestra_display.twig.navigator.previous')
+                . $this->translator->trans('open_orchestra_display.twig.navigator.previous')
                 . '</a>';
         }
 
@@ -85,13 +85,13 @@ class NavigatorExtension extends \Twig_Extension
 
         if ($currentPage < $numberOfPages) {
             $navigation[]= '<a href="' . $leftPartUrl . ($currentPage + 1) . '" class="navigatorShortcut2">'
-                . $this->translator->trans('php_orchestra_display.twig.navigator.next')
+                . $this->translator->trans('open_orchestra_display.twig.navigator.next')
                 . '</a>';
         }
 
         if ($currentPage < $numberOfPages - $maxPagesDisplayedAroundCurrent) {
             $navigation[]= '<a href="' . $leftPartUrl . $numberOfPages . '" class="navigatorShortcut1">'
-                . $this->translator->trans('php_orchestra_display.twig.navigator.last')
+                . $this->translator->trans('open_orchestra_display.twig.navigator.last')
                 . '</a>';
         }
 

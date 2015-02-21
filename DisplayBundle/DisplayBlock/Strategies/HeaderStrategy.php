@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -33,7 +33,7 @@ class HeaderStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Header:show.html.twig',
+            'OpenOrchestraDisplayBundle:Block/Header:show.html.twig',
             array(
                 'id' => $block->getId(),
                 'class' => $block->getClass(),
