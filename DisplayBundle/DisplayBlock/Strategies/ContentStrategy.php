@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -53,7 +53,7 @@ class ContentStrategy extends AbstractStrategy
 
         if ($content != null) {
             return $this->render(
-                'PHPOrchestraDisplayBundle:Block/Content:show.html.twig',
+                'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
                 array(
                     'content' => $content,
                     'class' => $block->getClass(),

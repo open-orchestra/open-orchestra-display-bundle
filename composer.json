@@ -1,5 +1,5 @@
 {
-    "name": "itkg/phporchestra-display-bundle",
+    "name": "itkg/open-orchestra-display-bundle",
     "description": "The bundle to display all bricks",
     "license": "MIT",
     "authors": [
@@ -25,12 +25,12 @@
     "minimum-stability": "dev",
     "require": {
         "symfony/swiftmailer-bundle" : "~2.3",
-        "itkg/phporchestra-model-interface": "*"
+        "itkg/open-orchestra-model-interface": "*"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.0.14",
         "scrutinizer/ocular": "1.1.1",
-        "itkg/phporchestra-base-bundle": "dev-master",
+        "itkg/open-orchestra-base-bundle": "dev-master",
         "phake/phake": "2.0.0-beta2"
     },
     "config" : {
@@ -38,8 +38,8 @@
     },
     "autoload": {
         "psr-0": {
-            "PHPOrchestra\\DisplayBundle": ""
+            "OpenOrchestra\\DisplayBundle": ""
         }
     },
-    "target-dir": "PHPOrchestra"
+    "target-dir": "OpenOrchestra"
 }

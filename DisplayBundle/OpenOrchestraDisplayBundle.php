@@ -1,13 +1,13 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle;
+namespace OpenOrchestra\DisplayBundle;
 
-use PHPOrchestra\DisplayBundle\DependencyInjection\Compiler\DisplayBlockCompilerPass;
-use PHPOrchestra\DisplayBundle\DependencyInjection\Compiler\DisplayFieldCompilerPass;
+use OpenOrchestra\DisplayBundle\DependencyInjection\Compiler\DisplayBlockCompilerPass;
+use OpenOrchestra\DisplayBundle\DependencyInjection\Compiler\DisplayFieldCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class PHPOrchestraDisplayBundle extends Bundle
+class OpenOrchestraDisplayBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

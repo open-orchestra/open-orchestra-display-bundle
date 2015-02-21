@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 
 /**
  * Class VideoStrategy
@@ -33,7 +33,7 @@ class VideoStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $template = 'PHPOrchestraDisplayBundle:Block/Video:show.html.twig';
+        $template = 'OpenOrchestraDisplayBundle:Block/Video:show.html.twig';
         $parameters = array(
             'class' => $block->getClass(),
             'id' => $block->getId()
@@ -42,7 +42,7 @@ class VideoStrategy extends AbstractStrategy
         switch($block->getAttribute('videoType'))
         {
             case 'youtube':
-                $template = 'PHPOrchestraDisplayBundle:Block/Video:youtube.html.twig';
+                $template = 'OpenOrchestraDisplayBundle:Block/Video:youtube.html.twig';
                 $parameters = array_merge(
                     $parameters,
                     $this->getYoutubeParameters($block)
@@ -50,7 +50,7 @@ class VideoStrategy extends AbstractStrategy
                 break;
 
             case 'dailymotion':
-                $template = 'PHPOrchestraDisplayBundle:Block/Video:dailymotion.html.twig';
+                $template = 'OpenOrchestraDisplayBundle:Block/Video:dailymotion.html.twig';
                 $parameters = array_merge(
                     $parameters,
                     $this->getDailymotionParameters($block)
@@ -58,7 +58,7 @@ class VideoStrategy extends AbstractStrategy
                 break;
 
             case 'vimeo':
-                $template = 'PHPOrchestraDisplayBundle:Block/Video:vimeo.html.twig';
+                $template = 'OpenOrchestraDisplayBundle:Block/Video:vimeo.html.twig';
                 $parameters = array_merge(
                     $parameters,
                     $this->getVimeoParameters($block)

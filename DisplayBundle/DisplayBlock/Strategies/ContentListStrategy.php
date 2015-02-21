@@ -1,13 +1,13 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelInterface\Model\ContentInterface;
-use PHPOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
-use PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ContentInterface;
+use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
+use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -61,7 +61,7 @@ class ContentListStrategy extends AbstractStrategy
             $parameters['contentNodeId'] = $this->nodeRepository->findOneByNodeIdAndLanguageWithPublishedAndLastVersionAndSiteId($block->getAttribute('contentNodeId'))->getId();
         }
 
-        return $this->render('PHPOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);
+        return $this->render('OpenOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);
     }
 
     /**

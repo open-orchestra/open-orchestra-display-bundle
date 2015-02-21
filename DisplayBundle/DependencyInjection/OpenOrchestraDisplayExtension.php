@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DependencyInjection;
+namespace OpenOrchestra\DisplayBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class PHPOrchestraDisplayExtension extends Extension
+class OpenOrchestraDisplayExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -28,7 +28,7 @@ class PHPOrchestraDisplayExtension extends Extension
         $loader->load('manager.yml');
         $loader->load('twig.yml');
 
-        $container->setParameter('php_orchestra_display.administrator_contact_email', $config['administrator_email']);
-        $container->setParameter('php_orchestra_display.contact_signature_email', $config['contact_signature']);
+        $container->setParameter('open_orchestra_display.administrator_contact_email', $config['administrator_email']);
+        $container->setParameter('open_orchestra_display.contact_signature_email', $config['contact_signature']);
     }
 }

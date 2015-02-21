@@ -1,15 +1,15 @@
 parameters:
-    php_orchestra_cms.twig.tree.extension.class: PHPOrchestra\DisplayBundle\Twig\TreeHelperExtension
-    php_orchestra_cms.twig.navigator.extension.class: PHPOrchestra\DisplayBundle\Twig\NavigatorExtension
+    open_orchestra_cms.twig.tree.extension.class: OpenOrchestra\DisplayBundle\Twig\TreeHelperExtension
+    open_orchestra_cms.twig.navigator.extension.class: OpenOrchestra\DisplayBundle\Twig\NavigatorExtension
 
 services:
-    php_orchestra_cms.twig.tree.extension:
-        class: %php_orchestra_cms.twig.tree.extension.class%
-        arguments: [@php_orchestra_display.manager.tree]
+    open_orchestra_cms.twig.tree.extension:
+        class: %open_orchestra_cms.twig.tree.extension.class%
+        arguments: [@open_orchestra_display.manager.tree]
         tags:
             - { name: twig.extension }
-    php_orchestra_cms.twig.navigator.extension:
-        class: %php_orchestra_cms.twig.navigator.extension.class%
+    open_orchestra_cms.twig.navigator.extension:
+        class: %open_orchestra_cms.twig.navigator.extension.class%
         arguments:
             - @translator
         tags:

@@ -1,116 +1,116 @@
 parameters:
-    php_orchestra_display.display_block_manager.class: PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager
+    open_orchestra_display.display_block_manager.class: OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager
 
-    php_orchestra_display.display.carrousel.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\CarrouselStrategy
-    php_orchestra_display.display.gallery.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\GalleryStrategy
-    php_orchestra_display.display.contact.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
-    php_orchestra_display.display.footer.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy
-    php_orchestra_display.display.header.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\HeaderStrategy
-    php_orchestra_display.display.menu.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\MenuStrategy
-    php_orchestra_display.display.news.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\NewsStrategy
-    php_orchestra_display.display.sample.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SampleStrategy
-    php_orchestra_display.display.tiny_mce_wysiwyg.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\TinyMCEWysiwygStrategy
-    php_orchestra_display.display.configurable_content.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ConfigurableContentStrategy
-    php_orchestra_display.display.sub_menu.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\SubMenuStrategy
-    php_orchestra_display.display.content_list.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentListStrategy
-    php_orchestra_display.display.content.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentStrategy
-    php_orchestra_display.display.language_list.class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\LanguageListStrategy
+    open_orchestra_display.display.carrousel.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\CarrouselStrategy
+    open_orchestra_display.display.gallery.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\GalleryStrategy
+    open_orchestra_display.display.contact.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
+    open_orchestra_display.display.footer.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy
+    open_orchestra_display.display.header.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\HeaderStrategy
+    open_orchestra_display.display.menu.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\MenuStrategy
+    open_orchestra_display.display.news.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\NewsStrategy
+    open_orchestra_display.display.sample.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\SampleStrategy
+    open_orchestra_display.display.tiny_mce_wysiwyg.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\TinyMCEWysiwygStrategy
+    open_orchestra_display.display.configurable_content.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ConfigurableContentStrategy
+    open_orchestra_display.display.sub_menu.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\SubMenuStrategy
+    open_orchestra_display.display.content_list.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentListStrategy
+    open_orchestra_display.display.content.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentStrategy
+    open_orchestra_display.display.language_list.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\LanguageListStrategy
 
 services:
-    php_orchestra_display.display_block_manager:
-        class: %php_orchestra_display.display_block_manager.class%
+    open_orchestra_display.display_block_manager:
+        class: %open_orchestra_display.display_block_manager.class%
         arguments: [@templating]
 
-    php_orchestra_display.display.carrousel:
-        class: %php_orchestra_display.display.carrousel.class%
+    open_orchestra_display.display.carrousel:
+        class: %open_orchestra_display.display.carrousel.class%
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.gallery:
-        class: %php_orchestra_display.display.gallery.class%
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.gallery:
+        class: %open_orchestra_display.display.gallery.class%
         arguments:
             - @request_stack
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.contact:
-        class: %php_orchestra_display.display.contact.class%
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.contact:
+        class: %open_orchestra_display.display.contact.class%
         arguments: [@form.factory, @router]
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.footer:
-        class: %php_orchestra_display.display.footer.class%
-        arguments: [@php_orchestra_model.repository.node, @router, @request_stack]
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.footer:
+        class: %open_orchestra_display.display.footer.class%
+        arguments: [@open_orchestra_model.repository.node, @router, @request_stack]
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.header:
-        class: %php_orchestra_display.display.header.class%
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.header:
+        class: %open_orchestra_display.display.header.class%
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.menu:
-        class: %php_orchestra_display.display.menu.class%
-        arguments: [@php_orchestra_model.repository.node, @router, @request_stack]
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.menu:
+        class: %open_orchestra_display.display.menu.class%
+        arguments: [@open_orchestra_model.repository.node, @router, @request_stack]
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.news:
-        class: %php_orchestra_display.display.news.class%
-        arguments: [@php_orchestra_model.repository.content]
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.news:
+        class: %open_orchestra_display.display.news.class%
+        arguments: [@open_orchestra_model.repository.content]
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.sample:
-        class: %php_orchestra_display.display.sample.class%
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.sample:
+        class: %open_orchestra_display.display.sample.class%
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.tiny_mce_wysiwyg:
-        class: %php_orchestra_display.display.tiny_mce_wysiwyg.class%
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.tiny_mce_wysiwyg:
+        class: %open_orchestra_display.display.tiny_mce_wysiwyg.class%
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.configurable_content:
-        class: %php_orchestra_display.display.configurable_content.class%
-        arguments: [@php_orchestra_model.repository.content]
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.configurable_content:
+        class: %open_orchestra_display.display.configurable_content.class%
+        arguments: [@open_orchestra_model.repository.content]
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.sub_menu:
-        class: %php_orchestra_display.display.sub_menu.class%
-        arguments: [@php_orchestra_model.repository.node, @router, @request_stack]
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.sub_menu:
+        class: %open_orchestra_display.display.sub_menu.class%
+        arguments: [@open_orchestra_model.repository.node, @router, @request_stack]
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.content_list:
-        class: %php_orchestra_display.display.content_list.class%
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.content_list:
+        class: %open_orchestra_display.display.content_list.class%
         arguments:
-            - @php_orchestra_model.repository.content
-            - @php_orchestra_model.repository.node
+            - @open_orchestra_model.repository.content
+            - @open_orchestra_model.repository.node
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.content:
-        class: %php_orchestra_display.display.content.class%
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.content:
+        class: %open_orchestra_display.display.content.class%
         arguments:
-            - @php_orchestra_model.repository.content
+            - @open_orchestra_model.repository.content
             - @request_stack
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.language_list:
-        class: %php_orchestra_display.display.language_list.class%
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.language_list:
+        class: %open_orchestra_display.display.language_list.class%
         arguments:
             - @form.factory
-            - @php_orchestra.manager.current_site
-            - @php_orchestra_model.repository.site
+            - @open_orchestra.manager.current_site
+            - @open_orchestra_model.repository.site
             - @request_stack
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.gmap:
-        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\GmapStrategy
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.gmap:
+        class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\GmapStrategy
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.add_this:
-        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\AddThisStrategy
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.add_this:
+        class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AddThisStrategy
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.audience_analysis:
-        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\AudienceAnalysisStrategy
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.audience_analysis:
+        class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AudienceAnalysisStrategy
         arguments:
             - @request_stack
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
-    php_orchestra_display.display.video:
-        class: PHPOrchestra\DisplayBundle\DisplayBlock\Strategies\VideoStrategy
+            - { name: open_orchestra_display.display_block.strategy }
+    open_orchestra_display.display.video:
+        class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\VideoStrategy
         tags:
-            - { name: php_orchestra_display.display_block.strategy }
+            - { name: open_orchestra_display.display_block.strategy }

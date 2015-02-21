@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Exception;
+namespace OpenOrchestra\DisplayBundle\Exception;
 use Exception;
 
 /**

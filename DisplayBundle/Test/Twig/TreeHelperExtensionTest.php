@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Test\Twig;
+namespace OpenOrchestra\DisplayBundle\Test\Twig;
 
 use Phake;
-use PHPOrchestra\DisplayBundle\Twig\TreeHelperExtension;
+use OpenOrchestra\DisplayBundle\Twig\TreeHelperExtension;
 
 /**
  * Class TreeHelperExtension
@@ -18,7 +18,7 @@ class TreeHelperExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->manager = Phake::mock('PHPOrchestra\DisplayBundle\Manager\TreeManager');
+        $this->manager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\TreeManager');
 
         $this->helper = new TreeHelperExtension($this->manager);
     }

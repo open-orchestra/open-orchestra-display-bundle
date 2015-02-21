@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Twig;
+namespace OpenOrchestra\DisplayBundle\Twig;
 
-use PHPOrchestra\DisplayBundle\Manager\TreeManager;
+use OpenOrchestra\DisplayBundle\Manager\TreeManager;
 
 /**
  * Class TreeHelperExtension

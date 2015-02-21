@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Form\Type;
+namespace OpenOrchestra\DisplayBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

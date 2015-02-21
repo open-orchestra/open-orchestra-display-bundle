@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -33,7 +33,7 @@ class SampleStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $response = $this->render(
-            'PHPOrchestraDisplayBundle:Block/Sample:show.html.twig',
+            'OpenOrchestraDisplayBundle:Block/Sample:show.html.twig',
             array(
                 'title' => $block->getAttribute('title'),
                 'author' => $block->getAttribute('author'),

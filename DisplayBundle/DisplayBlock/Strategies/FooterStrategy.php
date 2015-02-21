@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock\Strategies;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use PHPOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
-use PHPOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
+use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -54,7 +54,7 @@ class FooterStrategy extends AbstractStrategy
         $nodes = $this->nodeRepository->getFooterTree($this->request->getLocale());
 
         return $this->render(
-            'PHPOrchestraDisplayBundle:Block/Footer:show.html.twig',
+            'OpenOrchestraDisplayBundle:Block/Footer:show.html.twig',
             array(
                 'tree' => $nodes,
                 'id' => $block->getId(),

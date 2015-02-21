@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\Manager;
+namespace OpenOrchestra\DisplayBundle\Manager;
 
-use PHPOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
-use PHPOrchestra\ModelInterface\Model\SiteInterface;
-use PHPOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
+use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
+use OpenOrchestra\ModelInterface\Model\SiteInterface;
+use OpenOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**

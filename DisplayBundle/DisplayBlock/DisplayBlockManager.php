@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPOrchestra\DisplayBundle\DisplayBlock;
+namespace OpenOrchestra\DisplayBundle\DisplayBlock;
 
-use PHPOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException;
-use PHPOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException;
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
