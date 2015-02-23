@@ -2,8 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\Exception;
 
-use Exception;
-
 /**
  * Class DisplayBlockStrategyNotFoundException
  */
