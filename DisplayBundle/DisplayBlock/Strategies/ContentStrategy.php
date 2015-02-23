@@ -3,6 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -35,34 +36,37 @@ class ContentStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONTENT == $block->getComponent() &&
-            is_array($this->request->get('module_parameters')) &&
-            array_key_exists('newsId', $this->request->get('module_parameters'));
+        return DisplayBlockInterface::CONTENT == $block->getComponent();
     }
 
     /**
-     * Perform the show action for a block
-     *
      * @param BlockInterface $block
      *
      * @return Response
+     *
+     * @throws ContentNotFoundException
      */
     public function show(BlockInterface $block)
     {
-        $content = $this->contentRepository->findOneByContentId($this->request->get('module_parameters')['newsId']);
+        $contentId = '';
+        if (is_array($this->request->get('module_parameters')) && array_key_exists('newsId', $this->request->get('module_parameters'))) {
 
-        if ($content != null) {
-            return $this->render(
-                'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
-                array(
-                    'content' => $content,
-                    'class' => $block->getClass(),
-                    'id' => $block->getId(),
-                )
-            );
+            $contentId = $this->request->get('module_parameters')['newsId'];
+            $content = $this->contentRepository->findOneByContentId($contentId);
+
+            if ($content != null) {
+                return $this->render(
+                    'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
+                    array(
+                        'content' => $content,
+                        'class' => $block->getClass(),
+                        'id' => $block->getId(),
+                    )
+                );
+            }
         }
 
-        return new Response();
+        throw new ContentNotFoundException($contentId);
     }
 
     /**

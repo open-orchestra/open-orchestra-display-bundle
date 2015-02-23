@@ -3,6 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,20 +41,24 @@ class ConfigurableContentStrategy extends AbstractStrategy
      * @param BlockInterface $block
      *
      * @return Response
+     *
+     * @throw ContentNotFoundException
      */
     public function show(BlockInterface $block)
     {
-        $content = $this->contentRepository->findOneByContentId($block->getAttribute('contentId'));
+        $contentId = $block->getAttribute('contentId');
+        $content = $this->contentRepository->findOneByContentId($contentId);
 
-        $contentAttributes = array();
         if ($content) {
             $contentAttributes = $content->getAttributes();
+
+            return $this->render(
+                'OpenOrchestraDisplayBundle:Block/ConfigurableContent:show.html.twig',
+                array('contentAttributes' => $contentAttributes)
+            );
         }
 
-        return $this->render(
-            'OpenOrchestraDisplayBundle:Block/ConfigurableContent:show.html.twig',
-            array('contentAttributes' => $contentAttributes)
-        );
+        throw new ContentNotFoundException($contentId);
     }
 
     /**
