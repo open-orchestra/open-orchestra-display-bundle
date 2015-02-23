@@ -3,16 +3,16 @@
 namespace OpenOrchestra\DisplayBundle\Test\Routing;
 
 use Phake;
-use OpenOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator;
+use OpenOrchestra\DisplayBundle\Routing\OpenOrchestraUrlGenerator;
 use OpenOrchestra\ModelInterface\Model\NodeInterface;
 
 /**
- * Tests of PhpOrchestraUrlGenerator
+ * Tests of OpenOrchestraUrlGenerator
  */
-class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
+class OpenOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var PhpOrchestraUrlGenerator
+     * @var OpenOrchestraUrlGenerator
      */
     protected $generator;
 
@@ -52,7 +52,7 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->nodeRepsitory = Phake::mock('OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface');
         Phake::when($this->nodeRepsitory)->findOneByNodeId(Phake::anyParameters())->thenReturn($this->node);
 
-        $this->generator = new PhpOrchestraUrlGenerator(
+        $this->generator = new OpenOrchestraUrlGenerator(
             $routes,
             $this->context,
             $this->nodeRepsitory,
@@ -83,15 +83,15 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function generateDataProvider()
     {
         return array(
-            array('http', 'page2', array(), PhpOrchestraUrlGenerator::RELATIVE_PATH, 'page2'),
-            array('https', 'page', array(), PhpOrchestraUrlGenerator::ABSOLUTE_URL, 'https://some-site.com:444/page'),
-            array('http', 'page1', array(), PhpOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/page1'),
-            array('http', 'nodeId', array('content' => 3), PhpOrchestraUrlGenerator::ABSOLUTE_URL, 'http://some-site.com/nodeId?content=3'),
-            array('http', 'pageId', array('news' => 'test'), PhpOrchestraUrlGenerator::RELATIVE_PATH, 'pageId?news=test'),
-            array('http', 'contentId', array('test' => 'encore'), PhpOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/contentId?test=encore'),
-            array('http', NodeInterface::ROOT_NODE_ID, array(), PhpOrchestraUrlGenerator::RELATIVE_PATH, './'),
-            array('http', NodeInterface::ROOT_NODE_ID, array(), PhpOrchestraUrlGenerator::ABSOLUTE_PATH, ''),
-            array('http', NodeInterface::ROOT_NODE_ID, array(), PhpOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com'),
+            array('http', 'page2', array(), OpenOrchestraUrlGenerator::RELATIVE_PATH, 'page2'),
+            array('https', 'page', array(), OpenOrchestraUrlGenerator::ABSOLUTE_URL, 'https://some-site.com:444/page'),
+            array('http', 'page1', array(), OpenOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/page1'),
+            array('http', 'nodeId', array('content' => 3), OpenOrchestraUrlGenerator::ABSOLUTE_URL, 'http://some-site.com/nodeId?content=3'),
+            array('http', 'pageId', array('news' => 'test'), OpenOrchestraUrlGenerator::RELATIVE_PATH, 'pageId?news=test'),
+            array('http', 'contentId', array('test' => 'encore'), OpenOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/contentId?test=encore'),
+            array('http', NodeInterface::ROOT_NODE_ID, array(), OpenOrchestraUrlGenerator::RELATIVE_PATH, './'),
+            array('http', NodeInterface::ROOT_NODE_ID, array(), OpenOrchestraUrlGenerator::ABSOLUTE_PATH, ''),
+            array('http', NodeInterface::ROOT_NODE_ID, array(), OpenOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com'),
         );
     }
 
@@ -124,17 +124,17 @@ class PhpOrchestraUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function provideDataWithLanguage()
     {
         return array(
-            array('http', 'page2', 'en', array(), PhpOrchestraUrlGenerator::RELATIVE_PATH, 'en/page2'),
-            array('http', 'page2', 'fr', array(), PhpOrchestraUrlGenerator::RELATIVE_PATH, 'page2'),
-            array('https', 'page', 'en', array(), PhpOrchestraUrlGenerator::ABSOLUTE_URL, 'https://some-site.com:444/en/page'),
-            array('https', 'page', 'fr', array(), PhpOrchestraUrlGenerator::ABSOLUTE_URL, 'https://some-site.com:444/page'),
-            array('http', 'page1', 'en', array(), PhpOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/en/page1'),
-            array('http', 'nodeId', 'en', array('content' => 3), PhpOrchestraUrlGenerator::ABSOLUTE_URL, 'http://some-site.com/en/nodeId?content=3'),
-            array('http', 'pageId', 'en', array('news' => 'test'), PhpOrchestraUrlGenerator::RELATIVE_PATH, 'en/pageId?news=test'),
-            array('http', 'contentId', 'en', array('test' => 'encore'), PhpOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/en/contentId?test=encore'),
-            array('http', NodeInterface::ROOT_NODE_ID, 'en', array(), PhpOrchestraUrlGenerator::RELATIVE_PATH, 'en'),
-            array('http', NodeInterface::ROOT_NODE_ID, 'en', array(), PhpOrchestraUrlGenerator::ABSOLUTE_PATH, '/en'),
-            array('http', NodeInterface::ROOT_NODE_ID, 'en', array(), PhpOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/en'),
+            array('http', 'page2', 'en', array(), OpenOrchestraUrlGenerator::RELATIVE_PATH, 'en/page2'),
+            array('http', 'page2', 'fr', array(), OpenOrchestraUrlGenerator::RELATIVE_PATH, 'page2'),
+            array('https', 'page', 'en', array(), OpenOrchestraUrlGenerator::ABSOLUTE_URL, 'https://some-site.com:444/en/page'),
+            array('https', 'page', 'fr', array(), OpenOrchestraUrlGenerator::ABSOLUTE_URL, 'https://some-site.com:444/page'),
+            array('http', 'page1', 'en', array(), OpenOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/en/page1'),
+            array('http', 'nodeId', 'en', array('content' => 3), OpenOrchestraUrlGenerator::ABSOLUTE_URL, 'http://some-site.com/en/nodeId?content=3'),
+            array('http', 'pageId', 'en', array('news' => 'test'), OpenOrchestraUrlGenerator::RELATIVE_PATH, 'en/pageId?news=test'),
+            array('http', 'contentId', 'en', array('test' => 'encore'), OpenOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/en/contentId?test=encore'),
+            array('http', NodeInterface::ROOT_NODE_ID, 'en', array(), OpenOrchestraUrlGenerator::RELATIVE_PATH, 'en'),
+            array('http', NodeInterface::ROOT_NODE_ID, 'en', array(), OpenOrchestraUrlGenerator::ABSOLUTE_PATH, '/en'),
+            array('http', NodeInterface::ROOT_NODE_ID, 'en', array(), OpenOrchestraUrlGenerator::NETWORK_PATH, '//some-site.com/en'),
         );
     }
 

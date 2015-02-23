@@ -13,9 +13,9 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * Class PhpOrchestraUrlGenerator
+ * Class OpenOrchestraUrlGenerator
  */
-class PhpOrchestraUrlGenerator extends UrlGenerator
+class OpenOrchestraUrlGenerator extends UrlGenerator
 {
     protected $nodeRepository;
     protected $request;
