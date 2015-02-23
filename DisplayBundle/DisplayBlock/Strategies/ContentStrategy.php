@@ -48,9 +48,11 @@ class ContentStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
+        $contentId = '';
         if (is_array($this->request->get('module_parameters')) && array_key_exists('newsId', $this->request->get('module_parameters'))) {
 
-            $content = $this->contentRepository->findOneByContentId($this->request->get('module_parameters')['newsId']);
+            $contentId = $this->request->get('module_parameters')['newsId'];
+            $content = $this->contentRepository->findOneByContentId($contentId);
 
             if ($content != null) {
                 return $this->render(
@@ -62,10 +64,9 @@ class ContentStrategy extends AbstractStrategy
                     )
                 );
             }
-            throw new ContentNotFoundException($this->request->get('module_parameters')['contentNodeId']);
         }
 
-        throw new ContentNotFoundException();
+        throw new ContentNotFoundException($contentId);
     }
 
     /**
