@@ -1,6 +1,7 @@
 <?php
 
 namespace OpenOrchestra\DisplayBundle\Exception;
+
 use Exception;
 
 /**
@@ -15,5 +16,4 @@ class DisplayBlockStrategyNotFoundException extends \Exception
     {
         parent::__construct('Strategy not found for this block type : ' . $message);
     }
-
 }
