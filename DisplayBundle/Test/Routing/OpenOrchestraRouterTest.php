@@ -3,13 +3,13 @@
 namespace OpenOrchestra\DisplayBundle\Test\Routing;
 
 use Phake;
-use OpenOrchestra\DisplayBundle\Routing\PhpOrchestraRouter;
+use OpenOrchestra\DisplayBundle\Routing\OpenOrchestraRouter;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * Tests of PhpOrchestraUrlRouter
+ * Tests of OpenOrchestraUrlRouter
  */
-class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
+class OpenOrchestraRouterTest extends \PHPUnit_Framework_TestCase
 {
     protected $router;
 
@@ -33,12 +33,12 @@ class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
         Phake::when($container)->get('open_orchestra.manager.current_site')->thenReturn($siteManager);
         Phake::when($container)->get('request_stack')->thenReturn($requestStack);
 
-        $this->router = new PhpOrchestraRouter(
+        $this->router = new OpenOrchestraRouter(
             $container,
             null,
             array(
-                'generator_class' => 'OpenOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator',
-                'generator_base_class' => 'OpenOrchestra\DisplayBundle\Routing\PhpOrchestraUrlGenerator',
+                'generator_class' => 'OpenOrchestra\DisplayBundle\Routing\OpenOrchestraUrlGenerator',
+                'generator_base_class' => 'OpenOrchestra\DisplayBundle\Routing\OpenOrchestraUrlGenerator',
             )
         );
     }
@@ -49,7 +49,7 @@ class PhpOrchestraRouterTest extends \PHPUnit_Framework_TestCase
     public function testGetGenerator()
     {
         $this->assertInstanceOf(
-            'OpenOrchestra\\DisplayBundle\\Routing\\PhpOrchestraUrlGenerator',
+            'OpenOrchestra\\DisplayBundle\\Routing\\OpenOrchestraUrlGenerator',
             $this->router->getGenerator()
         );
     }

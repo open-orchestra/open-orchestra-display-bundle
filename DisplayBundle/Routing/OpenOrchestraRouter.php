@@ -10,9 +10,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * The FrameworkBundle router is extended to inject documents service
- * in PhpOrchestraUrlMatcher
+ * in OpenOrchestraUrlMatcher
  */
-class PhpOrchestraRouter extends Router
+class OpenOrchestraRouter extends Router
 {
     protected $nodeRepository;
     protected $requestStack;
