@@ -56,11 +56,11 @@ class GalleryStrategy extends AbstractStrategy
             array(
                 'galleryClass' => $block->getClass(),
                 'galleryId' => $block->getId(),
-                'pictures' => $this->filterMedias($block->getAttribute('pictures'), $currentPage, $block->getAttribute('nb_items')),
-                'numberOfColumns' => $block->getAttribute('nb_columns'),
-                'thumbnailFormat' => $block->getAttribute('thumbnail_format'),
-                'imageFormat' => $block->getAttribute('image_format'),
-                'numberOfPages' => ($block->getAttribute('nb_items') == 0) ? 1 : ceil(count($block->getAttribute('pictures')) / $block->getAttribute('nb_items')),
+                'pictures' => $this->filterMedias($block->getAttribute('pictures'), $currentPage, $block->getAttribute('itemNumber')),
+                'numberOfColumns' => $block->getAttribute('columnNumber'),
+                'thumbnailFormat' => $block->getAttribute('thumbnailFormat'),
+                'imageFormat' => $block->getAttribute('imageFormat'),
+                'numberOfPages' => ($block->getAttribute('itemNumber') == 0) ? 1 : ceil(count($block->getAttribute('pictures')) / $block->getAttribute('itemNumber')),
                 'parameters' => $parameters,
                 'currentPage' => $currentPage
             )
