@@ -40,7 +40,7 @@ class ContentListStrategy extends AbstractStrategy
         $contents = $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywords($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
 
         $contentFromTemplate = array();
-        if (!is_null($block->getAttribute('contentTemplate'))) {
+        if ($block->getAttribute('contentTemplateEnabled') == 1 && !is_null($block->getAttribute('contentTemplate'))) {
             $twig = new \Twig_Environment(new \Twig_Loader_String());
             /** @var ContentInterface $content */
             foreach ($contents as $content) {
