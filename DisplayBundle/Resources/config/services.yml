@@ -1,8 +1,0 @@
-parameters:
-#--[EXTEND SYMFONY 2 ROUTING]---#
-
-    router.class : 'OpenOrchestra\DisplayBundle\Routing\OpenOrchestraRouter'
-    router.options.generator_class : 'OpenOrchestra\DisplayBundle\Routing\OpenOrchestraUrlGenerator'
-    router.options.generator_base_class : 'OpenOrchestra\DisplayBundle\Routing\OpenOrchestraUrlGenerator'
-
-services:
