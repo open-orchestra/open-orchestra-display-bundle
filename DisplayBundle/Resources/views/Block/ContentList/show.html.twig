@@ -2,7 +2,7 @@
 
 {% block content %}
     {% for content in contents %}
-        {% if contentFromTemplate[content.id] is defined %}
+        {% if contentFromTemplate[content.id] is defined and contentFromTemplate[content.id] is not null %}
             {{ contentFromTemplate[content.id]|raw }}
         {% else %}
             <div>
