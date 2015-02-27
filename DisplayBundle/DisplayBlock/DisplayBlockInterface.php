@@ -14,9 +14,7 @@ interface DisplayBlockInterface
     const CARROUSEL = 'carrousel';
     const GALLERY = 'gallery';
     const FOOTER = 'footer';
-    const HEADER = 'header';
     const MENU = 'menu';
-    const NEWS = 'news';
     const SAMPLE = 'sample';
     const SEARCH = 'search';
     const SEARCH_RESULT = 'search_result';
