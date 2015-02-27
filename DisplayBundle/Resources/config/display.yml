@@ -5,9 +5,7 @@ parameters:
     open_orchestra_display.display.gallery.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\GalleryStrategy
     open_orchestra_display.display.contact.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
     open_orchestra_display.display.footer.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy
-    open_orchestra_display.display.header.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\HeaderStrategy
     open_orchestra_display.display.menu.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\MenuStrategy
-    open_orchestra_display.display.news.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\NewsStrategy
     open_orchestra_display.display.sample.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\SampleStrategy
     open_orchestra_display.display.tiny_mce_wysiwyg.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\TinyMCEWysiwygStrategy
     open_orchestra_display.display.configurable_content.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ConfigurableContentStrategy
@@ -41,18 +39,9 @@ services:
         arguments: [@open_orchestra_model.repository.node, @router, @request_stack]
         tags:
             - { name: open_orchestra_display.display_block.strategy }
-    open_orchestra_display.display.header:
-        class: %open_orchestra_display.display.header.class%
-        tags:
-            - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.menu:
         class: %open_orchestra_display.display.menu.class%
         arguments: [@open_orchestra_model.repository.node, @router, @request_stack]
-        tags:
-            - { name: open_orchestra_display.display_block.strategy }
-    open_orchestra_display.display.news:
-        class: %open_orchestra_display.display.news.class%
-        arguments: [@open_orchestra_model.repository.content]
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.sample:
