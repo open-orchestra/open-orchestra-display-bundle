@@ -1,8 +1,12 @@
 {% extends 'OpenOrchestraDisplayBundle:Block:layout.html.twig' %}
 
 {% block content %}
-    <h1>{{ content.name }}</h1>
-    {% for attribute in content.attributes %}
-        <div class="{{ attribute.name }}"> {{ attribute.value }}</div>
-    {% endfor %}
+    {% if contentFromTemplate is defined and contentFromTemplate is not null %}
+        {{ contentFromTemplate|raw }}
+    {% else %}
+        <h1>{{ content.name }}</h1>
+        {% for attribute in content.attributes %}
+            <div class="{{ attribute.name }}"> {{ attribute.value }}</div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
