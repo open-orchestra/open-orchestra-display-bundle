@@ -31,7 +31,7 @@ class OrchestraUrlExtension extends \Twig_Extension
 
     /**
      * Generate a url with dynamic pattern
-     * 
+     *
      * @param string $route
      * @param array  $parameters
      *
