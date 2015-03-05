@@ -20,9 +20,9 @@ class OrchestraUrlExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->urlGenerator = Phake::mock('Symfony\Component\Translation\TranslatorInterface');
+        $this->urlGenerator = Phake::mock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
 
-        Phake::when($this->urlGenerator)->generate(Phake::anyParameters())->thenReturn(false);
+        Phake::when($this->urlGenerator)->generate(Phake::anyParameters())->thenThrow(new \Exception('My error message!'));
         Phake::when($this->urlGenerator)->generate($this->okRoute, array())->thenReturn($this->okRoute);
 
         $this->orchestraUrl = new OrchestraUrlExtension($this->urlGenerator);
@@ -43,8 +43,9 @@ class OrchestraUrlExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testOrchestraUrl($route, $parameters, $expected)
     {
-        $route = $this->urlGenerator->renderNav($nbPages, $curPage, $params, $maxPages);
-#        $this->assertSame($navigator, $expected);
+        $route = $this->orchestraUrl->orchestraUrl($route, $parameters);
+
+        $this->assertSame($route, $expected);
     }
 
     /**
@@ -53,8 +54,8 @@ class OrchestraUrlExtensionTest extends \PHPUnit_Framework_TestCase
     public function provideParameters()
     {
         return array(
-            array('okRoute', array(), 'ok'),
-            array('exceptionRoute', array(), false),
+            array($this->okRoute, array(), 'ok'),
+            array($this->exceptionRoute, array(), false),
         );
     }
 }
