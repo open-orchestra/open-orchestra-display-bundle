@@ -49,28 +49,32 @@ class ContentStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $contentId = '';
-        if (is_array($this->request->get('module_parameters')) && array_key_exists('newsId', $this->request->get('module_parameters'))) {
+        $content = null;
 
-            $contentId = $this->request->get('module_parameters')['newsId'];
+        if (is_array($this->request->get('module_parameters')) && array_key_exists('contentId', $this->request->get('module_parameters'))) {
+            $contentId = $this->request->get('module_parameters')['contentId'];
             $content = $this->contentRepository->findOneByContentId($contentId);
+        }
+        if (is_null($content) && $this->request->get('token')) {
+            $content = array('name' => 'name', 'attributes' => array());
+        }
 
+        if (!is_null($content)) {
             $contentFromTemplate = null;
             if ($block->getAttribute('contentTemplateEnabled') == 1 && !is_null($block->getAttribute('contentTemplate'))) {
                 $twig = new \Twig_Environment(new \Twig_Loader_String());
                 $contentFromTemplate = $twig->render($block->getAttribute('contentTemplate'), array('content' => $content));
             }
 
-            if ($content != null) {
-                return $this->render(
-                    'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
-                    array(
-                        'contentFromTemplate' => $contentFromTemplate,
-                        'content' => $content,
-                        'class' => $block->getClass(),
-                        'id' => $block->getId(),
-                    )
-                );
-            }
+            return $this->render(
+                'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
+                array(
+                    'contentFromTemplate' => $contentFromTemplate,
+                    'content' => $content,
+                    'class' => $block->getClass(),
+                    'id' => $block->getId(),
+                )
+            );
         }
 
         throw new ContentNotFoundException($contentId);
