@@ -49,9 +49,9 @@ class ContentStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $contentId = '';
-        if (is_array($this->request->get('module_parameters')) && array_key_exists('newsId', $this->request->get('module_parameters'))) {
+        if (is_array($this->request->get('module_parameters')) && array_key_exists('contentId', $this->request->get('module_parameters'))) {
 
-            $contentId = $this->request->get('module_parameters')['newsId'];
+            $contentId = $this->request->get('module_parameters')['contentId'];
             $content = $this->contentRepository->findOneByContentId($contentId);
 
             $contentFromTemplate = null;
@@ -71,6 +71,27 @@ class ContentStrategy extends AbstractStrategy
                     )
                 );
             }
+        }
+        elseif ($this->request->get('token')) {
+            $contentFromTemplate = null;
+            if ($block->getAttribute('contentTemplateEnabled') == 1 && !is_null($block->getAttribute('contentTemplate'))) {
+                $contentFromTemplate = preg_replace('/({{)(.*?)(}})/', '<span class="alert-info">$2</span>', $block->getAttribute('contentTemplate'));
+            }
+
+            $attributes = array();
+            for($i = 0; $i < 10; $i++){
+                $attributes[] = array('name' => 'attribute'.$i.'.name','value' => 'attribute'.$i.'.value');
+            }
+
+            return $this->render(
+                'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
+                array(
+                    'contentFromTemplate' => $contentFromTemplate,
+                    'content' => array('name' => 'name', 'attributes' => $attributes),
+                    'class' => $block->getClass(),
+                    'id' => $block->getId(),
+                )
+            );
         }
 
         throw new ContentNotFoundException($contentId);

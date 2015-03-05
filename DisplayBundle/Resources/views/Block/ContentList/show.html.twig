@@ -13,7 +13,7 @@
                 </p>
 
                 {% if contentNodeId is defined %}
-                    <a href="{{ url(contentNodeId, {'newsId' : content.contentId} ) }}"></a>
+                    <a href="{{ url(contentNodeId, {'contentId' : content.contentId} ) }}"></a>
                 {% endif %}
             </div>
         {% endif %}
