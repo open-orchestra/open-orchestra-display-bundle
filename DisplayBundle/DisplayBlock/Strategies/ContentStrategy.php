@@ -52,7 +52,6 @@ class ContentStrategy extends AbstractStrategy
         $content = null;
 
         if (is_array($this->request->get('module_parameters')) && array_key_exists('contentId', $this->request->get('module_parameters'))) {
-
             $contentId = $this->request->get('module_parameters')['contentId'];
             $content = $this->contentRepository->findOneByContentId($contentId);
         }
