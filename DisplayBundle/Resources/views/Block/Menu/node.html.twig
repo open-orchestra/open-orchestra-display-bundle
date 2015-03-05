@@ -1,0 +1,17 @@
+{% set url = orchestraUrl(element.node.id) %}
+<ul>
+    <li>
+        {% if url %}
+            <a href="{{ url }}">{{ element.node.name }}</a>
+        {% else %}
+            <span class="module_node">{{ element.node.name }}</span>
+        {% endif %}
+        {% if element.child is defined %}
+            {% for child in element.child %}
+                {% if child %}
+                    {% include "OpenOrchestraDisplayBundle:Block/Menu:node.html.twig" with {"element": child} only %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </li>
+</ul>

@@ -54,7 +54,7 @@ class MenuStrategy extends AbstractStrategy
         $nodes = $this->nodeRepository->getMenuTree($this->request->getLocale());
 
         return $this->render(
-            'OpenOrchestraDisplayBundle:Block/Menu:show.html.twig',
+            'OpenOrchestraDisplayBundle:Block/Menu:tree.html.twig',
             array(
                 'tree' => $nodes,
                 'id' => $block->getId(),

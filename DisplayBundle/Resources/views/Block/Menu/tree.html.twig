@@ -1,0 +1,5 @@
+<div id="{{ id }}" class="{{ class }}">
+    {% for element in tree_formatter(tree) %}
+        {% include "OpenOrchestraDisplayBundle:Block/Menu:node.html.twig" with {"element": element} only %}
+    {% endfor %}
+</div>
