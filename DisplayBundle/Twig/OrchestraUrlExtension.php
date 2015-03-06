@@ -3,6 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\Twig;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
 /**
  * Class OrchestraUrlExtension
@@ -37,12 +38,16 @@ class OrchestraUrlExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function orchestraUrl($route, $parameters = array())
+    public function orchestraUrl($route, $parameters = array(), $catchMandatoryException = false)
     {
         try {
             return $this->urlGenerator->generate($route, $parameters);
-        } catch(\Exception $e) {
-            return false;
+        } catch(MissingMandatoryParametersException $e) {
+            if ($catchMandatoryException) {
+                return false;
+            } else {
+                throw($e);
+            }
         }
     }
 
