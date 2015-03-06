@@ -31,7 +31,7 @@ class OrchestraUrlExtension extends \Twig_Extension
     }
 
     /**
-     * Generate a url with dynamic pattern
+     * Generate an url and catch mandatory exceptions if asked for it
      *
      * @param string $route
      * @param array  $parameters
@@ -42,7 +42,7 @@ class OrchestraUrlExtension extends \Twig_Extension
     {
         try {
             return $this->urlGenerator->generate($route, $parameters);
-        } catch(MissingMandatoryParametersException $e) {
+        } catch (MissingMandatoryParametersException $e) {
             if ($catchMandatoryException) {
                 return false;
             } else {

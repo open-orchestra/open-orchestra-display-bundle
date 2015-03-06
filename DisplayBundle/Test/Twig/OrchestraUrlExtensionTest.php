@@ -12,10 +12,11 @@ use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 class OrchestraUrlExtensionTest extends \PHPUnit_Framework_TestCase
 {
     protected $urlGenerator;
+    protected $orchestraUrl;
 
     protected $ok = 'ok';
-    protected $standardException = 'ko';
-    protected $missingMandatoryParameterException = 'missing_mandatory_exception';
+    protected $standardException = '\Exception';
+    protected $missingMandatoryParameterException = '\Symfony\Component\Routing\Exception\MissingMandatoryParametersException';
 
     /**
      * Set up the test
@@ -26,7 +27,7 @@ class OrchestraUrlExtensionTest extends \PHPUnit_Framework_TestCase
 
         Phake::when($this->urlGenerator)->generate($this->ok, array())->thenReturn($this->ok);
         Phake::when($this->urlGenerator)->generate($this->standardException, array())->thenThrow(new \Exception($this->standardException));
-        Phake::when($this->urlGenerator)->generate($this->missingMandatoryParameterException, array())->thenReturn(new MissingMandatoryParametersException($this->missingMandatoryParameterException));
+        Phake::when($this->urlGenerator)->generate($this->missingMandatoryParameterException, array())->thenThrow(new MissingMandatoryParametersException($this->missingMandatoryParameterException));
 
         $this->orchestraUrl = new OrchestraUrlExtension($this->urlGenerator);
     }
@@ -40,28 +41,14 @@ class OrchestraUrlExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test return
+     * Test url generation when no exception is raised
      * 
      * @dataProvider provideNoException
      */
     public function testOrchestraUrlWithNoException($route, $parameters, $catchException, $expected)
     {
-        $route = $this->orchestraUrl->orchestraUrl($route, $parameters, $catchException);
-        $this->assertSame($route, $expected);
-    }
-
-    /**
-     * Test return
-     * 
-     * @dataProvider provideException
-     */
-    public function testOrchestraUrlWithException($route, $parameters, $catchException, $expected)
-    {
-        try {
-            $this->orchestraUrl->orchestraUrl($route, $parameters, $catchException);
-        } catch (\Exception $e) {
-            $this->assertSame($e->getMessage(), $expected);
-        }
+        $url = $this->orchestraUrl->orchestraUrl($route, $parameters, $catchException);
+        $this->assertSame($url, $expected);
     }
 
     /**
@@ -72,10 +59,24 @@ class OrchestraUrlExtensionTest extends \PHPUnit_Framework_TestCase
         return array(
             array($this->ok, array(), false, $this->ok),
             array($this->ok, array(), true, $this->ok),
-//            array($this->missingMandatoryParameterException, array(), true, false),
+            array($this->missingMandatoryParameterException, array(), true, false),
         );
     }
 
+    /**
+     * Test url generation when an exception is raised
+     * 
+     * @dataProvider provideException
+     */
+    public function testOrchestraUrlWithException($route, $parameters, $catchException, $expected)
+    {
+        $this->setExpectedException($expected);
+        $this->orchestraUrl->orchestraUrl($route, $parameters, $catchException);
+    }
+
+    /**
+     * Provide exceptions
+     */
     public function provideException()
     {
         return array(
