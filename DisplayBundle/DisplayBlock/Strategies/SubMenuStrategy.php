@@ -54,7 +54,7 @@ class SubMenuStrategy extends AbstractStrategy
         $nodes = $this->nodeRepository->getSubMenu($block->getAttribute('nodeName'), $block->getAttribute('nbLevel'), $this->request->getLocale());
 
         return $this->render(
-            'OpenOrchestraDisplayBundle:Block/Menu:show.html.twig',
+            'OpenOrchestraDisplayBundle:Block/Menu:tree.html.twig',
             array(
                 'tree' => $nodes,
                 'id' => $block->getId(),

@@ -5,7 +5,7 @@
         {% if element.child is defined %}
             {% for child in element.child %}
                 {% if child %}
-                    {% include "OpenOrchestraDisplayBundle:Block/Menu:show.html.twig" with {"element": child } only %}
+                    {% include "OpenOrchestraDisplayBundle:Block/Menu:node.html.twig" with {"element": child } only %}
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -13,7 +13,7 @@
 {% elseif tree is defined %}
     <div id="{{ id }}" class="{{ class }}">
         {% for element in tree_formatter(tree) %}
-            {% include "OpenOrchestraDisplayBundle:Block/Menu:show.html.twig" with {"element": element } only %}
+            {% include "OpenOrchestraDisplayBundle:Block/Menu:node.html.twig" with {"element": element } only %}
         {% endfor %}
     </div>
 {% endif %}
