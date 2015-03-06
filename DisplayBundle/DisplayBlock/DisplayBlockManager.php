@@ -45,7 +45,10 @@ class DisplayBlockManager
         /** @var DisplayBlockInterface $strategy */
         foreach ($this->strategies as $strategy) {
             if ($strategy->support($block)) {
-                return $strategy->show($block);
+                $response = $strategy->show($block);
+                $this->setMaxAge($block->getMaxAge(), $response);
+
+                return $response;
             }
         }
 
@@ -58,5 +61,19 @@ class DisplayBlockManager
     public function getTemplating()
     {
         return $this->templating;
+    }
+
+    /**
+     * @param int      $maxAge
+     * @param Response $response
+     */
+    protected function setMaxAge($maxAge, Response $response)
+    {
+        if ($maxAge != 0) {
+            if (-1 === $maxAge) {
+                $maxAge = 2629743;
+            }
+            $response->setMaxAge($maxAge);
+        }
     }
 }
