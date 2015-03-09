@@ -48,11 +48,10 @@ class ContentStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $contentId = '';
+        $contentId = $this->request->get('contentId');
         $content = null;
 
-        if (is_array($this->request->get('module_parameters')) && array_key_exists('contentId', $this->request->get('module_parameters'))) {
-            $contentId = $this->request->get('module_parameters')['contentId'];
+        if (!is_null($contentId)) {
             $content = $this->contentRepository->findOneByContentId($contentId);
         }
         if (is_null($content) && $this->request->get('token')) {
