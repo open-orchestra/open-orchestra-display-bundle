@@ -15,15 +15,18 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected $manager;
 
+    protected $strategy;
     protected $templating;
     protected $wrongStrategy;
-    protected $strategy;
+    protected $cacheableManager;
 
     /**
      * Set up the test
      */
     public function setUp()
     {
+        $this->cacheableManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\CacheableManager');
+
         $this->templating = Phake::mock('Symfony\Component\Templating\EngineInterface');
 
         $this->wrongStrategy = Phake::mock('OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface');
@@ -33,7 +36,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         Phake::when($this->strategy)->support(Phake::anyParameters())->thenReturn(true);
         Phake::when($this->strategy)->getName()->thenReturn('right');
 
-        $this->manager = new DisplayBlockManager($this->templating);
+        $this->manager = new DisplayBlockManager($this->templating, $this->cacheableManager);
         $this->manager->addStrategy($this->wrongStrategy);
         $this->manager->addStrategy($this->strategy);
     }
@@ -50,23 +53,23 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      * Test show
      *
      * @param int $blockMaxAge
-     * @param int $responseMaxAge
      *
      * @dataProvider provideMaxAge
      */
-    public function testShow($blockMaxAge, $responseMaxAge, $callNumber = 1)
+    public function testShow($blockMaxAge)
     {
         $block = Phake::mock('OpenOrchestra\ModelInterface\Model\BlockInterface');
         Phake::when($block)->getMaxAge()->thenReturn($blockMaxAge);
         $response = Phake::mock('Symfony\Component\HttpFoundation\Response');
         Phake::when($this->strategy)->show(Phake::anyParameters())->thenReturn($response);
+        Phake::when($this->cacheableManager)->setMaxAge(Phake::anyParameters())->thenReturn($response);
 
         $newResponse = $this->manager->show($block);
 
         $this->assertSame($response, $newResponse);
         Phake::verify($this->wrongStrategy, Phake::never())->show(Phake::anyParameters());
         Phake::verify($this->strategy)->show(Phake::anyParameters());
-        Phake::verify($newResponse, Phake::times($callNumber))->setMaxAge($responseMaxAge);
+        Phake::verify($this->cacheableManager)->setMaxAge($blockMaxAge, $response);
     }
 
     /**
@@ -75,11 +78,9 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     public function provideMaxAge()
     {
         return array(
-            array(1, 1),
-            array(1000, 1000),
-            array(5, 5),
-            array(0, Phake::anyParameters(), 0),
-            array(-1, 2629743),
+            array(1),
+            array(1000),
+            array(-1),
         );
     }
 }

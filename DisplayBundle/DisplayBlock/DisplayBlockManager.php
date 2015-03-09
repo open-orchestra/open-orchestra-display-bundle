@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock;
 
+use OpenOrchestra\DisplayBundle\Manager\CacheableManager;
 use OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Templating\EngineInterface;
@@ -13,14 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 class DisplayBlockManager
 {
     protected $strategies = array();
+    protected $cacheableManager;
     protected $templating;
 
     /**
-     * @param EngineInterface $templating
+     * @param EngineInterface  $templating
+     * @param CacheableManager $cacheableManager
      */
-    public function __construct(EngineInterface $templating)
+    public function __construct(EngineInterface $templating, CacheableManager $cacheableManager)
     {
         $this->templating = $templating;
+        $this->cacheableManager = $cacheableManager;
     }
 
     /**
@@ -46,7 +50,7 @@ class DisplayBlockManager
         foreach ($this->strategies as $strategy) {
             if ($strategy->support($block)) {
                 $response = $strategy->show($block);
-                $this->setMaxAge($block->getMaxAge(), $response);
+                $response = $this->cacheableManager->setMaxAge($block->getMaxAge(), $response);
 
                 return $response;
             }
@@ -61,19 +65,5 @@ class DisplayBlockManager
     public function getTemplating()
     {
         return $this->templating;
-    }
-
-    /**
-     * @param int      $maxAge
-     * @param Response $response
-     */
-    protected function setMaxAge($maxAge, Response $response)
-    {
-        if ($maxAge != 0) {
-            if (-1 === $maxAge) {
-                $maxAge = 2629743;
-            }
-            $response->setMaxAge($maxAge);
-        }
     }
 }
