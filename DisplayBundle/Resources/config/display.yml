@@ -19,6 +19,7 @@ services:
         arguments:
             - @templating
             - @open_orchestra_display.manager.cacheable
+            - @fos_http_cache.cache_manager
 
     open_orchestra_display.display.carrousel:
         class: %open_orchestra_display.display.carrousel.class%
