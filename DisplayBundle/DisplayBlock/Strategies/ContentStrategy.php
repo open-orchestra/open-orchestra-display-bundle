@@ -4,6 +4,7 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
+use OpenOrchestra\DisplayBundle\Fake\FakeContent;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -55,7 +56,7 @@ class ContentStrategy extends AbstractStrategy
             $content = $this->contentRepository->findOneByContentId($contentId);
         }
         if (is_null($content) && $this->request->get('token')) {
-            $content = array('name' => 'name', 'attributes' => array());
+            $content = new FakeContent();
         }
 
         if (!is_null($content)) {
