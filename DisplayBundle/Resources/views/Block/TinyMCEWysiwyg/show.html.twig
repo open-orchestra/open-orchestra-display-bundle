@@ -1,5 +1,6 @@
 {% extends 'OpenOrchestraDisplayBundle:Block:layout.html.twig' %}
 
 {% block content %}
+    Generated at {{ 'now'|date('h:i:s')}}<br />
     {{ htmlContent|raw() }}
 {% endblock %}
