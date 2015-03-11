@@ -59,7 +59,11 @@ class DisplayBlockManager
 
                 $this->cacheManager->tagResponse($response, array('poc', 'block'));
 
-                $response = $this->cacheableManager->setMaxAge($block->getMaxAge(), $response);
+                $response = $this->cacheableManager->setResponseCacheParameters(
+                    $response,
+                    $block->getMaxAge(),
+                    $block->getCacheStatus()
+                );
 
                 return $response;
             }
