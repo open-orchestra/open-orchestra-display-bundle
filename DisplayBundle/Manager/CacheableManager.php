@@ -21,7 +21,9 @@ class CacheableManager
             if (-1 === $maxAge) {
                 $maxAge = 2629743;
             }
+            $response->setPublic();
             $response->setMaxAge($maxAge);
+            $response->setSharedMaxAge($maxAge);
         }
 
         return $response;
