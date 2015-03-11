@@ -6,15 +6,14 @@
             {{ contentFromTemplate[content.id]|raw }}
         {% else %}
             <div>
-                <span class="{{ content.attributes.1.name }}">{{ content.attributes.1.value }}</span>
-                <h2>{{ content.name }}</h2>
-                <p>
-                    {{ content.attributes.4.value | truncate(characterNumber, true, '...') }}
-                </p>
-
                 {% if contentNodeId is defined %}
-                    <a href="{{ url(contentNodeId, {'contentId' : content.contentId} ) }}"></a>
+                    <a href="{{ url(contentNodeId, {'contentId' : content.contentId} ) }}">
+                        <h2>{{ content.name }}</h2>
+                    </a>
+                {% else %}
+                    <h2>{{ content.name }}</h2>
                 {% endif %}
+
             </div>
         {% endif %}
     {% endfor %}
@@ -27,6 +26,6 @@
             document.head.appendChild(linkElement);
         }
 
-        callCss('/bundles/openorchestradisplay/block/ContentList/css/style.css');
+        callCss('/bundles/openorchestradisplay/block/ContentList/css/style.mobile.css');
     </script>
 {% endblock %}
