@@ -12,7 +12,6 @@ interface DisplayBlockInterface
 {
     const CONTACT = 'contact';
     const CARROUSEL = 'carrousel';
-    const GALLERY = 'gallery';
     const FOOTER = 'footer';
     const MENU = 'menu';
     const SAMPLE = 'sample';
@@ -24,7 +23,6 @@ interface DisplayBlockInterface
     const CONTENT_LIST= 'content_list';
     const CONTENT = 'content';
     const LANGUAGE_LIST = 'language_list';
-    const MEDIA_LIST_BY_KEYWORD = 'media_list_by_keyword';
     const VIDEO = 'video';
     const GMAP = 'gmap';
     const ADDTHIS = 'add_this';
