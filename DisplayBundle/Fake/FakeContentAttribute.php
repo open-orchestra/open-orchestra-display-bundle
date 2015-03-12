@@ -52,4 +52,12 @@ class FakeContentAttribute implements ContentAttributeInterface
     {
         return $this->value;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getValue();
+    }
 }
