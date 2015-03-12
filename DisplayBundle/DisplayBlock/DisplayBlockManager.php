@@ -63,7 +63,7 @@ class DisplayBlockManager
                 $this->cacheManager->tagResponse($response, $cacheTags);
 
                 $cacheStatus = CacheableInterface::CACHE_PRIVATE;
-                if ($strategy->isPublic()) {
+                if ($strategy->isPublic($block)) {
                     $cacheStatus = CacheableInterface::CACHE_PUBLIC;
                 }
 

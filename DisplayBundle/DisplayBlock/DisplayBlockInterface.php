@@ -39,10 +39,12 @@ interface DisplayBlockInterface
 
     /**
      * Indicate if the block is public or private
+     *
+     * @param BlockInterface $block
      * 
      * @return boolean
      */
-    public function isPublic();
+    public function isPublic(BlockInterface $block);
 
     /**
      * Return block specific tags

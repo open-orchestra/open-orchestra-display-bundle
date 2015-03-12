@@ -29,6 +29,28 @@ class ContentListStrategy extends AbstractStrategy
     }
 
     /**
+     * Check if the strategy support this block
+     *
+     * @param BlockInterface $block
+     *
+     * @return boolean
+     */
+    public function support(BlockInterface $block)
+    {
+        return DisplayBlockInterface::CONTENT_LIST === $block->getComponent();
+    }
+
+    /**
+     * Indicate if the block is public or private
+     * 
+     * @return boolean
+     */
+    public function isPublic(BlockInterface $block = null)
+    {
+        return true;
+    }
+
+    /**
      * Perform the show action for a block
      *
      * @param BlockInterface $block
@@ -75,18 +97,6 @@ class ContentListStrategy extends AbstractStrategy
     protected function getContents($contentType, $choiceType, $keyword)
     {
         return $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywords($contentType, $choiceType, $keyword);
-    }
-
-    /**
-     * Check if the strategy support this block
-     *
-     * @param BlockInterface $block
-     *
-     * @return boolean
-     */
-    public function support(BlockInterface $block)
-    {
-        return DisplayBlockInterface::CONTENT_LIST === $block->getComponent();
     }
 
     /**

@@ -26,9 +26,11 @@ abstract class AbstractStrategy implements DisplayBlockInterface
     }
 
     /**
+     * @param BlockInterface $block
+     * 
      * @return boolean
      */
-    public function isPublic()
+    public function isPublic(BlockInterface $block = null)
     {
         return false;
     }
