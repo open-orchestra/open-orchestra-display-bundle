@@ -24,6 +24,16 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     }
 
     /**
+     * Indicate if the block is public or private
+     * 
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return true;
+    }
+
+    /**
      * Perform the show action for a block
      *
      * @param BlockInterface $block

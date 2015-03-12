@@ -38,6 +38,13 @@ interface DisplayBlockInterface
     public function support(BlockInterface $block);
 
     /**
+     * Indicate if the block is public or private
+     * 
+     * @return boolean
+     */
+    public function isPublic();
+
+    /**
      * Perform the show action for a block
      *
      * @param BlockInterface $block

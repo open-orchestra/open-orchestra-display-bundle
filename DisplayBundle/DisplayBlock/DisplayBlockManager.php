@@ -8,6 +8,7 @@ use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\HttpCacheBundle\CacheManager;
+use OpenOrchestra\ModelInterface\Model\CacheableInterface;
 
 /**
  * Class DisplayBlockManager
@@ -59,10 +60,15 @@ class DisplayBlockManager
 
                 $this->cacheManager->tagResponse($response, array('poc', 'block'));
 
+                $cacheStatus = CacheableInterface::CACHE_PRIVATE;
+                if ($strategy->isPublic()) {
+                    $cacheStatus = CacheableInterface::CACHE_PUBLIC;
+                }
+
                 $response = $this->cacheableManager->setResponseCacheParameters(
                     $response,
                     $block->getMaxAge(),
-                    $block->getCacheStatus()
+                    $cacheStatus
                 );
 
                 return $response;

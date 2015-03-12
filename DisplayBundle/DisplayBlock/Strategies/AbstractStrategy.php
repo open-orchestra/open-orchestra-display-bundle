@@ -25,6 +25,14 @@ abstract class AbstractStrategy implements DisplayBlockInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return false;
+    }
+
+    /**
      * Renders a view.
      *
      * @param string   $view       The view name
