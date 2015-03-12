@@ -45,7 +45,7 @@ class ContentListStrategy extends AbstractStrategy
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block = null)
+    public function isPublic(BlockInterface $block)
     {
         return true;
     }
