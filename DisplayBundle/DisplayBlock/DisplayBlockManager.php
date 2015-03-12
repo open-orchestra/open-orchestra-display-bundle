@@ -58,7 +58,9 @@ class DisplayBlockManager
             if ($strategy->support($block)) {
                 $response = $strategy->show($block);
 
-                $this->cacheManager->tagResponse($response, array('poc', 'block'));
+                $cacheTags = $strategy->getTags($block);
+                $cacheTags[] = 'block-' . $block->getComponent();
+                $this->cacheManager->tagResponse($response, $cacheTags);
 
                 $cacheStatus = CacheableInterface::CACHE_PRIVATE;
                 if ($strategy->isPublic()) {

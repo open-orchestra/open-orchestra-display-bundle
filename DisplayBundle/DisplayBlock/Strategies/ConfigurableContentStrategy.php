@@ -62,6 +62,21 @@ class ConfigurableContentStrategy extends AbstractStrategy
     }
 
     /**
+     * Return block specific tags
+     * 
+     * @param BlockInterface $block
+     * 
+     * @return array
+     */
+    public function getTags(BlockInterface $block)
+    {
+        return array(
+            'contentType-' . $block->getAttribute('contentTypeId'),
+            'contentId-' . $block->getAttribute('contentId')
+        );
+    }
+
+    /**
      * Get the name of the strategy
      *
      * @return string

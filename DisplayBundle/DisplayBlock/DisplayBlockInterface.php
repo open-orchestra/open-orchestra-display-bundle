@@ -45,6 +45,15 @@ interface DisplayBlockInterface
     public function isPublic();
 
     /**
+     * Return block specific tags
+     * 
+     * @param  BlockInterface $block
+     * 
+     * @return array
+     */
+    public function getTags(BlockInterface $block);
+
+    /**
      * Perform the show action for a block
      *
      * @param BlockInterface $block
