@@ -4,12 +4,23 @@ namespace OpenOrchestra\DisplayBundle\Manager;
 
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
+use FOS\HttpCacheBundle\CacheManager;
 
 /**
  * Class CacheableManager
  */
 class CacheableManager
 {
+    protected $cacheManager;
+
+    /**
+     * @param CacheManager $cacheManager
+     */
+    public function __construct(CacheManager $cacheManager)
+    {
+        $this->cacheManager = $cacheManager;
+    }
+
     /**
      * Set response cache headers
      * 
@@ -67,5 +78,16 @@ class CacheableManager
         }
 
         return $response;
+    }
+
+    /**
+     * Tag response
+     * 
+     * @param Response $response
+     * @param array    $tags
+     */
+    public function tagResponse(Response $response, $tags)
+    {
+        $this->cacheManager->tagResponse($response, $tags);
     }
 }

@@ -7,7 +7,6 @@ use OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\HttpCacheBundle\CacheManager;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
 
 /**
@@ -17,21 +16,15 @@ class DisplayBlockManager
 {
     protected $strategies = array();
     protected $cacheableManager;
-    protected $cacheManager;
     protected $templating;
 
     /**
      * @param EngineInterface  $templating
      * @param CacheableManager $cacheableManager
      */
-    public function __construct(
-        EngineInterface $templating,
-        CacheableManager $cacheableManager,
-        CacheManager $cacheManager
-    ){
+    public function __construct(EngineInterface $templating, CacheableManager $cacheableManager){
         $this->templating = $templating;
         $this->cacheableManager = $cacheableManager;
-        $this->cacheManager = $cacheManager;
     }
 
     /**
@@ -60,7 +53,7 @@ class DisplayBlockManager
 
                 $cacheTags = $strategy->getTags($block);
                 $cacheTags[] = 'block-' . $block->getComponent();
-                $this->cacheManager->tagResponse($response, $cacheTags);
+                $this->cacheableManager->tagResponse($response, $cacheTags);
 
                 $cacheStatus = CacheableInterface::CACHE_PRIVATE;
                 if ($strategy->isPublic($block)) {

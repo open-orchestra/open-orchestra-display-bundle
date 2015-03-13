@@ -19,7 +19,6 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     protected $templating;
     protected $wrongStrategy;
     protected $cacheableManager;
-    protected $cacheManager;
 
     /**
      * Set up the test
@@ -28,7 +27,6 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->cacheableManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\CacheableManager');
         $this->templating = Phake::mock('Symfony\Component\Templating\EngineInterface');
-        $this->cacheManager = Phake::mock('FOS\HttpCacheBundle\CacheManager');
 
         $this->wrongStrategy = Phake::mock('OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface');
         Phake::when($this->wrongStrategy)->support(Phake::anyParameters())->thenReturn(false);
@@ -37,7 +35,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         Phake::when($this->strategy)->support(Phake::anyParameters())->thenReturn(true);
         Phake::when($this->strategy)->getName()->thenReturn('right');
 
-        $this->manager = new DisplayBlockManager($this->templating, $this->cacheableManager, $this->cacheManager);
+        $this->manager = new DisplayBlockManager($this->templating, $this->cacheableManager);
         $this->manager->addStrategy($this->wrongStrategy);
         $this->manager->addStrategy($this->strategy);
     }
@@ -72,7 +70,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         Phake::when($this->strategy)->isPublic($block)->thenReturn($status == 'public');
         Phake::when($this->strategy)->getTags($block)->thenReturn($strategyTags);
 
-        Phake::when($this->cacheManager)->tagResponse(Phake::anyParameters())->thenReturn($response);
+        Phake::when($this->cacheableManager)->tagResponse(Phake::anyParameters())->thenReturn($response);
         Phake::when($this->cacheableManager)->setResponseCacheParameters(Phake::anyParameters())->thenReturn($response);
 
         $newResponse = $this->manager->show($block);
@@ -80,7 +78,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($response, $newResponse);
         Phake::verify($this->wrongStrategy, Phake::never())->show(Phake::anyParameters());
         Phake::verify($this->strategy)->show(Phake::anyParameters());
-        Phake::verify($this->cacheManager)->tagResponse($response, $expectedTags);
+        Phake::verify($this->cacheableManager)->tagResponse($response, $expectedTags);
         Phake::verify($this->cacheableManager)->setResponseCacheParameters($response, $blockMaxAge, $status);
     }
 
