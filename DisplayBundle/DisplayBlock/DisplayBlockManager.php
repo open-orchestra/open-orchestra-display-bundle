@@ -22,7 +22,8 @@ class DisplayBlockManager
      * @param EngineInterface  $templating
      * @param CacheableManager $cacheableManager
      */
-    public function __construct(EngineInterface $templating, CacheableManager $cacheableManager){
+    public function __construct(EngineInterface $templating, CacheableManager $cacheableManager)
+    {
         $this->templating = $templating;
         $this->cacheableManager = $cacheableManager;
     }
