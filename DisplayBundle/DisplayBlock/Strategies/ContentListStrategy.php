@@ -29,6 +29,28 @@ class ContentListStrategy extends AbstractStrategy
     }
 
     /**
+     * Check if the strategy support this block
+     *
+     * @param BlockInterface $block
+     *
+     * @return boolean
+     */
+    public function support(BlockInterface $block)
+    {
+        return DisplayBlockInterface::CONTENT_LIST === $block->getComponent();
+    }
+
+    /**
+     * Indicate if the block is public or private
+     * 
+     * @return boolean
+     */
+    public function isPublic(BlockInterface $block)
+    {
+        return true;
+    }
+
+    /**
      * Perform the show action for a block
      *
      * @param BlockInterface $block
@@ -37,7 +59,7 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function show(BlockInterface $block)
     {
-        $contents = $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywords($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
+        $contents = $this->getContents($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
 
         $contentFromTemplate = array();
         if ($block->getAttribute('contentTemplateEnabled') == 1 && !is_null($block->getAttribute('contentTemplate'))) {
@@ -64,15 +86,42 @@ class ContentListStrategy extends AbstractStrategy
     }
 
     /**
-     * Check if the strategy support this block
-     *
-     * @param BlockInterface $block
-     *
-     * @return boolean
+     * Return block contents
+     * 
+     * @param string $contentType
+     * @param string $choiceType
+     * @param string $keyword
+     * 
+     * @return array
      */
-    public function support(BlockInterface $block)
+    protected function getContents($contentType, $choiceType, $keyword)
     {
-        return DisplayBlockInterface::CONTENT_LIST === $block->getComponent();
+        return $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywords($contentType, $choiceType, $keyword);
+    }
+
+    /**
+     * Return block specific tags
+     * 
+     * @param BlockInterface $block
+     * 
+     * @return array
+     */
+    public function getTags(BlockInterface $block)
+    {
+        $tags = array();
+
+        $contents = $this->getContents($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
+
+        if ($contents) {
+            foreach ($contents as $content) {
+                $tags[] = 'contentId-' . $content->getId();
+                if (!in_array('contentType-' . $content->getContentType(), $tags)) {
+                    $tags[] = 'contentType-' . $content->getContentType();
+                }
+            }
+        }
+
+        return $tags;
     }
 
     /**

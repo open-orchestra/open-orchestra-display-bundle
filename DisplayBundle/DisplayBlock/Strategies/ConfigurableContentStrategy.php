@@ -36,6 +36,16 @@ class ConfigurableContentStrategy extends AbstractStrategy
     }
 
     /**
+     * Indicate if the block is public or private
+     * 
+     * @return boolean
+     */
+    public function isPublic(BlockInterface $block)
+    {
+        return true;
+    }
+
+    /**
      * Perform the show action for a block
      *
      * @param BlockInterface $block
@@ -59,6 +69,21 @@ class ConfigurableContentStrategy extends AbstractStrategy
         }
 
         throw new ContentNotFoundException($contentId);
+    }
+
+    /**
+     * Return block specific tags
+     * 
+     * @param BlockInterface $block
+     * 
+     * @return array
+     */
+    public function getTags(BlockInterface $block)
+    {
+        return array(
+            'contentType-' . $block->getAttribute('contentTypeId'),
+            'contentId-' . $block->getAttribute('contentId')
+        );
     }
 
     /**

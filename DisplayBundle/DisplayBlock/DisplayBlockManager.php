@@ -7,6 +7,7 @@ use OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
+use OpenOrchestra\ModelInterface\Model\CacheableInterface;
 
 /**
  * Class DisplayBlockManager
@@ -50,7 +51,21 @@ class DisplayBlockManager
         foreach ($this->strategies as $strategy) {
             if ($strategy->support($block)) {
                 $response = $strategy->show($block);
-                $response = $this->cacheableManager->setMaxAge($block->getMaxAge(), $response);
+
+                $cacheTags = $strategy->getTags($block);
+                $cacheTags[] = 'block-' . $block->getComponent();
+                $this->cacheableManager->tagResponse($response, $cacheTags);
+
+                $cacheStatus = CacheableInterface::CACHE_PRIVATE;
+                if ($strategy->isPublic($block)) {
+                    $cacheStatus = CacheableInterface::CACHE_PUBLIC;
+                }
+
+                $response = $this->cacheableManager->setResponseCacheParameters(
+                    $response,
+                    $block->getMaxAge(),
+                    $cacheStatus
+                );
 
                 return $response;
             }

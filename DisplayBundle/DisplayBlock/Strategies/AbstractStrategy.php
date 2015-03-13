@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
+use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,26 @@ abstract class AbstractStrategy implements DisplayBlockInterface
     public function setManager(DisplayBlockManager $manager)
     {
         $this->manager = $manager;
+    }
+
+    /**
+     * @param BlockInterface $block
+     * 
+     * @return boolean
+     */
+    public function isPublic(BlockInterface $block)
+    {
+        return false;
+    }
+
+    /**
+     * @param BlockInterface $block
+     * 
+     * @return Array
+     */
+    public function getTags(BlockInterface $block)
+    {
+        return array();
     }
 
     /**
