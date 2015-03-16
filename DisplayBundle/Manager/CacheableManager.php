@@ -90,4 +90,14 @@ class CacheableManager
     {
         $this->cacheManager->tagResponse($response, $tags);
     }
+
+    /**
+     * Invalidate cache by tags
+     * 
+     * @param array $tags
+     */
+    public function invalidateTags(array $tags)
+    {
+        $this->cacheManager->invalidateTags($tags);
+    }
 }
