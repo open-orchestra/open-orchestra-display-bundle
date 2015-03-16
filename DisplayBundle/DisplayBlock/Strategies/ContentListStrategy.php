@@ -3,6 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
+use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Model\ContentInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
@@ -56,33 +57,40 @@ class ContentListStrategy extends AbstractStrategy
      * @param BlockInterface $block
      *
      * @return Response
+     *
+     * @throws ContentNotFoundException
      */
     public function show(BlockInterface $block)
     {
         $contents = $this->getContents($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
 
-        $contentFromTemplate = array();
-        if ($block->getAttribute('contentTemplateEnabled') == 1 && !is_null($block->getAttribute('contentTemplate'))) {
-            $twig = new \Twig_Environment(new \Twig_Loader_String());
-            /** @var ContentInterface $content */
-            foreach ($contents as $content) {
-                $contentFromTemplate[$content->getId()] = $twig->render($block->getAttribute('contentTemplate'), array('content' => $content));
+        if (!is_null($contents)) {
+
+            $contentFromTemplate = array();
+            if ($block->getAttribute('contentTemplateEnabled') == 1 && !is_null($block->getAttribute('contentTemplate'))) {
+                $twig = new \Twig_Environment(new \Twig_Loader_String());
+                /** @var ContentInterface $content */
+                foreach ($contents as $content) {
+                    $contentFromTemplate[$content->getId()] = $twig->render($block->getAttribute('contentTemplate'), array('content' => $content));
+                }
             }
+
+            $parameters = array(
+                'contents' => $contents,
+                'class' => $block->getClass(),
+                'id' => $block->getId(),
+                'characterNumber' => $block->getAttribute('characterNumber'),
+                'contentFromTemplate' => $contentFromTemplate,
+            );
+
+            if ('' != $block->getAttribute('contentNodeId')) {
+                $parameters['contentNodeId'] = $this->nodeRepository->findOneByNodeIdAndLanguageWithPublishedAndLastVersionAndSiteId($block->getAttribute('contentNodeId'))->getId();
+            }
+
+            return $this->render('OpenOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);
         }
 
-        $parameters = array(
-            'contents' => $contents,
-            'class' => $block->getClass(),
-            'id' => $block->getId(),
-            'characterNumber' => $block->getAttribute('characterNumber'),
-            'contentFromTemplate' => $contentFromTemplate,
-        );
-
-        if ('' != $block->getAttribute('contentNodeId')) {
-            $parameters['contentNodeId'] = $this->nodeRepository->findOneByNodeIdAndLanguageWithPublishedAndLastVersionAndSiteId($block->getAttribute('contentNodeId'))->getId();
-        }
-
-        return $this->render('OpenOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);
+        throw new ContentNotFoundException();
     }
 
     /**
