@@ -55,10 +55,10 @@ class SubMenuStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $nodes = null;
-        $nodeId = $block->getAttribute('nodeName');
+        $nodeName = $block->getAttribute('nodeName');
 
-        if (!is_null($nodeId)) {
-            $nodes = $this->nodeRepository->getSubMenu($nodeId, $block->getAttribute('nbLevel'), $this->request->getLocale());
+        if (!is_null($nodeName)) {
+            $nodes = $this->nodeRepository->getSubMenu($nodeName, $block->getAttribute('nbLevel'), $this->request->getLocale());
         }
 
         if (!is_null($nodes)) {
@@ -73,7 +73,7 @@ class SubMenuStrategy extends AbstractStrategy
             );
         }
 
-        throw new NodeNotFoundException($nodeId);
+        throw new NodeNotFoundException($nodeName);
     }
 
     /**
