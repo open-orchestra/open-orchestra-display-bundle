@@ -22,6 +22,11 @@ class TagManager
         return 'site-' . $siteId;
     }
 
+    public function formatBlockTypeTag($blockType)
+    {
+        return 'block-' . $blockType;
+    }
+
     public function formatContentTypeTag($contentType)
     {
         return 'contentType-' . $contentType;

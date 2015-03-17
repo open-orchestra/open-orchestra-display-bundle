@@ -8,6 +8,7 @@ use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
+use OpenOrchestra\DisplayBundle\Manager\TagManager;
 
 /**
  * Class DisplayBlockManager
@@ -17,15 +18,20 @@ class DisplayBlockManager
     protected $strategies = array();
     protected $cacheableManager;
     protected $templating;
+    protected $tagManager;
 
     /**
      * @param EngineInterface  $templating
      * @param CacheableManager $cacheableManager
      */
-    public function __construct(EngineInterface $templating, CacheableManager $cacheableManager)
-    {
+    public function __construct(
+        EngineInterface $templating,
+        CacheableManager $cacheableManager,
+        TagManager $tagManager
+    ){
         $this->templating = $templating;
         $this->cacheableManager = $cacheableManager;
+        $this->tagManager = $tagManager;
     }
 
     /**
@@ -53,7 +59,7 @@ class DisplayBlockManager
                 $response = $strategy->show($block);
 
                 $cacheTags = $strategy->getTags($block);
-                $cacheTags[] = 'block-' . $block->getComponent();
+                $cacheTags[] = $this->tagManager->formatBlockTypeTag($block->getComponent());
                 $this->cacheableManager->tagResponse($response, $cacheTags);
 
                 $cacheStatus = CacheableInterface::CACHE_PRIVATE;

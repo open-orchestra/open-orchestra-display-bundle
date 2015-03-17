@@ -19,6 +19,7 @@ services:
         arguments:
             - @templating
             - @open_orchestra_display.manager.cacheable
+            - @open_orchestra_display.manager.tag
 
     open_orchestra_display.display.carrousel:
         class: %open_orchestra_display.display.carrousel.class%
