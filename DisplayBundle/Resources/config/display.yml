@@ -49,7 +49,9 @@ services:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.configurable_content:
         class: %open_orchestra_display.display.configurable_content.class%
-        arguments: [@open_orchestra_model.repository.content]
+        arguments:
+            - @open_orchestra_model.repository.content
+            - @open_orchestra_display.manager.tag
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.sub_menu:
