@@ -7,6 +7,21 @@ namespace OpenOrchestra\DisplayBundle\Manager;
  */
 class TagManager
 {
+    public function formatNodeIdTag($nodeId)
+    {
+        return 'node-' . $nodeId;
+    }
+
+    public function formatLanguageTag($language)
+    {
+        return 'language-' . $language;
+    }
+
+    public function formatSiteIdTag($siteId)
+    {
+        return 'site-' . $siteId;
+    }
+
     public function formatContentTypeTag($contentType)
     {
         return 'contentType-' . $contentType;
@@ -15,11 +30,6 @@ class TagManager
     public function formatContentIdTag($contentId)
     {
         return 'contentId-' . $contentId;
-    }
-
-    public function formatNodeIdTag($nodeId)
-    {
-        return 'nodeId-' . $nodeId;
     }
 
     public function formatMediaId($mediaId)
