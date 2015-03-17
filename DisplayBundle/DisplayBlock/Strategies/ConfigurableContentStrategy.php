@@ -7,6 +7,7 @@ use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
+use OpenOrchestra\DisplayBundle\Manager\TagManager;
 
 /**
  * Class ConfigurableContentStrategy
@@ -14,13 +15,15 @@ use Symfony\Component\HttpFoundation\Response;
 class ConfigurableContentStrategy extends AbstractStrategy
 {
     protected $contentRepository;
+    protected $tagManager;
 
     /**
      * @param ContentRepositoryInterface $contentRepository
      */
-    public function __construct(ContentRepositoryInterface $contentRepository)
+    public function __construct(ContentRepositoryInterface $contentRepository, TagManager $tagManager)
     {
         $this->contentRepository = $contentRepository;
+        $this->tagManager = $tagManager;
     }
 
     /**
@@ -81,8 +84,8 @@ class ConfigurableContentStrategy extends AbstractStrategy
     public function getTags(BlockInterface $block)
     {
         return array(
-            'contentType-' . $block->getAttribute('contentTypeId'),
-            'contentId-' . $block->getAttribute('contentId')
+            $this->tagManager->formatContentTypeTag($block->getAttribute('contentTypeId')),
+            $this->tagManager->formatContentIdTag($block->getAttribute('contentId'))
         );
     }
 
