@@ -122,7 +122,7 @@ class ContentListStrategy extends AbstractStrategy
 
         if ($contents) {
             foreach ($contents as $content) {
-                $tags[] = 'contentId-' . $content->getId();
+                $tags[] = 'contentId-' . $content->getContentId();
                 if (!in_array('contentType-' . $content->getContentType(), $tags)) {
                     $tags[] = 'contentType-' . $content->getContentType();
                 }
