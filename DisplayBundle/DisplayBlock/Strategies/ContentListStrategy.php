@@ -9,6 +9,7 @@ use OpenOrchestra\ModelInterface\Model\ContentInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
+use OpenOrchestra\DisplayBundle\Manager\TagManager;
 
 /**
  * Class ContentListStrategy
@@ -18,15 +19,20 @@ class ContentListStrategy extends AbstractStrategy
     protected $contentRepository;
     protected $nodeRepository;
     protected $request;
+    protected $tagManager;
 
     /**
      * @param ContentRepositoryInterface $contentRepository
      * @param NodeRepositoryInterface    $nodeRepository
      */
-    public function __construct(ContentRepositoryInterface $contentRepository, NodeRepositoryInterface $nodeRepository)
-    {
+    public function __construct(
+        ContentRepositoryInterface $contentRepository,
+        NodeRepositoryInterface $nodeRepository,
+        TagManager $tagManager
+    ){
         $this->contentRepository = $contentRepository;
         $this->nodeRepository = $nodeRepository;
+        $this->tagManager = $tagManager;
     }
 
     /**
@@ -121,10 +127,13 @@ class ContentListStrategy extends AbstractStrategy
         $contents = $this->getContents($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
 
         if ($contents) {
+
             foreach ($contents as $content) {
-                $tags[] = 'contentId-' . $content->getContentId();
-                if (!in_array('contentType-' . $content->getContentType(), $tags)) {
-                    $tags[] = 'contentType-' . $content->getContentType();
+                $tags[] = $this->tagManager->formatContentIdTag($content->getContentId());
+
+                $contentTypeTag = $this->tagManager->formatContentTypeTag($content->getContentType());
+                if (!in_array($contentTypeTag, $tags)) {
+                    $tags[] = $contentTypeTag;
                 }
             }
         }
