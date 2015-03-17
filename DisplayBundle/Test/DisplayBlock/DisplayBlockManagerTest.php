@@ -19,6 +19,8 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     protected $templating;
     protected $wrongStrategy;
     protected $cacheableManager;
+    protected $tagManager;
+    protected $blockComponentTag = 'block-component';
 
     /**
      * Set up the test
@@ -28,6 +30,9 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         $this->cacheableManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\CacheableManager');
         $this->templating = Phake::mock('Symfony\Component\Templating\EngineInterface');
 
+        $this->tagManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\TagManager');
+        Phake::when($this->tagManager)->formatBlockTypeTag(Phake::anyParameters())->thenReturn($this->blockComponentTag);
+
         $this->wrongStrategy = Phake::mock('OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface');
         Phake::when($this->wrongStrategy)->support(Phake::anyParameters())->thenReturn(false);
         Phake::when($this->wrongStrategy)->getName()->thenReturn('wrong');
@@ -35,7 +40,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         Phake::when($this->strategy)->support(Phake::anyParameters())->thenReturn(true);
         Phake::when($this->strategy)->getName()->thenReturn('right');
 
-        $this->manager = new DisplayBlockManager($this->templating, $this->cacheableManager);
+        $this->manager = new DisplayBlockManager($this->templating, $this->cacheableManager, $this->tagManager);
         $this->manager->addStrategy($this->wrongStrategy);
         $this->manager->addStrategy($this->strategy);
     }
@@ -88,12 +93,12 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     public function provideMaxAge()
     {
         return array(
-            array(0, 'public', array('tag1'), array('tag1', 'block-component')),
-            array(1000, 'public', array('tag2'), array('tag2', 'block-component')),
-            array(-1, 'public', array('tag1', 'tag2'), array('tag1', 'tag2', 'block-component')),
-            array(0, 'private', array('tag1'), array('tag1', 'block-component')),
-            array(1000, 'private', array('tag2'), array('tag2', 'block-component')),
-            array(-1, 'private', array('tag1', 'tag2'), array('tag1', 'tag2', 'block-component')),
+            array(0, 'public', array('tag1'), array('tag1', $this->blockComponentTag)),
+            array(1000, 'public', array('tag2'), array('tag2', $this->blockComponentTag)),
+            array(-1, 'public', array('tag1', 'tag2'), array('tag1', 'tag2', $this->blockComponentTag)),
+            array(0, 'private', array('tag1'), array('tag1', $this->blockComponentTag)),
+            array(1000, 'private', array('tag2'), array('tag2', $this->blockComponentTag)),
+            array(-1, 'private', array('tag1', 'tag2'), array('tag1', 'tag2', $this->blockComponentTag)),
         );
     }
 }
