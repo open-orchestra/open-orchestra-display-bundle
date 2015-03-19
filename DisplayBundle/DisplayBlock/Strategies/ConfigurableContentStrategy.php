@@ -7,7 +7,7 @@ use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
-use OpenOrchestra\DisplayBundle\Manager\TagManager;
+use OpenOrchestra\BaseBundle\Manager\TagManager;
 
 /**
  * Class ConfigurableContentStrategy

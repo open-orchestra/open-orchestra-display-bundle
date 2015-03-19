@@ -30,7 +30,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         $this->cacheableManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\CacheableManager');
         $this->templating = Phake::mock('Symfony\Component\Templating\EngineInterface');
 
-        $this->tagManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\TagManager');
+        $this->tagManager = Phake::mock('OpenOrchestra\BaseBundle\Manager\TagManager');
         Phake::when($this->tagManager)->formatBlockTypeTag(Phake::anyParameters())->thenReturn($this->blockComponentTag);
 
         $this->wrongStrategy = Phake::mock('OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface');

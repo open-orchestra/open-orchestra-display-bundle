@@ -8,7 +8,7 @@ use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
-use OpenOrchestra\DisplayBundle\Manager\TagManager;
+use OpenOrchestra\BaseBundle\Manager\TagManager;
 
 /**
  * Class DisplayBlockManager

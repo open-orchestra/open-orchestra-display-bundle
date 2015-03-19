@@ -2,7 +2,6 @@ parameters:
     open_orchestra_display.manager.tree.class: OpenOrchestra\DisplayBundle\Manager\TreeManager
     open_orchestra_display.manager.site.class: OpenOrchestra\DisplayBundle\Manager\SiteManager
     open_orchestra_display.manager.cacheable.class: OpenOrchestra\DisplayBundle\Manager\CacheableManager
-    open_orchestra_display.manager.tag.class: OpenOrchestra\DisplayBundle\Manager\TagManager
 
 services:
     open_orchestra_display.manager.tree:
@@ -15,5 +14,3 @@ services:
         class: %open_orchestra_display.manager.cacheable.class%
         arguments:
             - @fos_http_cache.cache_manager
-    open_orchestra_display.manager.tag:
-        class: %open_orchestra_display.manager.tag.class%

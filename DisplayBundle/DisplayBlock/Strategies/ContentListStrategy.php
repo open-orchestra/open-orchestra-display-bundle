@@ -9,7 +9,7 @@ use OpenOrchestra\ModelInterface\Model\ContentInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
-use OpenOrchestra\DisplayBundle\Manager\TagManager;
+use OpenOrchestra\BaseBundle\Manager\TagManager;
 
 /**
  * Class ContentListStrategy
