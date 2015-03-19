@@ -85,4 +85,28 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
 
         Phake::verify($this->cacheManager)->tagResponse($response, $tags);
     }
+
+    /**
+     * @param array tags
+     * 
+     * @dataProvider provideTags
+     */
+    public function testInvalidateTags($tags)
+    {
+        $this->manager->invalidateTags($tags);
+
+        Phake::verify($this->cacheManager)->invalidateTags($tags);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideTags()
+    {
+        return array(
+            array(array()),
+            array(array('tag1')),
+            array(array('tag1', 'tag2', 'tag3'))
+        );
+    }
 }
