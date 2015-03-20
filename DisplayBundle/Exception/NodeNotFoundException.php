@@ -14,6 +14,6 @@ class NodeNotFoundException extends HttpException
      */
     public function __construct($message = "")
     {
-        parent::__construct('Node Not Found : ' . $message);
+        parent::__construct(404, 'Node Not Found : ' . $message);
     }
 }
