@@ -7,18 +7,14 @@
         {% else %}
             <div>
                 {% if content.attributeByName('publish_start') is not null %}
-                    <span class="{{ content.attributeByName('publish_start').name }}">{{ content.attributeByName('publish_start') }}</span>
+                    <span class="publish_start">{{ content.attributeByName('publish_start') }}</span>
                 {% endif %}
                 <h2>{{ content.name }}</h2>
                 <p>
-                    {% if content.attributeByName('title') is not null %}
-                        {{ content.attributeByName('title') }}
-                    {% endif %}
+                    {{ content.attributeByName('title') }}
                 </p>
                 <p>
-                    {% if content.attributeByName('intro') is not null %}
-                        {{ content.attributeByName('intro') }}
-                    {% endif %}
+                    {{ content.attributeByName('intro') }}
                 </p>
 
                 {% if contentNodeId is defined %}
