@@ -6,10 +6,19 @@
             {{ contentFromTemplate[content.id]|raw }}
         {% else %}
             <div>
-                <span class="{{ content.attributes.1.name }}">{{ content.attributes.1.value }}</span>
+                {% if content.attributeByName('publish_start') is not null %}
+                    <span class="{{ content.attributeByName('publish_start').name }}">{{ content.attributeByName('publish_start').value }}</span>
+                {% endif %}
                 <h2>{{ content.name }}</h2>
                 <p>
-                    {{ content.attributes.4.value | truncate(characterNumber, true, '...') }}
+                    {% if content.attributeByName('title') is not null %}
+                        {{ content.attributeByName('title').value }}
+                    {% endif %}
+                </p>
+                <p>
+                    {% if content.attributeByName('intro') is not null %}
+                        {{ content.attributeByName('intro').value }}
+                    {% endif %}
                 </p>
 
                 {% if contentNodeId is defined %}
