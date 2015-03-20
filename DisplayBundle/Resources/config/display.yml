@@ -65,7 +65,11 @@ services:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.sub_menu:
         class: %open_orchestra_display.display.sub_menu.class%
-        arguments: [@open_orchestra_model.repository.node, @router, @request_stack]
+        arguments:
+            - @open_orchestra_model.repository.node
+            - @router
+            - @request_stack
+            - @open_orchestra_base.manager.tag
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.content_list:
