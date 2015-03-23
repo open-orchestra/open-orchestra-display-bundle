@@ -9,6 +9,8 @@ use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use OpenOrchestra\BaseBundle\Manager\TagManager;
+use OpenOrchestra\ModelBundle\Document\Content;
 
 /**
  * Class ContentStrategy
@@ -17,15 +19,21 @@ class ContentStrategy extends AbstractStrategy
 {
     protected $contentRepository;
     protected $request;
+    protected $tagManager;
 
     /**
      * @param ContentRepositoryInterface $contentRepository
      * @param RequestStack               $requestStack
+     * @param TagManager   $tagManager
      */
-    public function __construct(ContentRepositoryInterface $contentRepository, RequestStack $requestStack)
-    {
+    public function __construct(
+        ContentRepositoryInterface $contentRepository,
+        RequestStack $requestStack,
+        TagManager $tagManager
+    ){
         $this->contentRepository = $contentRepository;
         $this->request = $requestStack->getCurrentRequest();
+        $this->tagManager = $tagManager;
     }
 
     /**
@@ -41,6 +49,16 @@ class ContentStrategy extends AbstractStrategy
     }
 
     /**
+     * Indicate if the block is public or private
+     * 
+     * @return boolean
+     */
+    public function isPublic(BlockInterface $block)
+    {
+        return true;
+    }
+
+    /**
      * @param BlockInterface $block
      *
      * @return Response
@@ -50,14 +68,8 @@ class ContentStrategy extends AbstractStrategy
     public function show(BlockInterface $block)
     {
         $contentId = $this->request->get('contentId');
-        $content = null;
 
-        if (!is_null($contentId)) {
-            $content = $this->contentRepository->findOneByContentId($contentId);
-        }
-        if (is_null($content) && $this->request->get('token')) {
-            $content = new FakeContent();
-        }
+        $content = $this->getContent($contentId);
 
         if (!is_null($content)) {
             $contentFromTemplate = null;
@@ -78,6 +90,47 @@ class ContentStrategy extends AbstractStrategy
         }
 
         throw new ContentNotFoundException($contentId);
+    }
+
+    /**
+     * Get content to display
+     * 
+     * @param string $contentId
+     * 
+     * @return Content
+     */
+    protected function getContent($contentId)
+    {
+        $content = null;
+
+        if (!is_null($contentId)) {
+            $content = $this->contentRepository->findOneByContentId($contentId);
+        }
+
+        if (is_null($content) && $this->request->get('token')) {
+            $content = new FakeContent();
+        }
+
+        return $content;
+    }
+
+    /**
+     * Return block specific tags
+     * 
+     * @param BlockInterface $block
+     * 
+     * @return array
+     */
+    public function getTags(BlockInterface $block)
+    {
+        $contentId = $this->request->get('contentId');
+
+        $content = $this->getContent($contentId);
+
+        return array(
+            $this->tagManager->formatContentIdTag($contentId),
+            $this->tagManager->formatContentTypeTag($content->getContentType()),
+        );
     }
 
     /**
