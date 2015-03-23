@@ -85,6 +85,7 @@ services:
         arguments:
             - @open_orchestra_model.repository.content
             - @request_stack
+            - @open_orchestra_base.manager.tag
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.language_list:
