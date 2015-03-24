@@ -2,7 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock;
 
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -13,38 +13,38 @@ interface DisplayBlockInterface
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block);
+    public function support(ReadBlockInterface $block);
 
     /**
      * Indicate if the block is public or private
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block);
+    public function isPublic(ReadBlockInterface $block);
 
     /**
      * Return block specific tags
      * 
-     * @param  BlockInterface $block
+     * @param  ReadBlockInterface $block
      * 
      * @return array
      */
-    public function getTags(BlockInterface $block);
+    public function getTags(ReadBlockInterface $block);
 
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      */
-    public function show(BlockInterface $block);
+    public function show(ReadBlockInterface $block);
 
     /**
      * Get the name of the strategy

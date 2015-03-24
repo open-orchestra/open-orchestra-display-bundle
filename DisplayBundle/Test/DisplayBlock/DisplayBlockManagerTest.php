@@ -63,7 +63,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testShow($blockMaxAge, $status)
     {
-        $block = Phake::mock('OpenOrchestra\ModelInterface\Model\BlockInterface');
+        $block = Phake::mock('OpenOrchestra\ModelInterface\Model\ReadBlockInterface');
         Phake::when($block)->getMaxAge()->thenReturn($blockMaxAge);
         Phake::when($block)->getComponent()->thenReturn('component');
 

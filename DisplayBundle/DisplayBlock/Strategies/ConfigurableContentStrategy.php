@@ -3,7 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
@@ -30,11 +30,11 @@ class ConfigurableContentStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::CONFIGURABLE_CONTENT == $block->getComponent();
     }
@@ -44,7 +44,7 @@ class ConfigurableContentStrategy extends AbstractStrategy
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block)
+    public function isPublic(ReadBlockInterface $block)
     {
         return true;
     }
@@ -52,13 +52,13 @@ class ConfigurableContentStrategy extends AbstractStrategy
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      *
      * @throw ContentNotFoundException
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         $contentId = $block->getAttribute('contentId');
         $content = $this->contentRepository->findOneByContentId($contentId);
@@ -78,11 +78,11 @@ class ConfigurableContentStrategy extends AbstractStrategy
     /**
      * Return block specific tags
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    public function getTags(BlockInterface $block)
+    public function getTags(ReadBlockInterface $block)
     {
         return array(
             $this->tagManager->formatContentTypeTag($block->getAttribute('contentTypeId')),

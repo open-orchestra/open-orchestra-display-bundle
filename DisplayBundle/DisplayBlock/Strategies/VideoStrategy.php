@@ -3,7 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -16,11 +16,11 @@ class VideoStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::VIDEO === $block->getComponent();
     }
@@ -30,7 +30,7 @@ class VideoStrategy extends AbstractStrategy
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block)
+    public function isPublic(ReadBlockInterface $block)
     {
         return true;
     }
@@ -38,11 +38,11 @@ class VideoStrategy extends AbstractStrategy
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         $template = 'OpenOrchestraDisplayBundle:Block/Video:show.html.twig';
         $parameters = array(
@@ -83,11 +83,11 @@ class VideoStrategy extends AbstractStrategy
     /**
      * Return view parameters for a youtube video
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    protected function getYoutubeParameters(BlockInterface $block)
+    protected function getYoutubeParameters(ReadBlockInterface $block)
     {
         $urlParams = array();
         foreach (array('youtubeAutoplay', 'youtubeShowinfo', 'youtubeFs', 'youtubeRel', 'youtubeDisablekb', 'youtubeLoop') as $key) {
@@ -123,11 +123,11 @@ class VideoStrategy extends AbstractStrategy
     /**
      * Return view parameters for a dailymotion video
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    protected function getDailymotionParameters(BlockInterface $block)
+    protected function getDailymotionParameters(ReadBlockInterface $block)
     {
         $urlParams = array();
 
@@ -159,11 +159,11 @@ class VideoStrategy extends AbstractStrategy
     /**
      * Return view parameters for a vimeo video
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    protected function getVimeoParameters(BlockInterface $block)
+    protected function getVimeoParameters(ReadBlockInterface $block)
     {
         $urlParams = array();
 
