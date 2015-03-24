@@ -58,12 +58,10 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      *
      * @param int    $blockMaxAge
      * @param string $status
-     * @param array  $strategyTags
-     * @param array  $expectedTags
      *
      * @dataProvider provideMaxAge
      */
-    public function testShow($blockMaxAge, $status, $strategyTags, $expectedTags)
+    public function testShow($blockMaxAge, $status)
     {
         $block = Phake::mock('OpenOrchestra\ModelInterface\Model\BlockInterface');
         Phake::when($block)->getMaxAge()->thenReturn($blockMaxAge);
@@ -73,9 +71,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
 
         Phake::when($this->strategy)->show($block)->thenReturn($response);
         Phake::when($this->strategy)->isPublic($block)->thenReturn($status == 'public');
-        Phake::when($this->strategy)->getTags($block)->thenReturn($strategyTags);
 
-        Phake::when($this->cacheableManager)->tagResponse(Phake::anyParameters())->thenReturn($response);
         Phake::when($this->cacheableManager)->setResponseCacheParameters(Phake::anyParameters())->thenReturn($response);
 
         $newResponse = $this->manager->show($block);
@@ -83,7 +79,6 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($response, $newResponse);
         Phake::verify($this->wrongStrategy, Phake::never())->show(Phake::anyParameters());
         Phake::verify($this->strategy)->show(Phake::anyParameters());
-        Phake::verify($this->cacheableManager)->tagResponse($response, $expectedTags);
         Phake::verify($this->cacheableManager)->setResponseCacheParameters($response, $blockMaxAge, $status);
     }
 
@@ -93,12 +88,41 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     public function provideMaxAge()
     {
         return array(
-            array(0, 'public', array('tag1'), array('tag1', $this->blockComponentTag)),
-            array(1000, 'public', array('tag2'), array('tag2', $this->blockComponentTag)),
-            array(-1, 'public', array('tag1', 'tag2'), array('tag1', 'tag2', $this->blockComponentTag)),
-            array(0, 'private', array('tag1'), array('tag1', $this->blockComponentTag)),
-            array(1000, 'private', array('tag2'), array('tag2', $this->blockComponentTag)),
-            array(-1, 'private', array('tag1', 'tag2'), array('tag1', 'tag2', $this->blockComponentTag)),
+            array(0, 'public', ),
+            array(1000, 'public'),
+            array(-1, 'public'),
+            array(0, 'private'),
+            array(1000, 'private'),
+            array(-1, 'private'),
+        );
+    }
+
+    /**
+     * test getTags
+     * 
+     * @param array  $strategyTags
+     * @param array  $expectedTags
+     * 
+     * @dataProvider provideTags
+     */
+    public function testGetTags($strategyTags, $expectedTags)
+    {
+        $block = Phake::mock('OpenOrchestra\ModelInterface\Model\BlockInterface');
+
+        Phake::when($this->strategy)->getTags($block)->thenReturn($strategyTags);
+
+        $tags = $this->manager->getTags($block);
+        $this->assertSame($tags, $expectedTags);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideTags()
+    {
+        return array(
+            array(array('tag1'), array('tag1', $this->blockComponentTag)),
+            array(array('tag1', 'tag2'), array('tag1', 'tag2', $this->blockComponentTag)),
         );
     }
 }
