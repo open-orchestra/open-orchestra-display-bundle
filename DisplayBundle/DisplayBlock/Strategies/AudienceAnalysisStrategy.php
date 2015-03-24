@@ -3,7 +3,6 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
-use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -13,6 +12,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class AudienceAnalysisStrategy extends AbstractStrategy
 {
+    const AUDIENCE_ANALYSIS = 'audience_analysis';
+
     protected $request;
 
     /**
@@ -32,7 +33,7 @@ class AudienceAnalysisStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::AUDIENCE_ANALYSIS == $block->getComponent();
+        return self::AUDIENCE_ANALYSIS == $block->getComponent();
     }
 
     /**

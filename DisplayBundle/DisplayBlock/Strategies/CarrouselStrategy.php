@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CarrouselStrategy extends AbstractStrategy
 {
+    const CARROUSEL = 'carrousel';
+
     /**
      * Check if the strategy support this block
      *
@@ -20,7 +21,7 @@ class CarrouselStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CARROUSEL == $block->getComponent();
+        return self::CARROUSEL == $block->getComponent();
     }
 
     /**

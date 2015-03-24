@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\DisplayBundle\Exception\NodeNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
@@ -16,6 +15,8 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class SubMenuStrategy extends AbstractStrategy
 {
+    const SUBMENU = 'sub_menu';
+
     protected $nodeRepository;
     protected $router;
     protected $request;
@@ -48,7 +49,7 @@ class SubMenuStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::SUBMENU == $block->getComponent();
+        return self::SUBMENU == $block->getComponent();
     }
 
     /**

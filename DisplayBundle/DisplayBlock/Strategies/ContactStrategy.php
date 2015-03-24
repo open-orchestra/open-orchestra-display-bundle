@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\DisplayBundle\Form\Type\ContactType;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\Form\FormFactory;
@@ -14,6 +13,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ContactStrategy extends AbstractStrategy
 {
+    const CONTACT = 'contact';
+
     protected $formFactory;
     protected $router;
 
@@ -36,7 +37,7 @@ class ContactStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONTACT == $block->getComponent();
+        return self::CONTACT == $block->getComponent();
     }
 
     /**

@@ -5,13 +5,14 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
-use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 
 /**
  * Class VideoStrategy
  */
 class VideoStrategy extends AbstractStrategy
 {
+    const VIDEO = 'video';
+
     /**
      * Check if the strategy support this block
      *
@@ -21,7 +22,7 @@ class VideoStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::VIDEO === $block->getComponent();
+        return self::VIDEO === $block->getComponent();
     }
 
     /**

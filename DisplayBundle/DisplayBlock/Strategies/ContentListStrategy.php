@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Model\ContentInterface;
@@ -16,6 +15,8 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class ContentListStrategy extends AbstractStrategy
 {
+    const CONTENT_LIST= 'content_list';
+
     protected $contentRepository;
     protected $nodeRepository;
     protected $request;
@@ -44,7 +45,7 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONTENT_LIST === $block->getComponent();
+        return self::CONTENT_LIST === $block->getComponent();
     }
 
     /**

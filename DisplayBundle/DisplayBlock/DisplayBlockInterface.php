@@ -10,24 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface DisplayBlockInterface
 {
-    const CONTACT = 'contact';
-    const CARROUSEL = 'carrousel';
-    const FOOTER = 'footer';
-    const MENU = 'menu';
-    const SAMPLE = 'sample';
-    const SEARCH = 'search';
-    const SEARCH_RESULT = 'search_result';
-    const TINYMCEWYSIWYG = 'tiny_mce_wysiwyg';
-    const CONFIGURABLE_CONTENT = 'configurable_content';
-    const SUBMENU = 'sub_menu';
-    const CONTENT_LIST= 'content_list';
-    const CONTENT = 'content';
-    const LANGUAGE_LIST = 'language_list';
-    const VIDEO = 'video';
-    const GMAP = 'gmap';
-    const ADDTHIS = 'add_this';
-    const AUDIENCE_ANALYSIS = 'audience_analysis';
-
     /**
      * Check if the strategy support this block
      *

@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class TinyMCEWysiwygStrategy extends AbstractStrategy
 {
+    const TINYMCEWYSIWYG = 'tiny_mce_wysiwyg';
+
     /**
      * Check if the strategy support this block
      *
@@ -20,7 +21,7 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::TINYMCEWYSIWYG == $block->getComponent();
+        return self::TINYMCEWYSIWYG == $block->getComponent();
     }
 
     /**

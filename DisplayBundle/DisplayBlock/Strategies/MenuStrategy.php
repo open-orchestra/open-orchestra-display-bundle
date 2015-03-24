@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\ModelInterface\Model\BlockInterface;
 use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -15,6 +14,8 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class MenuStrategy extends AbstractStrategy
 {
+    const MENU = 'menu';
+
     protected $nodeRepository;
     protected $router;
     protected $request;
@@ -47,7 +48,7 @@ class MenuStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::MENU == $block->getComponent();
+        return self::MENU == $block->getComponent();
     }
 
     /**
