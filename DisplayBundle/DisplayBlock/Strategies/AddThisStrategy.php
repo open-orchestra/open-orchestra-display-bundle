@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AddThisStrategy extends AbstractStrategy
 {
+    const ADDTHIS = 'add_this';
+
     /**
      * Check if the strategy support this block
      *
@@ -21,7 +23,7 @@ class AddThisStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::ADDTHIS === $block->getComponent();
+        return self::ADDTHIS === $block->getComponent();
     }
 
     /**

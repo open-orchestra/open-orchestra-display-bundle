@@ -16,6 +16,8 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class ContentListStrategy extends AbstractStrategy
 {
+    const CONTENT_LIST= 'content_list';
+
     protected $contentRepository;
     protected $nodeRepository;
     protected $request;
@@ -44,7 +46,7 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONTENT_LIST === $block->getComponent();
+        return self::CONTENT_LIST === $block->getComponent();
     }
 
     /**

@@ -12,6 +12,8 @@ use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
  */
 class VideoStrategy extends AbstractStrategy
 {
+    const VIDEO = 'video';
+
     /**
      * Check if the strategy support this block
      *
@@ -21,7 +23,7 @@ class VideoStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::VIDEO === $block->getComponent();
+        return self::VIDEO === $block->getComponent();
     }
 
     /**

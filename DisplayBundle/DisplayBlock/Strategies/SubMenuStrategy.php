@@ -16,6 +16,8 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class SubMenuStrategy extends AbstractStrategy
 {
+    const SUBMENU = 'sub_menu';
+
     protected $nodeRepository;
     protected $router;
     protected $request;
@@ -48,7 +50,7 @@ class SubMenuStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::SUBMENU == $block->getComponent();
+        return self::SUBMENU == $block->getComponent();
     }
 
     /**

@@ -14,6 +14,8 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class ConfigurableContentStrategy extends AbstractStrategy
 {
+    const CONFIGURABLE_CONTENT = 'configurable_content';
+
     protected $contentRepository;
     protected $tagManager;
 
@@ -35,7 +37,7 @@ class ConfigurableContentStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONFIGURABLE_CONTENT == $block->getComponent();
+        return self::CONFIGURABLE_CONTENT == $block->getComponent();
     }
 
     /**

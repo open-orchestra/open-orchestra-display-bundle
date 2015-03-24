@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class AudienceAnalysisStrategy extends AbstractStrategy
 {
+    const AUDIENCE_ANALYSIS = 'audience_analysis';
+
     protected $request;
 
     /**
@@ -32,7 +34,7 @@ class AudienceAnalysisStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::AUDIENCE_ANALYSIS == $block->getComponent();
+        return self::AUDIENCE_ANALYSIS == $block->getComponent();
     }
 
     /**

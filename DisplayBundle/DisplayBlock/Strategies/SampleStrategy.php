@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SampleStrategy extends AbstractStrategy
 {
+    const SAMPLE = 'sample';
+
     /**
      * Check if the strategy support this block
      *
@@ -20,7 +22,7 @@ class SampleStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::SAMPLE == $block->getComponent();
+        return self::SAMPLE == $block->getComponent();
     }
 
     /**

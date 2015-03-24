@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ContactStrategy extends AbstractStrategy
 {
+    const CONTACT = 'contact';
+
     protected $formFactory;
     protected $router;
 
@@ -36,7 +38,7 @@ class ContactStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::CONTACT == $block->getComponent();
+        return self::CONTACT == $block->getComponent();
     }
 
     /**

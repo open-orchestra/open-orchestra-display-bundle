@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class LanguageListStrategy extends AbstractStrategy
 {
+    const LANGUAGE_LIST = 'language_list';
+
     protected $currentSiteIdInterface;
     protected $siteRepository;
     protected $request;
@@ -48,7 +50,7 @@ class LanguageListStrategy extends AbstractStrategy
      */
     public function support(BlockInterface $block)
     {
-        return DisplayBlockInterface::LANGUAGE_LIST == $block->getComponent();
+        return self::LANGUAGE_LIST == $block->getComponent();
     }
 
     /**
