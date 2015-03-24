@@ -58,10 +58,6 @@ class DisplayBlockManager
             if ($strategy->support($block)) {
                 $response = $strategy->show($block);
 
-                $cacheTags = $strategy->getTags($block);
-                $cacheTags[] = $this->tagManager->formatBlockTypeTag($block->getComponent());
-                $this->cacheableManager->tagResponse($response, $cacheTags);
-
                 $cacheStatus = CacheableInterface::CACHE_PRIVATE;
                 if ($strategy->isPublic($block)) {
                     $cacheStatus = CacheableInterface::CACHE_PUBLIC;
@@ -74,6 +70,28 @@ class DisplayBlockManager
                 );
 
                 return $response;
+            }
+        }
+
+        throw new DisplayBlockStrategyNotFoundException($block->getComponent());
+    }
+
+    /**
+     * Get block tags
+     * 
+     * @param BlockInterface $block
+     * 
+     * @return array
+     */
+    public function getTags(BlockInterface $block)
+    {
+        /** @var DisplayBlockInterface $strategy */
+        foreach ($this->strategies as $strategy) {
+            if ($strategy->support($block)) {
+                $cacheTags = $strategy->getTags($block);
+                $cacheTags[] = $this->tagManager->formatBlockTypeTag($block->getComponent());
+
+                return $cacheTags;
             }
         }
 
