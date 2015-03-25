@@ -79,11 +79,11 @@ class DisplayBlockManager
     /**
      * Get block tags
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    public function getTags(BlockInterface $block)
+    public function getTags(ReadBlockInterface $block)
     {
         /** @var DisplayBlockInterface $strategy */
         foreach ($this->strategies as $strategy) {

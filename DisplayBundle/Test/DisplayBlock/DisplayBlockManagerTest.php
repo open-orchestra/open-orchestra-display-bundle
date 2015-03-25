@@ -107,7 +107,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTags($strategyTags, $expectedTags)
     {
-        $block = Phake::mock('OpenOrchestra\ModelInterface\Model\BlockInterface');
+        $block = Phake::mock('OpenOrchestra\ModelInterface\Model\ReadBlockInterface');
 
         Phake::when($this->strategy)->getTags($block)->thenReturn($strategyTags);
 
