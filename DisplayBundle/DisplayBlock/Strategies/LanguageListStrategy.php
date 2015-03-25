@@ -3,7 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -43,11 +43,11 @@ class LanguageListStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::LANGUAGE_LIST == $block->getComponent();
     }
@@ -57,7 +57,7 @@ class LanguageListStrategy extends AbstractStrategy
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block)
+    public function isPublic(ReadBlockInterface $block)
     {
         return true;
     }
@@ -65,11 +65,11 @@ class LanguageListStrategy extends AbstractStrategy
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         $site = $this->siteRepository->findOneBySiteId($this->currentSiteIdInterface->getCurrentSiteId());
 

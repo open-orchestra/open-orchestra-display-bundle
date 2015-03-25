@@ -2,7 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,21 +26,21 @@ abstract class AbstractStrategy implements DisplayBlockInterface
     }
 
     /**
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block)
+    public function isPublic(ReadBlockInterface $block)
     {
         return false;
     }
 
     /**
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return Array
      */
-    public function getTags(BlockInterface $block)
+    public function getTags(ReadBlockInterface $block)
     {
         return array();
     }

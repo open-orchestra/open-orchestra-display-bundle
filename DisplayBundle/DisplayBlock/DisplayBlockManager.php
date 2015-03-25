@@ -4,7 +4,7 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock;
 
 use OpenOrchestra\DisplayBundle\Manager\CacheableManager;
 use OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
@@ -46,12 +46,12 @@ class DisplayBlockManager
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @throws DisplayBlockStrategyNotFoundException
      * @return Response
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         /** @var DisplayBlockInterface $strategy */
         foreach ($this->strategies as $strategy) {
@@ -79,11 +79,11 @@ class DisplayBlockManager
     /**
      * Get block tags
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    public function getTags(BlockInterface $block)
+    public function getTags(ReadBlockInterface $block)
     {
         /** @var DisplayBlockInterface $strategy */
         foreach ($this->strategies as $strategy) {

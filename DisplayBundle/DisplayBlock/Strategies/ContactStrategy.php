@@ -3,7 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\Form\Type\ContactType;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -31,11 +31,11 @@ class ContactStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::CONTACT == $block->getComponent();
     }
@@ -43,11 +43,11 @@ class ContactStrategy extends AbstractStrategy
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         $form = $this->formFactory->create(new ContactType(), null, array(
             'action' => $this->router->generate('open_orchestra_display_contact_send'),

@@ -3,7 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -27,11 +27,11 @@ class AudienceAnalysisStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::AUDIENCE_ANALYSIS == $block->getComponent();
     }
@@ -41,7 +41,7 @@ class AudienceAnalysisStrategy extends AbstractStrategy
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block)
+    public function isPublic(ReadBlockInterface $block)
     {
         return true;
     }
@@ -49,11 +49,11 @@ class AudienceAnalysisStrategy extends AbstractStrategy
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         return $this->render(
             'OpenOrchestraDisplayBundle:Block/AudienceAnalysis:' . $block->getAttribute('tag_type') . '.html.twig',

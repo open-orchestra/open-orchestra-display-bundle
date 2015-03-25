@@ -3,7 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -16,11 +16,11 @@ class AddThisStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::ADDTHIS === $block->getComponent();
     }
@@ -28,11 +28,11 @@ class AddThisStrategy extends AbstractStrategy
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         $parameters = array(
             'pubid' => $block->getAttribute('pubid'),

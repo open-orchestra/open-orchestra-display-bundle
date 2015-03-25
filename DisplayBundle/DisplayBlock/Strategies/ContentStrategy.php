@@ -4,7 +4,7 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\DisplayBundle\Fake\FakeContent;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,11 +40,11 @@ class ContentStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::CONTENT == $block->getComponent();
     }
@@ -54,19 +54,19 @@ class ContentStrategy extends AbstractStrategy
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block)
+    public function isPublic(ReadBlockInterface $block)
     {
         return true;
     }
 
     /**
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      *
      * @throws ContentNotFoundException
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         $contentId = $this->request->get('contentId');
 
@@ -118,11 +118,11 @@ class ContentStrategy extends AbstractStrategy
     /**
      * Return block specific tags
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    public function getTags(BlockInterface $block)
+    public function getTags(ReadBlockInterface $block)
     {
         $contentId = $this->request->get('contentId');
 

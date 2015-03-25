@@ -2,7 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\Manager;
 
-use OpenOrchestra\ModelInterface\Model\NodeInterface;
+use OpenOrchestra\ModelInterface\Model\ReadNodeInterface;
 
 /**
  * Class TreeManager
@@ -37,7 +37,7 @@ class TreeManager
     }
 
     /**
-     * @param array|NodeInterface $nodes
+     * @param array|ReadNodeInterface $nodes
      * @param array               $list
      *
      * @return array
@@ -60,12 +60,12 @@ class TreeManager
     }
 
     /**
-     * @param NodeInterface $node
+     * @param ReadNodeInterface $node
      * @param array         $list
      *
      * @return array
      */
-    protected function getChild(NodeInterface $node, $list)
+    protected function getChild(ReadNodeInterface $node, $list)
     {
         $childs = array();
 
@@ -99,7 +99,7 @@ class TreeManager
     }
 
     /**
-     * @param NodeInterface $node
+     * @param ReadNodeInterface $node
      * @param array         $tree
      *
      * @return mixed

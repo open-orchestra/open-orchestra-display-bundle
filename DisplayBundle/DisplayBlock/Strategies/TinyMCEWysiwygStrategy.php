@@ -2,7 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -15,11 +15,11 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::TINYMCEWYSIWYG == $block->getComponent();
     }
@@ -29,7 +29,7 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block)
+    public function isPublic(ReadBlockInterface $block)
     {
         return true;
     }
@@ -37,11 +37,11 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         $htmlContent = $block->getAttribute('htmlContent');
 

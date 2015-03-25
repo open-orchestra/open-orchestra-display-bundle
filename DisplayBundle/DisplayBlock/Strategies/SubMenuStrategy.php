@@ -3,7 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\Exception\NodeNotFoundException;
-use OpenOrchestra\ModelInterface\Model\BlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,11 +43,11 @@ class SubMenuStrategy extends AbstractStrategy
     /**
      * Check if the strategy support this block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return boolean
      */
-    public function support(BlockInterface $block)
+    public function support(ReadBlockInterface $block)
     {
         return self::SUBMENU == $block->getComponent();
     }
@@ -57,7 +57,7 @@ class SubMenuStrategy extends AbstractStrategy
      * 
      * @return boolean
      */
-    public function isPublic(BlockInterface $block)
+    public function isPublic(ReadBlockInterface $block)
     {
         return true;
     }
@@ -65,13 +65,13 @@ class SubMenuStrategy extends AbstractStrategy
     /**
      * Perform the show action for a block
      *
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return Response
      *
      * @throws NodeNotFoundException
      */
-    public function show(BlockInterface $block)
+    public function show(ReadBlockInterface $block)
     {
         $nodes = $this->getNodes($block);
 
@@ -92,11 +92,11 @@ class SubMenuStrategy extends AbstractStrategy
     /**
      * Get nodes to display
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      *
      * @return array
      */
-    protected function getNodes(BlockInterface $block)
+    protected function getNodes(ReadBlockInterface $block)
     {
         $nodes = null;
         $nodeName = $block->getAttribute('nodeName');
@@ -111,11 +111,11 @@ class SubMenuStrategy extends AbstractStrategy
     /**
      * Return block specific tags
      * 
-     * @param BlockInterface $block
+     * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    public function getTags(BlockInterface $block)
+    public function getTags(ReadBlockInterface $block)
     {
         $tags = array();
 
