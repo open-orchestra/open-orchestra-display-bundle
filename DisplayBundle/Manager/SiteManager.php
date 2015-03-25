@@ -3,8 +3,6 @@
 namespace OpenOrchestra\DisplayBundle\Manager;
 
 use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
-use OpenOrchestra\ModelInterface\Model\SiteInterface;
-use OpenOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
