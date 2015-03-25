@@ -14,6 +14,6 @@ class ContentNotFoundException extends HttpException
      */
     public function __construct($message = "")
     {
-        parent::__construct('Content Not Found : ' . $message);
+        parent::__construct(404, 'Content Not Found : ' . $message);
     }
 }
