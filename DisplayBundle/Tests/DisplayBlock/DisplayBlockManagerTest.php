@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenOrchestra\DisplayBundle\Test\DisplayBlock;
+namespace OpenOrchestra\DisplayBundle\Tests\DisplayBlock;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager;
 use Phake;

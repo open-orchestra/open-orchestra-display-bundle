@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenOrchestra\DisplayBundle\Test\Twig;
+namespace OpenOrchestra\DisplayBundle\Tests\Twig;
 
 use Phake;
 use OpenOrchestra\DisplayBundle\Twig\TreeHelperExtension;

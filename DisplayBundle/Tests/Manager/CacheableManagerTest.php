@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenOrchestra\DisplayBundle\Test\Manager;
+namespace OpenOrchestra\DisplayBundle\Tests\Manager;
 
 use OpenOrchestra\DisplayBundle\Manager\CacheableManager;
 use Phake;
