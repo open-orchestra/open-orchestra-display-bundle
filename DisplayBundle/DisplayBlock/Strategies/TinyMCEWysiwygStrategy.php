@@ -45,17 +45,12 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     {
         $htmlContent = $block->getAttribute('htmlContent');
 
-        $response = $this->render(
+        return $this->render(
             'OpenOrchestraDisplayBundle:Block/TinyMCEWysiwyg:show.html.twig',
             array(
                 'htmlContent' => $htmlContent
             )
         );
-
-        $response->setPublic();
-        $response->setSharedMaxAge(0);
-
-        return $response;
     }
 
     /**
