@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\Manager;
 
+use FOS\HttpCache\Handler\TagHandler;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
 use FOS\HttpCacheBundle\CacheManager;
@@ -11,7 +12,15 @@ use FOS\HttpCacheBundle\CacheManager;
  */
 class CacheableManager
 {
+    /**
+     * @var CacheManager
+     */
     protected $cacheManager;
+
+    /**
+     * @var TagHandler
+     */
+    protected $tagHandler;
 
     /**
      * @param CacheManager $cacheManager
@@ -19,6 +28,7 @@ class CacheableManager
     public function __construct(CacheManager $cacheManager)
     {
         $this->cacheManager = $cacheManager;
+        $this->tagHandler = new TagHandler($cacheManager);
     }
 
     /**
@@ -32,8 +42,8 @@ class CacheableManager
      */
     public function setResponseCacheParameters(Response $response, $maxAge, $status = CacheableInterface::CACHE_PRIVATE)
     {
-        $response = $this->setResponseStatus($response, $status);
-        $response = $this->setResponseMaxAge($response, $maxAge, $status);
+        $this->setResponseStatus($response, $status);
+        $this->setResponseMaxAge($response, $maxAge, $status);
 
         return $response;
     }
@@ -53,8 +63,6 @@ class CacheableManager
         } else {
             $response->setPrivate();
         }
-
-        return $response;
     }
 
     /**
@@ -76,8 +84,6 @@ class CacheableManager
                 $response->setSharedMaxAge($maxAge);
             }
         }
-
-        return $response;
     }
 
     /**
@@ -98,6 +104,6 @@ class CacheableManager
      */
     public function invalidateTags(array $tags)
     {
-        $this->cacheManager->invalidateTags($tags);
+        $this->tagHandler->invalidateTags($tags);
     }
 }
