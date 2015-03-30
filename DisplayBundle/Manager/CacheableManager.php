@@ -42,7 +42,7 @@ class CacheableManager
      * @param Response $response
      * @param int      $maxAge
      * @param string   $status
-     * 
+     *
      * @return Response $response
      */
     public function setResponseCacheParameters(Response $response, $maxAge, $status = CacheableInterface::CACHE_PRIVATE)
@@ -58,8 +58,6 @@ class CacheableManager
      * 
      * @param Response $response
      * @param string   $status
-     * 
-     * @return Response $response
      */
     protected function setResponseStatus(Response $response, $status)
     {
@@ -75,8 +73,6 @@ class CacheableManager
      * 
      * @param Response $response
      * @param int      $maxAge
-     *
-     * @return Response
      */
     protected function setResponseMaxAge(Response $response, $maxAge, $status)
     {
