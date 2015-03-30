@@ -2,6 +2,8 @@
 
 namespace OpenOrchestra\DisplayBundle\Manager;
 
+use FOS\HttpCache\CacheInvalidator;
+use FOS\HttpCache\Handler\TagHandler;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
 use FOS\HttpCacheBundle\CacheManager;
@@ -11,14 +13,27 @@ use FOS\HttpCacheBundle\CacheManager;
  */
 class CacheableManager
 {
+    /**
+     * @var CacheManager
+     */
     protected $cacheManager;
 
     /**
-     * @param CacheManager $cacheManager
+     * @var TagHandler
      */
-    public function __construct(CacheManager $cacheManager)
+    protected $tagHandler;
+
+    /**
+     * @param CacheManager $cacheManager
+     * @param TagHandler   $tagHandler
+     */
+    public function __construct(CacheManager $cacheManager, TagHandler $tagHandler = null)
     {
         $this->cacheManager = $cacheManager;
+        $this->tagHandler = $tagHandler;
+        if (is_null($tagHandler) && $cacheManager->supports(CacheInvalidator::INVALIDATE)) {
+            $this->tagHandler = new TagHandler($cacheManager);
+        }
     }
 
     /**
@@ -27,13 +42,13 @@ class CacheableManager
      * @param Response $response
      * @param int      $maxAge
      * @param string   $status
-     * 
+     *
      * @return Response $response
      */
     public function setResponseCacheParameters(Response $response, $maxAge, $status = CacheableInterface::CACHE_PRIVATE)
     {
-        $response = $this->setResponseStatus($response, $status);
-        $response = $this->setResponseMaxAge($response, $maxAge, $status);
+        $this->setResponseStatus($response, $status);
+        $this->setResponseMaxAge($response, $maxAge, $status);
 
         return $response;
     }
@@ -43,8 +58,6 @@ class CacheableManager
      * 
      * @param Response $response
      * @param string   $status
-     * 
-     * @return Response $response
      */
     protected function setResponseStatus(Response $response, $status)
     {
@@ -53,8 +66,6 @@ class CacheableManager
         } else {
             $response->setPrivate();
         }
-
-        return $response;
     }
 
     /**
@@ -62,8 +73,6 @@ class CacheableManager
      * 
      * @param Response $response
      * @param int      $maxAge
-     *
-     * @return Response
      */
     protected function setResponseMaxAge(Response $response, $maxAge, $status)
     {
@@ -76,8 +85,6 @@ class CacheableManager
                 $response->setSharedMaxAge($maxAge);
             }
         }
-
-        return $response;
     }
 
     /**
@@ -98,6 +105,8 @@ class CacheableManager
      */
     public function invalidateTags(array $tags)
     {
-        $this->cacheManager->invalidateTags($tags);
+        if (!is_null($this->tagHandler)) {
+            $this->tagHandler->invalidateTags($tags);
+        }
     }
 }

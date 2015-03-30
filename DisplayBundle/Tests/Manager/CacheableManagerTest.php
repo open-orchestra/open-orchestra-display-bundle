@@ -15,6 +15,7 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected $manager;
     protected $cacheManager;
+    protected $tagHandler;
 
     /**
      * Set up the test
@@ -22,13 +23,14 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->cacheManager = Phake::mock('FOS\HttpCacheBundle\CacheManager');
-        $this->manager = new CacheableManager($this->cacheManager);
+        $this->tagHandler = Phake::mock('FOS\HttpCache\Handler\TagHandler');
+        $this->manager = new CacheableManager($this->cacheManager, $this->tagHandler);
     }
 
     /**
      * @param int $maxAge
      * @param int $expectedMaxAge
-     * @param int count
+     * @param int $count
      *
      * @dataProvider provideMaxAge
      */
@@ -87,7 +89,7 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param array tags
+     * @param array $tags
      * 
      * @dataProvider provideTags
      */
@@ -95,7 +97,7 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->manager->invalidateTags($tags);
 
-        Phake::verify($this->cacheManager)->invalidateTags($tags);
+        Phake::verify($this->tagHandler)->invalidateTags($tags);
     }
 
     /**
