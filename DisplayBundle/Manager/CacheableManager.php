@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\Manager;
 
+use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Handler\TagHandler;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
@@ -24,11 +25,15 @@ class CacheableManager
 
     /**
      * @param CacheManager $cacheManager
+     * @param TagHandler   $tagHandler
      */
-    public function __construct(CacheManager $cacheManager)
+    public function __construct(CacheManager $cacheManager, TagHandler $tagHandler = null)
     {
         $this->cacheManager = $cacheManager;
-        $this->tagHandler = new TagHandler($cacheManager);
+        $this->tagHandler = $tagHandler;
+        if (is_null($tagHandler) && $cacheManager->supports(CacheInvalidator::INVALIDATE)) {
+            $this->tagHandler = new TagHandler($cacheManager);
+        }
     }
 
     /**
@@ -104,6 +109,8 @@ class CacheableManager
      */
     public function invalidateTags(array $tags)
     {
-        $this->tagHandler->invalidateTags($tags);
+        if (!is_null($this->tagHandler)) {
+            $this->tagHandler->invalidateTags($tags);
+        }
     }
 }
