@@ -5,8 +5,8 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Model\ContentInterface;
-use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
-use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
+use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
+use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
 
@@ -23,12 +23,13 @@ class ContentListStrategy extends AbstractStrategy
     protected $tagManager;
 
     /**
-     * @param ContentRepositoryInterface $contentRepository
-     * @param NodeRepositoryInterface    $nodeRepository
+     * @param ReadContentRepositoryInterface $contentRepository
+     * @param ReadNodeRepositoryInterface    $nodeRepository
+     * @param TagManager                     $tagManager
      */
     public function __construct(
-        ContentRepositoryInterface $contentRepository,
-        NodeRepositoryInterface $nodeRepository,
+        ReadContentRepositoryInterface $contentRepository,
+        ReadNodeRepositoryInterface $nodeRepository,
         TagManager $tagManager
     ){
         $this->contentRepository = $contentRepository;
@@ -50,8 +51,10 @@ class ContentListStrategy extends AbstractStrategy
 
     /**
      * Indicate if the block is public or private
-     * 
-     * @return boolean
+     *
+     * @param ReadBlockInterface $block
+     *
+     * @return bool
      */
     public function isPublic(ReadBlockInterface $block)
     {

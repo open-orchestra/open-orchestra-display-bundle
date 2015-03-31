@@ -4,7 +4,7 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
-use OpenOrchestra\ModelInterface\Repository\ContentRepositoryInterface;
+use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
 
@@ -19,9 +19,10 @@ class ConfigurableContentStrategy extends AbstractStrategy
     protected $tagManager;
 
     /**
-     * @param ContentRepositoryInterface $contentRepository
+     * @param ReadContentRepositoryInterface $contentRepository
+     * @param TagManager                     $tagManager
      */
-    public function __construct(ContentRepositoryInterface $contentRepository, TagManager $tagManager)
+    public function __construct(ReadContentRepositoryInterface $contentRepository, TagManager $tagManager)
     {
         $this->contentRepository = $contentRepository;
         $this->tagManager = $tagManager;
@@ -41,8 +42,10 @@ class ConfigurableContentStrategy extends AbstractStrategy
 
     /**
      * Indicate if the block is public or private
-     * 
-     * @return boolean
+     *
+     * @param ReadBlockInterface $block
+     *
+     * @return bool
      */
     public function isPublic(ReadBlockInterface $block)
     {
