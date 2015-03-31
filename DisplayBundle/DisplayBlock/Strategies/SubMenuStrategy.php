@@ -4,7 +4,7 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\Exception\NodeNotFoundException;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
-use OpenOrchestra\ModelInterface\Repository\NodeRepositoryInterface;
+use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -23,13 +23,13 @@ class SubMenuStrategy extends AbstractStrategy
     protected $tagManager;
 
     /**
-     * @param NodeRepositoryInterface $nodeRepository
-     * @param UrlGeneratorInterface   $router
-     * @param RequestStack            $requestStack
-     * @param TagManager              $tagManager
+     * @param ReadNodeRepositoryInterface $nodeRepository
+     * @param UrlGeneratorInterface       $router
+     * @param RequestStack                $requestStack
+     * @param TagManager                  $tagManager
      */
     public function __construct(
-        NodeRepositoryInterface $nodeRepository,
+        ReadNodeRepositoryInterface $nodeRepository,
         UrlGeneratorInterface $router,
         RequestStack $requestStack,
         TagManager $tagManager
@@ -54,8 +54,10 @@ class SubMenuStrategy extends AbstractStrategy
 
     /**
      * Indicate if the block is public or private
-     * 
-     * @return boolean
+     *
+     * @param ReadBlockInterface $block
+     *
+     * @return bool
      */
     public function isPublic(ReadBlockInterface $block)
     {
