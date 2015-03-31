@@ -16,7 +16,7 @@ class TreeManager
      */
     public function generateTree($nodes)
     {
-        $superRoot = count(array_filter($nodes, function ($node) {
+        $superRoot = count(array_filter($nodes, function (ReadNodeInterface $node) {
             return '-' == $node->getParentId();
         }))? '-': 'root';
 
@@ -104,7 +104,7 @@ class TreeManager
      *
      * @return mixed
      */
-    protected function getNodePosition($node, $tree)
+    protected function getNodePosition(ReadNodeInterface $node, $tree)
     {
         $position = $node->getOrder();
         while (array_key_exists($position, $tree)) {
