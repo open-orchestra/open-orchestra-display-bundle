@@ -25,13 +25,13 @@
     "minimum-stability": "dev",
     "require": {
         "symfony/swiftmailer-bundle" : "~2.3",
-        "itkg/open-orchestra-model-interface": "*",
+        "open-orchestra/open-orchestra-model-interface": "*",
         "friendsofsymfony/http-cache-bundle": "1.1"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.0.14",
         "scrutinizer/ocular": "1.1.1",
-        "itkg/open-orchestra-base-bundle": "dev-master",
+        "open-orchestra/open-orchestra-base-bundle": "dev-master",
         "phake/phake": "2.0.0-beta2"
     },
     "config" : {
