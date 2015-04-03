@@ -48,7 +48,9 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
         return $this->render(
             'OpenOrchestraDisplayBundle:Block/TinyMCEWysiwyg:show.html.twig',
             array(
-                'htmlContent' => $htmlContent
+                'htmlContent' => $htmlContent,
+                'id' => $block->getId(),
+                'class' => $block->getClass()
             )
         );
     }
