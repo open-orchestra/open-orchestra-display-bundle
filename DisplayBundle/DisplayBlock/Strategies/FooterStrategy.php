@@ -17,24 +17,20 @@ class FooterStrategy extends AbstractStrategy
     const FOOTER = 'footer';
 
     protected $nodeRepository;
-    protected $router;
     protected $request;
     protected $tagManager;
 
     /**
      * @param ReadNodeRepositoryInterface $nodeRepository
-     * @param UrlGeneratorInterface       $router
      * @param RequestStack                $requestStack
      * @param TagManager                  $tagManager
      */
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
-        UrlGeneratorInterface $router,
         RequestStack $requestStack,
         TagManager $tagManager
     ){
         $this->nodeRepository = $nodeRepository;
-        $this->router = $router;
         $this->request = $requestStack->getMasterRequest();
         $this->tagManager = $tagManager;
     }

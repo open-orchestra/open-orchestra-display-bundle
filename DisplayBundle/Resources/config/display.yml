@@ -34,7 +34,6 @@ services:
         class: %open_orchestra_display.display.footer.class%
         arguments:
             - @open_orchestra_model.repository.node
-            - @router
             - @request_stack
             - @open_orchestra_base.manager.tag
         tags:
@@ -43,7 +42,6 @@ services:
         class: %open_orchestra_display.display.menu.class%
         arguments:
             - @open_orchestra_model.repository.node
-            - @router
             - @request_stack
             - @open_orchestra_base.manager.tag
         tags:
@@ -67,7 +65,6 @@ services:
         class: %open_orchestra_display.display.sub_menu.class%
         arguments:
             - @open_orchestra_model.repository.node
-            - @router
             - @request_stack
             - @open_orchestra_base.manager.tag
         tags:
