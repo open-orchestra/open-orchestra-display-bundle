@@ -6,7 +6,6 @@ use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
 
 /**
@@ -17,24 +16,20 @@ class MenuStrategy extends AbstractStrategy
     const MENU = 'menu';
 
     protected $nodeRepository;
-    protected $router;
     protected $request;
     protected $tagManager;
 
     /**
      * @param ReadNodeRepositoryInterface $nodeRepository
-     * @param UrlGeneratorInterface       $router
      * @param RequestStack                $requestStack
      * @param TagManager                  $tagManager
      */
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
-        UrlGeneratorInterface $router,
         RequestStack $requestStack,
         TagManager $tagManager
     ){
         $this->nodeRepository = $nodeRepository;
-        $this->router = $router;
         $this->request = $requestStack->getMasterRequest();
         $this->tagManager = $tagManager;
     }

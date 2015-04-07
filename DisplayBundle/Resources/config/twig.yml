@@ -15,9 +15,3 @@ services:
             - @translator
         tags:
             - { name: twig.extension }
-    open_orchestra_cms.twig.orchestra_url.extension:
-        class: %open_orchestra_cms.twig.orchestra_url.extension.class%
-        arguments:
-            - @router
-        tags:
-            - { name: twig.extension }

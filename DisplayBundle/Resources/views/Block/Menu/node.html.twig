@@ -1,11 +1,6 @@
-{% set url = orchestraUrl(element.node.id, {}, true) %}
 <ul>
     <li>
-        {% if url %}
-            <a href="{{ url }}">{{ element.node.name }}</a>
-        {% else %}
-            <span class="module_node">{{ element.node.name }}</span>
-        {% endif %}
+        <a href="{{ url(element.node.id) }}">{{ element.node.name }}</a>
         {% if element.child is defined %}
             {% for child in element.child %}
                 {% if child %}
