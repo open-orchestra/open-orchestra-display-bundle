@@ -63,8 +63,7 @@ class ContactController extends Controller
             $this->get('mailer')->send($messageToUser);
 
             $messageSendEmail = $this->get('translator')->trans('open_orchestra_display.contact.send_message_ok');
-        }
-        else{
+        } else {
             $messageSendEmail = $this->get('translator')->trans('open_orchestra_display.contact.send_message_ko');
         }
 
