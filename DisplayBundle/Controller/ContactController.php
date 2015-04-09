@@ -61,8 +61,13 @@ class ContactController extends Controller
                     )
                 );
             $this->get('mailer')->send($messageToUser);
+
+            $messageSendEmail = $this->get('translator')->trans('open_orchestra_display.contact.send_message_ok');
+        }
+        else{
+            $messageSendEmail = $this->get('translator')->trans('open_orchestra_display.contact.send_message_ko');
         }
 
-        return $this->redirect($this->generateUrl('orchestra_page_home'));
+        return $this->render('OpenOrchestraDisplayBundle:Block/Email:sendEmailMessage.html.twig', array('messageSendEmail' => $messageSendEmail));
     }
 }

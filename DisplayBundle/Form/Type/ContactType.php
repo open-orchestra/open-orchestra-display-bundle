@@ -4,6 +4,7 @@ namespace OpenOrchestra\DisplayBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\True;
 
 /**
  * Class ContactType
@@ -20,6 +21,10 @@ class ContactType extends AbstractType
         ->add('email', 'email')
         ->add('subject', 'text')
         ->add('message', 'textarea')
+        ->add('captcha','checkbox', array(
+            'mapped' => false,
+            'constraints' => array(new True())
+        ))
         ->add('submit', 'submit');
     }
 
