@@ -5,6 +5,13 @@ open_orchestra_display:
         contact_received: Votre demande de contact a été reçue par un administrateur
         admin_content: Le client %name% avec l'email %mail% essaye de nous contacter. \n Voici le contenu de son message : \n %message%
         user_content: Bonjour, nous avons reçu votre message et reviendrons vers vous le plus vite possible \n Cordialement, \n %name%
+        form:
+            name: Nom
+            email: Email
+            subject: Sujet
+            message: Message
+            captcha: Captcha
+            send: Envoyer
     language_list:
         en: English
         fr: Français
