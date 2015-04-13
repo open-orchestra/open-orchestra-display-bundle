@@ -27,7 +27,9 @@ services:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.contact:
         class: %open_orchestra_display.display.contact.class%
-        arguments: [@form.factory, @router]
+        arguments:
+            - @form.factory
+            - @router
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.footer:
