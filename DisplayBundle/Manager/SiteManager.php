@@ -50,8 +50,8 @@ class SiteManager implements CurrentSiteIdInterface
      */
     public function getCurrentSiteDefaultLanguage()
     {
-        if (is_null($this->currentLanguage) && ($this->requestStack->getMasterRequest())) {
-            $this->currentLanguage = $this->requestStack->getMasterRequest()->getLocale();
+        if (is_null($this->currentLanguage) && ($request = $this->requestStack->getMasterRequest())) {
+            $this->currentLanguage = $request->get('language', $request->getLocale());
         }
 
         return $this->currentLanguage;

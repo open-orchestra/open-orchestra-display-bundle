@@ -4,7 +4,6 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
 
@@ -16,21 +15,17 @@ class MenuStrategy extends AbstractStrategy
     const MENU = 'menu';
 
     protected $nodeRepository;
-    protected $request;
     protected $tagManager;
 
     /**
      * @param ReadNodeRepositoryInterface $nodeRepository
-     * @param RequestStack                $requestStack
      * @param TagManager                  $tagManager
      */
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
-        RequestStack $requestStack,
         TagManager $tagManager
     ){
         $this->nodeRepository = $nodeRepository;
-        $this->request = $requestStack->getMasterRequest();
         $this->tagManager = $tagManager;
     }
 
@@ -86,7 +81,7 @@ class MenuStrategy extends AbstractStrategy
      */
     protected function getNodes()
     {
-        return $this->nodeRepository->getMenuTree($this->request->getLocale());
+        return $this->nodeRepository->getMenuTree();
     }
 
     /**

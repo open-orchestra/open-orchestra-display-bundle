@@ -4,7 +4,6 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
@@ -17,21 +16,17 @@ class FooterStrategy extends AbstractStrategy
     const FOOTER = 'footer';
 
     protected $nodeRepository;
-    protected $request;
     protected $tagManager;
 
     /**
      * @param ReadNodeRepositoryInterface $nodeRepository
-     * @param RequestStack                $requestStack
      * @param TagManager                  $tagManager
      */
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
-        RequestStack $requestStack,
         TagManager $tagManager
     ){
         $this->nodeRepository = $nodeRepository;
-        $this->request = $requestStack->getMasterRequest();
         $this->tagManager = $tagManager;
     }
 
@@ -87,7 +82,7 @@ class FooterStrategy extends AbstractStrategy
      */
     protected function getNodes()
     {
-        return $this->nodeRepository->getFooterTree($this->request->getLocale());
+        return $this->nodeRepository->getFooterTree();
     }
 
     /**
