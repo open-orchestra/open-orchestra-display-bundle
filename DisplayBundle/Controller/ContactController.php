@@ -25,8 +25,6 @@ class ContactController extends Controller
      */
     public function contactMailSendAction(Request $request)
     {
-        $mailAdmin = $this->container->getParameter('open_orchestra_display.administrator_contact_email');
-
         $form = $this->createForm(new ContactType());
 
         $form->handleRequest($request);
@@ -36,7 +34,7 @@ class ContactController extends Controller
             $messageToAdmin = \Swift_Message::newInstance()
                 ->setSubject($formData['subject'])
                 ->setFrom($formData['email'])
-                ->setTo($mailAdmin)
+                ->setTo($formData['recipient'])
                 ->setBody(
                     $this->renderView(
                         'OpenOrchestraDisplayBundle:Block/Email:show_admin.txt.twig',
@@ -52,12 +50,12 @@ class ContactController extends Controller
             //send confirm e-mail for the user
             $messageToUser = \Swift_Message::newInstance()
                 ->setSubject($this->get('translator')->trans('open_orchestra_display.contact.contact_received'))
-                ->setFrom($mailAdmin)
+                ->setFrom($formData['recipient'])
                 ->setTo($formData['email'])
                 ->setBody(
                     $this->renderView(
                         'OpenOrchestraDisplayBundle:Block/Email:show_user.txt.twig',
-                        array('name' => $this->container->getParameter('open_orchestra_display.contact_signature_email'))
+                        array('signature' => $formData['signature'])
                     )
                 );
             $this->get('mailer')->send($messageToUser);

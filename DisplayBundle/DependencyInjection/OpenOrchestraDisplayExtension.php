@@ -18,7 +18,7 @@ class OpenOrchestraDisplayExtension extends Extension
      * {@inheritDoc}
      */
     public function load(array $configs, ContainerBuilder $container)
-    {
+    {   
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
@@ -26,8 +26,5 @@ class OpenOrchestraDisplayExtension extends Extension
         $loader->load('display.yml');
         $loader->load('manager.yml');
         $loader->load('twig.yml');
-
-        $container->setParameter('open_orchestra_display.administrator_contact_email', $config['administrator_email']);
-        $container->setParameter('open_orchestra_display.contact_signature_email', $config['contact_signature']);
     }
 }

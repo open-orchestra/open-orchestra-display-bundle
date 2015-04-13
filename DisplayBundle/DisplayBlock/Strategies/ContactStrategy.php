@@ -49,7 +49,12 @@ class ContactStrategy extends AbstractStrategy
      */
     public function show(ReadBlockInterface $block)
     {
-        $form = $this->formFactory->create(new ContactType(), null, array(
+        $data = array(
+            'recipient' => $block->getAttribute('recipient'),
+            'signature' => $block->getAttribute('signature'),
+        );
+
+        $form = $this->formFactory->create(new ContactType(), $data, array(
             'action' => $this->router->generate('open_orchestra_display_contact_send'),
             'method' => 'POST',
         ));
