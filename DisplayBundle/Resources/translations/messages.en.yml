@@ -6,7 +6,7 @@ open_orchestra_display:
         admin_content: The customer %name% with the mail %mail% is trying to get in touch with us. \n Here is his message content : \n %message%
         user_content: Hi, we received your messages and will come back to you as soon as possible \n Regards, \n %name%
         form:
-            name: Nom
+            name: Name
             email: Email
             subject: Subject
             message: Message
