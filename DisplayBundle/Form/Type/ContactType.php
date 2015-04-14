@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\True;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Email;
 
 /**
  * Class ContactType
@@ -38,7 +39,7 @@ class ContactType extends AbstractType
             'constraints' => array(new True())
         ));
         $builder->add('recipient', 'hidden', array(
-            'constraints' => array(new NotBlank())
+            'constraints' => array(new Email())
         ));
         $builder->add('signature', 'hidden');
 
