@@ -2,8 +2,7 @@ parameters:
     open_orchestra_display.display_block_manager.class: OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager
 
     open_orchestra_display.display.carrousel.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\CarrouselStrategy
-    open_orchestra_display.display.contact_get.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategyGet
-    open_orchestra_display.display.contact_post.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategyPost
+    open_orchestra_display.display.contact.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
     open_orchestra_display.display.footer.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy
     open_orchestra_display.display.menu.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\MenuStrategy
     open_orchestra_display.display.sample.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\SampleStrategy
@@ -26,22 +25,14 @@ services:
         class: %open_orchestra_display.display.carrousel.class%
         tags:
             - { name: open_orchestra_display.display_block.strategy }
-    open_orchestra_display.display.contact_get:
-        class: %open_orchestra_display.display.contact_get.class%
+    open_orchestra_display.display.contact:
+        class: %open_orchestra_display.display.contact.class%
         arguments:
             - @form.factory
             - @router
             - @request_stack
         tags:
             - { name: open_orchestra_display.display_block.strategy }
-    # open_orchestra_display.display.contact_post:
-    #     class: %open_orchestra_display.display.contact_post.class%
-    #     arguments:
-    #         - @form.factory
-    #         - @router
-    #         - @request_stack
-    #     tags:
-    #         - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.footer:
         class: %open_orchestra_display.display.footer.class%
         arguments:

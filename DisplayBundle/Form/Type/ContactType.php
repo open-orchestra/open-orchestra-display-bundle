@@ -38,11 +38,6 @@ class ContactType extends AbstractType
             'label' => 'open_orchestra_display.contact.form.captcha',
             'constraints' => array(new True())
         ));
-        $builder->add('recipient', 'hidden', array(
-            'constraints' => array(new Email())
-        ));
-        $builder->add('signature', 'hidden');
-
         $builder->add('send', 'submit', array('label' => 'open_orchestra_display.contact.form.send'));
     }
 
