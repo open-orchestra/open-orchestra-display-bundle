@@ -31,6 +31,7 @@ services:
             - @form.factory
             - @router
             - @request_stack
+            - @mailer
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.footer:

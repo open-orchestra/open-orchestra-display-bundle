@@ -17,19 +17,26 @@ class ContactStrategy extends AbstractStrategy
     const CONTACT = 'contact';
 
     protected $formFactory;
-    protected $router;
     protected $request;
+    protected $mailer;
+    protected $router;
 
     /**
      * @param FormFactory           $formFactory
      * @param UrlGeneratorInterface $router
      * @param RequestStack $requestStack
      */
-    public function __construct(FormFactory $formFactory, UrlGeneratorInterface $router, RequestStack $requestStack)
+    public function __construct(
+        FormFactory $formFactory,
+        UrlGeneratorInterface $router,
+        RequestStack $requestStack,
+        $mailer
+    )
     {
-        $this->formFactory = $formFactory;
         $this->router = $router;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->mailer = $mailer;
+        $this->formFactory = $formFactory;
+        $this->request = $requestStack->getMasterRequest();
     }
 
     /**
@@ -58,14 +65,18 @@ class ContactStrategy extends AbstractStrategy
             'method' => 'POST',
         ));
 
-        $form->handleRequest($request);
+// return new Response(var_dump($this->request));
+        $form->handleRequest($this->request);
         if ($form->isValid()) {
+
+            $recipient = $block->getAttribute("recipient");
+            $signature = $block->getAttribute("signature");
             $formData = $form->getData();
             //send alert message to webmaster
             $messageToAdmin = \Swift_Message::newInstance()
                 ->setSubject($formData['subject'])
                 ->setFrom($formData['email'])
-                ->setTo($formData['recipient'])
+                ->setTo($recipient)
                 ->setBody(
                     $this->renderView(
                         'OpenOrchestraDisplayBundle:Block/Email:show_admin.txt.twig',
@@ -76,22 +87,20 @@ class ContactStrategy extends AbstractStrategy
                         )
                     )
                 );
-            $this->get('mailer')->send($messageToAdmin);
+            $this->mailer->send($messageToAdmin);
 
             //send confirm e-mail for the user
             $messageToUser = \Swift_Message::newInstance()
-                ->setSubject($this->get('translator')->trans('open_orchestra_display.contact.contact_received'))
-                ->setFrom($formData['recipient'])
+                ->setSubject('open_orchestra_display.contact.contact_received')
+                ->setFrom($recipient)
                 ->setTo($formData['email'])
                 ->setBody(
                     $this->renderView(
                         'OpenOrchestraDisplayBundle:Block/Email:show_user.txt.twig',
-                        array('signature' => $formData['signature'])
+                        array('signature' => $signature)
                     )
                 );
-            $this->get('mailer')->send($messageToUser);
-
-            $messageSendEmail = $this->get('translator')->trans('open_orchestra_display.contact.send_message_ok');
+            $this->mailer->send($messageToUser);
         }
 
         return $this->render(
