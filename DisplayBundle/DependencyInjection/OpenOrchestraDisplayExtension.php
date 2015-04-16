@@ -25,6 +25,7 @@ class OpenOrchestraDisplayExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('display.yml');
         $loader->load('manager.yml');
+        $loader->load('subscriber.yml');
         $loader->load('twig.yml');
     }
 }

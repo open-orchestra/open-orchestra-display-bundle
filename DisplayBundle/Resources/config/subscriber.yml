@@ -1,0 +1,10 @@
+parameters:
+    open_orchestra_display.subscriber.send_message.class: OpenOrchestra\DisplayBundle\EventSubscriber\SendMessageSubscriber
+services:
+    open_orchestra_display.subscriber.send_message:
+        class: %open_orchestra_display.subscriber.send_message.class%
+        arguments:
+            - @mailer
+            - @logger
+        tags:
+             - { name: kernel.event_subscriber }

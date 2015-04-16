@@ -2,12 +2,14 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
+use OpenOrchestra\DisplayBundle\Event\MailerEvent;
 use OpenOrchestra\DisplayBundle\Form\Type\ContactType;
+use OpenOrchestra\DisplayBundle\MailerEvents;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class ContactStrategyGet
@@ -18,25 +20,22 @@ class ContactStrategy extends AbstractStrategy
 
     protected $formFactory;
     protected $request;
-    protected $mailer;
-    protected $router;
+    protected $dispatcher;
 
     /**
-     * @param FormFactory           $formFactory
-     * @param UrlGeneratorInterface $router
+     * @param FormFactory $formFactory
      * @param RequestStack $requestStack
+     * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
         FormFactory $formFactory,
-        UrlGeneratorInterface $router,
         RequestStack $requestStack,
-        $mailer
+        EventDispatcherInterface $dispatcher
     )
     {
-        $this->router = $router;
-        $this->mailer = $mailer;
         $this->formFactory = $formFactory;
         $this->request = $requestStack->getMasterRequest();
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -61,11 +60,9 @@ class ContactStrategy extends AbstractStrategy
     public function show(ReadBlockInterface $block)
     {
         $form = $this->formFactory->create(new ContactType(), null, array(
-            'action' => '',
             'method' => 'POST',
         ));
 
-// return new Response(var_dump($this->request));
         $form->handleRequest($this->request);
         if ($form->isValid()) {
 
@@ -87,7 +84,8 @@ class ContactStrategy extends AbstractStrategy
                         )
                     )
                 );
-            $this->mailer->send($messageToAdmin);
+            $event = new MailerEvent($messageToAdmin);
+            $this->dispatcher->dispatch(MailerEvents::SEND_MAIL,$event);
 
             //send confirm e-mail for the user
             $messageToUser = \Swift_Message::newInstance()
@@ -100,7 +98,8 @@ class ContactStrategy extends AbstractStrategy
                         array('signature' => $signature)
                     )
                 );
-            $this->mailer->send($messageToUser);
+            $event = new MailerEvent($messageToUser);
+            $this->dispatcher->dispatch(MailerEvents::SEND_MAIL,$event);
         }
 
         return $this->render(
