@@ -5,6 +5,5 @@ services:
         class: %open_orchestra_display.subscriber.send_message.class%
         arguments:
             - @mailer
-            - @logger
         tags:
              - { name: kernel.event_subscriber }
