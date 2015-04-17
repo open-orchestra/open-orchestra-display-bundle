@@ -46,7 +46,7 @@ class ContactStrategy extends AbstractStrategy
      * @return boolean
      */
     public function support(ReadBlockInterface $block)
-    {   
+    {
         return self::CONTACT == $block->getComponent();
     }
 
