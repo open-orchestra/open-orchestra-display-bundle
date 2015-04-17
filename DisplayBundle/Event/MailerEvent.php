@@ -27,5 +27,4 @@ class MailerEvent extends Event
     {
         return $this->message;
     }
-
 }

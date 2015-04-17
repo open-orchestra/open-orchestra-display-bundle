@@ -47,25 +47,6 @@ class SendMessageSubscriberTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add message
-     */
-    public function testAddMessage()
-    {
-        $event = Phake::mock('OpenOrchestra\DisplayBundle\Event\MailerEvent');
-
-        $message1 = Phake::mock('Swift_Message');
-        Phake::when($event)->getMessage()->thenReturn($message1);
-        $this->subscriber->addMessage($event);
-        $this->assertCount(1, $this->subscriber->getMessages());
-
-
-        $message2 = Phake::mock('Swift_Message');
-        Phake::when($event)->getMessage()->thenReturn($message2);
-        $this->subscriber->addMessage($event);
-        $this->assertCount(2, $this->subscriber->getMessages());
-    }
-
-    /**
      * Test send message
      */
     public function testSendMessage()
@@ -76,8 +57,10 @@ class SendMessageSubscriberTest extends \PHPUnit_Framework_TestCase
         Phake::when($event)->getMessage()->thenReturn($message);
 
         $this->subscriber->addMessage($event);
+        $this->subscriber->addMessage($event);
 
         $this->subscriber->sendMessages();
-        Phake::verify($this->mailer)->send($message);
+        Phake::verify($this->mailer, Phake::times(2))->send($message);
     }
+
 }

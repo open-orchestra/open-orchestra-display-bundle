@@ -17,7 +17,7 @@ class SendMessageSubscriber implements EventSubscriberInterface
     protected $mailer;
 
     /**
-     * @param \Swift_Mailer $mailer
+     * @param Swift_Mailer $mailer
      */
     public function __construct(Swift_Mailer $mailer)
     {
@@ -52,13 +52,4 @@ class SendMessageSubscriber implements EventSubscriberInterface
             $this->mailer->send($message);
         }
     }
-
-    /**
-     * @return array
-     */
-    public function getMessages()
-    {
-        return $this->messages;
-    }
-
 }
