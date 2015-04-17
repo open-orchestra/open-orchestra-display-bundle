@@ -58,4 +58,17 @@ abstract class AbstractStrategy implements DisplayBlockInterface
     {
         return $this->manager->getTemplating()->renderResponse($view, $parameters, $response);
     }
+
+    /**
+     * Returns a rendered view.
+     *
+     * @param string $view       The view name
+     * @param array  $parameters An array of parameters to pass to the view
+     *
+     * @return string The rendered view
+     */
+    public function renderView($view, array $parameters = array())
+    {
+        return $this->manager->getTemplating()->render($view, $parameters);
+    }
 }

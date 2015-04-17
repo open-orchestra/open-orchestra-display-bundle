@@ -20,11 +20,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('open_orchestra_display');
 
-        $rootNode->children()
-            ->scalarNode('administrator_email')->defaultValue('nicolas.thal@businessdecison.com')->end()
-            ->scalarNode('contact_signature')->defaultValue('Orchestra')->end()
-        ->end();
-
         return $treeBuilder;
     }
 }

@@ -29,7 +29,8 @@ services:
         class: %open_orchestra_display.display.contact.class%
         arguments:
             - @form.factory
-            - @router
+            - @request_stack
+            - @event_dispatcher
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.footer:
