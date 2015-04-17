@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class ContactStrategyGet
+ * Class ContactStrategy
  */
 class ContactStrategy extends AbstractStrategy
 {

@@ -6,21 +6,21 @@ use OpenOrchestra\DisplayBundle\Event\MailerEvent;
 use OpenOrchestra\DisplayBundle\MailerEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Swift_Mailer;
 
 /**
  * Class SendMessageSubscriber
  */
 class SendMessageSubscriber implements EventSubscriberInterface
 {
-    protected $messages;
+    protected $messages = array();
     protected $mailer;
 
     /**
      * @param \Swift_Mailer $mailer
      */
-    public function __construct(\Swift_Mailer $mailer)
+    public function __construct(Swift_Mailer $mailer)
     {
-        $this->messages = array();
         $this->mailer = $mailer;
     }
 
@@ -43,6 +43,9 @@ class SendMessageSubscriber implements EventSubscriberInterface
         $this->messages[] = $event->getMessage();
     }
 
+    /**
+     * Send messsages
+     */
     public function sendMessages()
     {
         foreach($this->messages as $message) {
