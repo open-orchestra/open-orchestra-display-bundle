@@ -1,28 +1,28 @@
 {% extends 'OpenOrchestraDisplayBundle:Block:layout.html.twig' %}
 
 {% block content %}
-    {% for content in contents %}
-        {% if contentFromTemplate[content.id] is defined and contentFromTemplate[content.id] is not null %}
-            {{ contentFromTemplate[content.id]|raw }}
-        {% else %}
-            <div>
-                {% if content.attributeByName('publish_start') is not null %}
-                    <span class="publish_start">{{ content.attributeByName('publish_start') }}</span>
-                {% endif %}
-                <h2>{{ content.name }}</h2>
-                <p>
-                    {{ content.attributeByName('title') }}
-                </p>
-                <p>
-                    {{ content.attributeByName('intro') }}
-                </p>
+    <div class="content-list">
+        {% for content in contents %}
+            {% if contentFromTemplate[content.id] is defined and contentFromTemplate[content.id] is not null %}
+                {{ contentFromTemplate[content.id]|raw }}
+            {% else %}
 
-                {% if contentNodeId is defined %}
-                    <a href="{{ url(contentNodeId, {'contentId' : content.contentId} ) }}"></a>
-                {% endif %}
-            </div>
-        {% endif %}
-    {% endfor %}
+                <div>
+                    <h2>
+                        {% if contentNodeId is defined %}
+                            <a href="{{ url(contentNodeId, {'contentId' : content.contentId} ) }}">{{ content.name }}</a>
+                        {% else %}
+                            {{ content.name }}
+                        {% endif %}
+                    </h2>
+                    {% for attribute in content.attributes %}
+                        <p><b>{{ attribute.name }}:</b> {{ attribute.value }}</p>
+                    {% endfor %}
+                </div>
+
+            {% endif %}
+        {% endfor %}
+    </div>
 
     <script data-main="{{ asset('/bundles/openorchestradisplay/block/ContentList/js/loadCss.js') }}" src="{{ asset('/bundles/openorchestradisplay/libs/require.js') }}"></script>
 {% endblock %}

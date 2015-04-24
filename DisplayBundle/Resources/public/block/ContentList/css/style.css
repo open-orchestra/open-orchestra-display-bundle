@@ -1,16 +1,18 @@
-#main .content-list {
+.content-list {
     margin-top: 30px;
 }
-#main .content-list div {
+
+.content-list div {
     position: relative;
     width: calc(50% - 20px);
     float: left;
     margin: 15px 40px 15px 0;
     border: 1px solid #1EA1B9;
-    padding: 15px;
+    padding: 5px 15px 15px 15px;
     box-sizing: border-box;
 }
-#main .content-list div h2 {
+
+.content-list div h2 a {
     color: #00857D;
     font-family: "Arial";
     font-size: 14px;
@@ -18,19 +20,11 @@
     margin-bottom: 10px;
     text-decoration: underline;
 }
-#main .content-list div .publish_start {
-    font-size: 14px;
-    float: right;
-    color: #00857D;
+
+.content-list div p {
+    margin-top:2px;
 }
-#main .content-list div a {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-}
-#main .content-list div:nth-child(even) {
+
+.content-list div:nth-child(even) {
     margin-right: 0;
 }
