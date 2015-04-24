@@ -1,0 +1,21 @@
+.configurable-content {
+    position: relative;
+    width: 100%;
+    margin: 15px 40px 15px 0;
+    border: 1px solid #1EA1B9;
+    padding: 5px 15px 15px 15px;
+    box-sizing: border-box;
+}
+
+.configurable-content h2 {
+    color: #00857D;
+    font-family: "Arial";
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.configurable-content p {
+    margin-top:2px;
+}
