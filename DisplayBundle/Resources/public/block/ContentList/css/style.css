@@ -2,7 +2,7 @@
     margin-top: 30px;
 }
 
-.content-list div {
+.content-list > div {
     position: relative;
     width: calc(50% - 20px);
     float: left;
@@ -12,7 +12,7 @@
     box-sizing: border-box;
 }
 
-.content-list div h2 a {
+.content-list > div > h2 > a {
     color: #00857D;
     font-family: "Arial";
     font-size: 14px;
@@ -21,10 +21,10 @@
     text-decoration: underline;
 }
 
-.content-list div p {
+.content-list > div > p {
     margin-top:2px;
 }
 
-.content-list div:nth-child(even) {
+.content-list > div:nth-child(even) {
     margin-right: 0;
 }
