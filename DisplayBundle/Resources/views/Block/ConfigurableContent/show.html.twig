@@ -1,5 +1,12 @@
-<ul>
-    {% for attribute in contentAttributes %}
-        <li>{{ attribute.name }} : {{ attribute.value }}</li>
-    {% endfor %}
-</ul>
+{% extends 'OpenOrchestraDisplayBundle:Block:layout.html.twig' %}
+
+{% block content %}
+    <div class="configurable-content">
+        <h2>{{ content.name }}</h2>
+        {% for attribute in content.attributes %}
+            <p><b>{{ attribute.name }}:</b> {{ attribute.value }}</p>
+        {% endfor %}
+    </div>
+
+    <script data-main="{{ asset('/bundles/openorchestradisplay/block/ConfigurableContent/js/loadCss.js') }}" src="{{ asset('/bundles/openorchestradisplay/libs/require.js') }}"></script>
+{% endblock %}

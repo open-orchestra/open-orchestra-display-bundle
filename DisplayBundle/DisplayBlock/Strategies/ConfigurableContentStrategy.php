@@ -67,11 +67,15 @@ class ConfigurableContentStrategy extends AbstractStrategy
         $content = $this->contentRepository->findLastPublishedVersionByContentIdAndLanguage($contentId);
 
         if ($content) {
-            $contentAttributes = $content->getAttributes();
+            $parameters = array(
+                'class' => $block->getClass(),
+                'id' => $block->getId(),
+                'content' => $content
+            );
 
             return $this->render(
                 'OpenOrchestraDisplayBundle:Block/ConfigurableContent:show.html.twig',
-                array('contentAttributes' => $contentAttributes)
+                $parameters
             );
         }
 
