@@ -2,13 +2,13 @@
 
 {% block content %}
     <div class='contentCaroussel'>
-        <div id='{{ carrousel_id }}'>
+        <div id='{{ attributes.carrousel_id }}'>
             <div u='loading'>
                 <div></div>
                 <div></div>
             </div>
-            <div u='slides' style='cursor: move; position: absolute; left: 0px; top: 0px; width: {{ width }}; height: {{ height }}; overflow: hidden;'>
-                  {% for myPictures in pictures %}
+            <div u='slides' style='cursor: move; position: absolute; left: 0px; top: 0px; width: {{ attributes.width }}; height: {{ attributes.height }}; overflow: hidden;'>
+                  {% for myPictures in attributes.pictures %}
                     <div><img alt='image' src='{{ myPictures.src }}' /></div>
                 {% endfor %}
             <span u='arrowleft' class='jssora12l' style='width: 30px; height: 46px; top: 123px; left: 0px;'></span>

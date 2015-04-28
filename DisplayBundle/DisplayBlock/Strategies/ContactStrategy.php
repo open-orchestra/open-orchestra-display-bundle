@@ -102,10 +102,11 @@ class ContactStrategy extends AbstractStrategy
             $this->dispatcher->dispatch(MailerEvents::SEND_MAIL,$event);
         }
 
-        return $this->render(
-            'OpenOrchestraDisplayBundle:Block/Contact:show.html.twig',
-            array('form' => $form->createView())
-        );
+        return $this->render('OpenOrchestraDisplayBundle:Block/Contact:show.html.twig', array(
+            'form' => $form->createView(),
+            'id' => $block->getId(),
+            'class' => $block->getClass(),
+        ));
     }
 
     /**

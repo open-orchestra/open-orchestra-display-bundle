@@ -33,10 +33,14 @@ class CarrouselStrategy extends AbstractStrategy
      */
     public function show(ReadBlockInterface $block)
     {
+        $parameters = array(
+            'class' => $block->getClass(),
+            'id' => $block->getId(),
+            'attributes' => $block->getAttributes()
+        );
         return $this->render(
             'OpenOrchestraDisplayBundle:Block/Carrousel:show.html.twig',
-            $block->getAttributes()
-        );
+             $parameters);
     }
 
     /**
