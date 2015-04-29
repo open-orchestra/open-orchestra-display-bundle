@@ -48,6 +48,8 @@ class GmapStrategy extends AbstractStrategy
             'latitude' => $block->getAttribute('latitude'),
             'longitude' => $block->getAttribute('longitude'),
             'zoom' => $block->getAttribute('zoom'),
+            'class' => $block->getClass(),
+            'id' => $block->getId()
         );
 
         return $this->render('OpenOrchestraDisplayBundle:Block/Gmap:show.html.twig', $parameters);
