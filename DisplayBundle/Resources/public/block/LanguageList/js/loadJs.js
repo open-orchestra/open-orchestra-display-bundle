@@ -1,5 +1,5 @@
 requirejs(
-    ['../../../libs/jquery-2.0.2.min'],
+    ['/bundles/openorchestradisplay/libs/jquery-2.0.2.min.js'],
     function () {
 
         $(document).ready(function(){
