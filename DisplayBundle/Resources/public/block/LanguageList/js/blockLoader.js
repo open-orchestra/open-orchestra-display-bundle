@@ -1,6 +1,6 @@
-requirejs(
-    ['/bundles/openorchestradisplay/libs/jquery-2.0.2.min.js'],
-    function () {
+require(
+    ['jquery'],
+    function (jquery) {
 
         $(document).ready(function(){
             $('#language_choice').change(function(){
