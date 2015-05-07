@@ -3,6 +3,5 @@
 {% block content %}
     {{ form_widget(form) }}
 
-    <script data-main="{{ asset('/bundles/openorchestradisplay/block/LanguageList/js/loadJs.js') }}" src="{{ asset('/bundles/openorchestradisplay/libs/require.js') }}"></script>
-
+    <script src="{{ asset('/bundles/openorchestradisplay/block/LanguageList/blockLoader.js') }}"></script>
 {% endblock %}

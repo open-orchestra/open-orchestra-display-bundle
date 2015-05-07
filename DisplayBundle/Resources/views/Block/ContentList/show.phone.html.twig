@@ -18,14 +18,5 @@
         {% endif %}
     {% endfor %}
 
-    <script type="text/javascript">
-        function callCss(file){
-            var linkElement = document.createElement("link");
-            linkElement.rel = "stylesheet";
-            linkElement.href = file;
-            document.head.appendChild(linkElement);
-        }
-
-        callCss('/bundles/openorchestradisplay/block/ContentList/css/style.phone.css');
-    </script>
+    <script src="{{ asset('/bundles/openorchestradisplay/block/ContentList/blockLoader.phone.js') }}"></script>
 {% endblock %}
