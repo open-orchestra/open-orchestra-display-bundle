@@ -4,7 +4,7 @@
     <div class="configurable-content">
         <h2>{{ content.name }}</h2>
         {% for attribute in content.attributes %}
-            <p><b>{{ attribute.name }}:</b> {{ attribute }}</p>
+            <p><b>{{ attribute.name }}:</b> {{ attribute.renderValue }}</p>
         {% endfor %}
     </div>
 
