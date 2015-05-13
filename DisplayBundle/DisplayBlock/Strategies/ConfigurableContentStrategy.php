@@ -64,7 +64,9 @@ class ConfigurableContentStrategy extends AbstractStrategy
     public function show(ReadBlockInterface $block)
     {
         $contentId = $block->getAttribute('contentId');
-        $content = $this->contentRepository->findLastPublishedVersionByContentIdAndLanguage($contentId);
+        $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+
+        $content = $this->contentRepository->findLastPublishedVersionByContentIdAndLanguage($contentId, $language);
 
         if ($content) {
             $parameters = array(
