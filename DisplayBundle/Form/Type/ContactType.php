@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\True;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
+use Innocead\CaptchaBundle\Validator\Constraints\Captcha as CaptchaAssert;
 
 /**
  * Class ContactType
@@ -34,9 +35,9 @@ class ContactType extends AbstractType
             'label' => 'open_orchestra_display.contact.form.message',
             'constraints' => array(new NotBlank())
         ));
-        $builder->add('captcha','checkbox', array(
+        $builder->add('captcha', 'innocead_captcha', array(
             'label' => 'open_orchestra_display.contact.form.captcha',
-            'constraints' => array(new True())
+            'constraints' => array(new CaptchaAssert())
         ));
         $builder->add('send', 'submit', array('label' => 'open_orchestra_display.contact.form.send'));
     }
