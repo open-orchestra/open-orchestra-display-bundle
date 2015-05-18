@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
+use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockInterface;
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager;
@@ -18,11 +19,24 @@ abstract class AbstractStrategy implements DisplayBlockInterface
     protected $manager;
 
     /**
+     * @var CurrentSiteIdInterface
+     */
+    protected $currentSiteManager;
+
+    /**
      * @param DisplayBlockManager $manager
      */
     public function setManager(DisplayBlockManager $manager)
     {
         $this->manager = $manager;
+    }
+
+    /**
+     * @param CurrentSiteIdInterface $currentSiteManager
+     */
+    public function setCurrentSiteManager(CurrentSiteIdInterface $currentSiteManager)
+    {
+        $this->currentSiteManager = $currentSiteManager;
     }
 
     /**
