@@ -114,7 +114,9 @@ class ContentListStrategy extends AbstractStrategy
      */
     protected function getContents($contentType, $choiceType, $keyword)
     {
-        return $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywords($contentType, $choiceType, $keyword);
+        $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+
+        return $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywordsAndLanguage($language, $contentType, $choiceType, $keyword);
     }
 
     /**

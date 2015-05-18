@@ -40,7 +40,9 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         Phake::when($this->strategy)->support(Phake::anyParameters())->thenReturn(true);
         Phake::when($this->strategy)->getName()->thenReturn('right');
 
-        $this->manager = new DisplayBlockManager($this->templating, $this->cacheableManager, $this->tagManager);
+        $currentSiteManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\SiteManager');
+
+        $this->manager = new DisplayBlockManager($this->templating, $this->cacheableManager, $this->tagManager, $currentSiteManager);
         $this->manager->addStrategy($this->wrongStrategy);
         $this->manager->addStrategy($this->strategy);
     }
