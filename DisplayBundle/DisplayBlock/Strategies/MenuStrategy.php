@@ -81,7 +81,10 @@ class MenuStrategy extends AbstractStrategy
      */
     protected function getNodes()
     {
-        return $this->nodeRepository->getMenuTree();
+        $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+        $siteId = $this->currentSiteManager->getCurrentSiteId();
+
+        return $this->nodeRepository->getMenuTreeByLanguageAndSiteId($language, $siteId);
     }
 
     /**

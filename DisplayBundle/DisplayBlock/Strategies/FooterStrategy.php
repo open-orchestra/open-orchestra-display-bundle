@@ -82,7 +82,10 @@ class FooterStrategy extends AbstractStrategy
      */
     protected function getNodes()
     {
-        return $this->nodeRepository->getFooterTree();
+        $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+        $siteId = $this->currentSiteManager->getCurrentSiteId();
+
+        return $this->nodeRepository->getFooterTreeByLanguageAndSiteId($language, $siteId);
     }
 
     /**
