@@ -91,7 +91,7 @@ services:
         class: %open_orchestra_display.display.language_list.class%
         arguments:
             - @form.factory
-            - @open_orchestra.manager.current_site
+            - @open_orchestra_display.manager.site
             - @open_orchestra_model.repository.site
             - @request_stack
         tags:
