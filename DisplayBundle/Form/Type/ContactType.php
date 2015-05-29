@@ -4,9 +4,7 @@ namespace OpenOrchestra\DisplayBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\True;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Email;
 use Innocead\CaptchaBundle\Validator\Constraints\Captcha as CaptchaAssert;
 
 /**

@@ -5,7 +5,6 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
 
 /**
