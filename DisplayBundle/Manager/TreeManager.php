@@ -48,11 +48,11 @@ class TreeManager
         if (is_array($nodes)) {
             foreach ($nodes as $node) {
                 $position = $this->getNodePosition($node, $tree);
-                $tree[$position] = array('node' => $node, 'child' => $this->getChild($node, $list));
+                $tree[$position] = array('node' => $node, 'child' => $this->getChildren($node, $list));
             }
             $tree = $this->sortArray($tree);
         } elseif (!empty($nodes)) {
-            $tree = array('node' => $nodes, 'child' => $this->getChild($nodes, $list));
+            $tree = array('node' => $nodes, 'child' => $this->getChildren($nodes, $list));
         }
 
         return $tree;
@@ -64,7 +64,7 @@ class TreeManager
      *
      * @return array
      */
-    protected function getChild(ReadNodeInterface $node, $list)
+    protected function getChildren(ReadNodeInterface $node, $list)
     {
         $children = array();
 
