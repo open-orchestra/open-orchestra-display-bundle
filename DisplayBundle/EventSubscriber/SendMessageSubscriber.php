@@ -44,7 +44,7 @@ class SendMessageSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Send messsages
+     * Send messages
      */
     public function sendMessages()
     {

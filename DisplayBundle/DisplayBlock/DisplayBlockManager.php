@@ -54,6 +54,7 @@ class DisplayBlockManager
      * @param ReadBlockInterface $block
      *
      * @throws DisplayBlockStrategyNotFoundException
+     *
      * @return Response
      */
     public function show(ReadBlockInterface $block)
@@ -83,9 +84,10 @@ class DisplayBlockManager
 
     /**
      * Get block tags
-     * 
      * @param ReadBlockInterface $block
-     * 
+     *
+     * @throws DisplayBlockStrategyNotFoundException
+     *
      * @return array
      */
     public function getTags(ReadBlockInterface $block)

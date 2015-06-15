@@ -1,15 +1,14 @@
 parameters:
     open_orchestra_cms.twig.tree.extension.class: OpenOrchestra\DisplayBundle\Twig\TreeHelperExtension
     open_orchestra_cms.twig.navigator.extension.class: OpenOrchestra\DisplayBundle\Twig\NavigatorExtension
-    open_orchestra_cms.twig.orchestra_url.extension.class: OpenOrchestra\DisplayBundle\Twig\OrchestraUrlExtension
 
 services:
-    open_orchestra_cms.twig.tree.extension:
+    open_orchestra_display.twig.tree.extension:
         class: %open_orchestra_cms.twig.tree.extension.class%
         arguments: [@open_orchestra_display.manager.tree]
         tags:
             - { name: twig.extension }
-    open_orchestra_cms.twig.navigator.extension:
+    open_orchestra_display.twig.navigator.extension:
         class: %open_orchestra_cms.twig.navigator.extension.class%
         arguments:
             - @translator

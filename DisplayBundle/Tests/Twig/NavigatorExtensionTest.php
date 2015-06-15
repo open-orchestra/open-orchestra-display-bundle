@@ -35,9 +35,16 @@ class NavigatorExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Twig_Extension', $this->navigator);
     }
 
+
     /**
      * Test return
-     * 
+     *
+     * @param int    $nbPages
+     * @param int    $curPage
+     * @param array  $params
+     * @param int    $maxPages
+     * @param string $expected
+     *
      * @dataProvider provideNavParameters
      */
     public function testRenderNav($nbPages, $curPage, $params, $maxPages, $expected)

@@ -57,6 +57,14 @@ class FakeContent implements ReadContentInterface
     }
 
     /**
+     * @return string
+     */
+    public function getSiteId()
+    {
+        return 'fakeSiteId';
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getKeywords()

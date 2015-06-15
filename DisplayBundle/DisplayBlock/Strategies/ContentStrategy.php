@@ -105,9 +105,9 @@ class ContentStrategy extends AbstractStrategy
     protected function getContent($contentId)
     {
         $content = null;
-
         if (!is_null($contentId)) {
-            $content = $this->contentRepository->findLastPublishedVersionByContentIdAndLanguage($contentId);
+            $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+            $content = $this->contentRepository->findLastPublishedVersionByContentIdAndLanguage($contentId, $language);
         }
 
         if (is_null($content) && $this->request->get('token')) {

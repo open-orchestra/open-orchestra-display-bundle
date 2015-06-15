@@ -54,6 +54,8 @@ class LanguageListStrategy extends AbstractStrategy
 
     /**
      * Indicate if the block is public or private
+     *
+     * @param ReadBlockInterface $block
      * 
      * @return boolean
      */

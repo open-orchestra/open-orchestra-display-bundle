@@ -22,7 +22,6 @@ class TreeManager
 
         $list = array();
         $list[$superRoot] = array();
-
         foreach ($nodes as $node) {
             if ($superRoot !== $node->getParentId() && $this->parentInList($node->getParentId(), $nodes)) {
                 $list[$node->getParentId()][] = $node;
@@ -38,7 +37,7 @@ class TreeManager
 
     /**
      * @param array|ReadNodeInterface $nodes
-     * @param array               $list
+     * @param array                   $list
      *
      * @return array
      */
@@ -49,11 +48,11 @@ class TreeManager
         if (is_array($nodes)) {
             foreach ($nodes as $node) {
                 $position = $this->getNodePosition($node, $tree);
-                $tree[$position] = array('node' => $node, 'child' => $this->getChild($node, $list));
+                $tree[$position] = array('node' => $node, 'child' => $this->getChildren($node, $list));
             }
             $tree = $this->sortArray($tree);
         } elseif (!empty($nodes)) {
-            $tree = array('node' => $nodes, 'child' => $this->getChild($nodes, $list));
+            $tree = array('node' => $nodes, 'child' => $this->getChildren($nodes, $list));
         }
 
         return $tree;
@@ -61,24 +60,24 @@ class TreeManager
 
     /**
      * @param ReadNodeInterface $node
-     * @param array         $list
+     * @param array             $list
      *
      * @return array
      */
-    protected function getChild(ReadNodeInterface $node, $list)
+    protected function getChildren(ReadNodeInterface $node, $list)
     {
-        $childs = array();
+        $children = array();
 
         if (!empty($list[$node->getNodeId()]) && is_array($list[$node->getNodeId()])) {
             foreach ($list[$node->getNodeId()] as $child) {
-                $position = $this->getNodePosition($child, $childs);
-                $childs[$position] = $this->createTree($child, $list);
+                $position = $this->getNodePosition($child, $children);
+                $children[$position] = $this->createTree($child, $list);
             }
         }
 
-        $childs = $this->sortArray($childs);
+        $children = $this->sortArray($children);
 
-        return $childs;
+        return $children;
     }
 
     /**
@@ -100,7 +99,7 @@ class TreeManager
 
     /**
      * @param ReadNodeInterface $node
-     * @param array         $tree
+     * @param array             $tree
      *
      * @return mixed
      */
