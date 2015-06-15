@@ -1,6 +1,5 @@
 parameters:
     open_orchestra_display.display_block_manager.class: OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager
-
     open_orchestra_display.display.carrousel.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\CarrouselStrategy
     open_orchestra_display.display.contact.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
     open_orchestra_display.display.footer.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy

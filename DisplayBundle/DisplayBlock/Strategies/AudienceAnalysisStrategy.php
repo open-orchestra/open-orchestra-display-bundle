@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AbstractStrategy;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -38,7 +37,9 @@ class AudienceAnalysisStrategy extends AbstractStrategy
 
     /**
      * Indicate if the block is public or private
-     * 
+     *
+     * @param ReadBlockInterface $block
+     *
      * @return boolean
      */
     public function isPublic(ReadBlockInterface $block)

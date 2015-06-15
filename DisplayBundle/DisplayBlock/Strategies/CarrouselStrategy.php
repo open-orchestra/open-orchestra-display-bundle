@@ -38,6 +38,7 @@ class CarrouselStrategy extends AbstractStrategy
             'id' => $block->getId(),
             'attributes' => $block->getAttributes()
         );
+
         return $this->render(
             'OpenOrchestraDisplayBundle:Block/Carrousel:show.html.twig',
              $parameters);
