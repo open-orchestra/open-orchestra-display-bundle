@@ -106,7 +106,7 @@ class DisplayBlockManager
     }
 
     /**
-     * @return \Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine
+     * @return EngineInterface
      */
     public function getTemplating()
     {
