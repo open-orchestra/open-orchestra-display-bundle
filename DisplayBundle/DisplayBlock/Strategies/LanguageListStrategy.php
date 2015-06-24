@@ -3,11 +3,14 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
+use OpenOrchestra\FrontBundle\Routing\OpenOrchestraUrlGenerator;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class LanguageListStrategy
@@ -18,26 +21,29 @@ class LanguageListStrategy extends AbstractStrategy
 
     protected $currentSiteIdInterface;
     protected $siteRepository;
+    protected $urlGenerator;
+    protected $template;
     protected $request;
-    protected $builder;
 
     /**
-     * @param FormFactory             $formFactory
+     * @param UrlGeneratorInterface   $urlGenerator
      * @param CurrentSiteIdInterface  $currentSiteIdInterface
      * @param SiteRepositoryInterface $siteRepository
      * @param RequestStack            $requestStack
      */
     public function __construct(
-        FormFactory $formFactory,
+        UrlGeneratorInterface $urlGenerator,
         CurrentSiteIdInterface $currentSiteIdInterface,
         SiteRepositoryInterface $siteRepository,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        $template
     )
     {
-        $this->builder = $formFactory->createBuilder('form');
+        $this->urlGenerator = $urlGenerator;
         $this->currentSiteIdInterface = $currentSiteIdInterface;
         $this->siteRepository = $siteRepository;
         $this->request = $requestStack->getMasterRequest();
+        $this->template = $template;
     }
 
     /**
@@ -74,25 +80,23 @@ class LanguageListStrategy extends AbstractStrategy
     public function show(ReadBlockInterface $block)
     {
         $site = $this->siteRepository->findOneBySiteId($this->currentSiteIdInterface->getCurrentSiteId());
+        $nodeId = $this->request->get('nodeId');
 
-        $choices = array();
+        $routes = array();
         foreach ($site->getLanguages() as $language) {
-            $choices[$language] = 'open_orchestra_display.language_list.'.$language;
+            try {
+                $routes[$language] = $this->urlGenerator->generate($nodeId, array(OpenOrchestraUrlGenerator::REDIRECT_TO_LANGUAGE => $language));
+            } catch (ResourceNotFoundException $e) {
+
+            }
         }
 
-        $form = $this->builder->create('language_choice', 'choice', array(
-            'choices' => $choices,
-            'data' => $this->request->getLocale(),
-            'preferred_choices' => array($this->currentSiteIdInterface->getCurrentSiteDefaultLanguage()),
-        ))
-        ->getForm();
-
         return $this->render(
-            'OpenOrchestraDisplayBundle:Block/LanguageList:show.html.twig',
+            $this->template,
             array(
                 'class' => $block->getClass(),
                 'id' => $block->getId(),
-                'form' => $form->createView()
+                'routes' => $routes,
             )
         );
     }

@@ -1,7 +1,7 @@
 {% extends 'OpenOrchestraDisplayBundle:Block:layout.html.twig' %}
 
 {% block content %}
-    {{ form_widget(form) }}
-
-    <script src="{{ asset('/bundles/openorchestradisplay/block/LanguageList/blockLoader.js') }}"></script>
+    {% for language,route in routes %}
+        <a href="{{ route }}">{{ ('open_orchestra_display.language_list.' ~ language) | trans }}</a>
+    {% endfor %}
 {% endblock %}

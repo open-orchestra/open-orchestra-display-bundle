@@ -11,6 +11,7 @@ parameters:
     open_orchestra_display.display.content_list.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentListStrategy
     open_orchestra_display.display.content.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentStrategy
     open_orchestra_display.display.language_list.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\LanguageListStrategy
+    open_orchestra_display.display.language_list.template: OpenOrchestraDisplayBundle:Block/LanguageList:show.html.twig
 
 services:
     open_orchestra_display.display_block_manager:
@@ -89,10 +90,11 @@ services:
     open_orchestra_display.display.language_list:
         class: %open_orchestra_display.display.language_list.class%
         arguments:
-            - @form.factory
+            - @router
             - @open_orchestra_display.manager.site
             - @open_orchestra_model.repository.site
             - @request_stack
+            - %open_orchestra_display.display.language_list.template%
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.gmap:
