@@ -15,6 +15,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected $manager;
 
+    protected $block;
     protected $strategy;
     protected $templating;
     protected $wrongStrategy;
@@ -27,6 +28,9 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        $this->block = Phake::mock('OpenOrchestra\ModelInterface\Model\ReadBlockInterface');
+        Phake::when($this->block)->getComponent()->thenReturn('component');
+
         $this->cacheableManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\CacheableManager');
         $this->templating = Phake::mock('Symfony\Component\Templating\EngineInterface');
 
@@ -65,18 +69,16 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testShow($blockMaxAge, $status)
     {
-        $block = Phake::mock('OpenOrchestra\ModelInterface\Model\ReadBlockInterface');
-        Phake::when($block)->getMaxAge()->thenReturn($blockMaxAge);
-        Phake::when($block)->getComponent()->thenReturn('component');
+        Phake::when($this->block)->getMaxAge()->thenReturn($blockMaxAge);
 
         $response = Phake::mock('Symfony\Component\HttpFoundation\Response');
 
-        Phake::when($this->strategy)->show($block)->thenReturn($response);
-        Phake::when($this->strategy)->isPublic($block)->thenReturn($status == 'public');
+        Phake::when($this->strategy)->show($this->block)->thenReturn($response);
+        Phake::when($this->strategy)->isPublic($this->block)->thenReturn($status == 'public');
 
         Phake::when($this->cacheableManager)->setResponseCacheParameters(Phake::anyParameters())->thenReturn($response);
 
-        $newResponse = $this->manager->show($block);
+        $newResponse = $this->manager->show($this->block);
 
         $this->assertSame($response, $newResponse);
         Phake::verify($this->wrongStrategy, Phake::never())->show(Phake::anyParameters());
@@ -109,11 +111,9 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTags($strategyTags, $expectedTags)
     {
-        $block = Phake::mock('OpenOrchestra\ModelInterface\Model\ReadBlockInterface');
+        Phake::when($this->strategy)->getTags($this->block)->thenReturn($strategyTags);
 
-        Phake::when($this->strategy)->getTags($block)->thenReturn($strategyTags);
-
-        $tags = $this->manager->getTags($block);
+        $tags = $this->manager->getTags($this->block);
         $this->assertSame($tags, $expectedTags);
     }
 
@@ -125,6 +125,30 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         return array(
             array(array('tag1'), array('tag1', $this->blockComponentTag)),
             array(array('tag1', 'tag2'), array('tag1', 'tag2', $this->blockComponentTag)),
+        );
+    }
+
+    /**
+     * @param string $method
+     *
+     * @dataProvider provideMethodName
+     */
+    public function testWithNoGoodStrategy($method)
+    {
+        Phake::when($this->strategy)->support(Phake::anyParameters())->thenReturn(false);
+
+        $this->setExpectedException('OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException');
+        $this->manager->$method($this->block);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodName()
+    {
+        return array(
+            array('show'),
+            array('getTags'),
         );
     }
 }

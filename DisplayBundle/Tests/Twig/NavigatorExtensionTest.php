@@ -10,7 +10,11 @@ use OpenOrchestra\DisplayBundle\Twig\NavigatorExtension;
  */
 class NavigatorExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var NavigatorExtension
+     */
     protected $navigator;
+
     protected $translator;
 
     /**
@@ -69,5 +73,22 @@ class NavigatorExtensionTest extends \PHPUnit_Framework_TestCase
             array(10, 10, array('page' => 10, 'var2' => 'val2'), 2, $lastPage),
             array(1, 1, array(), 2, $onePage),
         );
+    }
+
+    /**
+     * Test functions
+     */
+    public function testGetFunctions()
+    {
+        $this->assertCount(1, $this->navigator->getFunctions());
+        $this->assertInstanceOf('\Twig_SimpleFunction', $this->navigator->getFunctions()[0]);
+    }
+
+    /**
+     * Test name
+     */
+    public function testGetName()
+    {
+        $this->assertSame('navigator', $this->navigator->getName());
     }
 }

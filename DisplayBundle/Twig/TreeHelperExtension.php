@@ -48,5 +48,4 @@ class TreeHelperExtension extends \Twig_Extension
     {
         return 'tree';
     }
-
 }

@@ -10,7 +10,11 @@ use OpenOrchestra\DisplayBundle\Twig\TreeHelperExtension;
  */
 class TreeHelperExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var TreeHelperExtension
+     */
     protected $helper;
+
     protected $manager;
 
     /**
@@ -43,5 +47,22 @@ class TreeHelperExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($nodes, $return);
         Phake::verify($this->manager)->generateTree($nodes);
+    }
+
+    /**
+     * Test functions
+     */
+    public function testGetFunctions()
+    {
+        $this->assertCount(1, $this->helper->getFunctions());
+        $this->assertInstanceOf('\Twig_SimpleFunction', $this->helper->getFunctions()[0]);
+    }
+
+    /**
+     * Test name
+     */
+    public function testGetName()
+    {
+        $this->assertSame('tree', $this->helper->getName());
     }
 }
