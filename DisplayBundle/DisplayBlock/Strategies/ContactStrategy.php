@@ -85,7 +85,7 @@ class ContactStrategy extends AbstractStrategy
                     )
                 );
             $event = new MailerEvent($messageToAdmin);
-            $this->dispatcher->dispatch(MailerEvents::SEND_MAIL,$event);
+            $this->dispatcher->dispatch(MailerEvents::SEND_MAIL, $event);
 
             //send confirm e-mail for the user
             $messageToUser = \Swift_Message::newInstance()
@@ -99,7 +99,7 @@ class ContactStrategy extends AbstractStrategy
                     )
                 );
             $event = new MailerEvent($messageToUser);
-            $this->dispatcher->dispatch(MailerEvents::SEND_MAIL,$event);
+            $this->dispatcher->dispatch(MailerEvents::SEND_MAIL, $event);
         }
 
         return $this->render('OpenOrchestraDisplayBundle:Block/Contact:show.html.twig', array(
