@@ -56,4 +56,12 @@ class SiteManager implements CurrentSiteIdInterface
 
         return $this->currentLanguage;
     }
+
+    /**
+     * @param string $currentLanguage
+     */
+    public function setCurrentLanguage($currentLanguage)
+    {
+        $this->currentLanguage = $currentLanguage;
+    }
 }
