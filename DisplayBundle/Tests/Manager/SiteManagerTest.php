@@ -68,4 +68,27 @@ class SiteManagerTest extends \PHPUnit_Framework_TestCase
         Phake::verify($this->masterRequest)->getLocale();
         Phake::verify($this->masterRequest)->get('language', $locale);
     }
+
+    /**
+     * @param string $language
+     *
+     * @dataProvider provideLanguage
+     */
+    public function testSetGetCurrentLanguage($language)
+    {
+        $this->manager->setCurrentLanguage($language);
+        $this->assertSame($language, $this->manager->getCurrentSiteDefaultLanguage());
+    }
+
+    /**
+     * @return array
+     */
+    public function provideLanguage()
+    {
+        return array(
+            array('fr'),
+            array('en'),
+            array('de'),
+        );
+    }
 }
