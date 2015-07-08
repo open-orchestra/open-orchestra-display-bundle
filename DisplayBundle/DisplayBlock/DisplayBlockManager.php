@@ -23,8 +23,10 @@ class DisplayBlockManager
     protected $currentSiteIdInterface;
 
     /**
-     * @param EngineInterface  $templating
-     * @param CacheableManager $cacheableManager
+     * @param EngineInterface        $templating
+     * @param CacheableManager       $cacheableManager
+     * @param TagManager             $tagManager
+     * @param CurrentSiteIdInterface $currentSiteIdInterface
      */
     public function __construct(
         EngineInterface $templating,

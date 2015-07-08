@@ -29,6 +29,7 @@ class LanguageListStrategy extends AbstractStrategy
      * @param CurrentSiteIdInterface  $currentSiteIdInterface
      * @param SiteRepositoryInterface $siteRepository
      * @param RequestStack            $requestStack
+     * @param string                  $template
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
