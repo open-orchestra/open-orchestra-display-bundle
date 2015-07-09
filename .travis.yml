@@ -3,6 +3,11 @@ language: php
 php:
   - 5.4
 
+cache:
+  directories:
+    - ~/.composer/cache
+    - ~/composer
+
 sudo: false
 
 cache:

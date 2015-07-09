@@ -49,6 +49,8 @@ services:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.tiny_mce_wysiwyg:
         class: %open_orchestra_display.display.tiny_mce_wysiwyg.class%
+        arguments:
+            - @router
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.configurable_content:
