@@ -9,6 +9,7 @@ use OpenOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -87,6 +88,8 @@ class LanguageListStrategy extends AbstractStrategy
             try {
                 $routes[$language] = $this->urlGenerator->generate($nodeId, array(OpenOrchestraUrlGenerator::REDIRECT_TO_LANGUAGE => $language));
             } catch (ResourceNotFoundException $e) {
+
+            } catch (RouteNotFoundException $e) {
 
             }
         }
