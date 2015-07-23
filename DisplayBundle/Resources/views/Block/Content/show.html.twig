@@ -6,7 +6,7 @@
     {% else %}
         <h1>{{ content.name }}</h1>
         {% for attribute in content.attributes %}
-            <div class="{{ attribute.name }}"> {{ attribute.renderValue }}</div>
+            <div class="{{ attribute.name }}"> {{ attribute.stringValue }}</div>
         {% endfor %}
     {% endif %}
 {% endblock %}
