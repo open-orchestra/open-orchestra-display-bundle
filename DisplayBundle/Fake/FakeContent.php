@@ -91,6 +91,6 @@ class FakeContent implements ReadContentInterface
      */
     public function getContentType()
     {
-        return 'fakeContentTYpe';
+        return 'fakeContentType';
     }
 }
