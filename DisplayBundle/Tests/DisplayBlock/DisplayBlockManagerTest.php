@@ -102,18 +102,18 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test getTags
+     * test getCacheTags
      * 
      * @param array  $strategyTags
      * @param array  $expectedTags
      * 
      * @dataProvider provideTags
      */
-    public function testGetTags($strategyTags, $expectedTags)
+    public function testGetCacheTags($strategyTags, $expectedTags)
     {
-        Phake::when($this->strategy)->getTags($this->block)->thenReturn($strategyTags);
+        Phake::when($this->strategy)->getCacheTags($this->block)->thenReturn($strategyTags);
 
-        $tags = $this->manager->getTags($this->block);
+        $tags = $this->manager->getCacheTags($this->block);
         $this->assertSame($tags, $expectedTags);
     }
 
@@ -148,7 +148,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array('show'),
-            array('getTags'),
+            array('getCacheTags'),
         );
     }
 }
