@@ -44,4 +44,12 @@ class FakeContentAttribute implements ReadContentAttributeInterface
     {
         return $this->getValue();
     }
+
+    /**
+     * @return string
+     */
+    public function  getStringValue()
+    {
+        return $this->getValue();
+    }
 }

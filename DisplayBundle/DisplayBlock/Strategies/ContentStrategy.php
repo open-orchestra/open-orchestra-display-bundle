@@ -5,11 +5,11 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\DisplayBundle\Fake\FakeContent;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
+use OpenOrchestra\ModelInterface\Model\ReadContentInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
-use OpenOrchestra\ModelBundle\Document\Content;
 
 /**
  * Class ContentStrategy
@@ -100,7 +100,7 @@ class ContentStrategy extends AbstractStrategy
      * 
      * @param string $contentId
      * 
-     * @return Content
+     * @return ReadContentInterface
      */
     protected function getContent($contentId)
     {
