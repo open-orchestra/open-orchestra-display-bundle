@@ -23,8 +23,8 @@ class ContactStrategy extends AbstractStrategy
     protected $dispatcher;
 
     /**
-     * @param FormFactory $formFactory
-     * @param RequestStack $requestStack
+     * @param FormFactory              $formFactory
+     * @param RequestStack             $requestStack
      * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(

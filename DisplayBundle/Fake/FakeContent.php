@@ -85,4 +85,12 @@ class FakeContent implements ReadContentInterface
     public function removeKeyword(KeywordInterface $keyword)
     {
     }
+
+    /**
+     * @return string
+     */
+    public function getContentType()
+    {
+        return 'fakeContentType';
+    }
 }
