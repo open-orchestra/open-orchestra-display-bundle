@@ -85,13 +85,13 @@ class ConfigurableContentStrategy extends AbstractStrategy
     }
 
     /**
-     * Return block specific tags
+     * Return block specific cache tags
      * 
      * @param ReadBlockInterface $block
      * 
      * @return array
      */
-    public function getTags(ReadBlockInterface $block)
+    public function getCacheTags(ReadBlockInterface $block)
     {
         return array(
             $this->tagManager->formatContentTypeTag($block->getAttribute('contentTypeId')),

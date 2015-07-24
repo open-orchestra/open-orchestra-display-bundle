@@ -85,19 +85,19 @@ class DisplayBlockManager
     }
 
     /**
-     * Get block tags
+     * Get block cache tags
      * @param ReadBlockInterface $block
      *
      * @throws DisplayBlockStrategyNotFoundException
      *
      * @return array
      */
-    public function getTags(ReadBlockInterface $block)
+    public function getCacheTags(ReadBlockInterface $block)
     {
         /** @var DisplayBlockInterface $strategy */
         foreach ($this->strategies as $strategy) {
             if ($strategy->support($block)) {
-                $cacheTags = $strategy->getTags($block);
+                $cacheTags = $strategy->getCacheTags($block);
                 $cacheTags[] = $this->tagManager->formatBlockTypeTag($block->getComponent());
 
                 return $cacheTags;

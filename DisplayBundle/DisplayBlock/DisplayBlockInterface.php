@@ -30,13 +30,13 @@ interface DisplayBlockInterface
     public function isPublic(ReadBlockInterface $block);
 
     /**
-     * Return block specific tags
+     * Return block specific cache tags
      * 
      * @param  ReadBlockInterface $block
      * 
      * @return array
      */
-    public function getTags(ReadBlockInterface $block);
+    public function getCacheTags(ReadBlockInterface $block);
 
     /**
      * Perform the show action for a block
