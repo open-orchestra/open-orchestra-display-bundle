@@ -6,18 +6,12 @@ use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Handler\TagHandler;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
-use FOS\HttpCacheBundle\CacheManager;
 
 /**
  * Class CacheableManager
  */
 class CacheableManager
 {
-    /**
-     * @var CacheManager
-     */
-    protected $cacheManager;
-
     /**
      * @var TagHandler
      */
@@ -27,13 +21,9 @@ class CacheableManager
      * @param CacheManager $cacheManager
      * @param TagHandler   $tagHandler
      */
-    public function __construct(CacheManager $cacheManager, TagHandler $tagHandler = null)
+    public function __construct(TagHandler $tagHandler)
     {
-        $this->cacheManager = $cacheManager;
         $this->tagHandler = $tagHandler;
-        if (is_null($tagHandler) && $cacheManager->supports(CacheInvalidator::INVALIDATE)) {
-            $this->tagHandler = new TagHandler($cacheManager);
-        }
     }
 
     /**
@@ -88,14 +78,13 @@ class CacheableManager
     }
 
     /**
-     * Tag response
+     * Add tags to include in the response
      * 
-     * @param Response $response
-     * @param array    $tags
+     * @param array $tags
      */
-    public function tagResponse(Response $response, $tags)
+    public function addCacheTags($tags)
     {
-        $this->cacheManager->tagResponse($response, $tags);
+        $this->tagHandler->addTags($tags);
     }
 
     /**

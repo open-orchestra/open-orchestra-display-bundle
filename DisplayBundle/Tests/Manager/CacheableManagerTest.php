@@ -14,7 +14,6 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
      * @var CacheableManager
      */
     protected $manager;
-    protected $cacheManager;
     protected $tagHandler;
 
     /**
@@ -22,9 +21,8 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->cacheManager = Phake::mock('FOS\HttpCacheBundle\CacheManager');
         $this->tagHandler = Phake::mock('FOS\HttpCache\Handler\TagHandler');
-        $this->manager = new CacheableManager($this->cacheManager, $this->tagHandler);
+        $this->manager = new CacheableManager($this->tagHandler);
     }
 
     /**
@@ -77,15 +75,13 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      */
-    public function testTagResponse()
+    public function testAddCacheTags()
     {
         $tags = array('tag1', 'tag2');
 
-        $response = Phake::mock('Symfony\Component\HttpFoundation\Response');
+        $this->manager->addCacheTags($tags);
 
-        $this->manager->tagResponse($response, $tags);
-
-        Phake::verify($this->cacheManager)->tagResponse($response, $tags);
+        Phake::verify($this->tagHandler)->addTags($tags);
     }
 
     /**
