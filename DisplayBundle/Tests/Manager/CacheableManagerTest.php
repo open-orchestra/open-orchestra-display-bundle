@@ -74,6 +74,7 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test method addCacheTags
      */
     public function testAddCacheTags()
     {

@@ -18,7 +18,6 @@ class CacheableManager
     protected $tagHandler;
 
     /**
-     * @param CacheManager $cacheManager
      * @param TagHandler   $tagHandler
      */
     public function __construct(TagHandler $tagHandler)
@@ -82,7 +81,7 @@ class CacheableManager
      * 
      * @param array $tags
      */
-    public function addCacheTags($tags)
+    public function addCacheTags(array $tags)
     {
         $this->tagHandler->addTags($tags);
     }
