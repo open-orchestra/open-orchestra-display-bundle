@@ -13,4 +13,4 @@ services:
     open_orchestra_display.manager.cacheable:
         class: %open_orchestra_display.manager.cacheable.class%
         arguments:
-            - @fos_http_cache.cache_manager
+            - @fos_http_cache.handler.tag_handler
