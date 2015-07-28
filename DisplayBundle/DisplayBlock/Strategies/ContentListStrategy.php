@@ -75,22 +75,13 @@ class ContentListStrategy extends AbstractStrategy
         $contents = $this->getContents($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
 
         if (!is_null($contents)) {
-
-            $contentFromTemplate = array();
-            if ($block->getAttribute('contentTemplateEnabled') == 1 && !is_null($block->getAttribute('contentTemplate'))) {
-                $twig = new \Twig_Environment(new \Twig_Loader_String());
-                /** @var ContentInterface $content */
-                foreach ($contents as $content) {
-                    $contentFromTemplate[$content->getId()] = $twig->render($block->getAttribute('contentTemplate'), array('content' => $content));
-                }
-            }
-
             $parameters = array(
                 'contents' => $contents,
                 'class' => $block->getClass(),
                 'id' => $block->getId(),
                 'characterNumber' => $block->getAttribute('characterNumber'),
-                'contentFromTemplate' => $contentFromTemplate,
+                'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
+                'contentTemplate' => $block->getAttribute('contentTemplate'),
             );
 
             if ('' != $block->getAttribute('contentNodeId')) {

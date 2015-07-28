@@ -72,7 +72,9 @@ class ConfigurableContentStrategy extends AbstractStrategy
             $parameters = array(
                 'class' => $block->getClass(),
                 'id' => $block->getId(),
-                'content' => $content
+                'content' => $content,
+                'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
+                'contentTemplate' => $block->getAttribute('contentTemplate'),
             );
 
             return $this->render(

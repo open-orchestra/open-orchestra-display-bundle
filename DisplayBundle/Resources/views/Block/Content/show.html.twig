@@ -1,8 +1,8 @@
 {% extends 'OpenOrchestraDisplayBundle:Block:layout.html.twig' %}
 
 {% block content %}
-    {% if contentFromTemplate is defined and contentFromTemplate is not null %}
-        {{ contentFromTemplate|raw }}
+    {% if contentTemplateEnabled and contentTemplate is not null %}
+        {{ include(template_from_string(contentTemplate)) }}
     {% else %}
         <h1>{{ content.name }}</h1>
         {% for attribute in content.attributes %}

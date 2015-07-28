@@ -2,10 +2,14 @@
 
 {% block content %}
     <div class="configurable-content">
-        <h2>{{ content.name }}</h2>
-        {% for attribute in content.attributes %}
-            <p><b>{{ attribute.name }}:</b> {{ attribute.stringValue }}</p>
-        {% endfor %}
+        {% if contentTemplateEnabled and contentTemplate is not null %}
+            {{ include(template_from_string(contentTemplate)) }}
+        {% else %}
+            <h2>{{ content.name }}</h2>
+            {% for attribute in content.attributes %}
+                <p><b>{{ attribute.name }}:</b> {{ attribute.stringValue }}</p>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <script src="{{ asset('/bundles/openorchestradisplay/block/ConfigurableContent/blockLoader.js') }}"></script>
