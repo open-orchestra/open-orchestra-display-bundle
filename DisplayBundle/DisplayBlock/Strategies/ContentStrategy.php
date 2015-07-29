@@ -19,8 +19,8 @@ class ContentStrategy extends AbstractStrategy
     const CONTENT = 'content';
 
     protected $contentRepository;
-    protected $request;
     protected $tagManager;
+    protected $requestStack;
 
     /**
      * @param ReadContentRepositoryInterface $contentRepository
@@ -33,7 +33,7 @@ class ContentStrategy extends AbstractStrategy
         TagManager $tagManager
     ){
         $this->contentRepository = $contentRepository;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->requestStack = $requestStack;
         $this->tagManager = $tagManager;
     }
 
@@ -70,7 +70,7 @@ class ContentStrategy extends AbstractStrategy
      */
     public function show(ReadBlockInterface $block)
     {
-        $contentId = $this->request->get('contentId');
+        $contentId = $this->requestStack->getCurrentRequest()->get('contentId');
 
         $content = $this->getContent($contentId);
 
@@ -93,9 +93,9 @@ class ContentStrategy extends AbstractStrategy
 
     /**
      * Get content to display
-     * 
+     *
      * @param string $contentId
-     * 
+     *
      * @return ReadContentInterface
      */
     protected function getContent($contentId)
@@ -106,7 +106,7 @@ class ContentStrategy extends AbstractStrategy
             $content = $this->contentRepository->findLastPublishedVersionByContentIdAndLanguage($contentId, $language);
         }
 
-        if (is_null($content) && $this->request->get('token')) {
+        if (is_null($content) && $this->requestStack->getMasterRequest()->get('token')) {
             $content = new FakeContent();
         }
 
@@ -115,14 +115,14 @@ class ContentStrategy extends AbstractStrategy
 
     /**
      * Return block specific cache tags
-     * 
+     *
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)
     {
-        $contentId = $this->request->get('contentId');
+        $contentId = $this->requestStack->getCurrentRequest()->get('contentId');
 
         $content = $this->getContent($contentId);
 
