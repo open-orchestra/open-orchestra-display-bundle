@@ -75,19 +75,15 @@ class ContentStrategy extends AbstractStrategy
         $content = $this->getContent($contentId);
 
         if (!is_null($content)) {
-            $contentFromTemplate = null;
-            if ($block->getAttribute('contentTemplateEnabled') == 1 && !is_null($block->getAttribute('contentTemplate'))) {
-                $twig = new \Twig_Environment(new \Twig_Loader_String());
-                $contentFromTemplate = $twig->render($block->getAttribute('contentTemplate'), array('content' => $content));
-            }
 
             return $this->render(
                 'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
                 array(
-                    'contentFromTemplate' => $contentFromTemplate,
                     'content' => $content,
                     'class' => $block->getClass(),
                     'id' => $block->getId(),
+                    'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
+                    'contentTemplate' => $block->getAttribute('contentTemplate'),
                 )
             );
         }

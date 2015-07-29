@@ -3,8 +3,8 @@
 {% block content %}
     <div class="content-list">
         {% for content in contents %}
-            {% if contentFromTemplate[content.id] is defined and contentFromTemplate[content.id] is not null %}
-                {{ contentFromTemplate[content.id]|raw }}
+            {% if contentTemplateEnabled and contentTemplate is not null %}
+                {{ include(template_from_string(contentTemplate)) }}
             {% else %}
 
                 <div>

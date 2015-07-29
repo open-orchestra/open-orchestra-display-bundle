@@ -14,3 +14,7 @@ services:
             - @translator
         tags:
             - { name: twig.extension }
+    twig.extension.string_loader:
+        class: Twig_Extension_StringLoader
+        tags:
+            - { name: twig.extension }
