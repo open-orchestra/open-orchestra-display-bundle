@@ -13,14 +13,14 @@ class AudienceAnalysisStrategy extends AbstractStrategy
 {
     const AUDIENCE_ANALYSIS = 'audience_analysis';
 
-    protected $request;
+    protected $requestStack;
 
     /**
      * @param RequestStack $requestStack
      */
     public function __construct(RequestStack $requestStack)
     {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -60,7 +60,7 @@ class AudienceAnalysisStrategy extends AbstractStrategy
             'OpenOrchestraDisplayBundle:Block/AudienceAnalysis:' . $block->getAttribute('tag_type') . '.html.twig',
             array(
                 'attributes' => $block->getAttributes(),
-                'page' => $this->request->attributes->get('nodeId')
+                'page' => $this->requestStack->getCurrentRequest()->attributes->get('nodeId')
             )
         );
     }
