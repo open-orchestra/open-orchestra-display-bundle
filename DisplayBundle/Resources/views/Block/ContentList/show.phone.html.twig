@@ -17,6 +17,7 @@
             </div>
         {% endif %}
     {% endfor %}
-
-    <script src="{{ asset('/bundles/openorchestradisplay/block/ContentList/blockLoader.phone.js') }}"></script>
+    <script>
+        require(['{{ asset('/bundles/openorchestradisplay/block/ContentList/blockLoader.phone.js') }}']);
+    </script>
 {% endblock %}
