@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\Manager;
 
-use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Handler\TagHandler;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;

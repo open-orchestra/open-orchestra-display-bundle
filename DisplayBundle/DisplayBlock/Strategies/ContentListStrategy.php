@@ -4,7 +4,6 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
-use OpenOrchestra\ModelInterface\Model\ContentInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
