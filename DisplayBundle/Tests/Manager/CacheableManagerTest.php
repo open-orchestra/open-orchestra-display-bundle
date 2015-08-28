@@ -41,7 +41,6 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($response, $newResponse);
         Phake::verify($newResponse)->setPublic();
         Phake::verify($newResponse, Phake::times($count))->setMaxAge($expectedMaxAge);
-        Phake::verify($newResponse, Phake::times($count))->setSharedMaxAge($expectedMaxAge);
     }
 
     /**
@@ -69,7 +68,7 @@ class CacheableManagerTest extends \PHPUnit_Framework_TestCase
         return array(
             array(300, 300, 1),
             array(-1, 2629743, 1),
-            array(0, 0, 0)
+            array(0, 0, 1)
         );
     }
 
