@@ -16,9 +16,9 @@ class BBcodeParser
     /**
      * Constructor
      */
-    public function __construct(CodeDefinitionSet $codeDefinitionSet)
+    public function __construct(Parser $parser, CodeDefinitionSet $codeDefinitionSet)
     {
-        $this->parser = new Parser();
+        $this->parser = $parser;
         $this->parser->addCodeDefinitionSet($codeDefinitionSet);
     }
 
@@ -62,7 +62,7 @@ class BBcodeParser
      * 
      * @return string
      */
-    public function getAsBBCode($text)
+    public function getAsBBcode($text)
     {
         $this->parser->parse($text);
 
