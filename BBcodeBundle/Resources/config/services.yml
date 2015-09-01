@@ -16,4 +16,5 @@ services:
     open_orchestra_bbcode.bbcode_parser:
         class: %open_orchestra_bbcode.bbcode_parser.class%
         arguments :
+            - [open_orchestra_bbcode.jbbcode_parser]
             - [open_orchestra_bbcode.configured_code_definition_set]
