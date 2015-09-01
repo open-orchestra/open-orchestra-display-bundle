@@ -1,0 +1,14 @@
+parameters:
+    open_orchestra_bbcode.configured_code_definition_set.class : OpenOrchestra\BBcodeBundle\Parser\ConfiguredCodeDefinitionSet
+    open_orchestra_bbcode.bbcode_parser.class : OpenOrchestra\BBcodeBundle\BBcodeParser
+
+services:
+    open_orchestra_bbcode.configured_code_definition_set:
+        class: %open_orchestra_bbcode.configured_code_definition_set.class%
+        arguments :
+            - %open_orchestra_bbcode.code_definitions%
+            - %open_orchestra_bbcode.validators%
+    open_orchestra_bbcode.bbcode_parser:
+        class: %open_orchestra_bbcode.bbcode_parser.class%
+        arguments :
+            - [open_orchestra_bbcode.configured_code_definition_set]

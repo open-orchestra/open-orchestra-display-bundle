@@ -1,0 +1,48 @@
+parameters:
+    open_orchestra_bbcode.validators :
+        url : JBBCode\validators\UrlValidator
+        css_color : JBBCode\validators\CssColorValidator
+
+    open_orchestra_bbcode.code_definitions :
+        bold :
+            tag : b
+            html : <strong>{param}</strong>
+        italic :
+            tag : i
+            html : <em>{param}</em>
+        underline :
+            tag : u
+            html : <u>{param}</u>
+        url_short :
+            tag : url
+            html : <a href="{param}">{param}</a>
+            parameters :
+                parse_content : false
+                body_validator : url
+        url_long :
+            tag : url
+            html : <a href="{option}">{param}</a>
+            parameters :
+                use_option : true
+                parse_content : true
+                option_validator : url
+        img_short :
+            tag : img
+            html : <img src="{param}" />
+            parameters :
+                use_option : false
+                parse_content : false
+                body_validator : url
+        img_long :
+            tag : img
+            html : <img src="{param}" alt="{option}" />
+            parameters :
+                use_option : true
+                parse_content : false
+                body_validator : url
+        color :
+            tag : color
+            html : <span style="color: {option}">{param}</span>
+            parameters :
+                use_option : true
+                option_validator : css_color
