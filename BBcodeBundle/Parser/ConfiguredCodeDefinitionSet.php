@@ -12,9 +12,6 @@ class ConfiguredCodeDefinitionSet implements CodeDefinitionSet
     protected $definitions;
     protected $validators = array();
 
-    const VALIDATOR_TAG_NAME = 'open_orchestra_bbcode.validator';
-    const CODE_DEFINITION_TAG_NAME = 'open_orchestra_bbcode.code_definition';
-
     /**
      * Class constructor
      * 
