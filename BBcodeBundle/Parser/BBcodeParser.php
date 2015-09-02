@@ -7,14 +7,15 @@ use JBBCode\CodeDefinitionSet;
 use JBBCode\InputValidator;
 
 /**
- * Class Parser
+ * Class BBcodeParser
  */
 class BBcodeParser
 {
     protected $parser;
 
     /**
-     * Constructor
+     * @param Parser            $parser
+     * @param CodeDefinitionSet $codeDefinitionSet
      */
     public function __construct(Parser $parser, CodeDefinitionSet $codeDefinitionSet)
     {

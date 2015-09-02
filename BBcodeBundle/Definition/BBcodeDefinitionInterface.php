@@ -3,7 +3,7 @@
 namespace OpenOrchestra\BBcodeBundle\Definition;
 
 /**
- * Interface BBcodeDefinition
+ * Interface BBcodeDefinitionInterface
  *
  */
 interface BBcodeDefinitionInterface
