@@ -12,22 +12,51 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class BBcodeCompilerPass extends AbstractTaggedCompiler implements CompilerPassInterface
 {
     /**
-     * You can modify the container here before it is dumped to PHP code.
-     *
      * @param ContainerBuilder $container
      *
      * @api
      */
     public function process(ContainerBuilder $container)
     {
-        $managerName = 'open_orchestra_bbcode.configured_code_definition_set';
+        $this->loadValidators($container);
+        $this->loadDefinitions($container);
+    }
 
-        $tagName = 'open_orchestra_bbcode.validator';
-        $methodName = 'addValidator';
-        $this->addStrategyToManager($container, $managerName, $tagName, $methodName);
+    /**
+     * Load into the parser the validators described:
+     * - in the container configuration (parameters files)
+     * - with tagged services (open_orchestra_bbcode.validators)
+     * 
+     * @param ContainerBuilder $container
+     */
+    protected function loadValidators(ContainerBuilder $container)
+    {
+        $parser = $container->getDefinition('open_orchestra_bbcode.bbcode_parser');
 
-        $tagName = 'open_orchestra_bbcode.code_definition';
-        $methodName = 'addDefinition';
-        $this->addStrategyToManager($container, $managerName, $tagName, $methodName);
+        if ($container->hasParameter('open_orchestra_bbcode.validators')) {
+            $validators = $container->getParameter('open_orchestra_bbcode.validators');
+            $parser->addMethodCall('loadValidatorsFromConfiguration', $validators);
+        }
+
+        $this->addStrategyToManager($container, 'open_orchestra_bbcode.bbcode_parser', 'open_orchestra_bbcode.validator', 'loadValidatorFromService');
+    }
+
+    /**
+     * Load into the parser the definitions described:
+     * - in the container configuration (parameters files)
+     * - with tagged services (open_orchestra_bbcode.code_definitions)
+     * 
+     * @param ContainerBuilder $container
+     */
+    protected function loadDefinitions(ContainerBuilder $container)
+    {
+        $parser = $container->getDefinition('open_orchestra_bbcode.bbcode_parser');
+
+        if ($container->hasParameter('open_orchestra_bbcode.code_definitions')) {
+            $definitions = $container->getParameter('open_orchestra_bbcode.code_definitions');
+            $parser->addMethodCall('loadDefinitionsFromConfiguration', $definitions);
+        }
+
+        $this->addStrategyToManager($container, 'open_orchestra_bbcode.bbcode_parser', 'open_orchestra_bbcode.code_definition', 'loadDefinitionFromService');
     }
 }

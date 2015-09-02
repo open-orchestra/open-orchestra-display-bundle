@@ -12,7 +12,6 @@ class BBcodeParserTest extends \PHPUnit_Framework_TestCase
 {
     protected $parser;
     protected $jparser;
-    protected $codeDefinitionSet;
 
     /**
      * Set up the test
@@ -20,15 +19,7 @@ class BBcodeParserTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->jparser = Phake::mock('JBBCode\Parser');
-        $this->codeDefinitionSet = Phake::mock('OpenOrchestra\BBcodeBundle\Parser\ConfiguredCodeDefinitionSet');
-        $this->parser = new BBcodeParser($this->jparser, $this->codeDefinitionSet);
-    }
-
-    public function testAddBBcode()
-    {
-        $this->parser->addBBcode('tag', 'html');
-
-        Phake::verify($this->jparser)->addBBCode('tag', 'html', false, true, -1, null, null);
+        $this->parser = new BBcodeParser($this->jparser);
     }
 
     public function testGetAsHtml()

@@ -5,6 +5,7 @@ namespace OpenOrchestra\BBcodeBundle\Parser;
 use JBBCode\Parser;
 use JBBCode\CodeDefinitionSet;
 use JBBCode\InputValidator;
+use JBBCode\CodeDefinitionBuilder;
 
 /**
  * Class BBcodeParser
@@ -12,34 +13,96 @@ use JBBCode\InputValidator;
 class BBcodeParser
 {
     protected $parser;
+    protected $validators = array();
 
     /**
-     * @param Parser            $parser
-     * @param CodeDefinitionSet $codeDefinitionSet
+     * @param Parser $parser
      */
-    public function __construct(Parser $parser, CodeDefinitionSet $codeDefinitionSet)
+    public function __construct(Parser $parser)
     {
         $this->parser = $parser;
-        $this->parser->addCodeDefinitionSet($codeDefinitionSet);
     }
 
     /**
-     * Adds a simple (text-replacement only) bbcode definition
-     *
-     * @param string         $tagName           the tag name (for example the b in [b])
-     * @param string         $replace           the html to use, with {param} and optionally {option} for replacements
-     * @param boolean        $useOption         whether or not this bbcode uses the secondary {option} replacement
-     * @param boolean        $parseContent      whether or not to parse the content within these elements
-     * @param integer        $nestLimit         an optional limit of the number of elements of this kind that can be nested
-     *                                          within each other before the parser stops parsing them.
-     * @param InputValidator $optionValidator   the validator to run {option} through
-     * @param BodyValidator  $bodyValidator     the validator to run {param} through (only used if $parseContent == false)
+     * Add/Override validators from container configuration
+     * 
+     * @param array $validators
      */
-    public function addBBcode(
-        $tagName, $replace, $useOption = false, $parseContent = true, $nestLimit = -1,
-        InputValidator $optionValidator = null, InputValidator $bodyValidator = null
-    ){
-        $this->parser = $this->parser->addBBCode($tagName, $replace, $useOption, $parseContent, $nestLimit, $optionValidator, $bodyValidator);
+    public function loadValidatorsFromConfiguration($validators) {
+        foreach ($validators as $key => $class) {
+            if (class_exists($class)) {
+                $this->validators[$key] = new $class();
+            }
+        }
+    }
+
+    /**
+     * Add/Override a validator via a tagged service
+     * 
+     * @param BBcodeValidatorInterface $validator
+     */
+    public function loadValidatorFromService(BBcodeValidatorInterface $validator) // Le service devrait fournir plusieurs validateurs et non un seul
+    {
+        $this->validators[$validator->getName()] = $validator;
+    }
+
+    
+    /**
+     * Add/Override tag definitions from container configuration
+     * 
+     * @param array $codeDefinitions
+     */
+    public function loadDefinitionsFromConfiguration($codeDefinitions)
+    {
+        foreach ($codeDefinitions as $definition) {
+            if (isset($definition['tag']) && isset($definition['html'])) {
+                $parameters = array();
+                if (isset($definition['parameters'])) {
+                    $parameters = $definition['parameters'];
+                }
+                $this->addDefinition($definition['tag'], $definition['html'], $parameters);
+            }
+        }
+    }
+
+    /**
+     * Add/Override a definition via a tagged service
+     * 
+     * @param BBcodeDefinitionInterface $definition
+     */
+    public function loadDefinitionFromService(BBcodeDefinitionInterface $definition) // Le service devrait fournir plusieurs tags et non un seul
+    {
+        $this->addDefinition($definition->getTag(), $defintion->getHtml(), $definition->getParameters());
+    }
+
+    /**
+     * Add a definition to the parser. 
+     * $parameters definitions is an array containing:
+     * 
+     * boolean        $useOption         whether or not this bbcode uses the secondary {option} replacement
+     * boolean        $parseContent      whether or not to parse the content within these elements
+     * integer        $nestLimit         an optional limit of the number of elements of this kind that can be nested
+     *                                   within each other before the parser stops parsing them.
+     * InputValidator $optionValidator   the validator to run {option} through
+     * BodyValidator  $bodyValidator     the validator to run {param} through (only used if $parseContent == false)
+     * 
+     ****************************************************************************************************************
+     * 
+     * @param string  $tag               the tag name (for example the b in [b])
+     * @param string  $html              the html to use, with {param} and optionally {option} for replacements
+     * @param array   $parameters        an array of options (see above for options allowed)
+     */
+    protected function addDefinition($tag, $html, $parameters = array())
+    {
+        $useOption = (isset($parameters['use_option'])) ? $parameters['use_option'] : false;
+        $parseContent = (isset($parameters['parse_content'])) ? $parameters['parse_content'] : true;
+        $nestLimit = -1; // /!\ Autoriser dans la conf /!\
+        $optionValidator = (isset($parameters['option_validator']) && isset($this->validator[$parameters['option_validator']])) ?
+            $this->validator[$parameters['option_validator']] : null;
+        $bodyValidator = (isset($parameters['body_validator']) && isset($this->validator[$parameters['body_validator']])) ?
+            $this->validator[$parameters['body_validator']] : null;
+
+        $this->parser->addBBCode($tag, $html, $useOption, $parseContent, $nestLimit, $optionValidator, $bodyValidator); // /!\ Dynamiser le nested /!\
     }
 
     /**
