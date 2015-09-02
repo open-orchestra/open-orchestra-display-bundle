@@ -26,6 +26,7 @@ interface BBcodeDefinitionInterface
      * Get parameters to use when building the definition. These can be:
      * use_option        true | false
      * parse_content     true | false
+     * nest_limit        allowed nested limit
      * body_validator    namespace of the validator to use 
      * option_validator  namespace of the validator to use
      * 
