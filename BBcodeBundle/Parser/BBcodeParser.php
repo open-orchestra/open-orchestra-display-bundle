@@ -96,13 +96,13 @@ class BBcodeParser
     {
         $useOption = (isset($parameters['use_option'])) ? $parameters['use_option'] : false;
         $parseContent = (isset($parameters['parse_content'])) ? $parameters['parse_content'] : true;
-        $nestLimit = -1; // /!\ Autoriser dans la conf /!\
+        $nestLimit = (isset($parameters['nest_limit'])) ? $parameters['nest_limit'] : -1;
         $optionValidator = (isset($parameters['option_validator']) && isset($this->validator[$parameters['option_validator']])) ?
             $this->validator[$parameters['option_validator']] : null;
         $bodyValidator = (isset($parameters['body_validator']) && isset($this->validator[$parameters['body_validator']])) ?
             $this->validator[$parameters['body_validator']] : null;
 
-        $this->parser->addBBCode($tag, $html, $useOption, $parseContent, $nestLimit, $optionValidator, $bodyValidator); // /!\ Dynamiser le nested /!\
+        $this->parser->addBBCode($tag, $html, $useOption, $parseContent, $nestLimit, $optionValidator, $bodyValidator);
     }
 
     /**

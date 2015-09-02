@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface
         $rootNode->children()
             ->arrayNode('validators')
                 ->info('Array of validators')
-                ->useAttributeAsKey('validator_name')
+                ->useAttributeAsKey('validator_namespace')
                 ->prototype('scalar')->end()
             ->end()
 
@@ -37,6 +37,7 @@ class Configuration implements ConfigurationInterface
                         ->prototype('array')->children()
                             ->booleanNode('use_option')->end()
                             ->booleanNode('parse_content')->end()
+                            ->integerNode('nest_limit')->end()
                             ->scalarNode('body_validator')->end()
                             ->scalarNode('option_validator')->end()
                         ->end()
