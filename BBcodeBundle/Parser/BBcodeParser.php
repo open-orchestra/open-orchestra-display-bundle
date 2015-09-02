@@ -6,6 +6,10 @@ use JBBCode\Parser;
 use JBBCode\CodeDefinitionSet;
 use JBBCode\InputValidator;
 use JBBCode\CodeDefinitionBuilder;
+use OpenOrchestra\BBcodeBundle\Validator\BBcodeValidatorCollectionInterface;
+use OpenOrchestra\BBcodeBundle\Validator\BBcodeValidatorInterface;
+use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionCollectionInterface;
+use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionInterface;
 
 /**
  * Class BBcodeParser
@@ -24,7 +28,7 @@ class BBcodeParser
     }
 
     /**
-     * Add/Override validators from container configuration
+     * Add/Override validators described in container configuration
      * 
      * @param array $validators
      */
@@ -37,18 +41,21 @@ class BBcodeParser
     }
 
     /**
-     * Add/Override a validator via a tagged service
+     * Add/Override validators described in a tagged BBcodeValidatorCollectionInterface
      * 
-     * @param BBcodeValidatorInterface $validator
+     * @param BBcodeValidatorCollectionInterface $validator
      */
-    public function loadValidatorFromService(BBcodeValidatorInterface $validator) // Le service devrait fournir plusieurs validateurs et non un seul
+    public function loadValidatorsFromService(BBcodeValidatorCollectionInterface $collection)
     {
-        $this->validators[$validator->getName()] = $validator;
+        foreach ($collection as $validator) {
+            if ($validator instanceof BBcodeValidatorInterface) {
+                $this->validators[$validator->getName()] = $validator;
+            }
+        }
     }
 
-    
     /**
-     * Add/Override tag definitions from container configuration
+     * Add/Override tag definitions described in container configuration
      * 
      * @param array $codeDefinitions
      */
@@ -66,13 +73,17 @@ class BBcodeParser
     }
 
     /**
-     * Add/Override a definition via a tagged service
+     * Add/Override definitions described in a BBcodeDefinitionCollectionInterface
      * 
-     * @param BBcodeDefinitionInterface $definition
+     * @param BBcodeDefinitionCollectionInterface $collection
      */
-    public function loadDefinitionFromService(BBcodeDefinitionInterface $definition) // Le service devrait fournir plusieurs tags et non un seul
+    public function loadDefinitionsFromService(BBcodeDefinitionCollectionInterface $collection)
     {
-        $this->addDefinition($definition->getTag(), $defintion->getHtml(), $definition->getParameters());
+        foreach ($collection as $definition) {
+            if ($definition instanceof BBcodeDefinitionInterface) {
+                $this->addDefinition($definition->getTag(), $defintion->getHtml(), $definition->getParameters());
+            }
+        }
     }
 
     /**

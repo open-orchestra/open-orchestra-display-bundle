@@ -38,7 +38,7 @@ class BBcodeCompilerPass extends AbstractTaggedCompiler implements CompilerPassI
             $parser->addMethodCall('loadValidatorsFromConfiguration', $validators);
         }
 
-        $this->addStrategyToManager($container, 'open_orchestra_bbcode.bbcode_parser', 'open_orchestra_bbcode.validator', 'loadValidatorFromService');
+        $this->addStrategyToManager($container, 'open_orchestra_bbcode.bbcode_parser', 'open_orchestra_bbcode.validator', 'loadValidatorsFromService');
     }
 
     /**
@@ -57,6 +57,6 @@ class BBcodeCompilerPass extends AbstractTaggedCompiler implements CompilerPassI
             $parser->addMethodCall('loadDefinitionsFromConfiguration', $definitions);
         }
 
-        $this->addStrategyToManager($container, 'open_orchestra_bbcode.bbcode_parser', 'open_orchestra_bbcode.code_definition', 'loadDefinitionFromService');
+        $this->addStrategyToManager($container, 'open_orchestra_bbcode.bbcode_parser', 'open_orchestra_bbcode.code_definition', 'loadDefinitionsFromService');
     }
 }
