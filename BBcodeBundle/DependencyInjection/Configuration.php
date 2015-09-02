@@ -20,9 +20,30 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('open_orchestra_bbcode');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode->children()
+            ->arrayNode('validators')
+                ->info('Array of validators')
+                ->useAttributeAsKey('validator_name')
+                ->prototype('scalar')->end()
+            ->end()
+
+            ->arrayNode('code_definitions')
+                ->info('Array of tag definitions')
+                ->useAttributeAsKey('tag_name')
+                ->prototype('array')->children()
+                    ->scalarNode('tag')->isRequired()->end()
+                    ->scalarNode('html')->isRequired()->end()
+                    ->arrayNode('parameters')
+                        ->prototype('array')->children()
+                            ->booleanNode('use_option')->end()
+                            ->booleanNode('parse_content')->end()
+                            ->scalarNode('body_validator')->end()
+                            ->scalarNode('option_validator')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ->end();
 
         return $treeBuilder;
     }
