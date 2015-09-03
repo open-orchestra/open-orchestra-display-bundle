@@ -22,6 +22,9 @@ class BBcodeParserTest extends \PHPUnit_Framework_TestCase
         $this->parser = new BBcodeParser($this->jparser);
     }
 
+    /**
+     * Test getAsHtml method
+     */
     public function testGetAsHtml()
     {
         $text = 'Some Random Text';
@@ -31,6 +34,9 @@ class BBcodeParserTest extends \PHPUnit_Framework_TestCase
         Phake::verify($this->jparser)->getAsHTML();
     }
 
+    /**
+     * Test getAsBBCode method
+     */
     public function testGetAsBBCode()
     {
         $text = 'Some Random Text';
@@ -40,6 +46,9 @@ class BBcodeParserTest extends \PHPUnit_Framework_TestCase
         Phake::verify($this->jparser)->getAsBBCode();
     }
 
+    /**
+     * Test getAsText method
+     */
     public function testGetAsText()
     {
         $text = 'Some Random Text';

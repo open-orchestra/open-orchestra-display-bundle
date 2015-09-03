@@ -22,6 +22,14 @@ class BBcodeCompilerPass extends AbstractTaggedCompiler implements CompilerPassI
         $this->loadElements('code_definitions', $container, 'loadDefinitionsFromConfiguration', 'loadDefinitionsFromService');
     }
 
+    /**
+     * Load validators or code definitions from both configuration and tagged services
+     * 
+     * @param string           $tagName
+     * @param ContainerBuilder $container
+     * @param string           $methodForConfiguration
+     * @param string           $methodForService
+     */
     protected function loadElements($tagName, ContainerBuilder $container, $methodForConfiguration, $methodForService)
     {
         $parserName = 'open_orchestra_bbcode.bbcode_parser';
