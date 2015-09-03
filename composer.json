@@ -13,7 +13,8 @@
         "symfony/swiftmailer-bundle" : "~2.3",
         "open-orchestra/open-orchestra-model-interface": "*",
         "friendsofsymfony/http-cache-bundle": "1.3.2",
-        "innocead/captcha-bundle": "*"
+        "innocead/captcha-bundle": "*",
+        "jbbcode/jbbcode": "1.3.0"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.7.2",
@@ -27,7 +28,8 @@
     },
     "autoload": {
         "psr-0": {
-            "OpenOrchestra\\DisplayBundle": ""
+            "OpenOrchestra\\DisplayBundle": "",
+            "OpenOrchestra\\BBcodeBundle": ""
         }
     },
     "target-dir": "OpenOrchestra"
