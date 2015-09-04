@@ -4,6 +4,25 @@ parameters:
         css_color : JBBCode\validators\CssColorValidator
 
     open_orchestra_bbcode.code_definitions :
+        h1 :
+            tag : h1
+            html : <h1>{param}</h1>
+        h2 :
+            tag : h2
+            html : <h2>{param}</h2>
+        h3 :
+            tag : h3
+            html : <h3>{param}</h3>
+        h4 :
+            tag : h4
+            html : <h4>{param}</h4>
+        h5 :
+            tag : h5
+            html : <h5>{param}</h5>
+        h6 :
+            tag : h6
+            html : <h6>{param}</h6>
+
         bold :
             tag : b
             html : <strong>{param}</strong>
@@ -13,6 +32,30 @@ parameters:
         underline :
             tag : u
             html : <u>{param}</u>
+
+        color :
+            tag : color
+            html : <span style="color: {option}">{param}</span>
+            parameters :
+                use_option : true
+                option_validator : css_color
+
+        p :
+            tag : p
+            html : <p>{param}</p>
+
+        ul :
+            tag : ul
+            html : <ul>{param}</ul>
+
+        ol :
+            tag : ol
+            html : <ol>{param}</ol>
+
+        li :
+            tag : li
+            html : <li>{param}</li>
+
         url_short :
             tag : url
             html : <a href="{param}">{param}</a>
@@ -26,6 +69,7 @@ parameters:
                 use_option : true
                 parse_content : true
                 option_validator : url
+
         img_short :
             tag : img
             html : <img src="{param}" />
@@ -40,9 +84,3 @@ parameters:
                 use_option : true
                 parse_content : false
                 body_validator : url
-        color :
-            tag : color
-            html : <span style="color: {option}">{param}</span>
-            parameters :
-                use_option : true
-                option_validator : css_color

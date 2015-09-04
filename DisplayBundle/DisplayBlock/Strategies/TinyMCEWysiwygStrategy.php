@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
+use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;
@@ -14,13 +15,15 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     const TINYMCEWYSIWYG = 'tiny_mce_wysiwyg';
 
     protected $router;
+    protected $parser;
 
     /**
      * @param Router $router
      */
-    public function __construct(Router $router)
+    public function __construct(Router $router, BBcodeParserInterface $parser)
     {
         $this->router = $router;
+        $this->parser = $parser;
     }
 
     /**
@@ -56,7 +59,10 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
      */
     public function show(ReadBlockInterface $block)
     {
-        $htmlContent = $this->parseForMedias($block->getAttribute('htmlContent'));
+        $htmlContent = $block->getAttribute('htmlContent');
+        $htmlContent = $this->parser->getAsBBcode($htmlContent);
+        $htmlContent = $this->parser->getAsHtml($htmlContent);
+        $htmlContent = $this->parseForMedias($htmlContent);
 
         return $this->render(
             'OpenOrchestraDisplayBundle:Block/TinyMCEWysiwyg:show.html.twig',

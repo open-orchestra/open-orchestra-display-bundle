@@ -1,13 +1,19 @@
 parameters:
     open_orchestra_bbcode.jbbcode_parser.class : JBBCode\Parser
-    open_orchestra_bbcode.bbcode_parser.class : OpenOrchestra\BBcodeBundle\BBcodeParser
+    open_orchestra_bbcode.parser.class : OpenOrchestra\BBcodeBundle\Parser\BBcodeParser
+    open_orchestra_bbcode.definition.class : OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinition
+    open_orchestra_bbcode.definition.factory.class : OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionFactory
 
 services:
     open_orchestra_bbcode.jbbcode_parser:
         class: %open_orchestra_bbcode.jbbcode_parser.class%
 
-    open_orchestra_bbcode.bbcode_parser:
-        class: %open_orchestra_bbcode.bbcode_parser.class%
+    open_orchestra_bbcode.parser:
+        class: %open_orchestra_bbcode.parser.class%
         arguments :
-            - [open_orchestra_bbcode.jbbcode_parser]
-            - [open_orchestra_bbcode.configured_code_definition_set]
+            - @open_orchestra_bbcode.jbbcode_parser
+
+    open_orchestra_bbcode.definition.factory:
+        class: %open_orchestra_bbcode.definition.factory.class%
+        arguments:
+            - %open_orchestra_bbcode.definition.class%

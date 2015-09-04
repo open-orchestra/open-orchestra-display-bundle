@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\BBcodeBundle\Parser;
 
+use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use JBBCode\Parser;
 use JBBCode\CodeDefinitionSet;
 use JBBCode\InputValidator;
@@ -14,10 +15,11 @@ use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionInterface;
 /**
  * Class BBcodeParser
  */
-class BBcodeParser
+class BBcodeParser implements BBcodeParserInterface
 {
     protected $parser;
     protected $validators = array();
+    protected $codes = array();
 
     /**
      * @param Parser $parser
@@ -32,7 +34,8 @@ class BBcodeParser
      * 
      * @param array $validators
      */
-    public function loadValidatorsFromConfiguration($validators) {
+    public function loadValidatorsFromConfiguration($validators)
+    {
         foreach ($validators as $key => $class) {
             if (class_exists($class)) {
                 $this->validators[$key] = new $class();
@@ -41,7 +44,7 @@ class BBcodeParser
     }
 
     /**
-     * Add/Override validators described in a tagged BBcodeValidatorCollectionInterface
+     * Add/Override validators described in a BBcodeValidatorCollectionInterface
      * 
      * @param BBcodeValidatorCollectionInterface $validator
      */
@@ -68,6 +71,7 @@ class BBcodeParser
                     $parameters = $definition['parameters'];
                 }
                 $this->addDefinition($definition['tag'], $definition['html'], $parameters);
+                $this->codes[$definition['tag']] = $definition['html'];
             }
         }
     }
@@ -79,9 +83,10 @@ class BBcodeParser
      */
     public function loadDefinitionsFromService(BBcodeDefinitionCollectionInterface $collection)
     {
-        foreach ($collection as $definition) {
+        foreach ($collection->getDefinitions() as $definition) {
             if ($definition instanceof BBcodeDefinitionInterface) {
-                $this->addDefinition($definition->getTag(), $defintion->getHtml(), $definition->getParameters());
+                $this->addDefinition($definition->getTag(), $definition->getHtml(), $definition->getParameters());
+                $this->codes[$definition->getTag()] = $definition->getHtml();
             }
         }
     }
@@ -95,7 +100,7 @@ class BBcodeParser
      * integer        $nestLimit         an optional limit of the number of elements of this kind that can be nested
      *                                   within each other before the parser stops parsing them.
      * InputValidator $optionValidator   the validator to run {option} through
-     * BodyValidator  $bodyValidator     the validator to run {param} through (only used if $parseContent == false)
+     * InputValidator $bodyValidator     the validator to run {param} through (only used if $parseContent == false)
      * 
      ****************************************************************************************************************
      * 
@@ -156,5 +161,15 @@ class BBcodeParser
         $this->parser->parse($text);
 
         return $this->parser->getAsText();
+    }
+
+    /**
+     * Get all registered codes
+     * 
+     * @return array
+     */
+    public function getCodes()
+    {
+        return $this->codes;
     }
 }
