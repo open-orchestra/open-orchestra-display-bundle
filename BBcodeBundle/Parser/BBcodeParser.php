@@ -12,19 +12,10 @@ use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionCollectionInterface;
 /**
  * Class BBcodeParser
  */
-class BBcodeParser implements BBcodeParserInterface
+class BBcodeParser extends Parser implements BBcodeParserInterface
 {
-    protected $parser;
     protected $validators = array();
     protected $codes = array();
-
-    /**
-     * @param Parser $parser
-     */
-    public function __construct(Parser $parser)
-    {
-        $this->parser = $parser;
-    }
 
     /**
      * Add/Override validators described in container configuration
@@ -68,14 +59,14 @@ class BBcodeParser implements BBcodeParserInterface
                     $this->validator[$parameters['option_validator']] : null;
                 $bodyValidator = (isset($parameters['body_validator']) && isset($this->validator[$parameters['body_validator']])) ?
                     $this->validator[$parameters['body_validator']] : null;
-                $this->parser->addCodeDefinition(
+                $this->addCodeDefinition(
                     CodeDefinition::construct(
                         $definition['tag'],
                         $definition['html'],
                         (isset($parameters['use_option'])) ? $parameters['use_option'] : false,
                         (isset($parameters['parse_content'])) ? $parameters['parse_content'] : true,
                         (isset($parameters['nest_limit'])) ? $parameters['nest_limit'] : -1,
-                        $optionValidator,
+                        $optionValidator, // seems there's a bug here, validators should be instanciated here
                         $bodyValidator
                     )
                 );
@@ -93,52 +84,10 @@ class BBcodeParser implements BBcodeParserInterface
     {
         foreach ($collection->getDefinitions() as $definition) {
             if ($definition instanceof CodeDefinition) {
-                $this->parser->addCodeDefinition($definition);
+                $this->addCodeDefinition($definition);
                 $this->codes[$definition->getTagName()] = $definition->getReplacementText();
             }
         }
-    }
-
-    /**
-     * Get html from BBcode
-     * 
-     * @param string $text
-     * 
-     * @return string
-     */
-    public function getAsHtml($text)
-    {
-        $this->parser->parse($text);
-
-        return $this->parser->getAsHTML();
-    }
-
-    /**
-     * Parse BBcode to fix unclosed tags
-     * 
-     * @param string $text
-     * 
-     * @return string
-     */
-    public function getAsBBcode($text)
-    {
-        $this->parser->parse($text);
-
-        return $this->parser->getAsBBCode();
-    }
-
-    /**
-     * Remove all BBcode to get raw text
-     * 
-     * @param string $text
-     * 
-     * @return string
-     */
-    public function getAsText($text)
-    {
-        $this->parser->parse($text);
-
-        return $this->parser->getAsText();
     }
 
     /**

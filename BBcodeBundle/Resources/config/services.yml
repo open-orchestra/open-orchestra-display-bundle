@@ -1,5 +1,4 @@
 parameters:
-    open_orchestra_bbcode.jbbcode_parser.class : JBBCode\Parser
     open_orchestra_bbcode.jbbcode_definition.class : JBBCode\CodeDefinition
 
     open_orchestra_bbcode.parser.class : OpenOrchestra\BBcodeBundle\Parser\BBcodeParser
@@ -11,8 +10,6 @@ services:
 
     open_orchestra_bbcode.parser:
         class: %open_orchestra_bbcode.parser.class%
-        arguments :
-            - @open_orchestra_bbcode.jbbcode_parser
 
     open_orchestra_bbcode.definition.factory:
         class: %open_orchestra_bbcode.definition.factory.class%

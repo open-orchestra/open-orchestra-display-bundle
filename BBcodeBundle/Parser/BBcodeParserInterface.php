@@ -42,29 +42,23 @@ interface BBcodeParserInterface
     /**
      * Get html from BBcode
      * 
-     * @param string $text
-     * 
      * @return string
      */
-    public function getAsHtml($text);
+    public function getAsHTML();
 
     /**
      * Parse BBcode to fix unclosed tags
      * 
-     * @param string $text
-     * 
      * @return string
      */
-    public function getAsBBcode($text);
+    public function getAsBBCode();
 
     /**
      * Remove all BBcode to get raw text
      * 
-     * @param string $text
-     * 
      * @return string
      */
-    public function getAsText($text);
+    public function getAsText();
 
     /**
      * Get all registered codes

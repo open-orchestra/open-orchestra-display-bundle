@@ -60,8 +60,8 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     public function show(ReadBlockInterface $block)
     {
         $htmlContent = $block->getAttribute('htmlContent');
-        $htmlContent = $this->parser->getAsBBcode($htmlContent);
-        $htmlContent = $this->parser->getAsHtml($htmlContent);
+        $this->parser->parse($htmlContent);
+        $htmlContent = $this->parser->getAsHTML();
         $htmlContent = $this->parseForMedias($htmlContent);
 
         return $this->render(
