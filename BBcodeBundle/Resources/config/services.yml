@@ -1,7 +1,8 @@
 parameters:
     open_orchestra_bbcode.jbbcode_parser.class : JBBCode\Parser
+    open_orchestra_bbcode.jbbcode_definition.class : JBBCode\CodeDefinition
+
     open_orchestra_bbcode.parser.class : OpenOrchestra\BBcodeBundle\Parser\BBcodeParser
-    open_orchestra_bbcode.definition.class : OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinition
     open_orchestra_bbcode.definition.factory.class : OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionFactory
 
 services:
@@ -16,4 +17,4 @@ services:
     open_orchestra_bbcode.definition.factory:
         class: %open_orchestra_bbcode.definition.factory.class%
         arguments:
-            - %open_orchestra_bbcode.definition.class%
+            - %open_orchestra_bbcode.jbbcode_definition.class%

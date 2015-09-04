@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\BBcodeBundle\Definition;
 
-use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinition;
 use JBBCode\InputValidator;
 
 /**
@@ -23,18 +22,21 @@ class BBcodeDefinitionFactory
     /**
      * Create a new definition
      * 
-     * @param string $tag
-     * @param string $html
+     * @param string  $tag
+     * @param string  $html
      * boolean        $useOption
      * boolean        $parseContent
      * integer        $nestLimit
-     * InputValidator $optionValidator
+     * array          $optionValidator
      * InputValidator $bodyValidator
      */
     public function create(
         $tag, $html, $useOption = false, $parseContent = true,
-        $nestLimit = -1, InputValidator $optionValidator = null, InputValidator $bodyValidator = null
+        $nestLimit = -1, array $optionValidator = array(), InputValidator $bodyValidator = null
     ) {
-        return new $this->className($tag, $html, $useOption, $parseContent, $nestLimit, $optionValidator, $bodyValidator);
+        return call_user_func(
+            array($this->className, 'construct'),
+            $tag, $html, $useOption, $parseContent, $nestLimit, $optionValidator, $bodyValidator
+        );
     }
 }

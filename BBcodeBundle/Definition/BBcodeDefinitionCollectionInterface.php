@@ -9,7 +9,7 @@ namespace OpenOrchestra\BBcodeBundle\Definition;
 interface BBcodeDefinitionCollectionInterface
 {
     /**
-     * Get an array of BBcodeDefinitionInterface
+     * Get an array of CodeDefinitions
      * 
      * @return array
      */

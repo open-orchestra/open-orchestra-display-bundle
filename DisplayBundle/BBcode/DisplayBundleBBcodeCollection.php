@@ -33,7 +33,7 @@ class DisplayBundleBBcodeCollection implements BBcodeDefinitionCollectionInterfa
     }
 
     /**
-     * Get an array of BBcodeDefinitionInterface
+     * Get an array of CodeDefinitions
      * 
      * @return array
      */
