@@ -22,13 +22,13 @@ class BBcodeDefinitionFactory
     /**
      * Create a new definition
      * 
-     * @param string  $tag
-     * @param string  $html
-     * boolean        $useOption
-     * boolean        $parseContent
-     * integer        $nestLimit
-     * array          $optionValidator
-     * InputValidator $bodyValidator
+     * @param string         $tag
+     * @param string         $html
+     * @param boolean        $useOption
+     * @param boolean        $parseContent
+     * @param integer        $nestLimit
+     * @param array          $optionValidator
+     * @param InputValidator $bodyValidator
      */
     public function create(
         $tag, $html, $useOption = false, $parseContent = true,
