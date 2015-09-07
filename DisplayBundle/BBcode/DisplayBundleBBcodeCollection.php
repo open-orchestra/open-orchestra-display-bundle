@@ -20,7 +20,7 @@ class DisplayBundleBBcodeCollection implements BBcodeDefinitionCollectionInterfa
      */
     public function __construct(BBcodeDefinitionFactory $definitionFactory)
     {
-        $this->definitions[] = $definitionFactory->create('div', '<div>{param}</div>');
+        $this->definitions[] = $definitionFactory->create('div', '<div>{param}</div>', true);
         $this->definitions[] = $definitionFactory->create('table', '<table>{param}</table>');
         $this->definitions[] = $definitionFactory->create('tbody', '<tbody>{param}</tbody>');
         $this->definitions[] = $definitionFactory->create('td', '<td>{param}</td>');

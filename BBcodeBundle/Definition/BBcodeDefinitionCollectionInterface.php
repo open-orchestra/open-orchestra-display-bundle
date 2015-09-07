@@ -11,9 +11,9 @@ use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionInterface;
 interface BBcodeDefinitionCollectionInterface
 {
     /**
-     * Get an array of CodeDefinitions
+     * Get an array of BBcodeDefinitionInterface
      * 
-     * @return array (BBcodeDefinitionInterface)
+     * @return array
      */
     public function getDefinitions();
 }
