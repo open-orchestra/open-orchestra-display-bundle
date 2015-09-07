@@ -1,9 +1,9 @@
 parameters:
-    open_orchestra_display.bbcode_collection.class: OpenOrchestra\DisplayBundle\BBcode\DisplayBundleBBcodeCollection
+    open_orchestra_display.bbcode.code_definitions.class: OpenOrchestra\DisplayBundle\BBcode\DisplayBundleBBcodeCollection
 
 services:
-    open_orchestra_display.bbcode_collection:
-        class: %open_orchestra_display.bbcode_collection.class%
+    open_orchestra_display.bbcode.code_definitions:
+        class: %open_orchestra_display.bbcode.code_definitions.class%
         arguments:
             - @open_orchestra_bbcode.definition.factory
         tags:
