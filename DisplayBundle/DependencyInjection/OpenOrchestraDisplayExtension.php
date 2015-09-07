@@ -25,6 +25,7 @@ class OpenOrchestraDisplayExtension extends Extension
     public function load(array $config, ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('service.yml');
         $loader->load('display.yml');
         $loader->load('manager.yml');
         $loader->load('subscriber.yml');

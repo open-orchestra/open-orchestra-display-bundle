@@ -2,35 +2,37 @@
 
 namespace OpenOrchestra\BBcodeBundle\Definition;
 
+use JBBCode\ElementNode;
+
 /**
  * Interface BBcodeDefinitionInterface
- *
  */
 interface BBcodeDefinitionInterface
 {
     /**
-     * Get the tag name of the code (for example the b in [b])
-     * 
+     * Returns the tag name of this code definition
+     *
      * @return string
      */
-    public function getTag();
+    public function getTagName();
 
     /**
-     * Get the html to use, with {param} and optionally {option} for replacements
-     * 
+     * Returns the replacement text of this code definition. This usually has little, if any meaning if the
+     * CodeDefinition class was extended. For default, html replacement CodeDefinitions this returns the html
+     * markup for the definition.
+     *
      * @return string
      */
-    public function getHtml();
+    public function getReplacementText();
 
     /**
-     * Get parameters to use when building the definition. These can be:
-     * use_option        true | false
-     * parse_content     true | false
-     * nest_limit        allowed nested limit
-     * body_validator    namespace of the validator to use 
-     * option_validator  namespace of the validator to use
-     * 
-     * @return array
+     * Accepts a BBcodeElementNodeInterface that is defined by this BBcodeDefinition and returns the HTML
+     * markup of the element. This is a commonly overridden class for custom BBcodeDefinitions
+     * so that the content can be directly manipulated.
+     *
+     * @param BBcodeElementNodeInterface $el
+     *
+     * @return string
      */
-    public function getParameters();
+    public function asHtml(ElementNode $el);
 }

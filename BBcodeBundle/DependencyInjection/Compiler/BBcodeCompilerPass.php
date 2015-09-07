@@ -32,13 +32,13 @@ class BBcodeCompilerPass extends AbstractTaggedCompiler implements CompilerPassI
      */
     protected function loadElements($tagName, ContainerBuilder $container, $methodForConfiguration, $methodForService)
     {
-        $parserName = 'open_orchestra_bbcode.bbcode_parser';
+        $parserName = 'open_orchestra_bbcode.parser';
         $tagName = 'open_orchestra_bbcode.' . $tagName;
 
         if ($container->hasParameter($tagName)) {
             $parser = $container->getDefinition($parserName);
             $elements = $container->getParameter($tagName);
-            $parser->addMethodCall($methodForConfiguration, $elements);
+            $parser->addMethodCall($methodForConfiguration, array($elements));
         }
 
         $this->addStrategyToManager($container, $parserName, $tagName, $methodForService);
