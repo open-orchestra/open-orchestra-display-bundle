@@ -22,17 +22,13 @@ class DisplayBundleBBcodeCollection implements BBcodeDefinitionCollectionInterfa
     {
         $this->definitions[] = $definitionFactory->create('div', '<div>{param}</div>');
         $this->definitions[] = $definitionFactory->create('div', '<div class="{option}">{param}</div>', true);
+        $this->definitions[] = $definitionFactory->create('p', '<p>{param}</p>');
         $this->definitions[] = $definitionFactory->create('span', '<span>{param}</span>');
         $this->definitions[] = $definitionFactory->create('span', '<span class="{option}">{param}</span>', true);
         $this->definitions[] = $definitionFactory->create('sup', '<sup>{param}</sup>');
         $this->definitions[] = $definitionFactory->create('pre', '<pre>{param}</pre>');
-        $this->definitions[] = $definitionFactory->create('quote', '<blockquote>{param}</blockquote>');
 
-        $this->definitions[] = $definitionFactory->create('table', '<table>{param}</table>');
         $this->definitions[] = $definitionFactory->create('tbody', '<tbody>{param}</tbody>');
-        $this->definitions[] = $definitionFactory->create('td', '<td>{param}</td>');
-        $this->definitions[] = $definitionFactory->create('tr', '<tr>{param}</tr>');
-        $this->definitions[] = $definitionFactory->create('th', '<tr>{param}</th>');
 
         $this->definitions[] = $definitionFactory->create('section', '<section>{param}</section>');
         $this->definitions[] = $definitionFactory->create('section', '<section class="{option}">{param}</section>', true);
