@@ -56,7 +56,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
             if (isset($definition['tag']) && isset($definition['html'])) {
                 $parameters = (isset($definition['parameters'])) ? $definition['parameters'] : array();
                 $optionValidator = (isset($parameters['option_validator']) && isset($this->validator[$parameters['option_validator']])) ?
-                    $this->validator[$parameters['option_validator']] : null;
+                    array($this->validator[$parameters['option_validator']]) : array();
                 $bodyValidator = (isset($parameters['body_validator']) && isset($this->validator[$parameters['body_validator']])) ?
                     $this->validator[$parameters['body_validator']] : null;
                 $this->addCodeDefinition(
