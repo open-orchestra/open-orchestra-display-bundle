@@ -21,7 +21,7 @@ parameters:
             html : <u>{param}</u>
         line-through :
             tag : s
-            html : <strike>{param}</strike>
+            html : <span style="text-decoration:line-through;">{param}</span>
         center :
             tag : center
             html : <center>{param}</center>
