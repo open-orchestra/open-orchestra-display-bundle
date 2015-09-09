@@ -40,6 +40,8 @@ class DisplayBundleBBcodeCollection implements BBcodeDefinitionCollectionInterfa
         $this->definitions[] = $definitionFactory->create('aside', '<aside class="{option}">{param}</aside>', true);
         $this->definitions[] = $definitionFactory->create('footer', '<footer>{param}</footer>');
         $this->definitions[] = $definitionFactory->create('footer', '<footer class="{option}">{param}</footer>', true);
+
+        $this->definitions[] = $definitionFactory->create('gmap', '<iframe width=425 height=350 frameborder=0 scrolling=no marginheight=0 marginwidth=0 src="{param}"></iframe>');
     }
 
     /**
