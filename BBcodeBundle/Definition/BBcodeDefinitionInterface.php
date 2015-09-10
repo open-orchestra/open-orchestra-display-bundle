@@ -2,7 +2,7 @@
 
 namespace OpenOrchestra\BBcodeBundle\Definition;
 
-use JBBCode\ElementNode;
+use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNodeInterface;
 
 /**
  * Interface BBcodeDefinitionInterface
@@ -34,5 +34,5 @@ interface BBcodeDefinitionInterface
      *
      * @return string
      */
-    public function asHtml(ElementNode $el);
+    public function getHtml(BBcodeElementNodeInterface $el);
 }

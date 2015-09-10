@@ -2,12 +2,14 @@
 
 namespace OpenOrchestra\BBcodeBundle\Parser;
 
+use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinition;
+use JBBCode\ElementNode;
+use JBBCode\Tokenizer;
 use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use JBBCode\Parser;
-use JBBCode\CodeDefinition;
 use OpenOrchestra\BBcodeBundle\Validator\BBcodeValidatorCollectionInterface;
-use OpenOrchestra\BBcodeBundle\Validator\BBcodeValidatorInterface;
 use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionCollectionInterface;
+use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode;
 
 /**
  * Class BBcodeParser
@@ -15,7 +17,6 @@ use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionCollectionInterface;
 class BBcodeParser extends Parser implements BBcodeParserInterface
 {
     protected $validators = array();
-    protected $codes = array();
 
     /**
      * Add/Override validators described in container configuration
@@ -39,9 +40,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
     public function loadValidatorsFromService(BBcodeValidatorCollectionInterface $collection)
     {
         foreach ($collection as $validator) {
-            if ($validator instanceof BBcodeValidatorInterface) {
-                $this->validators[$validator->getName()] = $validator;
-            }
+            $this->validators[$validator->getName()] = $validator;
         }
     }
 
@@ -60,7 +59,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
                 $bodyValidator = (isset($parameters['body_validator']) && isset($this->validator[$parameters['body_validator']])) ?
                     $this->validator[$parameters['body_validator']] : null;
                 $this->addCodeDefinition(
-                    CodeDefinition::construct(
+                    new BBcodeDefinition(
                         $definition['tag'],
                         $definition['html'],
                         (isset($parameters['use_option'])) ? $parameters['use_option'] : false,
@@ -70,7 +69,6 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
                         $bodyValidator
                     )
                 );
-                $this->codes[$definition['tag']] = $definition['html'];
             }
         }
     }
@@ -83,10 +81,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
     public function loadDefinitionsFromService(BBcodeDefinitionCollectionInterface $collection)
     {
         foreach ($collection->getDefinitions() as $definition) {
-            if ($definition instanceof CodeDefinition) {
-                $this->addCodeDefinition($definition);
-                $this->codes[$definition->getTagName()] = $definition->getReplacementText();
-            }
+            $this->addCodeDefinition($definition);
         }
     }
 
@@ -97,6 +92,64 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
      */
     public function getCodes()
     {
-        return $this->codes;
+        return $this->bbcodes;
+    }
+
+    /**
+     * This is the next step in parsing a tag. It's possible for it to still be invalid at this
+     * point but many of the basic invalid tag name conditions have already been handled.
+     *
+     * @param ElementNode $parent  the current parent element
+     * @param Tokenizer   $tokenizer  the tokenizer we're using
+     * @param string      $tagContent  the text between the [ and the ], assuming there is actually a ]
+     *
+     * @return ElementNode the new parent element
+     */
+    protected function parseTag(ElementNode $parent, Tokenizer $tokenizer, $tagContent)
+    {
+        $next;
+        if (!$tokenizer->hasNext() || ($next = $tokenizer->next()) != ']') {
+            $this->createTextNode($parent, '[');
+            $this->createTextNode($parent, $tagContent);
+            return $parent;
+        }
+
+        list($tmpTagName, $options) = $this->parseOptions($tagContent);
+
+        $actualTagName;
+        if ('' != $tmpTagName && '/' == $tmpTagName[0]) {
+           $actualTagName = substr($tmpTagName, 1);
+        } else {
+            $actualTagName = $tmpTagName;
+        }
+
+        if ('' != $tmpTagName && '/' == $tmpTagName[0]) {
+            $elToClose = $parent->closestParentOfType($actualTagName);
+            if (null == $elToClose || count($options) > 1) {
+                $this->createTextNode($parent, '[');
+                $this->createTextNode($parent, $tagContent);
+                $this->createTextNode($parent, ']');
+                return $parent;
+            } else {
+                return $elToClose->getParent();
+            }
+        }
+
+        if ('' == $actualTagName || !$this->codeExists($actualTagName, !empty($options))) {
+            $this->createTextNode($parent, '[');
+            $this->createTextNode($parent, $tagContent);
+            $this->createTextNode($parent, ']');
+            return $parent;
+        }
+
+        $el = new BBcodeElementNode();
+        $el->setNodeId(++$this->nextNodeid);
+        $code = $this->getCode($actualTagName, !empty($options));
+        $el->setBBCodeDefinition($code);
+        if (!empty($options)) {
+            $el->setAttribute($options);
+        }
+        $parent->addChild($el);
+        return $el;
     }
 }
