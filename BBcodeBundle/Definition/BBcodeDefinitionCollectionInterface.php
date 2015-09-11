@@ -2,8 +2,6 @@
 
 namespace OpenOrchestra\BBcodeBundle\Definition;
 
-use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionInterface;
-
 /**
  * Interface BBcodeDefinitionCollectionInterface
  *
