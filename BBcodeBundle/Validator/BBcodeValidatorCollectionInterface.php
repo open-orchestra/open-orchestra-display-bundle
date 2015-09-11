@@ -2,8 +2,6 @@
 
 namespace OpenOrchestra\BBcodeBundle\Validator;
 
-use JBBCode\InputValidator;
-
 /**
  * Interface BBcodeValidatorCollection
  *
