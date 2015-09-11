@@ -125,7 +125,8 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
 
         if ('' != $tmpTagName && '/' == $tmpTagName[0]) {
             $elToClose = $parent->closestParentOfType($actualTagName);
-            if (null == $elToClose || count($options) > 1) {
+            if (null === $elToClose || count($options) > 1)
+            if (null === $elToClose || count($options) > 1) {
                 $this->createTextNode($parent, '[');
                 $this->createTextNode($parent, $tagContent);
                 $this->createTextNode($parent, ']');
@@ -150,6 +151,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
             $el->setAttribute($options);
         }
         $parent->addChild($el);
+
         return $el;
     }
 }
