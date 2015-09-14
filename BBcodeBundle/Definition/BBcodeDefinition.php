@@ -46,4 +46,57 @@ class BBcodeDefinition extends CodeDefinition implements BBcodeDefinitionInterfa
     {
         return $this->asHtml($el);
     }
+
+    /**
+     * Get the html representation of the node, in a preview context
+     * 
+     * @param BBcodeElementNode $el
+     * 
+     * @return string
+     */
+    public function getPreviewHtml(BBcodeElementNodeInterface $el)
+    {
+        if (!$this->hasValidInputs($el)) {
+            return $el->getAsBBCode();
+        }
+
+        $html = $this->getReplacementText();
+
+        if ($this->usesOption()) {
+            $options = $el->getAttribute();
+            if (count($options)==1) {
+                $vals = array_values($options);
+                $html = str_ireplace('{option}', reset($vals), $html);
+            } else{
+                foreach ($options as $key => $val) {
+                    $html = str_ireplace('{' . $key . '}', $val, $html);
+                }
+            }
+        }
+
+        $content = $this->getPreviewContent($el);
+
+        $html = str_ireplace('{param}', $content, $html);
+
+        return $html;
+    }
+
+    /**
+     * @param BBcodeElementNodeInterface $el
+     * 
+     * @return string
+     */
+    protected function getPreviewContent(BBcodeElementNodeInterface $el){
+        if ($this->parseContent()) {
+            $content = "";
+            foreach ($el->getChildren() as $child)
+                $content .= $child->getAsPreviewHTML();
+        } else {
+            $content = "";
+            foreach ($el->getChildren() as $child)
+                $content .= $child->getAsBBCode();
+        }
+        return $content;
+    }
+    
 }

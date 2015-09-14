@@ -17,6 +17,13 @@ Interface BBcodeElementNodeInterface
     public function getAsHTML();
 
     /**
+     * Return the element as html with all replacements made, in a preview context
+     *
+     * @return the html representation of this node
+     */
+    public function getAsPreviewHTML();
+
+    /**
      * Sets the CodeDefinition that defines this element.
      *
      * @param codeDef the code definition that defines this element node

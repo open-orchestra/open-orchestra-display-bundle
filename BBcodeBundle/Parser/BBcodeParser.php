@@ -10,6 +10,8 @@ use JBBCode\Parser;
 use OpenOrchestra\BBcodeBundle\Validator\BBcodeValidatorCollectionInterface;
 use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionCollectionInterface;
 use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode;
+use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeDocumentElement;
+use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeTextNode;
 
 /**
  * Class BBcodeParser
@@ -93,6 +95,52 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
     public function getCodes()
     {
         return $this->bbcodes;
+    }
+
+    /**
+     * Get html from BBcode
+     * 
+     * @return string
+     */
+    public function getAsPreviewHTML()
+    {
+        return $this->treeRoot->getAsPreviewHTML();
+    }
+
+    /**
+     * Removes the old parse tree if one exists.
+     */
+    protected function reset()
+    {
+        $this->treeRoot = new BBcodeDocumentElement();
+        $this->nextNodeid = 1;
+    }
+
+    /**
+     * Creates a new text node with the given parent and text string.
+     *
+     * @param $parent  the parent of the text node
+     * @param $string  the text of the text node
+     *
+     * @return TextNode the newly created TextNode
+     */
+    protected function createTextNode(ElementNode $parent, $string)
+    {
+        if (count($parent->getChildren())) {
+            $children = $parent->getChildren();
+            $lastElement = end($children);
+            reset($children);
+
+            if ($lastElement->isTextNode()) {
+                $lastElement->setValue($lastElement->getValue() . $string);
+                return $lastElement;
+            }
+        }
+
+        $textNode = new BBcodeTextNode($string);
+        $textNode->setNodeId(++$this->nextNodeid);
+        $parent->addChild($textNode);
+        return $textNode;
     }
 
     /**

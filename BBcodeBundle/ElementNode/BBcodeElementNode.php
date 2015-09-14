@@ -14,13 +14,41 @@ class BBcodeElementNode extends ElementNode implements BBcodeElementNodeInterfac
     /**
      * Return the element as html with all replacements made
      *
-     * @return the html representation of this node
+     * @return string
      */
     public function getAsHTML()
     {
-        if ($this->codeDefinition) {
+        return $this->generateHtml();
+    }
 
-            return $this->codeDefinition->getHtml($this);
+    /**
+     * Return the element as html with all replacements made, in a preview context
+     *
+     * @return string
+     */
+    public function getAsPreviewHTML()
+    {
+        return $this->generateHtml(true);
+    }
+
+    /**
+     * Return the element as html with all replacements made
+     * in a preview context or not, depending on $preview
+     * 
+     * @param bool $preview
+     * 
+     * @return string
+     */
+    protected function generateHtml($preview = false)
+    {
+        if ($this->codeDefinition) {
+            if ($preview) {
+
+                return $this->codeDefinition->getPreviewHtml($this);
+            } else {
+
+                return $this->codeDefinition->getHtml($this);
+            }
         } else {
 
             return "";
