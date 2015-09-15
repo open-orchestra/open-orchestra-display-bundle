@@ -35,4 +35,15 @@ interface BBcodeDefinitionInterface
      * @return string
      */
     public function getHtml(BBcodeElementNodeInterface $el);
+
+    /**
+     * Accepts a BBcodeElementNodeInterface that is defined by this BBcodeDefinition and returns the HTML
+     * markup of the element, in a preview context. This is a commonly overridden class for custom
+     * BBcodeDefinitions so that the content can be directly manipulated.
+     *
+     * @param BBcodeElementNodeInterface $el
+     *
+     * @return string
+     */
+    public function getPreviewHtml(BBcodeElementNodeInterface $el);
 }

@@ -29,4 +29,25 @@ Interface BBcodeElementNodeInterface
      * @param codeDef the code definition that defines this element node
      */
     public function setBBCodeDefinition(BBcodeDefinitionInterface $codeDef);
+
+    /**
+     * Returns all the children of this element.
+     *
+     * @return array
+     */
+    public function getChildren();
+
+    /**
+     * Returns the element as bbcode (with all unclosed tags closed)
+     *
+     * @return string
+     */
+    public function getAsBBCode();
+
+    /**
+     * Returns the attribute (used as the option in bbcode definitions) of this element.
+     *
+     * @return array
+     */
+    public function getAttribute();
 }
