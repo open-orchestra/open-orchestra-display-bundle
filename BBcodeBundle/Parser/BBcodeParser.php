@@ -2,13 +2,13 @@
 
 namespace OpenOrchestra\BBcodeBundle\Parser;
 
-use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinition;
+use JBBCode\Parser;
 use JBBCode\ElementNode;
 use JBBCode\Tokenizer;
 use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
-use JBBCode\Parser;
 use OpenOrchestra\BBcodeBundle\Validator\BBcodeValidatorCollectionInterface;
 use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionCollectionInterface;
+use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionFactory;
 use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode;
 use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeDocumentElement;
 use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeTextNode;
@@ -19,6 +19,16 @@ use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeTextNode;
 class BBcodeParser extends Parser implements BBcodeParserInterface
 {
     protected $validators = array();
+    protected $definitionFactory;
+
+    /**
+     * @param BBcodeDefinitionFactory $factory
+     */
+    public function __construct(BBcodeDefinitionFactory $factory)
+    {
+        parent::__construct();
+        $this->definitionFactory = $factory;
+    }
 
     /**
      * Add/Override validators described in container configuration
@@ -41,7 +51,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
      */
     public function loadValidatorsFromService(BBcodeValidatorCollectionInterface $collection)
     {
-        foreach ($collection as $validator) {
+        foreach ($collection->getValidators() as $validator) {
             $this->validators[$validator->getName()] = $validator;
         }
     }
@@ -56,12 +66,12 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
         foreach ($codeDefinitions as $definition) {
             if (isset($definition['tag']) && isset($definition['html'])) {
                 $parameters = (isset($definition['parameters'])) ? $definition['parameters'] : array();
-                $optionValidator = (isset($parameters['option_validator']) && isset($this->validator[$parameters['option_validator']])) ?
-                    array($this->validator[$parameters['option_validator']]) : array();
-                $bodyValidator = (isset($parameters['body_validator']) && isset($this->validator[$parameters['body_validator']])) ?
-                    $this->validator[$parameters['body_validator']] : null;
+                $optionValidator = (isset($parameters['option_validator']) && isset($this->validators[$parameters['option_validator']])) ?
+                    array($this->validators[$parameters['option_validator']]) : array();
+                $bodyValidator = (isset($parameters['body_validator']) && isset($this->validators[$parameters['body_validator']])) ?
+                    $this->validators[$parameters['body_validator']] : null;
                 $this->addCodeDefinition(
-                    new BBcodeDefinition(
+                    $this->definitionFactory->create(
                         $definition['tag'],
                         $definition['html'],
                         (isset($parameters['use_option'])) ? $parameters['use_option'] : false,
@@ -95,6 +105,16 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
     public function getCodes()
     {
         return $this->bbcodes;
+    }
+
+    /**
+     * Get all registered validators
+     * 
+     * @return array
+     */
+    public function getValidators()
+    {
+        return $this->validators;
     }
 
     /**

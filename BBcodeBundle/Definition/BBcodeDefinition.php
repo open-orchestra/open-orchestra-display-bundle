@@ -6,6 +6,7 @@ use JBBCode\CodeDefinition;
 use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionInterface;
 use JBBCode\InputValidator;
 use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNodeInterface;
+use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode;
 
 /**
  * Class BBcodeDefinition
@@ -42,7 +43,7 @@ class BBcodeDefinition extends CodeDefinition implements BBcodeDefinitionInterfa
      * 
      * @return string
      */
-    public function getHtml(BBcodeElementNodeInterface $el)
+    public function getHtml(BBcodeElementNode $el)
     {
         return $this->asHtml($el);
     }
@@ -64,10 +65,10 @@ class BBcodeDefinition extends CodeDefinition implements BBcodeDefinitionInterfa
 
         if ($this->usesOption()) {
             $options = $el->getAttribute();
-            if (count($options)==1) {
+            if (count($options) == 1) {
                 $vals = array_values($options);
                 $html = str_ireplace('{option}', reset($vals), $html);
-            } else{
+            } else {
                 foreach ($options as $key => $val) {
                     $html = str_ireplace('{' . $key . '}', $val, $html);
                 }
@@ -86,7 +87,8 @@ class BBcodeDefinition extends CodeDefinition implements BBcodeDefinitionInterfa
      * 
      * @return string
      */
-    protected function getPreviewContent(BBcodeElementNodeInterface $el){
+    protected function getPreviewContent(BBcodeElementNodeInterface $el)
+    {
         if ($this->parseContent()) {
             $content = "";
             foreach ($el->getChildren() as $child)
@@ -98,5 +100,4 @@ class BBcodeDefinition extends CodeDefinition implements BBcodeDefinitionInterfa
         }
         return $content;
     }
-    
 }

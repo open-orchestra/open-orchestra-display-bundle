@@ -3,6 +3,7 @@
 namespace OpenOrchestra\BBcodeBundle\Definition;
 
 use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNodeInterface;
+use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode;
 
 /**
  * Interface BBcodeDefinitionInterface
@@ -34,7 +35,7 @@ interface BBcodeDefinitionInterface
      *
      * @return string
      */
-    public function getHtml(BBcodeElementNodeInterface $el);
+    public function getHtml(BBcodeElementNode $el);
 
     /**
      * Accepts a BBcodeElementNodeInterface that is defined by this BBcodeDefinition and returns the HTML
