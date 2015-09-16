@@ -179,6 +179,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
         if (!$tokenizer->hasNext() || ($next = $tokenizer->next()) != ']') {
             $this->createTextNode($parent, '[');
             $this->createTextNode($parent, $tagContent);
+
             return $parent;
         }
 
@@ -193,21 +194,21 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
 
         if ('' != $tmpTagName && '/' == $tmpTagName[0]) {
             $elToClose = $parent->closestParentOfType($actualTagName);
-            if (null === $elToClose || count($options) > 1)
             if (null === $elToClose || count($options) > 1) {
                 $this->createTextNode($parent, '[');
                 $this->createTextNode($parent, $tagContent);
                 $this->createTextNode($parent, ']');
                 return $parent;
-            } else {
-                return $elToClose->getParent();
             }
+
+            return $elToClose->getParent();
         }
 
         if ('' == $actualTagName || !$this->codeExists($actualTagName, !empty($options))) {
             $this->createTextNode($parent, '[');
             $this->createTextNode($parent, $tagContent);
             $this->createTextNode($parent, ']');
+
             return $parent;
         }
 

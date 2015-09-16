@@ -91,13 +91,16 @@ class BBcodeDefinition extends CodeDefinition implements BBcodeDefinitionInterfa
     {
         if ($this->parseContent()) {
             $content = "";
-            foreach ($el->getChildren() as $child)
+            foreach ($el->getChildren() as $child) {
                 $content .= $child->getAsPreviewHTML();
+            }
         } else {
             $content = "";
-            foreach ($el->getChildren() as $child)
+            foreach ($el->getChildren() as $child) {
                 $content .= $child->getAsBBCode();
+            }
         }
+
         return $content;
     }
 }
