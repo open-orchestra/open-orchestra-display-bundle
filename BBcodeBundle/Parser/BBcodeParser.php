@@ -20,14 +20,31 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
 {
     protected $validators = array();
     protected $definitionFactory;
+    protected $documentElementClassName = 'OpenOrchestra\BBcodeBundle\ElementNode\BBcodeDocumentElement';
+    protected $textNodeClassName = 'OpenOrchestra\BBcodeBundle\ElementNode\BBcodeTextNode';
+    protected $elementNodeClassName = 'OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode';
 
     /**
      * @param BBcodeDefinitionFactory $factory
      */
-    public function __construct(BBcodeDefinitionFactory $factory)
-    {
+    public function __construct(
+        BBcodeDefinitionFactory $factory,
+        $documentElementClassName = 'OpenOrchestra\BBcodeBundle\ElementNode\BBcodeDocumentElement',
+        $textNodeClassName = 'OpenOrchestra\BBcodeBundle\ElementNode\BBcodeTextNode',
+        $elementNodeClassName = 'OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode'
+    ){
         parent::__construct();
+
         $this->definitionFactory = $factory;
+        if (class_exists($documentElementClassName)) {
+            $this->documentElementClassName = $documentElementClassName;
+        }
+        if (class_exists($textNodeClassName)) {
+            $this->textNodeClassName = $textNodeClassName;
+        }
+        if (class_exists($elementNodeClassName)) {
+            $this->elementNodeClassName = $elementNodeClassName;
+        }
     }
 
     /**
@@ -132,7 +149,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
      */
     protected function reset()
     {
-        $this->treeRoot = new BBcodeDocumentElement();
+        $this->treeRoot = new $this->documentElementClassName();
         $this->nextNodeid = 1;
     }
 
@@ -157,7 +174,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
             }
         }
 
-        $textNode = new BBcodeTextNode($string);
+        $textNode = new $this->textNodeClassName($string);
         $textNode->setNodeId(++$this->nextNodeid);
         $parent->addChild($textNode);
         return $textNode;
@@ -212,7 +229,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
             return $parent;
         }
 
-        $el = new BBcodeElementNode();
+        $el = new $this->elementNodeClassName();
         $el->setNodeId(++$this->nextNodeid);
         $code = $this->getCode($actualTagName, !empty($options));
         $el->setBBCodeDefinition($code);
