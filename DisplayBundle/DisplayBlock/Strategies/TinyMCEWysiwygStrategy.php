@@ -5,7 +5,6 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Router;
 
 /**
  * Class TinyMCEWysiwygStrategy
@@ -14,15 +13,13 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
 {
     const TINYMCEWYSIWYG = 'tiny_mce_wysiwyg';
 
-    protected $router;
     protected $parser;
 
     /**
-     * @param Router $router
+     * @param BBcodeParserInterface $parser
      */
-    public function __construct(Router $router, BBcodeParserInterface $parser)
+    public function __construct(BBcodeParserInterface $parser)
     {
-        $this->router = $router;
         $this->parser = $parser;
     }
 
@@ -62,7 +59,6 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
         $htmlContent = $block->getAttribute('htmlContent');
         $this->parser->parse($htmlContent);
         $htmlContent = $this->parser->getAsHTML();
-        $htmlContent = $this->parseForMedias($htmlContent);
 
         return $this->render(
             'OpenOrchestraDisplayBundle:Block/TinyMCEWysiwyg:show.html.twig',
@@ -71,22 +67,6 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
                 'id' => $block->getId(),
                 'class' => $block->getClass()
             )
-        );
-    }
-
-    /**
-     * Parse html to update media tags
-     * 
-     * @param string $html
-     * 
-     * @return string
-     */
-    protected function parseForMedias($html)
-    {
-        return str_replace(
-            '<img class="tinymce-media" src="../',
-            '<img class="tinymce-media" src="' . $this->router->getContext()->getBaseUrl() . '/',
-            $html
         );
     }
 

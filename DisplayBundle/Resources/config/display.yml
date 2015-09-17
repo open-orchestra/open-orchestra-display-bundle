@@ -50,7 +50,6 @@ services:
     open_orchestra_display.display.tiny_mce_wysiwyg:
         class: %open_orchestra_display.display.tiny_mce_wysiwyg.class%
         arguments:
-            - @router
             - @open_orchestra_bbcode.parser
         tags:
             - { name: open_orchestra_display.display_block.strategy }

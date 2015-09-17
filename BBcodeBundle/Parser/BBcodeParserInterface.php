@@ -47,6 +47,13 @@ interface BBcodeParserInterface
     public function getAsHTML();
 
     /**
+     * Get html from BBcode, in a preview context
+     * 
+     * @return string
+     */
+    public function getAsPreviewHTML();
+
+    /**
      * Parse BBcode to fix unclosed tags
      * 
      * @return string
