@@ -215,6 +215,7 @@ class BBcodeParser extends Parser implements BBcodeParserInterface
                 $this->createTextNode($parent, '[');
                 $this->createTextNode($parent, $tagContent);
                 $this->createTextNode($parent, ']');
+
                 return $parent;
             }
 
