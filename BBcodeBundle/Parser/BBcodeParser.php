@@ -9,9 +9,6 @@ use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use OpenOrchestra\BBcodeBundle\Validator\BBcodeValidatorCollectionInterface;
 use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionCollectionInterface;
 use OpenOrchestra\BBcodeBundle\Definition\BBcodeDefinitionFactory;
-use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode;
-use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeDocumentElement;
-use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeTextNode;
 
 /**
  * Class BBcodeParser
