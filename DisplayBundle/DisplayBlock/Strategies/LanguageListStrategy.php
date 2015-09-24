@@ -5,7 +5,7 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use OpenOrchestra\FrontBundle\Routing\OpenOrchestraUrlGenerator;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
-use OpenOrchestra\ModelInterface\Repository\SiteRepositoryInterface;
+use OpenOrchestra\ModelInterface\Repository\ReadSiteRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -26,16 +26,16 @@ class LanguageListStrategy extends AbstractStrategy
     protected $request;
 
     /**
-     * @param UrlGeneratorInterface   $urlGenerator
-     * @param CurrentSiteIdInterface  $currentSiteIdInterface
-     * @param SiteRepositoryInterface $siteRepository
-     * @param RequestStack            $requestStack
-     * @param string                  $template
+     * @param UrlGeneratorInterface       $urlGenerator
+     * @param CurrentSiteIdInterface      $currentSiteIdInterface
+     * @param ReadSiteRepositoryInterface $siteRepository
+     * @param RequestStack                $requestStack
+     * @param string                      $template
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         CurrentSiteIdInterface $currentSiteIdInterface,
-        SiteRepositoryInterface $siteRepository,
+        ReadSiteRepositoryInterface $siteRepository,
         RequestStack $requestStack,
         $template
     )
