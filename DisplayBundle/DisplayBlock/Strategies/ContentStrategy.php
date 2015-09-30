@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
+use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\DisplayBundle\Fake\FakeContent;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
@@ -21,20 +22,24 @@ class ContentStrategy extends AbstractStrategy
     protected $contentRepository;
     protected $tagManager;
     protected $requestStack;
+    protected $parser;
 
     /**
      * @param ReadContentRepositoryInterface $contentRepository
      * @param RequestStack                   $requestStack
      * @param TagManager                     $tagManager
+     * @param BBcodeParserInterface          $parser
      */
     public function __construct(
         ReadContentRepositoryInterface $contentRepository,
         RequestStack $requestStack,
-        TagManager $tagManager
+        TagManager $tagManager,
+        BBcodeParserInterface $parser
     ){
         $this->contentRepository = $contentRepository;
         $this->requestStack = $requestStack;
         $this->tagManager = $tagManager;
+        $this->parser = $parser;
     }
 
     /**
@@ -75,6 +80,9 @@ class ContentStrategy extends AbstractStrategy
         $content = $this->getContent($contentId);
 
         if (!is_null($content)) {
+            $contentTemplate = $block->getAttribute('contentTemplate');
+            $this->parser->parse($contentTemplate);
+            $contentTemplate = $this->parser->getAsHTML();
 
             return $this->render(
                 'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
@@ -83,7 +91,7 @@ class ContentStrategy extends AbstractStrategy
                     'class' => $block->getClass(),
                     'id' => $block->getId(),
                     'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
-                    'contentTemplate' => $block->getAttribute('contentTemplate'),
+                    'contentTemplate' => $contentTemplate,
                 )
             );
         }

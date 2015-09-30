@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
+use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
@@ -20,20 +21,24 @@ class ContentListStrategy extends AbstractStrategy
     protected $nodeRepository;
     protected $request;
     protected $tagManager;
+    protected $parser;
 
     /**
      * @param ReadContentRepositoryInterface $contentRepository
      * @param ReadNodeRepositoryInterface    $nodeRepository
      * @param TagManager                     $tagManager
+     * @param BBcodeParserInterface          $parser
      */
     public function __construct(
         ReadContentRepositoryInterface $contentRepository,
         ReadNodeRepositoryInterface $nodeRepository,
-        TagManager $tagManager
+        TagManager $tagManager,
+        BBcodeParserInterface $parser
     ){
         $this->contentRepository = $contentRepository;
         $this->nodeRepository = $nodeRepository;
         $this->tagManager = $tagManager;
+        $this->parser = $parser;
     }
 
     /**
@@ -74,13 +79,17 @@ class ContentListStrategy extends AbstractStrategy
         $contents = $this->getContents($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
 
         if (!is_null($contents)) {
+            $contentTemplate = $block->getAttribute('contentTemplate');
+            $this->parser->parse($contentTemplate);
+            $contentTemplate = $this->parser->getAsHTML();
+
             $parameters = array(
                 'contents' => $contents,
                 'class' => $block->getClass(),
                 'id' => $block->getId(),
                 'characterNumber' => $block->getAttribute('characterNumber'),
                 'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
-                'contentTemplate' => $block->getAttribute('contentTemplate'),
+                'contentTemplate' => $contentTemplate,
             );
 
             if ('' != $block->getAttribute('contentNodeId')) {
