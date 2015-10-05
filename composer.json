@@ -27,10 +27,9 @@
         "bin-dir" : "bin"
     },
     "autoload": {
-        "psr-0": {
-            "OpenOrchestra\\DisplayBundle": "",
-            "OpenOrchestra\\BBcodeBundle": ""
+        "psr-4": {
+            "OpenOrchestra\\DisplayBundle\\": "",
+            "OpenOrchestra\\BBcodeBundle\\": ""
         }
-    },
-    "target-dir": "OpenOrchestra"
+    }
 }
