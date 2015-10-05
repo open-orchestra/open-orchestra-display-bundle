@@ -28,8 +28,8 @@
     },
     "autoload": {
         "psr-4": {
-            "OpenOrchestra\\DisplayBundle\\": "",
-            "OpenOrchestra\\BBcodeBundle\\": ""
+            "OpenOrchestra\\DisplayBundle\\": "DisplayBundle/",
+            "OpenOrchestra\\BBcodeBundle\\": "BBcodeBundle/"
         }
     }
 }
