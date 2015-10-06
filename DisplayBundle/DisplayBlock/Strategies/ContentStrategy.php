@@ -111,7 +111,7 @@ class ContentStrategy extends AbstractStrategy
         $content = null;
         if (!is_null($contentId)) {
             $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
-            $content = $this->contentRepository->findLastPublishedVersionByContentIdAndLanguage($contentId, $language);
+            $content = $this->contentRepository->findLastPublishedVersion($contentId, $language);
         }
 
         if (is_null($content) && $this->requestStack->getMasterRequest()->get('token')) {
