@@ -95,7 +95,7 @@ class ContentListStrategy extends AbstractStrategy
             if ('' != $block->getAttribute('contentNodeId')) {
                 $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
                 $siteId = $this->currentSiteManager->getCurrentSiteId();
-                $parameters['contentNodeId'] = $this->nodeRepository->findOnePublishedByNodeIdAndLanguageAndSiteIdInLastVersion($block->getAttribute('contentNodeId'), $language, $siteId)->getId();
+                $parameters['contentNodeId'] = $this->nodeRepository->findPublishedInLastVersion($block->getAttribute('contentNodeId'), $language, $siteId)->getId();
             }
 
             return $this->render('OpenOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);
@@ -117,7 +117,7 @@ class ContentListStrategy extends AbstractStrategy
     {
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
 
-        return $this->contentRepository->findByContentTypeAndChoiceTypeAndKeywordsAndLanguage($language, $contentType, $choiceType, $keyword);
+        return $this->contentRepository->findByContentTypeAndKeywords($language, $contentType, $choiceType, $keyword);
     }
 
     /**
