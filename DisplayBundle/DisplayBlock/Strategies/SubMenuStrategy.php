@@ -100,7 +100,7 @@ class SubMenuStrategy extends AbstractStrategy
         $siteId = $this->currentSiteManager->getCurrentSiteId();
 
         if (!is_null($nodeName)) {
-            $nodes = $this->nodeRepository->getSubMenuByNodeIdAndNbLevelAndLanguageAndSiteId($nodeName, $block->getAttribute('nbLevel'), $this->request->getLocale(), $siteId);
+            $nodes = $this->nodeRepository->getSubMenu($nodeName, $block->getAttribute('nbLevel'), $this->request->getLocale(), $siteId);
         }
 
         return $nodes;

@@ -84,7 +84,7 @@ class FooterStrategy extends AbstractStrategy
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
         $siteId = $this->currentSiteManager->getCurrentSiteId();
 
-        return $this->nodeRepository->getFooterTreeByLanguageAndSiteId($language, $siteId);
+        return $this->nodeRepository->getFooterTree($language, $siteId);
     }
 
     /**

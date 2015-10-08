@@ -70,7 +70,7 @@ class ConfigurableContentStrategy extends AbstractStrategy
         $contentId = $block->getAttribute('contentId');
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
 
-        $content = $this->contentRepository->findLastPublishedVersionByContentIdAndLanguage($contentId, $language);
+        $content = $this->contentRepository->findLastPublishedVersion($contentId, $language);
 
         if ($content) {
             $contentTemplate = $block->getAttribute('contentTemplate');
