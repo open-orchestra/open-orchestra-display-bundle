@@ -4,6 +4,8 @@ namespace OpenOrchestra\DisplayBundle\Tests\DisplayBlock;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager;
 use Phake;
+use OpenOrchestra\DisplayBundle\BlockEvents;
+use OpenOrchestra\DisplayBundle\Event\BlockEvent;
 
 /**
  * Test DisplayBlockManagerTest
@@ -22,6 +24,7 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
     protected $cacheableManager;
     protected $tagManager;
     protected $blockComponentTag = 'block-component';
+    protected $eventDispatcher;
 
     /**
      * Set up the test
@@ -46,7 +49,15 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
 
         $currentSiteManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\SiteManager');
 
-        $this->manager = new DisplayBlockManager($this->templating, $this->cacheableManager, $this->tagManager, $currentSiteManager);
+        $this->eventDispatcher = Phake::mock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+
+        $this->manager = new DisplayBlockManager(
+            $this->templating,
+            $this->cacheableManager,
+            $this->tagManager,
+            $currentSiteManager,
+            $this->eventDispatcher
+        );
         $this->manager->addStrategy($this->wrongStrategy);
         $this->manager->addStrategy($this->strategy);
     }
@@ -82,7 +93,15 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($response, $newResponse);
         Phake::verify($this->wrongStrategy, Phake::never())->show(Phake::anyParameters());
+        Phake::verify($this->eventDispatcher)->dispatch(
+            BlockEvents::PRE_BLOCK_CREATION,
+            new BlockEvent($this->block)
+        );
         Phake::verify($this->strategy)->show(Phake::anyParameters());
+        Phake::verify($this->eventDispatcher)->dispatch(
+            BlockEvents::POST_BLOCK_CREATION,
+            new BlockEvent($this->block, $newResponse)
+        );
         Phake::verify($this->cacheableManager)->setResponseCacheParameters($response, $blockMaxAge, $status);
     }
 

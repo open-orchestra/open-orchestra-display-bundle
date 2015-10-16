@@ -10,6 +10,9 @@ use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use OpenOrchestra\DisplayBundle\Event\BlockEvent;
+use OpenOrchestra\DisplayBundle\BlockEvents;
 
 /**
  * Class DisplayBlockManager
@@ -21,23 +24,27 @@ class DisplayBlockManager
     protected $templating;
     protected $tagManager;
     protected $currentSiteIdInterface;
+    protected $dispatcher;
 
     /**
-     * @param EngineInterface        $templating
-     * @param CacheableManager       $cacheableManager
-     * @param TagManager             $tagManager
-     * @param CurrentSiteIdInterface $currentSiteIdInterface
+     * @param EngineInterface          $templating
+     * @param CacheableManager         $cacheableManager
+     * @param TagManager               $tagManager
+     * @param CurrentSiteIdInterface   $currentSiteIdInterface
+     * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
         EngineInterface $templating,
         CacheableManager $cacheableManager,
         TagManager $tagManager,
-        CurrentSiteIdInterface $currentSiteIdInterface
+        CurrentSiteIdInterface $currentSiteIdInterface,
+        EventDispatcherInterface $dispatcher
     ){
         $this->templating = $templating;
         $this->cacheableManager = $cacheableManager;
         $this->tagManager = $tagManager;
         $this->currentSiteIdInterface = $currentSiteIdInterface;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -64,6 +71,12 @@ class DisplayBlockManager
         /** @var DisplayBlockInterface $strategy */
         foreach ($this->strategies as $strategy) {
             if ($strategy->support($block)) {
+
+                $this->dispatcher->dispatch(
+                    BlockEvents::PRE_BLOCK_CREATION,
+                    new BlockEvent($block)
+                );
+
                 $response = $strategy->show($block);
 
                 $cacheStatus = CacheableInterface::CACHE_PRIVATE;
@@ -75,6 +88,11 @@ class DisplayBlockManager
                     $response,
                     $block->getMaxAge(),
                     $cacheStatus
+                );
+
+                $this->dispatcher->dispatch(
+                    BlockEvents::POST_BLOCK_CREATION,
+                    new BlockEvent($block, $response)
                 );
 
                 return $response;
