@@ -12,6 +12,8 @@
     "require": {
         "symfony/swiftmailer-bundle" : "~2.3",
         "open-orchestra/open-orchestra-model-interface": "*",
+        "open-orchestra/open-orchestra-base-bundle": "*",
+        "open-orchestra/open-orchestra-bbcode-bundle": "*",
         "friendsofsymfony/http-cache-bundle": "1.3.3",
         "innocead/captcha-bundle": "*",
         "jbbcode/jbbcode": "1.3.0"
@@ -20,7 +22,6 @@
         "phpunit/phpunit" : "4.8.8",
         "psr/log": "1.0.0",
         "codeclimate/php-test-reporter": "dev-master",
-        "open-orchestra/open-orchestra-base-bundle": "dev-master",
         "phake/phake": "2.1.0"
     },
     "config" : {
