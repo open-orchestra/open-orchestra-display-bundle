@@ -13,7 +13,7 @@ open_orchestra_display:
             captcha: Captcha
             send: Envoyer
     language_list:
-        de: German
+        de: Deutsch
         en: English
         fr: Français
     gmap:
