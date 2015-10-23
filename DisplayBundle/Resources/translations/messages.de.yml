@@ -1,0 +1,31 @@
+open_orchestra_display:
+    contact:
+        send_message_ok: Ihre nachricht wurde gesendet.
+        send_message_ko: Ihre nachricht wurde nicht gesendet.
+        contact_received: Ihre frage wurde von einem Administrator eingegangen
+        admin_content: Der kunde %name% mit dem Mail-Post %mail% versucht, mit uns in Kontakt zu bekommen. \n Hier ist seine nachrichteninhalt : \n %message%
+        user_content: Hallo, ihre nachrichten erhielten wir und gelangen zurück an Sie so bald wie möglich. \n Grüße kommen, \n %signature%
+        form:
+            name: Name
+            email: Email
+            subject: Subjekt
+            message: Meldung
+            captcha: Captcha
+            send: senden
+    language_list:
+        de: Deutsch
+        en: English
+        fr: Français
+    gmap:
+        enlarge: Karte vergrößern
+    twig:
+        navigator:
+            first: Erste
+            last: Letzte
+            previous: << Zurück
+            next: Nächster >>
+    block:
+        gallery:
+            no_title_defined: Kein titel festgelegt
+        video:
+            missconfiguration: Das video kann nicht richtig angezeigt

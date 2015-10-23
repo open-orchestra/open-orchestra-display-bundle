@@ -13,6 +13,7 @@ open_orchestra_display:
             captcha: Captcha
             send: Send
     language_list:
+        de: Deutsch
         en: English
         fr: Français
     gmap:
@@ -21,7 +22,7 @@ open_orchestra_display:
         navigator:
             first: First
             last: Last
-            previous: << Pevious
+            previous: << Previous
             next: Next >>
     block:
         gallery:
