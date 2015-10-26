@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\ModelInterface\Model\CacheableInterface;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use OpenOrchestra\DisplayBundle\Event\BlockEvent;
-use OpenOrchestra\DisplayBundle\BlockEvents;
+use OpenOrchestra\ModelInterface\Event\BlockEvent;
+use OpenOrchestra\ModelInterface\BlockEvents;
 
 /**
  * Class DisplayBlockManager
@@ -73,7 +73,7 @@ class DisplayBlockManager
             if ($strategy->support($block)) {
 
                 $this->dispatcher->dispatch(
-                    BlockEvents::PRE_BLOCK_CREATION,
+                    BlockEvents::PRE_BLOCK_RENDER,
                     new BlockEvent($block)
                 );
 
@@ -91,7 +91,7 @@ class DisplayBlockManager
                 );
 
                 $this->dispatcher->dispatch(
-                    BlockEvents::POST_BLOCK_CREATION,
+                    BlockEvents::POST_BLOCK_RENDER,
                     new BlockEvent($block, $response)
                 );
 

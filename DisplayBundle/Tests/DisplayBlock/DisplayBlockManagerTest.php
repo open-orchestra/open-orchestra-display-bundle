@@ -4,8 +4,8 @@ namespace OpenOrchestra\DisplayBundle\Tests\DisplayBlock;
 
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager;
 use Phake;
-use OpenOrchestra\DisplayBundle\BlockEvents;
-use OpenOrchestra\DisplayBundle\Event\BlockEvent;
+use OpenOrchestra\ModelInterface\BlockEvents;
+use OpenOrchestra\ModelInterface\Event\BlockEvent;
 
 /**
  * Test DisplayBlockManagerTest
@@ -94,12 +94,12 @@ class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($response, $newResponse);
         Phake::verify($this->wrongStrategy, Phake::never())->show(Phake::anyParameters());
         Phake::verify($this->eventDispatcher)->dispatch(
-            BlockEvents::PRE_BLOCK_CREATION,
+            BlockEvents::PRE_BLOCK_RENDER,
             new BlockEvent($this->block)
         );
         Phake::verify($this->strategy)->show(Phake::anyParameters());
         Phake::verify($this->eventDispatcher)->dispatch(
-            BlockEvents::POST_BLOCK_CREATION,
+            BlockEvents::POST_BLOCK_RENDER,
             new BlockEvent($this->block, $newResponse)
         );
         Phake::verify($this->cacheableManager)->setResponseCacheParameters($response, $blockMaxAge, $status);
