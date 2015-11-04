@@ -11,6 +11,10 @@ parameters:
     open_orchestra_display.display.content.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContentStrategy
     open_orchestra_display.display.language_list.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\LanguageListStrategy
     open_orchestra_display.display.language_list.template: OpenOrchestraDisplayBundle:Block/LanguageList:show.html.twig
+    open_orchestra_display.display.gmap.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\GmapStrategy
+    open_orchestra_display.display.add_this.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AddThisStrategy
+    open_orchestra_display.display.audience_analysis.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AudienceAnalysisStrategy
+    open_orchestra_display.display.video.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\VideoStrategy
 
 services:
     open_orchestra_display.display_block_manager:
@@ -98,20 +102,20 @@ services:
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.gmap:
-        class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\GmapStrategy
+        class: %open_orchestra_display.display.gmap.class%
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.add_this:
-        class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AddThisStrategy
+        class: %open_orchestra_display.display.add_this.class%
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.audience_analysis:
-        class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\AudienceAnalysisStrategy
+        class: %open_orchestra_display.display.audience_analysis.class%
         arguments:
             - @request_stack
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.video:
-        class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\VideoStrategy
+        class: %open_orchestra_display.display.video.class%
         tags:
             - { name: open_orchestra_display.display_block.strategy }
