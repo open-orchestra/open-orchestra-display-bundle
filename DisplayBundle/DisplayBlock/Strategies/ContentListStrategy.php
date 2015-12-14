@@ -76,7 +76,15 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function show(ReadBlockInterface $block)
     {
-        $contents = $this->getContents($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
+        $searchCriterias = array(
+            'contentType' => '',
+            'choiceType' => ReadContentRepositoryInterface::CHOICE_AND,
+            'keywords' => null,
+        );
+
+        $searchCriterias = array_merge($searchCriterias, $block->getAttribute('contentSearch'));
+
+        $contents = $this->getContents($searchCriterias['contentType'], $searchCriterias['choiceType'], $searchCriterias['keywords']);
 
         if (!is_null($contents)) {
             $contentTemplate = $block->getAttribute('contentTemplate');
@@ -106,11 +114,11 @@ class ContentListStrategy extends AbstractStrategy
 
     /**
      * Return block contents
-     * 
+     *
      * @param string $contentType
      * @param string $choiceType
      * @param string $keyword
-     * 
+     *
      * @return array
      */
     protected function getContents($contentType, $choiceType, $keyword)
@@ -122,9 +130,9 @@ class ContentListStrategy extends AbstractStrategy
 
     /**
      * Return block specific cache tags
-     * 
+     *
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)
