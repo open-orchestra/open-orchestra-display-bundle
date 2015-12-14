@@ -107,9 +107,7 @@ class ContentListStrategy extends AbstractStrategy
     /**
      * Return block contents
      *
-     * @param string $contentType
-     * @param string $choiceType
-     * @param string $keyword
+     * @param array $searchCriterias
      *
      * @return array
      */
