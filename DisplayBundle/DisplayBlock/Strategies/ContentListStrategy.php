@@ -76,15 +76,7 @@ class ContentListStrategy extends AbstractStrategy
      */
     public function show(ReadBlockInterface $block)
     {
-        $searchCriterias = array(
-            'contentType' => '',
-            'choiceType' => ReadContentRepositoryInterface::CHOICE_AND,
-            'keywords' => null,
-        );
-
-        $searchCriterias = array_merge($searchCriterias, $block->getAttribute('contentSearch'));
-
-        $contents = $this->getContents($searchCriterias['contentType'], $searchCriterias['choiceType'], $searchCriterias['keywords']);
+        $contents = $this->getContents($block->getAttribute('contentSearch'));
 
         if (!is_null($contents)) {
             $contentTemplate = $block->getAttribute('contentTemplate');
@@ -121,11 +113,17 @@ class ContentListStrategy extends AbstractStrategy
      *
      * @return array
      */
-    protected function getContents($contentType, $choiceType, $keyword)
+    protected function getContents($searchCriterias)
     {
+        $searchCriterias = array_merge(array(
+            'contentType' => '',
+            'choiceType' => ReadContentRepositoryInterface::CHOICE_AND,
+            'keywords' => null,
+        ), $searchCriterias);
+
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
 
-        return $this->contentRepository->findByContentTypeAndKeywords($language, $contentType, $choiceType, $keyword);
+        return $this->contentRepository->findByContentTypeAndKeywords($language, $searchCriterias['contentType'], $searchCriterias['choiceType'], $searchCriterias['keywords']);
     }
 
     /**
@@ -139,7 +137,7 @@ class ContentListStrategy extends AbstractStrategy
     {
         $tags = array();
 
-        $contents = $this->getContents($block->getAttribute('contentType'), $block->getAttribute('choiceType'), $block->getAttribute('keywords'));
+        $contents = $this->getContents($block->getAttribute('contentSearch'));;
 
         if ($contents) {
 
