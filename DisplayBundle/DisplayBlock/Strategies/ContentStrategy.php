@@ -79,7 +79,7 @@ class ContentStrategy extends AbstractStrategy
 
         $content = $this->getContent($contentId);
 
-        if (!is_null($content)) {
+        if ($content instanceof ReadContentInterface) {
             $contentTemplate = $block->getAttribute('contentTemplate');
             $this->parser->parse($contentTemplate);
             $contentTemplate = $this->parser->getAsHTML();
