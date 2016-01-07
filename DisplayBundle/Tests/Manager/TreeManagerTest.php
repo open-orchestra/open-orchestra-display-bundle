@@ -2,13 +2,14 @@
 
 namespace OpenOrchestra\DisplayBundle\Tests\Manager;
 
+use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
 use Phake;
 use OpenOrchestra\DisplayBundle\Manager\TreeManager;
 
 /**
  * Class TreeManagerTest
  */
-class TreeManagerTest extends \PHPUnit_Framework_TestCase
+class TreeManagerTest extends AbstractBaseTestCase
 {
     /**
      * @var TreeManager

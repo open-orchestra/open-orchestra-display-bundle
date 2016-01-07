@@ -2,13 +2,14 @@
 
 namespace OpenOrchestra\DisplayBundle\Tests\Twig;
 
+use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
 use Phake;
 use OpenOrchestra\DisplayBundle\Twig\NavigatorExtension;
 
 /**
  * Class NavigatorExtensionTest
  */
-class NavigatorExtensionTest extends \PHPUnit_Framework_TestCase
+class NavigatorExtensionTest extends AbstractBaseTestCase
 {
     /**
      * @var NavigatorExtension
