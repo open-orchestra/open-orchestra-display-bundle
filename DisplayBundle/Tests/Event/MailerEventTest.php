@@ -2,13 +2,14 @@
 
 namespace OpenOrchestra\DisplayBundle\Tests\Event;
 
+use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
 use OpenOrchestra\DisplayBundle\Event\MailerEvent;
 use Phake;
 
 /**
  * Test MailerEventTest
  */
-class MailerEventTest extends \PHPUnit_Framework_TestCase
+class MailerEventTest extends AbstractBaseTestCase
 {
     /**
      * @var MailerEvent

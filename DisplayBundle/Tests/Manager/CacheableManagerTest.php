@@ -2,13 +2,14 @@
 
 namespace OpenOrchestra\DisplayBundle\Tests\Manager;
 
+use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
 use OpenOrchestra\DisplayBundle\Manager\CacheableManager;
 use Phake;
 
 /**
  * Test CacheableManagerTest
  */
-class CacheableManagerTest extends \PHPUnit_Framework_TestCase
+class CacheableManagerTest extends AbstractBaseTestCase
 {
     /**
      * @var CacheableManager

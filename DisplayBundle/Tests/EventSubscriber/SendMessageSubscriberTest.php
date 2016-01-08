@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\Tests\EventSubscriber;
 
+use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
 use Phake;
 use OpenOrchestra\DisplayBundle\EventSubscriber\SendMessageSubscriber;
 use OpenOrchestra\DisplayBundle\MailerEvents;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Class SendMessageSubscriberTest
  */
-class SendMessageSubscriberTest extends \PHPUnit_Framework_TestCase
+class SendMessageSubscriberTest extends AbstractBaseTestCase
 {
     /**
      * @var SendMessageSubscriber

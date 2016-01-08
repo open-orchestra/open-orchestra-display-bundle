@@ -2,13 +2,14 @@
 
 namespace OpenOrchestra\DisplayBundle\Tests\Manager;
 
+use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
 use Phake;
 use OpenOrchestra\DisplayBundle\Manager\SiteManager;
 
 /**
  * Test SiteManagerTest
  */
-class SiteManagerTest extends \PHPUnit_Framework_TestCase
+class SiteManagerTest extends AbstractBaseTestCase
 {
     /**
      * @var SiteManager

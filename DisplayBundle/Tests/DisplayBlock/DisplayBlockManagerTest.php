@@ -2,6 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\Tests\DisplayBlock;
 
+use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
 use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager;
 use Phake;
 use OpenOrchestra\ModelInterface\BlockEvents;
@@ -10,7 +11,7 @@ use OpenOrchestra\ModelInterface\Event\BlockEvent;
 /**
  * Test DisplayBlockManagerTest
  */
-class DisplayBlockManagerTest extends \PHPUnit_Framework_TestCase
+class DisplayBlockManagerTest extends AbstractBaseTestCase
 {
     /**
      * @var DisplayBlockManager

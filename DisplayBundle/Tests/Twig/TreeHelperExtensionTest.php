@@ -2,13 +2,14 @@
 
 namespace OpenOrchestra\DisplayBundle\Tests\Twig;
 
+use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
 use Phake;
 use OpenOrchestra\DisplayBundle\Twig\TreeHelperExtension;
 
 /**
  * Class TreeHelperExtension
  */
-class TreeHelperExtensionTest extends \PHPUnit_Framework_TestCase
+class TreeHelperExtensionTest extends AbstractBaseTestCase
 {
     /**
      * @var TreeHelperExtension
