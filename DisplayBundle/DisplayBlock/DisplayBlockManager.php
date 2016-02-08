@@ -126,6 +126,28 @@ class DisplayBlockManager
     }
 
     /**
+     * Check the block cache policy
+     *
+     * @param ReadBlockInterface $block
+     * 
+     * @throws DisplayBlockStrategyNotFoundException
+     *
+     * return bool
+     */
+    public function isPublic(ReadBlockInterface $block)
+    {
+        /** @var DisplayBlockInterface $strategy */
+        foreach ($this->strategies as $strategy) {
+            if ($strategy->support($block)) {
+
+                return $strategy->isPublic($block);
+            }
+        }
+
+        throw new DisplayBlockStrategyNotFoundException($block->getComponent());
+    }
+
+    /**
      * @return EngineInterface
      */
     public function getTemplating()
