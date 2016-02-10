@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class TinyMCEWysiwygStrategy extends AbstractStrategy
 {
-    const TINYMCEWYSIWYG = 'tiny_mce_wysiwyg';
+    const NAME = 'tiny_mce_wysiwyg';
 
     protected $parser;
 
@@ -32,7 +32,7 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::TINYMCEWYSIWYG == $block->getComponent();
+        return self::NAME == $block->getComponent();
     }
 
     /**

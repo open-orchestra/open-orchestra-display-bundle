@@ -12,7 +12,7 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class MenuStrategy extends AbstractStrategy
 {
-    const MENU = 'menu';
+    const NAME = 'menu';
 
     protected $nodeRepository;
     protected $tagManager;
@@ -38,7 +38,7 @@ class MenuStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::MENU == $block->getComponent();
+        return self::NAME == $block->getComponent();
     }
 
     /**

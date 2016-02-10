@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class ContactStrategy extends AbstractStrategy
 {
-    const CONTACT = 'contact';
+    const NAME = 'contact';
 
     protected $formFactory;
     protected $request;
@@ -47,7 +47,7 @@ class ContactStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::CONTACT == $block->getComponent();
+        return self::NAME == $block->getComponent();
     }
 
     /**

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AddThisStrategy extends AbstractStrategy
 {
-    const ADDTHIS = 'add_this';
+    const NAME = 'add_this';
 
     /**
      * Check if the strategy support this block
@@ -21,7 +21,7 @@ class AddThisStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::ADDTHIS === $block->getComponent();
+        return self::NAME === $block->getComponent();
     }
 
     /**

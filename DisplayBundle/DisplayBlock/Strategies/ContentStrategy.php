@@ -17,7 +17,7 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class ContentStrategy extends AbstractStrategy
 {
-    const CONTENT = 'content';
+    const NAME = 'content';
 
     protected $contentRepository;
     protected $tagManager;
@@ -51,7 +51,7 @@ class ContentStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::CONTENT == $block->getComponent();
+        return self::NAME == $block->getComponent();
     }
 
     /**
