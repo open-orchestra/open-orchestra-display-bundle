@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class GmapStrategy extends AbstractStrategy
 {
-    const GMAP = 'gmap';
+    const NAME = 'gmap';
 
     /**
      * Check if the strategy support this block
@@ -21,7 +21,7 @@ class GmapStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::GMAP === $block->getComponent();
+        return self::NAME === $block->getComponent();
     }
 
     /**

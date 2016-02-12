@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class VideoStrategy extends AbstractStrategy
 {
-    const VIDEO = 'video';
+    const NAME = 'video';
 
     /**
      * Check if the strategy support this block
@@ -21,7 +21,7 @@ class VideoStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::VIDEO === $block->getComponent();
+        return self::NAME === $block->getComponent();
     }
 
     /**

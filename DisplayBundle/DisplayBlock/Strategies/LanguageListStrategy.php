@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class LanguageListStrategy extends AbstractStrategy
 {
-    const LANGUAGE_LIST = 'language_list';
+    const NAME = 'language_list';
 
     protected $currentSiteIdInterface;
     protected $siteRepository;
@@ -56,7 +56,7 @@ class LanguageListStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::LANGUAGE_LIST == $block->getComponent();
+        return self::NAME == $block->getComponent();
     }
 
     /**

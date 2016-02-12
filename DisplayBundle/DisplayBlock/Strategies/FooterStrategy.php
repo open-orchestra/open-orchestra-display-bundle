@@ -12,7 +12,7 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
  */
 class FooterStrategy extends AbstractStrategy
 {
-    const FOOTER = 'footer';
+    const NAME = 'footer';
 
     protected $nodeRepository;
     protected $tagManager;
@@ -38,7 +38,7 @@ class FooterStrategy extends AbstractStrategy
      */
     public function support(ReadBlockInterface $block)
     {
-        return self::FOOTER == $block->getComponent();
+        return self::NAME == $block->getComponent();
     }
 
     /**
