@@ -9,6 +9,10 @@ use Symfony\Component\Templating\EngineInterface;
 use OpenOrchestra\DisplayBundle\Manager\NodeManager;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\Routing\RequestContext;
+
 /**
  * Class InternalLinkDefinition
  */
@@ -76,9 +80,22 @@ class InternalLinkDefinition extends BBcodeDefinition
             );
         } else {
             $parameters = json_decode(html_entity_decode($option['link']), true);
-            $linkName = $this->nodeManager ->getNodeRouteNameWithParameters($parameters);
-            $uri = $this->urlGenerator->generate($linkName, $parameters, UrlGeneratorInterface::ABSOLUTE_PATH).(array_key_exists('query', $parameters) ? '?'.$parameters['query'] : '');
+            $linkName = $this->nodeManager->getNodeRouteNameWithParameters($parameters);
 
+            $parameterBag = new ParameterBag($parameters);
+
+            $query = array();
+            if (array_key_exists('query', $parameters)) {
+                $query = array($parameters['query']);
+            }
+
+            $uri = '#';
+            foreach ($this->urlGenerator->all() as $router) {
+                $generator = $router->getGenerator();
+                if(method_exists($generator, 'generateWithParameter')){
+                    $uri = $generator->generateWithParameter($parameterBag, $linkName, $query, UrlGeneratorInterface::ABSOLUTE_PATH);
+                }
+            }
             return $this->templating->render(
                 'OpenOrchestraDisplayBundle::BBcode/link.html.twig',
                 array(
