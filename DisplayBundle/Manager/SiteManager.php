@@ -46,7 +46,7 @@ class SiteManager implements CurrentSiteIdInterface
      * Get the current default language of the current site
      * Return false if current site is off
      *
-     * @return string|false
+     * @return string
      */
     public function getCurrentSiteDefaultLanguage()
     {
