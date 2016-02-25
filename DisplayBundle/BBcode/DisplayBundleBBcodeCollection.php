@@ -15,11 +15,13 @@ class DisplayBundleBBcodeCollection implements BBcodeDefinitionCollectionInterfa
 
     /**
      * Set the BBcode definitions introduced in the display bundle
-     * 
+     *
      * @param $definitionFactory
      */
-    public function __construct(BBcodeDefinitionFactory $definitionFactory)
-    {
+    public function __construct(
+        BBcodeDefinitionFactory $definitionFactory,
+        InternalLinkDefinition $internalLinkDefinition
+    ) {
         $this->definitions[] = $definitionFactory->create('div', '<div>{param}</div>');
         $this->definitions[] = $definitionFactory->create('div', '<div class="{option}">{param}</div>', true);
         $this->definitions[] = $definitionFactory->create('p', '<p>{param}</p>');
@@ -42,11 +44,13 @@ class DisplayBundleBBcodeCollection implements BBcodeDefinitionCollectionInterfa
         $this->definitions[] = $definitionFactory->create('footer', '<footer class="{option}">{param}</footer>', true);
 
         $this->definitions[] = $definitionFactory->create('gmap', '<iframe width=425 height=350 frameborder=0 scrolling=no marginheight=0 marginwidth=0 src="{param}"></iframe>');
+
+        $this->definitions[] = $internalLinkDefinition;
     }
 
     /**
      * Get an array of CodeDefinitions
-     * 
+     *
      * @return array
      */
     public function getDefinitions() {
