@@ -47,8 +47,8 @@ class NodeManager
         if (array_key_exists('site', $parameters)) {
             $site = $this->siteRepository->findOneBySiteId($parameters['site']);
             $siteId = $site->getSiteId();
-            if (array_key_exists('site-alias', $parameters)) {
-                $siteAliasId = $parameters['site-alias'];
+            if (array_key_exists('aliasId', $parameters)) {
+                $siteAliasId = $parameters['aliasId'];
             }
             $siteAlias = $site->getAliases()[$siteAliasId];
             $language = $siteAlias->getLanguage();
