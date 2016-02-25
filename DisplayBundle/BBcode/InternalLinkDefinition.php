@@ -8,10 +8,8 @@ use OpenOrchestra\BBcodeBundle\ElementNode\BBcodeElementNode;
 use Symfony\Component\Templating\EngineInterface;
 use OpenOrchestra\DisplayBundle\Manager\NodeManager;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
-
-use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use OpenOrchestra\DisplayBundle\Exception\NodeNotFoundException;
 
 /**
  * Class InternalLinkDefinition
@@ -80,22 +78,23 @@ class InternalLinkDefinition extends BBcodeDefinition
             );
         } else {
             $parameters = json_decode(html_entity_decode($option['link']), true);
-            $linkName = $this->nodeManager->getNodeRouteNameWithParameters($parameters);
-
-            $parameterBag = new ParameterBag($parameters);
-
-            $query = array();
-            if (array_key_exists('query', $parameters)) {
-                $query = array($parameters['query']);
+            if (!array_key_exists('aliasId', $parameters)) {
+                $parameters['aliasId'] = 0;
             }
-
             $uri = '#';
-            foreach ($this->urlGenerator->all() as $router) {
-                $generator = $router->getGenerator();
-                if(method_exists($generator, 'generateWithParameter')){
-                    $uri = $generator->generateWithParameter($parameterBag, $linkName, $query, UrlGeneratorInterface::ABSOLUTE_PATH);
+            try {
+                $query = $parameters['query'];
+                $linkName = $this->nodeManager->getNodeRouteNameWithParameters($parameters);
+                unset($parameters['id']);
+                unset($parameters['site']);
+                unset($parameters['query']);
+                try {
+                    $uri = $this->urlGenerator->generate($linkName, $parameters, UrlGeneratorInterface::ABSOLUTE_PATH).$query;
+                } catch(RouteNotFoundException $e) {
                 }
+            } catch (NodeNotFoundException $e) {
             }
+
             return $this->templating->render(
                 'OpenOrchestraDisplayBundle::BBcode/link.html.twig',
                 array(

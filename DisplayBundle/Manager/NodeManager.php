@@ -60,6 +60,6 @@ class NodeManager
             throw new NodeNotFoundException();
         }
 
-        return $siteAliasId . '_' . $node->getId();
+        return $node->getId();
     }
 }
