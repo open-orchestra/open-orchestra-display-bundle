@@ -76,33 +76,32 @@ class InternalLinkDefinition extends BBcodeDefinition
                     'text' => $children[0]->getAsBBCode(),
                 )
             );
-        } else {
-            $parameters = json_decode(html_entity_decode($option['link']), true);
-            if (!array_key_exists('aliasId', $parameters)) {
-                $parameters['aliasId'] = 0;
-            }
-            $uri = '#';
-            try {
-                $query = $parameters['query'];
-                $linkName = $this->nodeManager->getNodeRouteNameWithParameters($parameters);
-                unset($parameters['id']);
-                unset($parameters['site']);
-                unset($parameters['query']);
-                try {
-                    $uri = $this->urlGenerator->generate($linkName, $parameters, UrlGeneratorInterface::ABSOLUTE_PATH).$query;
-                } catch(RouteNotFoundException $e) {
-                }
-            } catch (NodeNotFoundException $e) {
-            }
-
-            return $this->templating->render(
-                'OpenOrchestraDisplayBundle::BBcode/link.html.twig',
-                array(
-                    'href' => $uri,
-                    'options' => '',
-                    'text' => $children[0]->getAsBBCode(),
-                )
-            );
         }
+        $parameters = json_decode(html_entity_decode($option['link']), true);
+        if (!array_key_exists('aliasId', $parameters)) {
+            $parameters['aliasId'] = 0;
+        }
+        $uri = '#';
+        try {
+            $query = $parameters['query'];
+            $linkName = $this->nodeManager->getNodeRouteNameWithParameters($parameters);
+            unset($parameters['id']);
+            unset($parameters['site']);
+            unset($parameters['query']);
+            try {
+                $uri = $this->urlGenerator->generate($linkName, $parameters, UrlGeneratorInterface::ABSOLUTE_PATH).$query;
+            } catch(RouteNotFoundException $e) {
+            }
+        } catch (NodeNotFoundException $e) {
+        }
+
+        return $this->templating->render(
+            'OpenOrchestraDisplayBundle::BBcode/link.html.twig',
+            array(
+                'href' => $uri,
+                'options' => '',
+                'text' => $children[0]->getAsBBCode(),
+            )
+        );
     }
 }
