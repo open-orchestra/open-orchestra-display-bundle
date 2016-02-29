@@ -54,7 +54,7 @@ class NodeManager
             $language = $siteAlias->getLanguage();
         }
 
-        $node = $this->nodeRepository->findPublishedInLastVersion($parameters['id'], $language, $siteId);
+        $node = $this->nodeRepository->findOneCurrentlyPublished($parameters['id'], $language, $siteId);
 
         if (!$node instanceof ReadNodeInterface) {
             throw new NodeNotFoundException();
