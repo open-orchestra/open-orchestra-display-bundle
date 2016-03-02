@@ -54,10 +54,7 @@ abstract class AbstractStrategy implements DisplayBlockInterface
      * 
      * @return Array
      */
-    public function getCacheTags(ReadBlockInterface $block)
-    {
-        return array();
-    }
+    abstract public function getCacheTags(ReadBlockInterface $block);
 
     /**
      * Renders a view.

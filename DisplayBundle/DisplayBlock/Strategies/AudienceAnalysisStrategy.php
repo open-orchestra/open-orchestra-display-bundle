@@ -66,6 +66,16 @@ class AudienceAnalysisStrategy extends AbstractStrategy
     }
 
     /**
+     * @param ReadBlockInterface $block
+     * 
+     * @return Array
+     */
+    public function getCacheTags(ReadBlockInterface $block)
+    {
+        return array();
+    }
+
+    /**
      * Get the name of the strategy
      *
      * @return string
