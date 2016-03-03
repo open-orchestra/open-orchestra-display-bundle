@@ -28,6 +28,7 @@ services:
     open_orchestra_display.display.contact:
         class: %open_orchestra_display.display.contact.class%
         arguments:
+            - @router
             - @form.factory
             - @request_stack
             - @event_dispatcher
