@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class ContactStrategy
@@ -18,23 +19,27 @@ class ContactStrategy extends AbstractStrategy
 {
     const NAME = 'contact';
 
+    protected $urlGenerator;
     protected $formFactory;
-    protected $request;
+    protected $requestStack;
     protected $dispatcher;
 
     /**
+     * @param UrlGeneratorInterface    $urlGenerator
      * @param FormFactory              $formFactory
      * @param RequestStack             $requestStack
      * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
+        UrlGeneratorInterface $urlGenerator,
         FormFactory $formFactory,
         RequestStack $requestStack,
         EventDispatcherInterface $dispatcher
     )
     {
+        $this->urlGenerator = $urlGenerator;
         $this->formFactory = $formFactory;
-        $this->request = $requestStack->getMasterRequest();
+        $this->requestStack = $requestStack;
         $this->dispatcher = $dispatcher;
     }
 
@@ -59,13 +64,31 @@ class ContactStrategy extends AbstractStrategy
      */
     public function show(ReadBlockInterface $block)
     {
-        $form = $this->formFactory->create(new ContactType(), null, array(
-            'method' => 'POST',
-        ));
+        $currentRequest = $this->requestStack->getCurrentRequest();
 
-        $form->handleRequest($this->request);
+        $routeAttributes = array_merge(
+            $currentRequest->get('_route_params'),
+            array(
+                'previous' => $currentRequest->get('currentRouteName'),
+                'aliasId'  => $currentRequest->get('aliasId'),
+            )
+        );
+
+        $form = $this->formFactory->create(
+            ContactType::class,
+            null,
+            array(
+                'method' => 'POST',
+                'action' => $this->urlGenerator->generate(
+                    'open_orchestra_front_block',
+                    $routeAttributes
+                )
+            )
+        );
+
+        $form->handleRequest($currentRequest);
+
         if ($form->isValid()) {
-
             $recipient = $block->getAttribute("recipient");
             $signature = $block->getAttribute("signature");
             $formData = $form->getData();
