@@ -47,7 +47,7 @@ class NodeManagerTest extends AbstractBaseTestCase
         $node = Phake::mock('OpenOrchestra\ModelInterface\Model\ReadNodeInterface');
 
         $this->nodeRepository = Phake::mock('OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface');
-        Phake::when($this->nodeRepository)->findPublishedInLastVersion(Phake::anyParameters())->thenReturn($node);
+        Phake::when($this->nodeRepository)->findOneCurrentlyPublished(Phake::anyParameters())->thenReturn($node);
         $this->siteRepository = Phake::mock('OpenOrchestra\ModelInterface\Repository\ReadSiteRepositoryInterface');
         Phake::when($this->siteRepository)->findOneBySiteId(Phake::anyParameters())->thenReturn($site);
 
@@ -68,7 +68,7 @@ class NodeManagerTest extends AbstractBaseTestCase
 
         $this->manager->getNodeRouteNameWithParameters($parameters);
 
-        Phake::verify($this->nodeRepository)->findPublishedInLastVersion($expectedParameters[0], $expectedParameters[1], $expectedParameters[2]);
+        Phake::verify($this->nodeRepository)->findOneCurrentlyPublished($expectedParameters[0], $expectedParameters[1], $expectedParameters[2]);
     }
 
     /**
