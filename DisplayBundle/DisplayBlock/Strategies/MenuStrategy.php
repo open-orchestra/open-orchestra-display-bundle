@@ -84,6 +84,7 @@ class MenuStrategy extends AbstractStrategy
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
         $siteId = $this->currentSiteManager->getCurrentSiteId();
 
+
         return $this->nodeRepository->getMenuTree($language, $siteId);
     }
 
@@ -99,6 +100,9 @@ class MenuStrategy extends AbstractStrategy
         $tags = array();
 
         $nodes = $this->getNodes();
+
+        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $tags[] = $this->tagManager->formatMenuTag($siteId);
 
         if ($nodes) {
             foreach ($nodes as $node) {
