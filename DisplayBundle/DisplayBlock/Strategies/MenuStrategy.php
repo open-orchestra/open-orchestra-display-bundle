@@ -100,6 +100,9 @@ class MenuStrategy extends AbstractStrategy
 
         $nodes = $this->getNodes();
 
+        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $tags[] = $this->tagManager->formatMenuTag($siteId);
+
         if ($nodes) {
             foreach ($nodes as $node) {
                 $tags[] = $this->tagManager->formatNodeIdTag($node->getNodeId());

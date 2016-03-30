@@ -97,6 +97,8 @@ class FooterStrategy extends AbstractStrategy
     public function getCacheTags(ReadBlockInterface $block)
     {
         $tags = array();
+        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $tags[] = $this->tagManager->formatMenuTag($siteId);
 
         $nodes = $this->getNodes();
 
