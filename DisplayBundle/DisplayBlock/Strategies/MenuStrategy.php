@@ -84,7 +84,6 @@ class MenuStrategy extends AbstractStrategy
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
         $siteId = $this->currentSiteManager->getCurrentSiteId();
 
-
         return $this->nodeRepository->getMenuTree($language, $siteId);
     }
 
