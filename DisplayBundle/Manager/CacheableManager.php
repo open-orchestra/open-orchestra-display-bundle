@@ -30,14 +30,14 @@ class CacheableManager
      * @param Response $response
      * @param int      $maxAge
      * @param string   $status
-     * @param bool   $hasEsi
+     * @param bool     $hasEsi
      *
      * @return Response $response
      */
     public function setResponseCacheParameters(Response $response, $maxAge, $status = CacheableInterface::CACHE_PRIVATE, $hasEsi = false)
     {
         $this->setResponseStatus($response, $status);
-        $this->setResponseMaxAge($response, $maxAge);
+        $this->setResponseMaxAge($response, $maxAge, $hasEsi);
 
         return $response;
     }
@@ -62,7 +62,7 @@ class CacheableManager
      * 
      * @param Response $response
      * @param int      $maxAge
-     * @param  bool    $hasEsi
+     * @param bool     $hasEsi
      */
     protected function setResponseMaxAge(Response $response, $maxAge, $hasEsi = false)
     {

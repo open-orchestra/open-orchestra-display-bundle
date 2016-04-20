@@ -37,16 +37,18 @@ class CacheableManagerTest extends AbstractBaseTestCase
     {
         $response = Phake::mock('Symfony\Component\HttpFoundation\Response');
 
-        $newResponse = $this->manager->setResponseCacheParameters($response, $maxAge, 'public');
+        $newResponse = $this->manager->setResponseCacheParameters($response, $maxAge, 'public', true);
 
         $this->assertSame($response, $newResponse);
         Phake::verify($newResponse)->setPublic();
-        Phake::verify($newResponse, Phake::times($count))->setMaxAge($expectedMaxAge);
+        Phake::verify($newResponse, Phake::times($count-1))->setMaxAge($expectedMaxAge);
+        Phake::verify($newResponse, Phake::times($count))->setSharedMaxAge($expectedMaxAge);
     }
 
     /**
      * @param int $maxAge
      * @param int $expectedMaxAge
+     * @param int $count
      *
      * @dataProvider provideMaxAge
      */
@@ -54,11 +56,13 @@ class CacheableManagerTest extends AbstractBaseTestCase
     {
         $response = Phake::mock('Symfony\Component\HttpFoundation\Response');
 
-        $newResponse = $this->manager->setResponseCacheParameters($response, $maxAge, 'private');
+        $newResponse = $this->manager->setResponseCacheParameters($response, $maxAge, 'private', false);
 
         $this->assertSame($response, $newResponse);
         Phake::verify($newResponse)->setPrivate();
         Phake::verify($newResponse, Phake::times($count))->setMaxAge($expectedMaxAge);
+        Phake::verify($newResponse, Phake::times($count-1))->setSharedMaxAge($expectedMaxAge);
+
     }
 
     /**
@@ -67,9 +71,9 @@ class CacheableManagerTest extends AbstractBaseTestCase
     public function provideMaxAge()
     {
         return array(
-            array(300, 300, 1),
-            array(-1, 2629743, 1),
-            array(0, 0, 1)
+            array(300, 300, 1, 1),
+            array(-1, 2629743, 1, 1),
+            array(0, 0, 1, 1)
         );
     }
 
