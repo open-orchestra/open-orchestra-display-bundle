@@ -62,7 +62,6 @@ class CacheableManagerTest extends AbstractBaseTestCase
         Phake::verify($newResponse)->setPrivate();
         Phake::verify($newResponse, Phake::times($count))->setMaxAge($expectedMaxAge);
         Phake::verify($newResponse, Phake::times($count-1))->setSharedMaxAge($expectedMaxAge);
-
     }
 
     /**
@@ -71,9 +70,9 @@ class CacheableManagerTest extends AbstractBaseTestCase
     public function provideMaxAge()
     {
         return array(
-            array(300, 300, 1, 1),
-            array(-1, 2629743, 1, 1),
-            array(0, 0, 1, 1)
+            array(300, 300, 1),
+            array(-1, 2629743, 1),
+            array(0, 0, 1)
         );
     }
 
