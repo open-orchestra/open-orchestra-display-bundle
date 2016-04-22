@@ -43,6 +43,12 @@ class CacheableManagerTest extends AbstractBaseTestCase
         Phake::verify($newResponse)->setPublic();
         Phake::verify($newResponse, Phake::times($count-1))->setMaxAge($expectedMaxAge);
         Phake::verify($newResponse, Phake::times($count))->setSharedMaxAge($expectedMaxAge);
+
+        $newResponse = $this->manager->setResponseCacheParameters($response, $maxAge, 'private', false);
+        Phake::verify($newResponse)->setPrivate();
+
+        Phake::verify($newResponse, Phake::times($count))->setMaxAge($expectedMaxAge);
+        Phake::verify($newResponse, Phake::times($count-1))->setSharedMaxAge($expectedMaxAge);
     }
 
     /**

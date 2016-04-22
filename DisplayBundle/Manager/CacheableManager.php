@@ -64,12 +64,12 @@ class CacheableManager
      * @param int      $maxAge
      * @param bool     $hasEsi
      */
-    protected function setResponseMaxAge(Response $response, $maxAge, $hasEsi = false)
+    protected function setResponseMaxAge(Response $response, $maxAge, $hasEsi)
     {
         if (-1 === $maxAge) {
             $maxAge = 2629743;
         }
-        if ($hasEsi == true) {
+        if (true == $hasEsi) {
             $response->setSharedMaxAge($maxAge);
         } else {
             $response->setMaxAge($maxAge);
