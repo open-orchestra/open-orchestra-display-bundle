@@ -44,7 +44,6 @@ class CacheableManagerTest extends AbstractBaseTestCase
 
         $this->assertSame($response, $newResponse);
         $setMethod = "set".ucfirst($type);
-        var_dump(method_exists($newResponse, $setMethod));
         if (true == method_exists($newResponse, $setMethod))
         {
             Phake::verify($newResponse)->$setMethod();
