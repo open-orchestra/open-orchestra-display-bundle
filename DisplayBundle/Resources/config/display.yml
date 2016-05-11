@@ -3,7 +3,6 @@ parameters:
     open_orchestra_display.display.contact.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ContactStrategy
     open_orchestra_display.display.footer.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\FooterStrategy
     open_orchestra_display.display.menu.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\MenuStrategy
-    open_orchestra_display.display.sample.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\SampleStrategy
     open_orchestra_display.display.tiny_mce_wysiwyg.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\TinyMCEWysiwygStrategy
     open_orchestra_display.display.configurable_content.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\ConfigurableContentStrategy
     open_orchestra_display.display.sub_menu.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\SubMenuStrategy
@@ -46,10 +45,6 @@ services:
         arguments:
             - @open_orchestra_model.repository.node
             - @open_orchestra_base.manager.tag
-        tags:
-            - { name: open_orchestra_display.display_block.strategy }
-    open_orchestra_display.display.sample:
-        class: %open_orchestra_display.display.sample.class%
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.tiny_mce_wysiwyg:
