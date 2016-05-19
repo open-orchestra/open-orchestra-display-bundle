@@ -69,6 +69,10 @@ class ConfigurableContentStrategy extends AbstractStrategy
     {
         $contentSearch = $block->getAttribute('contentSearch');
 
+        if (!isset($contentSearch['contentId'])) {
+            throw new \InvalidArgumentException();
+        }
+
         $contentId = $contentSearch['contentId'];
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
         $content = $this->contentRepository->findLastPublishedVersion($contentId, $language);
