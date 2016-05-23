@@ -84,13 +84,15 @@ class LanguageListStrategy extends AbstractStrategy
         $nodeId = $this->request->get('nodeId');
 
         $routes = array();
-        foreach ($site->getLanguages() as $language) {
-            try {
-                $routes[$language] = $this->urlGenerator->generate($nodeId, array(OpenOrchestraUrlGenerator::REDIRECT_TO_LANGUAGE => $language));
-            } catch (ResourceNotFoundException $e) {
+        if (!\is_null($site)) {
+            foreach ($site->getLanguages() as $language) {
+                try {
+                    $routes[$language] = $this->urlGenerator->generate($nodeId, array(OpenOrchestraUrlGenerator::REDIRECT_TO_LANGUAGE => $language));
+                } catch (ResourceNotFoundException $e) {
 
-            } catch (RouteNotFoundException $e) {
+                } catch (RouteNotFoundException $e) {
 
+                }
             }
         }
 
