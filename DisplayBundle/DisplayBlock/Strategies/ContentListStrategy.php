@@ -9,8 +9,6 @@ use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
-use OpenOrchestra\ModelInterface\Repository\KeywordRepositoryInterface;
-use OpenOrchestra\ModelInterface\Form\DataTransformer\ConditionFromBooleanToBddTransformerInterface;
 
 /**
  * Class ContentListStrategy
@@ -28,20 +26,17 @@ class ContentListStrategy extends AbstractStrategy
     /**
      * @param ReadContentRepositoryInterface $contentRepository
      * @param ReadNodeRepositoryInterface    $nodeRepository
-     * @param KeywordRepositoryInterface     $keywordRepository,
      * @param TagManager                     $tagManager
      * @param BBcodeParserInterface          $parser
      */
     public function __construct(
         ReadContentRepositoryInterface $contentRepository,
         ReadNodeRepositoryInterface $nodeRepository,
-        KeywordRepositoryInterface $keywordRepository,
         TagManager $tagManager,
         BBcodeParserInterface $parser
     ){
         $this->contentRepository = $contentRepository;
         $this->nodeRepository = $nodeRepository;
-        $this->keywordRepository = $keywordRepository;
         $this->tagManager = $tagManager;
         $this->parser = $parser;
     }
@@ -124,16 +119,8 @@ class ContentListStrategy extends AbstractStrategy
             'keywords' => null,
         ), $searchCriterias);
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
-        $keywords = json_decode($searchCriterias['keywords'], true);
-        array_walk_recursive($keywords, function (&$item, $key) {
-                $item = preg_replace('/' . ConditionFromBooleanToBddTransformerInterface::SEPARATOR . '(.*?)' . ConditionFromBooleanToBddTransformerInterface::SEPARATOR . '/', '$1', $item);
-                $keywordDocument = $this->keywordRepository->find($item);
-                if (!is_null($keywordDocument)) {
-                    $item = $keywordDocument->getLabel();
-                }
-            });
 
-        return $this->contentRepository->findByContentTypeAndCondition($language, $searchCriterias['contentType'], $searchCriterias['choiceType'], $keywords);
+        return $this->contentRepository->findByContentTypeAndCondition($language, $searchCriterias['contentType'], $searchCriterias['choiceType'], unserialize($searchCriterias['keywords']));
     }
 
     /**
