@@ -120,7 +120,7 @@ class ContentListStrategy extends AbstractStrategy
         ), $searchCriterias);
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
 
-        return $this->contentRepository->findByContentTypeAndCondition($language, $searchCriterias['contentType'], $searchCriterias['choiceType'], unserialize($searchCriterias['keywords']));
+        return $this->contentRepository->findByContentTypeAndCondition($language, $searchCriterias['contentType'], $searchCriterias['choiceType'], $searchCriterias['keywords']);
     }
 
     /**
