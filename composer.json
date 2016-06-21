@@ -10,12 +10,14 @@
   ],
   "require": {
     "symfony/swiftmailer-bundle" : "~2.3",
-    "open-orchestra/open-orchestra-model-interface": "1.1.2",
-    "open-orchestra/open-orchestra-base-bundle": "1.1.2",
-    "open-orchestra/open-orchestra-bbcode-bundle": "1.1.2",
+    "open-orchestra/open-orchestra-model-interface": "1.1.*@dev",
+    "open-orchestra/open-orchestra-base-bundle": "1.1.*@dev",
+    "open-orchestra/open-orchestra-bbcode-bundle": "1.1.*@dev",
     "friendsofsymfony/http-cache-bundle": "1.3.6",
     "innocead/captcha-bundle": "dev-master",
-    "jbbcode/jbbcode": "1.3.0"
+    "jbbcode/jbbcode": "1.3.0",
+
+    "open-orchestra/open-orchestra-libs": "@dev"
   },
 
   "require-dev": {
@@ -23,6 +25,11 @@
     "psr/log": "1.0.0",
     "codeclimate/php-test-reporter": "dev-master",
     "phake/phake": "2.1.0"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.1.x-dev"
+    }
   },
   "config" : {
     "bin-dir" : "bin"
