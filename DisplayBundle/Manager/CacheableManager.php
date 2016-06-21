@@ -70,7 +70,7 @@ class CacheableManager
         if (-1 === $maxAge) {
             $maxAge = 2629743;
         }
-        if (true == $hasEsi && CacheableInterface::CACHE_PUBLIC == $status) {
+        if (true === $hasEsi && CacheableInterface::CACHE_PUBLIC == $status) {
             $response->setSharedMaxAge($maxAge);
         } else {
             $response->setMaxAge($maxAge);
