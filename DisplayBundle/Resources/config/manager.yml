@@ -6,18 +6,18 @@ parameters:
 
 services:
     open_orchestra_display.manager.tree:
-        class: %open_orchestra_display.manager.tree.class%
+        class: '%open_orchestra_display.manager.tree.class%'
     open_orchestra_display.manager.site:
-        class: %open_orchestra_display.manager.site.class%
+        class: '%open_orchestra_display.manager.site.class%'
         arguments:
-            - @request_stack
+            - '@request_stack'
     open_orchestra_display.manager.cacheable:
-        class: %open_orchestra_display.manager.cacheable.class%
+        class: '%open_orchestra_display.manager.cacheable.class%'
         arguments:
-            - @fos_http_cache.handler.tag_handler
+            - '@fos_http_cache.handler.tag_handler'
     open_orchestra_display.manager.node:
-        class: %open_orchestra_display.manager.node.class%
+        class: '%open_orchestra_display.manager.node.class%'
         arguments:
-            - @open_orchestra_model.repository.node
-            - @open_orchestra_model.repository.site
-            - @open_orchestra_display.manager.site
+            - '@open_orchestra_model.repository.node'
+            - '@open_orchestra_model.repository.site'
+            - '@open_orchestra_display.manager.site'
