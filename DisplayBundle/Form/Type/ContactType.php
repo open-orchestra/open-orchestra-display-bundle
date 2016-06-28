@@ -5,7 +5,7 @@ namespace OpenOrchestra\DisplayBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Innocead\CaptchaBundle\Validator\Constraints\Captcha as CaptchaAssert;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 /**
  * Class ContactType
@@ -33,9 +33,8 @@ class ContactType extends AbstractType
             'label' => 'open_orchestra_display.contact.form.message',
             'constraints' => array(new NotBlank())
         ));
-        $builder->add('captcha', 'innocead_captcha', array(
-            'label' => 'open_orchestra_display.contact.form.captcha',
-            'constraints' => array(new CaptchaAssert())
+        $builder->add('captcha', CaptchaType::class, array(
+            'label' => 'open_orchestra_display.contact.form.captcha'
         ));
         $builder->add('send', 'submit', array('label' => 'open_orchestra_display.contact.form.send'));
     }

@@ -1,2 +1,0 @@
-captcha_routing:
-    resource: "@InnoceadCaptchaBundle/Resources/config/routing.yml"
