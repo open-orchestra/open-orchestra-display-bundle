@@ -4,15 +4,15 @@ parameters:
 
 services:
     open_orchestra_display.bbcode.internal_link_definitions:
-        class: %open_orchestra_display.bbcode.internal_link_definitions.class%
+        class: '%open_orchestra_display.bbcode.internal_link_definitions.class%'
         arguments:
-            - @router
-            - @open_orchestra_display.manager.node
-            - @templating
+            - '@router'
+            - '@open_orchestra_display.manager.node'
+            - '@templating'
     open_orchestra_display.bbcode.code_definitions:
-        class: %open_orchestra_display.bbcode.code_definitions.class%
+        class: '%open_orchestra_display.bbcode.code_definitions.class%'
         arguments:
-            - @open_orchestra_bbcode.definition.factory
-            - @open_orchestra_display.bbcode.internal_link_definitions
+            - '@open_orchestra_bbcode.definition.factory'
+            - '@open_orchestra_display.bbcode.internal_link_definitions'
         tags:
             - { name: open_orchestra_bbcode.code_definitions }

@@ -3,8 +3,8 @@ parameters:
 
 services:
     open_orchestra_display.subscriber.send_message:
-        class: %open_orchestra_display.subscriber.send_message.class%
+        class: '%open_orchestra_display.subscriber.send_message.class%'
         arguments:
-            - @mailer
+            - '@mailer'
         tags:
              - { name: kernel.event_subscriber }

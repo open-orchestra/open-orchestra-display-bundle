@@ -17,101 +17,101 @@ parameters:
 
 services:
     open_orchestra_display.display_block_manager:
-        class: %open_orchestra_display.display_block_manager.class%
-        arguments:
-            - @templating
-            - @open_orchestra_display.manager.cacheable
-            - @open_orchestra_base.manager.tag
-            - @open_orchestra_display.manager.site
-            - @event_dispatcher
+        class: '%open_orchestra_display.display_block_manager.class%'
+        arguments':
+            - '@templating'
+            - '@open_orchestra_display.manager.cacheable'
+            - '@open_orchestra_base.manager.tag'
+            - '@open_orchestra_display.manager.site'
+            - '@event_dispatcher'
     open_orchestra_display.display.contact:
-        class: %open_orchestra_display.display.contact.class%
+        class: '%open_orchestra_display.display.contact.class%'
         arguments:
-            - @router
-            - @form.factory
-            - @request_stack
-            - @event_dispatcher
+            - '@router'
+            - '@form.factory'
+            - '@request_stack'
+            - '@event_dispatcher'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.footer:
-        class: %open_orchestra_display.display.footer.class%
+        class: '%open_orchestra_display.display.footer.class%'
         arguments:
-            - @open_orchestra_model.repository.node
-            - @open_orchestra_base.manager.tag
+            - '@open_orchestra_model.repository.node'
+            - '@open_orchestra_base.manager.tag'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.menu:
-        class: %open_orchestra_display.display.menu.class%
+        class: '%open_orchestra_display.display.menu.class%'
         arguments:
-            - @open_orchestra_model.repository.node
-            - @open_orchestra_base.manager.tag
+            - '@open_orchestra_model.repository.node'
+            - '@open_orchestra_base.manager.tag'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.tiny_mce_wysiwyg:
-        class: %open_orchestra_display.display.tiny_mce_wysiwyg.class%
+        class: '%open_orchestra_display.display.tiny_mce_wysiwyg.class%'
         arguments:
-            - @open_orchestra_bbcode.parser
+            - '@open_orchestra_bbcode.parser'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.configurable_content:
-        class: %open_orchestra_display.display.configurable_content.class%
+        class: '%open_orchestra_display.display.configurable_content.class%'
         arguments:
-            - @open_orchestra_model.repository.content
-            - @open_orchestra_base.manager.tag
-            - @open_orchestra_bbcode.parser
+            - '@open_orchestra_model.repository.content'
+            - '@open_orchestra_base.manager.tag'
+            - '@open_orchestra_bbcode.parser'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.sub_menu:
-        class: %open_orchestra_display.display.sub_menu.class%
+        class: '%open_orchestra_display.display.sub_menu.class%'
         arguments:
-            - @open_orchestra_model.repository.node
-            - @request_stack
-            - @open_orchestra_base.manager.tag
+            - '@open_orchestra_model.repository.node'
+            - '@request_stack'
+            - '@open_orchestra_base.manager.tag'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.content_list:
-        class: %open_orchestra_display.display.content_list.class%
+        class: '%open_orchestra_display.display.content_list.class%'
         arguments:
-            - @open_orchestra_model.repository.content
-            - @open_orchestra_model.repository.node
-            - @open_orchestra_base.manager.tag
-            - @open_orchestra_bbcode.parser
+            - '@open_orchestra_model.repository.content'
+            - '@open_orchestra_model.repository.node'
+            - '@open_orchestra_base.manager.tag'
+            - '@open_orchestra_bbcode.parser'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.content:
-        class: %open_orchestra_display.display.content.class%
+        class: '%open_orchestra_display.display.content.class%'
         arguments:
-            - @open_orchestra_model.repository.content
-            - @request_stack
-            - @open_orchestra_base.manager.tag
-            - @open_orchestra_bbcode.parser
+            - '@open_orchestra_model.repository.content'
+            - '@request_stack'
+            - '@open_orchestra_base.manager.tag'
+            - '@open_orchestra_bbcode.parser'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.language_list:
-        class: %open_orchestra_display.display.language_list.class%
+        class: '%open_orchestra_display.display.language_list.class%'
         arguments:
-            - @router
-            - @open_orchestra_display.manager.site
-            - @open_orchestra_model.repository.site
-            - @request_stack
-            - %open_orchestra_display.display.language_list.template%
+            - '@router'
+            - '@open_orchestra_display.manager.site'
+            - '@open_orchestra_model.repository.site'
+            - '@request_stack'
+            - '%open_orchestra_display.display.language_list.template%'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.gmap:
-        class: %open_orchestra_display.display.gmap.class%
+        class: '%open_orchestra_display.display.gmap.class%'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.add_this:
-        class: %open_orchestra_display.display.add_this.class%
+        class: '%open_orchestra_display.display.add_this.class%'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.audience_analysis:
-        class: %open_orchestra_display.display.audience_analysis.class%
+        class: '%open_orchestra_display.display.audience_analysis.class%'
         arguments:
-            - @request_stack
+            - '@request_stack'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.video:
-        class: %open_orchestra_display.display.video.class%
+        class: '%open_orchestra_display.display.video.class%'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
