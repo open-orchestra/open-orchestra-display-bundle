@@ -16,14 +16,16 @@ parameters:
     open_orchestra_display.display.video.class: OpenOrchestra\DisplayBundle\DisplayBlock\Strategies\VideoStrategy
 
 services:
+
     open_orchestra_display.display_block_manager:
         class: '%open_orchestra_display.display_block_manager.class%'
-        arguments':
+        arguments:
             - '@templating'
             - '@open_orchestra_display.manager.cacheable'
             - '@open_orchestra_base.manager.tag'
             - '@open_orchestra_display.manager.site'
             - '@event_dispatcher'
+
     open_orchestra_display.display.contact:
         class: '%open_orchestra_display.display.contact.class%'
         arguments:
