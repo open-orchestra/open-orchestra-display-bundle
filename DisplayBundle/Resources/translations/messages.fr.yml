@@ -3,7 +3,7 @@ open_orchestra_display:
         send_message_ok: Votre message a été envoyé.
         send_message_ko: Votre message n'a pas été envoyé.
         contact_received: Votre demande de contact a été reçue par un administrateur
-        admin_content: Le client %name% avec l'email %mail% essaye de nous contacter. \n Voici le contenu de son message : \n %message%
+        admin_content: "Le client %name% avec l'email %mail% essaye de nous contacter. \n Voici le contenu de son message : \n %message%"
         user_content: Bonjour, nous avons reçu votre message et reviendrons vers vous le plus vite possible \n Cordialement, \n %signature%
         form:
             name: Nom
