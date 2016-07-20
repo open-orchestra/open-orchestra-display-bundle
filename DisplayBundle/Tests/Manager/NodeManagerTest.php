@@ -24,8 +24,8 @@ class NodeManagerTest extends AbstractBaseTestCase
     protected $siteId = 'fakeSiteId';
     protected $currentSiteId = 'fakeCurrentSiteId';
     protected $currentSiteDefaultLanguage = 'fakeCurrentSiteDefaultLanguage';
-    protected $alias0Language = 'fakeAlias0Language';
     protected $alias1Language = 'fakeAlias1Language';
+    protected $nodeMongoId = 'fakeNodeMongoId';
 
     /**
      * Set up the test
@@ -34,7 +34,7 @@ class NodeManagerTest extends AbstractBaseTestCase
     {
         $aliases = new ArrayCollection();
         $alias0 = Phake::mock('OpenOrchestra\ModelInterface\Model\SiteAliasInterface');
-        Phake::when($alias0)->getLanguage()->thenReturn($this->alias0Language);
+        Phake::when($alias0)->getLanguage()->thenReturn($this->currentSiteDefaultLanguage);
         $aliases->add($alias0);
         $alias1 = Phake::mock('OpenOrchestra\ModelInterface\Model\SiteAliasInterface');
         Phake::when($alias1)->getLanguage()->thenReturn($this->alias1Language);
@@ -43,8 +43,10 @@ class NodeManagerTest extends AbstractBaseTestCase
         $site = Phake::mock('OpenOrchestra\ModelInterface\Model\SiteInterface');
         Phake::when($site)->getSiteId()->thenReturn($this->siteId);
         Phake::when($site)->getAliases()->thenReturn($aliases);
+        Phake::when($site)->getMainAlias()->thenReturn($alias0);
 
         $node = Phake::mock('OpenOrchestra\ModelInterface\Model\ReadNodeInterface');
+        Phake::when($node)->getId()->thenReturn($this->nodeMongoId);
 
         $this->nodeRepository = Phake::mock('OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface');
         Phake::when($this->nodeRepository)->findOneCurrentlyPublished(Phake::anyParameters())->thenReturn($node);
@@ -53,7 +55,6 @@ class NodeManagerTest extends AbstractBaseTestCase
 
         $this->currentSiteManager = Phake::mock('OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface');
         Phake::when($this->currentSiteManager)->getCurrentSiteId()->thenReturn($this->currentSiteId);
-        Phake::when($this->currentSiteManager)->getCurrentSiteDefaultLanguage()->thenReturn($this->currentSiteDefaultLanguage);
 
         $this->manager = new NodeManager($this->nodeRepository, $this->siteRepository, $this->currentSiteManager);
     }
@@ -63,12 +64,12 @@ class NodeManagerTest extends AbstractBaseTestCase
      *
      * @dataProvider provideParameters
      */
-    public function testGetNodeRouteNameWithParameters(array $parameters, array $expectedParameters)
+    public function testGetRouteDocumentName(array $parameters, array $expectedParameters, $expectedRouteDocumentName)
     {
 
-        $this->manager->getNodeRouteNameWithParameters($parameters);
-
+        $routeDocumentName = $this->manager->getRouteDocumentName($parameters);
         Phake::verify($this->nodeRepository)->findOneCurrentlyPublished($expectedParameters[0], $expectedParameters[1], $expectedParameters[2]);
+        $this->assertEquals($expectedRouteDocumentName, $routeDocumentName);
     }
 
     /**
@@ -77,9 +78,9 @@ class NodeManagerTest extends AbstractBaseTestCase
     public function provideParameters()
     {
         return array(
-            array(array('id' => $this->nodeId), array($this->nodeId, $this->currentSiteDefaultLanguage, $this->currentSiteId)),
-            array(array('id' => $this->nodeId, 'site' => $this->siteId), array($this->nodeId, $this->alias0Language, $this->siteId)),
-            array(array('id' => $this->nodeId, 'site' => $this->siteId, 'aliasId' => 1), array($this->nodeId, $this->alias1Language, $this->siteId)),
+            array(array('nodeId' => $this->nodeId), array($this->nodeId, $this->currentSiteDefaultLanguage, $this->currentSiteId), '0_' . $this->nodeMongoId),
+            array(array('nodeId' => $this->nodeId, 'site_siteId' => $this->siteId), array($this->nodeId, $this->currentSiteDefaultLanguage, $this->siteId), '0_' . $this->nodeMongoId),
+            array(array('nodeId' => $this->nodeId, 'site_siteId' => $this->siteId, 'site_aliasId' => 1), array($this->nodeId, $this->alias1Language, $this->siteId), '1_' . $this->nodeMongoId),
         );
     }
 }

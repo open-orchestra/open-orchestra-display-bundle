@@ -39,27 +39,19 @@ class NodeManager
      * @return string
      * @throw NodeNotFoundException
      */
-    public function getNodeRouteNameWithParameters(array $parameters)
+    public function getRouteDocumentName(array $parameters)
     {
-        $siteId = $this->currentSiteManager->getCurrentSiteId();
-        $siteAliasId = 0;
-        $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
-        if (array_key_exists('site', $parameters)) {
-            $site = $this->siteRepository->findOneBySiteId($parameters['site']);
-            $siteId = $site->getSiteId();
-            if (array_key_exists('aliasId', $parameters)) {
-                $siteAliasId = $parameters['aliasId'];
-            }
-            $siteAlias = $site->getAliases()[$siteAliasId];
-            $language = $siteAlias->getLanguage();
-        }
+        $siteId = array_key_exists('site_siteId', $parameters) ? $parameters['site_siteId'] : $this->currentSiteManager->getCurrentSiteId();
+        $site = $this->siteRepository->findOneBySiteId($siteId);
+        $siteAlias = array_key_exists('site_aliasId', $parameters) ? $site->getAliases()[$parameters['site_aliasId']] : $site->getMainAlias();
+        $language = $siteAlias->getLanguage();
 
-        $node = $this->nodeRepository->findOneCurrentlyPublished($parameters['id'], $language, $siteId);
+        $node = $this->nodeRepository->findOneCurrentlyPublished($parameters['nodeId'], $language, $siteId);
 
         if (!$node instanceof ReadNodeInterface) {
             throw new NodeNotFoundException();
         }
 
-        return $node->getId();
+        return $site->getAliases()->indexOf($siteAlias) . '_' . $node->getId();
     }
 }
