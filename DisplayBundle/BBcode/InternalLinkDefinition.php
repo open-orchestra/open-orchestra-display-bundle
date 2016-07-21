@@ -78,18 +78,15 @@ class InternalLinkDefinition extends BBcodeDefinition
             );
         }
         $parameters = json_decode(html_entity_decode($option['link']), true);
-        if (!array_key_exists('aliasId', $parameters)) {
-            $parameters['aliasId'] = 0;
-        }
         $uri = '#';
         try {
-            $query = $parameters['query'];
-            $linkName = $this->nodeManager->getNodeRouteNameWithParameters($parameters);
-            unset($parameters['id']);
-            unset($parameters['site']);
-            unset($parameters['query']);
+            $linkName = $this->nodeManager->getRouteDocumentName($parameters);
             try {
-                $uri = $this->urlGenerator->generate($linkName, $parameters, UrlGeneratorInterface::ABSOLUTE_PATH).$query;
+                $routeCompileParameters = array();
+                if (array_key_exists('contentSearch_contentId', $parameters)) {
+                    $routeCompileParameters['contentId'] = $parameters['contentSearch_contentId'];
+                }
+                $uri = $this->urlGenerator->generate($linkName, $routeCompileParameters, UrlGeneratorInterface::ABSOLUTE_PATH).$parameters['query'];
             } catch(RouteNotFoundException $e) {
             }
         } catch (NodeNotFoundException $e) {
