@@ -86,7 +86,7 @@ class InternalLinkDefinition extends BBcodeDefinition
                 if (array_key_exists('contentSearch_contentId', $parameters)) {
                     $routeCompileParameters['contentId'] = $parameters['contentSearch_contentId'];
                 }
-                $uri = $this->urlGenerator->generate($linkName, $routeCompileParameters, UrlGeneratorInterface::ABSOLUTE_PATH).$parameters['query'];
+                $uri = $this->urlGenerator->generate($linkName, $routeCompileParameters, UrlGeneratorInterface::ABSOLUTE_PATH).(array_key_exists('query', $parameters) ? $parameters['query'] : '');
             } catch(RouteNotFoundException $e) {
             }
         } catch (NodeNotFoundException $e) {
