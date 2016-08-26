@@ -150,7 +150,7 @@ class DisplayBlockManager
     /**
      * @param ReadBlockInterface $block
      *
-     * @return string|null
+     * @return string
      */
     public function toString(ReadBlockInterface $block)
     {
@@ -161,7 +161,7 @@ class DisplayBlockManager
             }
         }
 
-        return null;
+        return '';
     }
 
     /**

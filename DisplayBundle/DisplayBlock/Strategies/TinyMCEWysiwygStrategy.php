@@ -50,7 +50,7 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     /**
      * @param ReadBlockInterface $block
      *
-     * @return null|string
+     * @return string
      */
     public function toString(ReadBlockInterface $block)
     {

@@ -50,7 +50,7 @@ interface DisplayBlockInterface
     /**
      * @param ReadBlockInterface $block
      *
-     * @return string|null
+     * @return string
      */
     public function toString(ReadBlockInterface $block);
 
