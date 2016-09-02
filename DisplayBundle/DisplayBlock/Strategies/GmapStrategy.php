@@ -59,7 +59,7 @@ class GmapStrategy extends AbstractStrategy
     /**
      * @param ReadBlockInterface $block
      * 
-     * @return Array
+     * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)
     {

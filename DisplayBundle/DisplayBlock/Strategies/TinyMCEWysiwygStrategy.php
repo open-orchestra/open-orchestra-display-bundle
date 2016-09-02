@@ -48,6 +48,16 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     }
 
     /**
+     * @param ReadBlockInterface $block
+     *
+     * @return string
+     */
+    public function toString(ReadBlockInterface $block)
+    {
+        return strip_tags($block->getAttribute('htmlContent'));
+    }
+
+    /**
      * Perform the show action for a block
      *
      * @param ReadBlockInterface $block
@@ -73,7 +83,7 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
     /**
      * @param ReadBlockInterface $block
      * 
-     * @return Array
+     * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)
     {

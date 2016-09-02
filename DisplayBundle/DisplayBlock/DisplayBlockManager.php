@@ -132,7 +132,7 @@ class DisplayBlockManager
      * 
      * @throws DisplayBlockStrategyNotFoundException
      *
-     * return bool
+     * @return bool
      */
     public function isPublic(ReadBlockInterface $block)
     {
@@ -145,6 +145,23 @@ class DisplayBlockManager
         }
 
         throw new DisplayBlockStrategyNotFoundException($block->getComponent());
+    }
+
+    /**
+     * @param ReadBlockInterface $block
+     *
+     * @return string
+     */
+    public function toString(ReadBlockInterface $block)
+    {
+        /** @var DisplayBlockInterface $strategy */
+        foreach ($this->strategies as $strategy) {
+            if ($strategy->support($block)) {
+                return $strategy->toString($block);
+            }
+        }
+
+        return '';
     }
 
     /**
