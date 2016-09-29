@@ -3,7 +3,7 @@
 {% block content %}
     {% if element is defined %}
         <ul>
-            <li><a href="{{ url(element.node.nodeId) }}">{{ element.node.name }}</a></li>
+            <li><a href="{{ url_node(element.node.nodeId) }}">{{ element.node.name }}</a></li>
             {% if element.child is defined %}
                 {% for child in element.child %}
                     {% if child %}

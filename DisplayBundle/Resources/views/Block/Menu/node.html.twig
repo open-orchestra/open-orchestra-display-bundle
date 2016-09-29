@@ -1,6 +1,6 @@
 <ul>
     <li>
-        <a href="{{ url(element.node.id) }}">{{ element.node.name }}</a>
+        <a href="{{ url_node(element.node.nodeId) }}">{{ element.node.name }}</a>
         {% if element.child is defined %}
             {% for child in element.child %}
                 {% if child %}
