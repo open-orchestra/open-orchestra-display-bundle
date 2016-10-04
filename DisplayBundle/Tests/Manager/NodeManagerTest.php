@@ -78,9 +78,9 @@ class NodeManagerTest extends AbstractBaseTestCase
     public function provideParameters()
     {
         return array(
-            array(array('nodeId' => $this->nodeId), array($this->nodeId, $this->currentSiteDefaultLanguage, $this->currentSiteId), '0_' . $this->nodeMongoId),
-            array(array('nodeId' => $this->nodeId, 'site_siteId' => $this->siteId), array($this->nodeId, $this->currentSiteDefaultLanguage, $this->siteId), '0_' . $this->nodeMongoId),
-            array(array('nodeId' => $this->nodeId, 'site_siteId' => $this->siteId, 'site_aliasId' => 1), array($this->nodeId, $this->alias1Language, $this->siteId), '1_' . $this->nodeMongoId),
+            array(array('site_nodeId' => $this->nodeId), array($this->nodeId, $this->currentSiteDefaultLanguage, $this->currentSiteId), '0_' . $this->nodeMongoId),
+            array(array('site_nodeId' => $this->nodeId, 'site_siteId' => $this->siteId), array($this->nodeId, $this->currentSiteDefaultLanguage, $this->siteId), '0_' . $this->nodeMongoId),
+            array(array('site_nodeId' => $this->nodeId, 'site_siteId' => $this->siteId, 'site_aliasId' => 1), array($this->nodeId, $this->alias1Language, $this->siteId), '1_' . $this->nodeMongoId),
         );
     }
 }
