@@ -17,6 +17,8 @@ use OpenOrchestra\DisplayBundle\Exception\NodeNotFoundException;
 class InternalLinkDefinition extends BBcodeDefinition
 {
 
+    const TAG_NAME = 'link';
+
     protected $urlGenerator;
     protected $nodeManager;
     protected $templating;
@@ -31,7 +33,7 @@ class InternalLinkDefinition extends BBcodeDefinition
         NodeManager $nodeManager,
         EngineInterface $templating
     ){
-        parent::__construct('link', '');
+        parent::__construct(self::TAG_NAME, '');
 
         $this->urlGenerator = $urlGenerator;
         $this->nodeManager = $nodeManager;
@@ -41,6 +43,7 @@ class InternalLinkDefinition extends BBcodeDefinition
 
     /**
      * Returns this node as HTML
+     * @param BBcodeElementNode $el
      *
      * @return string
      */
@@ -51,6 +54,7 @@ class InternalLinkDefinition extends BBcodeDefinition
 
     /**
      * Returns this node as HTML, in a preview context
+     * @param BBcodeElementNodeInterface $el
      *
      * @return string
      */
@@ -62,6 +66,8 @@ class InternalLinkDefinition extends BBcodeDefinition
     /**
      * @param BBcodeElementNodeInterface $el
      * @param bool                       $preview
+     *
+     * @return string
      */
     protected function generateHtml(BBcodeElementNodeInterface $el, $preview = false)
     {
