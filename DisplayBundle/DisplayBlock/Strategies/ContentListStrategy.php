@@ -119,8 +119,9 @@ class ContentListStrategy extends AbstractStrategy
             'keywords' => null,
         ), $searchCriterias);
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+        $siteId = $this->currentSiteManager->getCurrentSiteId();
 
-        return $this->contentRepository->findByContentTypeAndCondition($language, $searchCriterias['contentType'], $searchCriterias['choiceType'], $searchCriterias['keywords']);
+        return $this->contentRepository->findByContentTypeAndCondition($language, $searchCriterias['contentType'], $searchCriterias['choiceType'], $searchCriterias['keywords'], $siteId);
     }
 
     /**
