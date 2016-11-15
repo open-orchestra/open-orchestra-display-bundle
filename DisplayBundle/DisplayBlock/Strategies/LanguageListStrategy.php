@@ -63,7 +63,7 @@ class LanguageListStrategy extends AbstractStrategy
      * Indicate if the block is public or private
      *
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return boolean
      */
     public function isPublic(ReadBlockInterface $block)
@@ -99,7 +99,7 @@ class LanguageListStrategy extends AbstractStrategy
         return $this->render(
             $this->template,
             array(
-                'class' => $block->getClass(),
+                'class' => $block->getStyle(),
                 'id' => $block->getId(),
                 'routes' => $routes,
             )
@@ -108,7 +108,7 @@ class LanguageListStrategy extends AbstractStrategy
 
     /**
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)

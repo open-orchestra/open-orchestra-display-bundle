@@ -47,7 +47,7 @@ class VideoStrategy extends AbstractStrategy
     {
         $template = 'OpenOrchestraDisplayBundle:Block/Video:show.html.twig';
         $parameters = array(
-            'class' => $block->getClass(),
+            'class' => $block->getStyle(),
             'id' => $block->getId()
         );
 
@@ -83,9 +83,9 @@ class VideoStrategy extends AbstractStrategy
 
     /**
      * Return view parameters for a youtube video
-     * 
+     *
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     protected function getYoutubeParameters(ReadBlockInterface $block)
@@ -114,7 +114,7 @@ class VideoStrategy extends AbstractStrategy
 
         return array(
             'url' => $url,
-            'class' => $block->getClass(),
+            'class' => $block->getStyle(),
             'id' => $block->getId(),
             'width' => $block->getAttribute('youtubeWidth'),
             'height' => $block->getAttribute('youtubeHeight')
@@ -123,9 +123,9 @@ class VideoStrategy extends AbstractStrategy
 
     /**
      * Return view parameters for a dailymotion video
-     * 
+     *
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     protected function getDailymotionParameters(ReadBlockInterface $block)
@@ -159,9 +159,9 @@ class VideoStrategy extends AbstractStrategy
 
     /**
      * Return view parameters for a vimeo video
-     * 
+     *
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     protected function getVimeoParameters(ReadBlockInterface $block)
@@ -193,7 +193,7 @@ class VideoStrategy extends AbstractStrategy
 
     /**
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)

@@ -35,7 +35,7 @@ class AddThisStrategy extends AbstractStrategy
     {
         $parameters = array(
             'pubid' => $block->getAttribute('pubid'),
-            'class' => $block->getClass(),
+            'class' => $block->getStyle(),
             'id' => $block->getId(),
             'addThisClass' => $block->getAttribute('addThisClass'),
         );
@@ -45,7 +45,7 @@ class AddThisStrategy extends AbstractStrategy
 
     /**
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)
