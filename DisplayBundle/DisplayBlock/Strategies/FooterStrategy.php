@@ -69,14 +69,14 @@ class FooterStrategy extends AbstractStrategy
             array(
                 'tree' => $nodes,
                 'id' => $block->getId(),
-                'class' => $block->getClass(),
+                'class' => $block->getStyle(),
             )
         );
     }
 
     /**
      * Get nodes to display
-     * 
+     *
      * @return array
      */
     protected function getNodes()
@@ -89,9 +89,9 @@ class FooterStrategy extends AbstractStrategy
 
     /**
      * Return block specific cache tags
-     * 
+     *
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)

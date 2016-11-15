@@ -75,14 +75,14 @@ class TinyMCEWysiwygStrategy extends AbstractStrategy
             array(
                 'htmlContent' => $htmlContent,
                 'id' => $block->getId(),
-                'class' => $block->getClass()
+                'class' => $block->getStyle(),
             )
         );
     }
 
     /**
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)

@@ -128,7 +128,7 @@ class ContactStrategy extends AbstractStrategy
         return $this->render('OpenOrchestraDisplayBundle:Block/Contact:show.html.twig', array(
             'form' => $form->createView(),
             'id' => $block->getId(),
-            'class' => $block->getClass(),
+            'class' => $block->getStyle(),
         ));
     }
 

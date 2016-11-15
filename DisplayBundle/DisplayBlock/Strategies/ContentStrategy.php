@@ -88,7 +88,7 @@ class ContentStrategy extends AbstractStrategy
                 'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
                 array(
                     'content' => $content,
-                    'class' => $block->getClass(),
+                    'class' => $block->getStyle(),
                     'id' => $block->getId(),
                     'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
                     'contentTemplate' => $contentTemplate,

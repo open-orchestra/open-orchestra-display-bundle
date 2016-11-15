@@ -83,7 +83,7 @@ class ConfigurableContentStrategy extends AbstractStrategy
             $contentTemplate = $this->parser->getAsHTML();
 
             $parameters = array(
-                'class' => $block->getClass(),
+                'class' => $block->getStyle(),
                 'id' => $block->getId(),
                 'content' => $content,
                 'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
@@ -101,9 +101,9 @@ class ConfigurableContentStrategy extends AbstractStrategy
 
     /**
      * Return block specific cache tags
-     * 
+     *
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)

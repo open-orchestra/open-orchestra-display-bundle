@@ -85,7 +85,7 @@ class ContentListStrategy extends AbstractStrategy
 
             $parameters = array(
                 'contents' => $contents,
-                'class' => $block->getClass(),
+                'class' => $block->getStyle(),
                 'id' => $block->getId(),
                 'characterNumber' => $block->getAttribute('characterNumber'),
                 'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),

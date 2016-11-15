@@ -49,7 +49,7 @@ class GmapStrategy extends AbstractStrategy
             'latitude' => $block->getAttribute('latitude'),
             'longitude' => $block->getAttribute('longitude'),
             'zoom' => $block->getAttribute('zoom'),
-            'class' => $block->getClass(),
+            'class' => $block->getStyle(),
             'id' => $block->getId()
         );
 
@@ -58,7 +58,7 @@ class GmapStrategy extends AbstractStrategy
 
     /**
      * @param ReadBlockInterface $block
-     * 
+     *
      * @return array
      */
     public function getCacheTags(ReadBlockInterface $block)
