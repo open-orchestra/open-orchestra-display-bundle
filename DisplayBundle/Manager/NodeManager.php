@@ -46,7 +46,7 @@ class NodeManager
         $siteAlias = array_key_exists('site_aliasId', $parameters) ? $site->getAliases()[$parameters['site_aliasId']] : $site->getMainAlias();
         $language = $siteAlias->getLanguage();
 
-        $node = $this->nodeRepository->findOneCurrentlyPublished($parameters['site_nodeId'], $language, $siteId);
+        $node = $this->nodeRepository->findOnePublished($parameters['site_nodeId'], $language, $siteId);
 
         if (!$node instanceof ReadNodeInterface) {
             throw new NodeNotFoundException();
