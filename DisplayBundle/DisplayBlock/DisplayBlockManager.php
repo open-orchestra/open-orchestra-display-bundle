@@ -126,6 +126,25 @@ class DisplayBlockManager
     }
 
     /**
+     * @param ReadBlockInterface $block
+     *
+     * @return array
+     *
+     * @throws DisplayBlockStrategyNotFoundException
+     */
+    public function getBlockParameter(ReadBlockInterface $block)
+    {
+        /** @var DisplayBlockInterface $strategy */
+        foreach ($this->strategies as $strategy) {
+            if ($strategy->support($block)) {
+                return $strategy->getBlockParameter();
+            }
+        }
+
+        throw new DisplayBlockStrategyNotFoundException($block->getComponent());
+    }
+
+    /**
      * Check the block cache policy
      *
      * @param ReadBlockInterface $block
