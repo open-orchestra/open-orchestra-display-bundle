@@ -149,6 +149,33 @@ class DisplayBlockManagerTest extends AbstractBaseTestCase
     }
 
     /**
+     * test getBlockParameter
+     *
+     * @param array  $strategyBlockParameter
+     * @param array  $expectedBlocksParameters
+     *
+     * @dataProvider provideBlockParameters
+     */
+    public function testGetBlockParameter($strategyBlockParameter, $expectedBlocksParameters)
+    {
+        Phake::when($this->strategy)->getBlockParameter()->thenReturn($strategyBlockParameter);
+
+        $blockParameters = $this->manager->getBlockParameter($this->block);
+        $this->assertSame($blockParameters, $expectedBlocksParameters);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideBlockParameters()
+    {
+        return array(
+            array(array(), array()),
+            array(array('blockParameter1', 'blockParameter2'), array('blockParameter1', 'blockParameter2')),
+        );
+    }
+
+    /**
      * @param string $method
      *
      * @dataProvider provideMethodName
@@ -157,7 +184,7 @@ class DisplayBlockManagerTest extends AbstractBaseTestCase
     {
         Phake::when($this->strategy)->support(Phake::anyParameters())->thenReturn(false);
 
-        $this->setExpectedException('OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException');
+        $this->expectException('OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException');
         $this->manager->$method($this->block);
     }
 

@@ -113,6 +113,14 @@ class MenuStrategy extends AbstractStrategy
     }
 
     /**
+     * @return array
+     */
+    public function getBlockParameter()
+    {
+        return array('request.aliasId');
+    }
+
+    /**
      * Get the name of the strategy
      *
      * @return string

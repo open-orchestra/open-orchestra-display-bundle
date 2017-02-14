@@ -39,6 +39,11 @@ interface DisplayBlockInterface
     public function getCacheTags(ReadBlockInterface $block);
 
     /**
+     * @return array
+     */
+    public function getBlockParameter();
+
+    /**
      * Perform the show action for a block
      *
      * @param ReadBlockInterface $block
