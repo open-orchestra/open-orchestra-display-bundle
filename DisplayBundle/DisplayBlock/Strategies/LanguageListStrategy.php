@@ -23,7 +23,7 @@ class LanguageListStrategy extends AbstractStrategy
     protected $siteRepository;
     protected $urlGenerator;
     protected $template;
-    protected $request;
+    protected $requestStack;
 
     /**
      * @param UrlGeneratorInterface       $urlGenerator
@@ -43,7 +43,7 @@ class LanguageListStrategy extends AbstractStrategy
         $this->urlGenerator = $urlGenerator;
         $this->currentSiteIdInterface = $currentSiteIdInterface;
         $this->siteRepository = $siteRepository;
-        $this->request = $requestStack->getMasterRequest();
+        $this->requestStack = $requestStack;
         $this->template = $template;
     }
 
@@ -81,7 +81,7 @@ class LanguageListStrategy extends AbstractStrategy
     public function show(ReadBlockInterface $block)
     {
         $site = $this->siteRepository->findOneBySiteId($this->currentSiteIdInterface->getCurrentSiteId());
-        $nodeId = $this->request->get('nodeId');
+        $nodeId = $this->requestStack->getMasterRequest()->get('nodeId');
 
         $routes = array();
         if (!\is_null($site)) {
