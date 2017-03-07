@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class VideoStrategy
  */
-class VideoStrategy extends AbstractStrategy
+class VideoStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'video';
 

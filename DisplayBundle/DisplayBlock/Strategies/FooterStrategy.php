@@ -10,7 +10,7 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
 /**
  * Class FooterStrategy
  */
-class FooterStrategy extends AbstractStrategy
+class FooterStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'footer';
 

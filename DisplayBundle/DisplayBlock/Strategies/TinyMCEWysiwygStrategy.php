@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class TinyMCEWysiwygStrategy
  */
-class TinyMCEWysiwygStrategy extends AbstractStrategy
+class TinyMCEWysiwygStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'tiny_mce_wysiwyg';
 

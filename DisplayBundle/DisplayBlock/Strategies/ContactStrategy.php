@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * Class ContactStrategy
  */
-class ContactStrategy extends AbstractStrategy
+class ContactStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'contact';
 

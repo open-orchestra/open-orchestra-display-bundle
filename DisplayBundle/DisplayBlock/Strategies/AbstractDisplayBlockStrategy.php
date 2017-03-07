@@ -9,9 +9,9 @@ use OpenOrchestra\DisplayBundle\DisplayBlock\DisplayBlockManager;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class AbstractStrategy
+ * Class AbstractDisplayBlockStrategy
  */
-abstract class AbstractStrategy implements DisplayBlockInterface
+abstract class AbstractDisplayBlockStrategy implements DisplayBlockInterface
 {
     /**
      * @var DisplayBlockManager

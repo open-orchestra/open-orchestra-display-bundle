@@ -15,7 +15,7 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
 /**
  * Class ContentStrategy
  */
-class ContentStrategy extends AbstractStrategy
+class ContentStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'content';
 
