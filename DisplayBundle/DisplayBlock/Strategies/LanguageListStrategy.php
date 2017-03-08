@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * Class LanguageListStrategy
  */
-class LanguageListStrategy extends AbstractStrategy
+class LanguageListStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'language_list';
 

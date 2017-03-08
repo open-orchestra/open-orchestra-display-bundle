@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class GmapStrategy
  */
-class GmapStrategy extends AbstractStrategy
+class GmapStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'gmap';
 

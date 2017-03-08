@@ -12,7 +12,7 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
 /**
  * Class ConfigurableContentStrategy
  */
-class ConfigurableContentStrategy extends AbstractStrategy
+class ConfigurableContentStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'configurable_content';
 

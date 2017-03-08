@@ -10,7 +10,7 @@ use OpenOrchestra\BaseBundle\Manager\TagManager;
 /**
  * Class MenuStrategy
  */
-class MenuStrategy extends AbstractStrategy
+class MenuStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'menu';
 

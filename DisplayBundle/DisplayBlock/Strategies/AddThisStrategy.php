@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class AddThisStrategy
  */
-class AddThisStrategy extends AbstractStrategy
+class AddThisStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'add_this';
 

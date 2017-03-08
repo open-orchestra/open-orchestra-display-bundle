@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Class AudienceAnalysisStrategy
  */
-class AudienceAnalysisStrategy extends AbstractStrategy
+class AudienceAnalysisStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'audience_analysis';
 
