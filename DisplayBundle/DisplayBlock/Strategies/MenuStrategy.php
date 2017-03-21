@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 /**
  * Class MenuStrategy
  */
-class MenuStrategy extends AbstractMenuStrategy
+class MenuStrategy extends AbstractNodeRepositoryStrategy
 {
     const NAME = 'menu';
 

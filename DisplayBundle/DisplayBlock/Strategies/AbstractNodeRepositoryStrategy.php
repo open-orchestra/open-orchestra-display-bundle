@@ -3,12 +3,13 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\FrontBundle\Security\ContributionActionInterface;
+use OpenOrchestra\ModelInterface\Model\ReadNodeInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Class AbstractMenuStrategy
+ * Class AbstractNodeRepositoryStrategy
  */
-abstract class AbstractMenuStrategy extends AbstractDisplayBlockStrategy
+abstract class AbstractNodeRepositoryStrategy extends AbstractDisplayBlockStrategy
 {
     protected $authorizationChecker;
 
@@ -31,16 +32,17 @@ abstract class AbstractMenuStrategy extends AbstractDisplayBlockStrategy
     protected function getGrantedNodes(array $nodes)
     {
         foreach ($nodes as $key => $node) {
-            if (!empty($node->getFrontRoles())) {
-                if (
-                    !$this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') ||
-                    !$this->authorizationChecker->isGranted(ContributionActionInterface::READ, $node
-                )) {
-                    unset($nodes[$key]);
-                }
+            if (!$this->isGrantedNode($node)) {
+                unset($nodes[$key]);
             }
         }
 
         return $nodes;
+    }
+
+    protected function isGrantedNode(ReadNodeInterface $node) {
+        return empty($node->getFrontRoles()) ||
+            ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') &&
+            $this->authorizationChecker->isGranted(ContributionActionInterface::READ, $node));
     }
 }

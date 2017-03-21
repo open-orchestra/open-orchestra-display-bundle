@@ -9,11 +9,12 @@ use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class ContentListStrategy
  */
-class ContentListStrategy extends AbstractDisplayBlockStrategy
+class ContentListStrategy extends AbstractNodeRepositoryStrategy
 {
     const NAME= 'content_list';
 
@@ -28,17 +29,20 @@ class ContentListStrategy extends AbstractDisplayBlockStrategy
      * @param ReadNodeRepositoryInterface    $nodeRepository
      * @param TagManager                     $tagManager
      * @param BBcodeParserInterface          $parser
+     * @param AuthorizationCheckerInterface  $authorizationChecker
      */
     public function __construct(
         ReadContentRepositoryInterface $contentRepository,
         ReadNodeRepositoryInterface $nodeRepository,
         TagManager $tagManager,
-        BBcodeParserInterface $parser
+        BBcodeParserInterface $parser,
+        AuthorizationCheckerInterface $authorizationChecker
     ){
         $this->contentRepository = $contentRepository;
         $this->nodeRepository = $nodeRepository;
         $this->tagManager = $tagManager;
         $this->parser = $parser;
+        parent::__construct($authorizationChecker);
     }
 
     /**
@@ -95,7 +99,12 @@ class ContentListStrategy extends AbstractDisplayBlockStrategy
             if ('' != $block->getAttribute('contentNodeId')) {
                 $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
                 $siteId = $this->currentSiteManager->getCurrentSiteId();
-                $parameters['contentNodeId'] = $this->nodeRepository->findOnePublished($block->getAttribute('contentNodeId'), $language, $siteId)->getId();
+                $node = $this->nodeRepository->findOnePublished($block->getAttribute('contentNodeId'), $language, $siteId)->getId();
+                $parameters['contentNodeId'] = $node->getId();
+
+                if (!$this->isGrantedNode($node)) {
+                    unset($parameters['contentNodeId']);
+                }
             }
 
             return $this->render('OpenOrchestraDisplayBundle:Block/ContentList:show.html.twig', $parameters);
