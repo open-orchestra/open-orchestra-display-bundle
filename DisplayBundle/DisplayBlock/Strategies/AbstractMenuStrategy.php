@@ -43,14 +43,4 @@ abstract class AbstractMenuStrategy extends AbstractDisplayBlockStrategy
 
         return $nodes;
     }
-
-    /**
-     * Get the name of the strategy
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return self::NAME;
-    }
 }
