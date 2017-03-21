@@ -6,11 +6,12 @@ use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class MenuStrategy
  */
-class MenuStrategy extends AbstractDisplayBlockStrategy
+class MenuStrategy extends AbstractMenuStrategy
 {
     const NAME = 'menu';
 
@@ -18,15 +19,18 @@ class MenuStrategy extends AbstractDisplayBlockStrategy
     protected $tagManager;
 
     /**
-     * @param ReadNodeRepositoryInterface $nodeRepository
-     * @param TagManager                  $tagManager
+     * @param ReadNodeRepositoryInterface   $nodeRepository
+     * @param TagManager                    $tagManager
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
-        TagManager $tagManager
+        TagManager $tagManager,
+        AuthorizationCheckerInterface $authorizationChecker
     ){
         $this->nodeRepository = $nodeRepository;
         $this->tagManager = $tagManager;
+        parent::__construct($authorizationChecker);
     }
 
     /**
@@ -83,8 +87,9 @@ class MenuStrategy extends AbstractDisplayBlockStrategy
     {
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
         $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $nodes = $this->nodeRepository->getMenuTree($language, $siteId);
 
-        return $this->nodeRepository->getMenuTree($language, $siteId);
+        return $this->getGrantedNodes($nodes);
     }
 
     /**
@@ -129,5 +134,4 @@ class MenuStrategy extends AbstractDisplayBlockStrategy
     {
         return 'menu';
     }
-
 }
