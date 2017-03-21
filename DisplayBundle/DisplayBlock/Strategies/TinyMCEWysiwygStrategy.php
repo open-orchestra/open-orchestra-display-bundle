@@ -32,6 +32,7 @@ class TinyMCEWysiwygStrategy extends AbstractDisplayBlockStrategy
      */
     public function support(ReadBlockInterface $block)
     {
+        var_dump('support');
         return self::NAME == $block->getComponent();
     }
 
