@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 /**
  * Class ContentListStrategy
  */
-class ContentListStrategy extends AbstractNodeRepositoryStrategy
+class ContentListStrategy extends AbstractFrontRoleStrategy
 {
     const NAME= 'content_list';
 

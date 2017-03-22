@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 /**
  * Class SubMenuStrategy
  */
-class SubMenuStrategy extends AbstractNodeRepositoryStrategy
+class SubMenuStrategy extends AbstractFrontRoleStrategy
 {
     const NAME = 'sub_menu';
 

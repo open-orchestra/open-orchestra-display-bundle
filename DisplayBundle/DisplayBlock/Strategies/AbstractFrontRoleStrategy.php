@@ -7,9 +7,9 @@ use OpenOrchestra\ModelInterface\Model\ReadNodeInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Class AbstractNodeRepositoryStrategy
+ * Class AbstractFrontRoleStrategy
  */
-abstract class AbstractNodeRepositoryStrategy extends AbstractDisplayBlockStrategy
+abstract class AbstractFrontRoleStrategy extends AbstractDisplayBlockStrategy
 {
     protected $authorizationChecker;
 
