@@ -3,7 +3,7 @@
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
-use OpenOrchestra\FrontBundle\Routing\OpenOrchestraUrlGenerator;
+use OpenOrchestra\FrontBundle\Routing\Database\OpenOrchestraDatabaseUrlGenerator;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadSiteRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -87,7 +87,7 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
         if (!\is_null($site)) {
             foreach ($site->getLanguages() as $language) {
                 try {
-                    $routes[$language] = $this->urlGenerator->generate($nodeId, array(OpenOrchestraUrlGenerator::REDIRECT_TO_LANGUAGE => $language));
+                    $routes[$language] = $this->urlGenerator->generate($nodeId, array(OpenOrchestraDatabaseUrlGenerator::REDIRECT_TO_LANGUAGE => $language));
                 } catch (ResourceNotFoundException $e) {
 
                 } catch (RouteNotFoundException $e) {

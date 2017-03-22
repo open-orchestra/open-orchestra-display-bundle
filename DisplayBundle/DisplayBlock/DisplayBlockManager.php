@@ -20,6 +20,7 @@ use OpenOrchestra\ModelInterface\BlockEvents;
 class DisplayBlockManager
 {
     protected $strategies = array();
+    protected $cachedStrategies = array();
     protected $cacheableManager;
     protected $templating;
     protected $tagManager;
@@ -68,38 +69,36 @@ class DisplayBlockManager
      */
     public function show(ReadBlockInterface $block)
     {
-        /** @var DisplayBlockInterface $strategy */
-        foreach ($this->strategies as $strategy) {
-            if ($strategy->support($block)) {
-
-                $this->dispatcher->dispatch(
-                    BlockEvents::PRE_BLOCK_RENDER,
-                    new BlockEvent($block)
-                );
-
-                $response = $strategy->show($block);
-
-                $cacheStatus = CacheableInterface::CACHE_PRIVATE;
-                if ($strategy->isPublic($block)) {
-                    $cacheStatus = CacheableInterface::CACHE_PUBLIC;
-                }
-
-                $response = $this->cacheableManager->setResponseCacheParameters(
-                    $response,
-                    $block->getMaxAge(),
-                    $cacheStatus
-                );
-
-                $this->dispatcher->dispatch(
-                    BlockEvents::POST_BLOCK_RENDER,
-                    new BlockEvent($block, $response)
-                );
-
-                return $response;
-            }
+        $strategy = $this->getStrategy($block);
+        if (null === $strategy) {
+            throw new DisplayBlockStrategyNotFoundException($block->getComponent());
         }
 
-        throw new DisplayBlockStrategyNotFoundException($block->getComponent());
+        $this->dispatcher->dispatch(
+            BlockEvents::PRE_BLOCK_RENDER,
+            new BlockEvent($block)
+        );
+
+        $response = $strategy->show($block);
+
+        $cacheStatus = CacheableInterface::CACHE_PRIVATE;
+        if ($strategy->isPublic($block)) {
+            $cacheStatus = CacheableInterface::CACHE_PUBLIC;
+        }
+
+        $response = $this->cacheableManager->setResponseCacheParameters(
+            $response,
+            $block->getMaxAge(),
+            $cacheStatus
+        );
+
+        $this->dispatcher->dispatch(
+            BlockEvents::POST_BLOCK_RENDER,
+            new BlockEvent($block, $response)
+        );
+
+        return $response;
+
     }
 
     /**
@@ -112,17 +111,15 @@ class DisplayBlockManager
      */
     public function getCacheTags(ReadBlockInterface $block)
     {
-        /** @var DisplayBlockInterface $strategy */
-        foreach ($this->strategies as $strategy) {
-            if ($strategy->support($block)) {
-                $cacheTags = $strategy->getCacheTags($block);
-                $cacheTags[] = $this->tagManager->formatBlockTypeTag($block->getComponent());
-
-                return $cacheTags;
-            }
+        $strategy = $this->getStrategy($block);
+        if (null === $strategy) {
+            throw new DisplayBlockStrategyNotFoundException($block->getComponent());
         }
 
-        throw new DisplayBlockStrategyNotFoundException($block->getComponent());
+        $cacheTags = $strategy->getCacheTags($block);
+        $cacheTags[] = $this->tagManager->formatBlockTypeTag($block->getComponent());
+
+        return $cacheTags;
     }
 
     /**
@@ -134,14 +131,12 @@ class DisplayBlockManager
      */
     public function getBlockParameter(ReadBlockInterface $block)
     {
-        /** @var DisplayBlockInterface $strategy */
-        foreach ($this->strategies as $strategy) {
-            if ($strategy->support($block)) {
-                return $strategy->getBlockParameter();
-            }
+        $strategy = $this->getStrategy($block);
+        if (null === $strategy) {
+            throw new DisplayBlockStrategyNotFoundException($block->getComponent());
         }
 
-        throw new DisplayBlockStrategyNotFoundException($block->getComponent());
+        return $strategy->getBlockParameter();
     }
 
     /**
@@ -155,15 +150,12 @@ class DisplayBlockManager
      */
     public function isPublic(ReadBlockInterface $block)
     {
-        /** @var DisplayBlockInterface $strategy */
-        foreach ($this->strategies as $strategy) {
-            if ($strategy->support($block)) {
-
-                return $strategy->isPublic($block);
-            }
+        $strategy = $this->getStrategy($block);
+        if (null === $strategy) {
+            throw new DisplayBlockStrategyNotFoundException($block->getComponent());
         }
 
-        throw new DisplayBlockStrategyNotFoundException($block->getComponent());
+        return $strategy->isPublic($block);
     }
 
     /**
@@ -173,14 +165,12 @@ class DisplayBlockManager
      */
     public function toString(ReadBlockInterface $block)
     {
-        /** @var DisplayBlockInterface $strategy */
-        foreach ($this->strategies as $strategy) {
-            if ($strategy->support($block)) {
-                return $strategy->toString($block);
-            }
+        $strategy = $this->getStrategy($block);
+        if (null === $strategy) {
+            return '';
         }
 
-        return '';
+        return $strategy->toString($block);
     }
 
     /**
@@ -189,5 +179,29 @@ class DisplayBlockManager
     public function getTemplating()
     {
         return $this->templating;
+    }
+
+    /**
+     * @param $block
+     *
+     * @return null|DisplayBlockInterface
+     */
+    protected function getStrategy($block)
+    {
+        if (isset($this->cachedStrategies[$block->getId()])) {
+            return $this->cachedStrategies[$block->getId()];
+        }
+
+        foreach ($this->strategies as $strategy) {
+            if ($strategy->support($block)) {
+                if ($block->getId()) {
+                    $this->cachedStrategies[$block->getId()] = $strategy;
+                }
+
+                return $strategy;
+            }
+        }
+
+        return null;
     }
 }
