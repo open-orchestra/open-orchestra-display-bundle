@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 /**
  * Class FooterStrategy
  */
-class FooterStrategy extends AbstractFrontRoleStrategy
+class FooterStrategy extends AbstractAuthorizationCheckerStrategy
 {
     const NAME = 'footer';
 

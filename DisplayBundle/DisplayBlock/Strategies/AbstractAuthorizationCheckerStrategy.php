@@ -7,9 +7,9 @@ use OpenOrchestra\ModelInterface\Model\ReadNodeInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Class AbstractFrontRoleStrategy
+ * Class AbstractAuthorizationCheckerStrategy
  */
-abstract class AbstractFrontRoleStrategy extends AbstractDisplayBlockStrategy
+abstract class AbstractAuthorizationCheckerStrategy extends AbstractDisplayBlockStrategy
 {
     protected $authorizationChecker;
 
@@ -32,17 +32,11 @@ abstract class AbstractFrontRoleStrategy extends AbstractDisplayBlockStrategy
     protected function getGrantedNodes(array $nodes)
     {
         foreach ($nodes as $key => $node) {
-            if (!$this->isGrantedNode($node)) {
+            if (!$this->authorizationChecker->isGranted(ContributionActionInterface::READ, $node)) {
                 unset($nodes[$key]);
             }
         }
 
         return $nodes;
-    }
-
-    protected function isGrantedNode(ReadNodeInterface $node) {
-        return empty($node->getFrontRoles()) ||
-            ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') &&
-            $this->authorizationChecker->isGranted(ContributionActionInterface::READ, $node));
     }
 }
