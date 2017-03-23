@@ -40,6 +40,7 @@ services:
         arguments:
             - '@open_orchestra_model.repository.node'
             - '@open_orchestra_base.manager.tag'
+            - '@security.authorization_checker'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.menu:
@@ -47,6 +48,7 @@ services:
         arguments:
             - '@open_orchestra_model.repository.node'
             - '@open_orchestra_base.manager.tag'
+            - '@security.authorization_checker'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.tiny_mce_wysiwyg:
@@ -69,6 +71,7 @@ services:
             - '@open_orchestra_model.repository.node'
             - '@request_stack'
             - '@open_orchestra_base.manager.tag'
+            - '@security.authorization_checker'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.content_list:
@@ -78,6 +81,7 @@ services:
             - '@open_orchestra_model.repository.node'
             - '@open_orchestra_base.manager.tag'
             - '@open_orchestra_bbcode.parser'
+            - '@security.authorization_checker'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.content:

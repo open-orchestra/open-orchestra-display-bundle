@@ -8,11 +8,12 @@ use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class SubMenuStrategy
  */
-class SubMenuStrategy extends AbstractDisplayBlockStrategy
+class SubMenuStrategy extends AbstractAuthorizationCheckerStrategy
 {
     const NAME = 'sub_menu';
 
@@ -28,11 +29,13 @@ class SubMenuStrategy extends AbstractDisplayBlockStrategy
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
         RequestStack $requestStack,
-        TagManager $tagManager
+        TagManager $tagManager,
+        AuthorizationCheckerInterface $authorizationChecker
     ){
         $this->nodeRepository = $nodeRepository;
         $this->request = $requestStack->getCurrentRequest();
         $this->tagManager = $tagManager;
+        parent::__construct($authorizationChecker);
     }
 
     /**
@@ -101,6 +104,7 @@ class SubMenuStrategy extends AbstractDisplayBlockStrategy
 
         if (!is_null($nodeName)) {
             $nodes = $this->nodeRepository->getSubMenu($nodeName, $block->getAttribute('nbLevel'), $this->request->getLocale(), $siteId);
+            $nodes = $this->getGrantedNodes($nodes);
         }
 
         return $nodes;

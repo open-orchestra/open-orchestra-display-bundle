@@ -6,11 +6,12 @@ use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class FooterStrategy
  */
-class FooterStrategy extends AbstractDisplayBlockStrategy
+class FooterStrategy extends AbstractAuthorizationCheckerStrategy
 {
     const NAME = 'footer';
 
@@ -18,15 +19,18 @@ class FooterStrategy extends AbstractDisplayBlockStrategy
     protected $tagManager;
 
     /**
-     * @param ReadNodeRepositoryInterface $nodeRepository
-     * @param TagManager                  $tagManager
+     * @param ReadNodeRepositoryInterface  $nodeRepository
+     * @param TagManager                   $tagManager
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
-        TagManager $tagManager
+        TagManager $tagManager,
+        AuthorizationCheckerInterface $authorizationChecker
     ){
         $this->nodeRepository = $nodeRepository;
         $this->tagManager = $tagManager;
+        parent::__construct($authorizationChecker);
     }
 
     /**
@@ -83,8 +87,9 @@ class FooterStrategy extends AbstractDisplayBlockStrategy
     {
         $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
         $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $nodes = $this->nodeRepository->getFooterTree($language, $siteId);
 
-        return $this->nodeRepository->getFooterTree($language, $siteId);
+        return $this->getGrantedNodes($nodes);
     }
 
     /**
