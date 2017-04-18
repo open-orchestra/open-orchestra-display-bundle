@@ -6,6 +6,7 @@ use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
@@ -22,15 +23,17 @@ class MenuStrategy extends AbstractAuthorizationCheckerStrategy
      * @param ReadNodeRepositoryInterface   $nodeRepository
      * @param TagManager                    $tagManager
      * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param TokenStorageInterface         $tokenStorage
      */
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
         TagManager $tagManager,
-        AuthorizationCheckerInterface $authorizationChecker
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage
     ){
         $this->nodeRepository = $nodeRepository;
         $this->tagManager = $tagManager;
-        parent::__construct($authorizationChecker);
+        parent::__construct($authorizationChecker, $tokenStorage);
     }
 
     /**
