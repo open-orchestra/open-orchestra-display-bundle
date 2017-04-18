@@ -22,24 +22,20 @@ class ContentStrategy extends AbstractDisplayBlockStrategy
     protected $contentRepository;
     protected $tagManager;
     protected $requestStack;
-    protected $parser;
 
     /**
      * @param ReadContentRepositoryInterface $contentRepository
      * @param RequestStack                   $requestStack
      * @param TagManager                     $tagManager
-     * @param BBcodeParserInterface          $parser
      */
     public function __construct(
         ReadContentRepositoryInterface $contentRepository,
         RequestStack $requestStack,
-        TagManager $tagManager,
-        BBcodeParserInterface $parser
+        TagManager $tagManager
     ){
         $this->contentRepository = $contentRepository;
         $this->requestStack = $requestStack;
         $this->tagManager = $tagManager;
-        $this->parser = $parser;
     }
 
     /**
@@ -80,18 +76,13 @@ class ContentStrategy extends AbstractDisplayBlockStrategy
         $content = $this->getContent($contentId);
 
         if ($content instanceof ReadContentInterface) {
-            $contentTemplate = $block->getAttribute('contentTemplate');
-            $this->parser->parse($contentTemplate);
-            $contentTemplate = $this->parser->getAsHTML();
 
             return $this->render(
                 'OpenOrchestraDisplayBundle:Block/Content:show.html.twig',
                 array(
                     'content' => $content,
                     'class' => $block->getStyle(),
-                    'id' => $block->getId(),
-                    'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
-                    'contentTemplate' => $contentTemplate,
+                    'id' => $block->getId()
                 )
             );
         }

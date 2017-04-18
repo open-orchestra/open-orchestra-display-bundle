@@ -3,24 +3,18 @@
 {% block content %}
     <div class="content-list">
         {% for content in contents %}
-            {% if contentTemplateEnabled and contentTemplate is not null %}
-                {{ include(template_from_string(contentTemplate)) }}
-            {% else %}
-
-                <div>
-                    <h2>
-                        {% if contentNodeId is defined %}
-                            <a href="{{ url(contentNodeId, {'contentId' : content.contentId} ) }}">{{ content.name }}</a>
-                        {% else %}
-                            {{ content.name }}
-                        {% endif %}
-                    </h2>
-                    {% for attribute in content.attributes %}
-                        <p><b>{{ attribute.name }}:</b> {{ attribute.stringValue }}</p>
-                    {% endfor %}
-                </div>
-
-            {% endif %}
+            <div>
+                <h2>
+                    {% if contentNodeId is defined %}
+                        <a href="{{ url(contentNodeId, {'contentId' : content.contentId} ) }}">{{ content.name }}</a>
+                    {% else %}
+                        {{ content.name }}
+                    {% endif %}
+                </h2>
+                {% for attribute in content.attributes %}
+                    <p><b>{{ attribute.name }}:</b> {{ attribute.stringValue }}</p>
+                {% endfor %}
+            </div>
         {% endfor %}
     </div>
     <script>
