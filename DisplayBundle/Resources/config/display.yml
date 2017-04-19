@@ -83,8 +83,8 @@ services:
             - '@open_orchestra_model.repository.content'
             - '@open_orchestra_model.repository.node'
             - '@open_orchestra_base.manager.tag'
-            - '@security.authorization_checker'
             - '@security.token_storage'
+            - '@security.authorization_checker'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.content:
