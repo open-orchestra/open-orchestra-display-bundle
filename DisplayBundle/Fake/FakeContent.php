@@ -86,6 +86,10 @@ class FakeContent implements ReadContentInterface
     {
     }
 
+    public function initializeKeywords()
+    {
+    }
+
     /**
      * @return string
      */

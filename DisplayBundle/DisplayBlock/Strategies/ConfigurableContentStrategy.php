@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
@@ -18,18 +17,15 @@ class ConfigurableContentStrategy extends AbstractDisplayBlockStrategy
 
     protected $contentRepository;
     protected $tagManager;
-    protected $parser;
 
     /**
      * @param ReadContentRepositoryInterface $contentRepository
      * @param TagManager                     $tagManager
-     * @param BBcodeParserInterface          $parser
      */
-    public function __construct(ReadContentRepositoryInterface $contentRepository, TagManager $tagManager, BBcodeParserInterface $parser)
+    public function __construct(ReadContentRepositoryInterface $contentRepository, TagManager $tagManager)
     {
         $this->contentRepository = $contentRepository;
         $this->tagManager = $tagManager;
-        $this->parser = $parser;
     }
 
     /**
@@ -78,16 +74,10 @@ class ConfigurableContentStrategy extends AbstractDisplayBlockStrategy
         $content = $this->contentRepository->findPublishedVersion($contentId, $language);
 
         if ($content) {
-            $contentTemplate = $block->getAttribute('contentTemplate');
-            $this->parser->parse($contentTemplate);
-            $contentTemplate = $this->parser->getAsHTML();
-
             $parameters = array(
                 'class' => $block->getStyle(),
                 'id' => $block->getId(),
-                'content' => $content,
-                'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
-                'contentTemplate' => $contentTemplate,
+                'content' => $content
             );
 
             return $this->render(

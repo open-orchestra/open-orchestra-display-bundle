@@ -2,7 +2,6 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use OpenOrchestra\DisplayBundle\Exception\ContentNotFoundException;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
@@ -23,13 +22,11 @@ class ContentListStrategy extends AbstractAuthorizationCheckerStrategy
     protected $nodeRepository;
     protected $request;
     protected $tagManager;
-    protected $parser;
 
     /**
      * @param ReadContentRepositoryInterface $contentRepository
      * @param ReadNodeRepositoryInterface    $nodeRepository
      * @param TagManager                     $tagManager
-     * @param BBcodeParserInterface          $parser
      * @param AuthorizationCheckerInterface  $authorizationChecker
      * @param TokenStorageInterface          $tokenStorage
      */
@@ -37,14 +34,13 @@ class ContentListStrategy extends AbstractAuthorizationCheckerStrategy
         ReadContentRepositoryInterface $contentRepository,
         ReadNodeRepositoryInterface $nodeRepository,
         TagManager $tagManager,
-        BBcodeParserInterface $parser,
         AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        AuthorizationCheckerInterface $authorizationChecker
     ){
         $this->contentRepository = $contentRepository;
         $this->nodeRepository = $nodeRepository;
         $this->tagManager = $tagManager;
-        $this->parser = $parser;
         parent::__construct($authorizationChecker, $tokenStorage);
     }
 
@@ -86,23 +82,18 @@ class ContentListStrategy extends AbstractAuthorizationCheckerStrategy
         $contents = $this->getContents($block->getAttribute('contentSearch'));
 
         if (!is_null($contents)) {
-            $contentTemplate = $block->getAttribute('contentTemplate');
-            $this->parser->parse($contentTemplate);
-            $contentTemplate = $this->parser->getAsHTML();
 
             $parameters = array(
                 'contents' => $contents,
                 'class' => $block->getStyle(),
                 'id' => $block->getId(),
-                'characterNumber' => $block->getAttribute('characterNumber'),
-                'contentTemplateEnabled' => $block->getAttribute('contentTemplateEnabled'),
-                'contentTemplate' => $contentTemplate,
+                'characterNumber' => $block->getAttribute('characterNumber')
             );
 
             if ('' != $block->getAttribute('contentNodeId')) {
                 $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
                 $siteId = $this->currentSiteManager->getCurrentSiteId();
-                $node = $this->nodeRepository->findOnePublished($block->getAttribute('contentNodeId'), $language, $siteId)->getId();
+                $node = $this->nodeRepository->findOnePublished($block->getAttribute('contentNodeId'), $language, $siteId);
                 $parameters['contentNodeId'] = $node->getId();
 
                 if (!$this->isGrantedNode($node)) {

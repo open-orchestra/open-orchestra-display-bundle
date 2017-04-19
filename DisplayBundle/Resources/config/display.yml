@@ -65,7 +65,6 @@ services:
         arguments:
             - '@open_orchestra_model.repository.content'
             - '@open_orchestra_base.manager.tag'
-            - '@open_orchestra_bbcode.parser'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.sub_menu:
@@ -84,7 +83,6 @@ services:
             - '@open_orchestra_model.repository.content'
             - '@open_orchestra_model.repository.node'
             - '@open_orchestra_base.manager.tag'
-            - '@open_orchestra_bbcode.parser'
             - '@security.authorization_checker'
             - '@security.token_storage'
         tags:
@@ -95,7 +93,6 @@ services:
             - '@open_orchestra_model.repository.content'
             - '@request_stack'
             - '@open_orchestra_base.manager.tag'
-            - '@open_orchestra_bbcode.parser'
         tags:
             - { name: open_orchestra_display.display_block.strategy }
     open_orchestra_display.display.language_list:
