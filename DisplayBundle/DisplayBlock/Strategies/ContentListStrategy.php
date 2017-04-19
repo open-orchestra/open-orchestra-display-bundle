@@ -34,7 +34,6 @@ class ContentListStrategy extends AbstractAuthorizationCheckerStrategy
         ReadContentRepositoryInterface $contentRepository,
         ReadNodeRepositoryInterface $nodeRepository,
         TagManager $tagManager,
-        AuthorizationCheckerInterface $authorizationChecker,
         TokenStorageInterface $tokenStorage,
         AuthorizationCheckerInterface $authorizationChecker
     ){
