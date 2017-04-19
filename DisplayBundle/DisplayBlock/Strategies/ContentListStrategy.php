@@ -9,6 +9,7 @@ use OpenOrchestra\ModelInterface\Repository\ReadContentRepositoryInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
@@ -30,19 +31,21 @@ class ContentListStrategy extends AbstractAuthorizationCheckerStrategy
      * @param TagManager                     $tagManager
      * @param BBcodeParserInterface          $parser
      * @param AuthorizationCheckerInterface  $authorizationChecker
+     * @param TokenStorageInterface          $tokenStorage
      */
     public function __construct(
         ReadContentRepositoryInterface $contentRepository,
         ReadNodeRepositoryInterface $nodeRepository,
         TagManager $tagManager,
         BBcodeParserInterface $parser,
-        AuthorizationCheckerInterface $authorizationChecker
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage
     ){
         $this->contentRepository = $contentRepository;
         $this->nodeRepository = $nodeRepository;
         $this->tagManager = $tagManager;
         $this->parser = $parser;
-        parent::__construct($authorizationChecker);
+        parent::__construct($authorizationChecker, $tokenStorage);
     }
 
     /**

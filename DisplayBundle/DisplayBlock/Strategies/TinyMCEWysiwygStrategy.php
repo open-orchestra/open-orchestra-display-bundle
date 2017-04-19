@@ -4,6 +4,7 @@ namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
 use OpenOrchestra\BBcodeBundle\Parser\BBcodeParserInterface;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -14,13 +15,15 @@ class TinyMCEWysiwygStrategy extends AbstractDisplayBlockStrategy
     const NAME = 'tiny_mce_wysiwyg';
 
     protected $parser;
+    protected $requestStack;
 
     /**
      * @param BBcodeParserInterface $parser
      */
-    public function __construct(BBcodeParserInterface $parser)
+    public function __construct(BBcodeParserInterface $parser, RequestStack $requestStack)
     {
         $this->parser = $parser;
+        $this->requestStack = $requestStack;
     }
 
     /**

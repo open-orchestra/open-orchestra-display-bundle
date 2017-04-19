@@ -8,6 +8,7 @@ use OpenOrchestra\ModelInterface\Repository\ReadNodeRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use OpenOrchestra\BaseBundle\Manager\TagManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
@@ -22,20 +23,23 @@ class SubMenuStrategy extends AbstractAuthorizationCheckerStrategy
     protected $tagManager;
 
     /**
-     * @param ReadNodeRepositoryInterface $nodeRepository
-     * @param RequestStack                $requestStack
-     * @param TagManager                  $tagManager
+     * @param ReadNodeRepositoryInterface   $nodeRepository
+     * @param RequestStack                  $requestStack
+     * @param TagManager                    $tagManager
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param TokenStorageInterface         $tokenStorage
      */
     public function __construct(
         ReadNodeRepositoryInterface $nodeRepository,
         RequestStack $requestStack,
         TagManager $tagManager,
-        AuthorizationCheckerInterface $authorizationChecker
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage
     ){
         $this->nodeRepository = $nodeRepository;
         $this->request = $requestStack->getCurrentRequest();
         $this->tagManager = $tagManager;
-        parent::__construct($authorizationChecker);
+        parent::__construct($authorizationChecker, $tokenStorage);
     }
 
     /**
