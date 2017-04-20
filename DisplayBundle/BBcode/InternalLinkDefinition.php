@@ -88,8 +88,10 @@ class InternalLinkDefinition extends BBcodeDefinition
             $linkName = $this->nodeManager->getRouteDocumentName($parameters);
             try {
                 $routeCompileParameters = array();
-                if (array_key_exists('contentSearch_contentId', $parameters)) {
-                    $routeCompileParameters['contentId'] = $parameters['contentSearch_contentId'];
+                if (array_key_exists('wildcard', $parameters)) {
+                    foreach ($parameters['wildcard'] as $name => $value) {
+                        $routeCompileParameters[$name] = $value;
+                    }
                 }
                 $uri = $this->urlGenerator->generate($linkName, $routeCompileParameters, UrlGeneratorInterface::ABSOLUTE_PATH).(array_key_exists('query', $parameters) ? $parameters['query'] : '');
             } catch(RouteNotFoundException $e) {
