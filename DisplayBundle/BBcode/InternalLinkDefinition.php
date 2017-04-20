@@ -18,6 +18,8 @@ class InternalLinkDefinition extends BBcodeDefinition
 {
     const TAG_NAME = 'link';
 
+    const TAG_NAME = 'link';
+
     protected $urlGenerator;
     protected $nodeManager;
     protected $templating;
