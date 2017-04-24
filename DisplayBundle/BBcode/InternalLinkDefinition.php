@@ -90,7 +90,7 @@ class InternalLinkDefinition extends BBcodeDefinition
                 $routeCompileParameters = array();
                 if (array_key_exists('wildcard', $parameters)) {
                     foreach ($parameters['wildcard'] as $name => $value) {
-                        $routeCompileParameters[$name] = $value;
+                        $routeCompileParameters[$name] = urlencode($value);
                     }
                 }
                 $uri = $this->urlGenerator->generate($linkName, $routeCompileParameters, UrlGeneratorInterface::ABSOLUTE_PATH).(array_key_exists('query', $parameters) ? $parameters['query'] : '');
