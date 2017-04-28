@@ -41,12 +41,12 @@ class NodeManager
      */
     public function getRouteDocumentName(array $parameters)
     {
-        $siteId = array_key_exists('site_siteId', $parameters) ? $parameters['site_siteId'] : $this->currentSiteManager->getCurrentSiteId();
+        $siteId = array_key_exists('site', $parameters) && array_key_exists('siteId', $parameters['site']) ? $parameters['site']['siteId'] : $this->currentSiteManager->getCurrentSiteId();
         $site = $this->siteRepository->findOneBySiteId($siteId);
-        $siteAlias = array_key_exists('site_aliasId', $parameters) ? $site->getAliases()[$parameters['site_aliasId']] : $site->getMainAlias();
+        $siteAlias = array_key_exists('site', $parameters) && array_key_exists('aliasId', $parameters['site'])  ? $site->getAliases()[$parameters['site']['aliasId']] : $site->getMainAlias();
         $language = $siteAlias->getLanguage();
 
-        $node = $this->nodeRepository->findOnePublished($parameters['site_nodeId'], $language, $siteId);
+        $node = $this->nodeRepository->findOnePublished($parameters['site']['nodeId'], $language, $siteId);
 
         if (!$node instanceof ReadNodeInterface) {
             throw new NodeNotFoundException();
