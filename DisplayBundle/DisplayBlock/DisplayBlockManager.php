@@ -182,11 +182,11 @@ class DisplayBlockManager
     }
 
     /**
-     * @param $block
+     * @param ReadBlockInterface $block
      *
      * @return null|DisplayBlockInterface
      */
-    protected function getStrategy($block)
+    protected function getStrategy(ReadBlockInterface $block)
     {
         if (isset($this->cachedStrategies[$block->getId()])) {
             return $this->cachedStrategies[$block->getId()];
