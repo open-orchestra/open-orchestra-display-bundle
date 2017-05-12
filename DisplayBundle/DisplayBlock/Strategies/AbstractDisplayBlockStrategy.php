@@ -51,16 +51,6 @@ abstract class AbstractDisplayBlockStrategy implements DisplayBlockInterface
 
     /**
      * @param ReadBlockInterface $block
-     *
-     * @return string|null
-     */
-    public function toString(ReadBlockInterface $block)
-    {
-        return null;
-    }
-
-    /**
-     * @param ReadBlockInterface $block
      * 
      * @return array
      */

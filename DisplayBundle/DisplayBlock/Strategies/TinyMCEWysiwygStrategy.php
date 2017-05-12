@@ -51,16 +51,6 @@ class TinyMCEWysiwygStrategy extends AbstractDisplayBlockStrategy
     }
 
     /**
-     * @param ReadBlockInterface $block
-     *
-     * @return string
-     */
-    public function toString(ReadBlockInterface $block)
-    {
-        return strip_tags($block->getAttribute('htmlContent'));
-    }
-
-    /**
      * Perform the show action for a block
      *
      * @param ReadBlockInterface $block
