@@ -2,9 +2,9 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock;
 
-use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
 use OpenOrchestra\DisplayBundle\Manager\CacheableManager;
 use OpenOrchestra\DisplayBundle\Exception\DisplayBlockStrategyNotFoundException;
+use OpenOrchestra\DisplayBundle\Manager\ContextInterface;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,14 +31,14 @@ class DisplayBlockManager
      * @param EngineInterface          $templating
      * @param CacheableManager         $cacheableManager
      * @param TagManager               $tagManager
-     * @param CurrentSiteIdInterface   $currentSiteIdInterface
+     * @param ContextInterface         $currentSiteIdInterface
      * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
         EngineInterface $templating,
         CacheableManager $cacheableManager,
         TagManager $tagManager,
-        CurrentSiteIdInterface $currentSiteIdInterface,
+        ContextInterface $currentSiteIdInterface,
         EventDispatcherInterface $dispatcher
     ){
         $this->templating = $templating;

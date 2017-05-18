@@ -2,7 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
+use OpenOrchestra\DisplayBundle\Manager\ContextInterface;
 use OpenOrchestra\FrontBundle\Routing\Database\OpenOrchestraDatabaseUrlGenerator;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadSiteRepositoryInterface;
@@ -27,14 +27,14 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
 
     /**
      * @param UrlGeneratorInterface       $urlGenerator
-     * @param CurrentSiteIdInterface      $currentSiteIdInterface
+     * @param ContextInterface            $currentSiteIdInterface
      * @param ReadSiteRepositoryInterface $siteRepository
      * @param RequestStack                $requestStack
      * @param string                      $template
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
-        CurrentSiteIdInterface $currentSiteIdInterface,
+        ContextInterface $currentSiteIdInterface,
         ReadSiteRepositoryInterface $siteRepository,
         RequestStack $requestStack,
         $template

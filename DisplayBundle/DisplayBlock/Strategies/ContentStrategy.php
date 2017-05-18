@@ -100,7 +100,7 @@ class ContentStrategy extends AbstractDisplayBlockStrategy
     {
         $content = null;
         if (!is_null($contentId)) {
-            $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+            $language = $this->currentSiteManager->getCurrentSiteLanguage();
             $content = $this->contentRepository->findPublishedVersion($contentId, $language);
         }
 

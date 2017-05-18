@@ -53,7 +53,7 @@ class NodeManagerTest extends AbstractBaseTestCase
         $this->siteRepository = Phake::mock('OpenOrchestra\ModelInterface\Repository\ReadSiteRepositoryInterface');
         Phake::when($this->siteRepository)->findOneBySiteId(Phake::anyParameters())->thenReturn($site);
 
-        $this->currentSiteManager = Phake::mock('OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface');
+        $this->currentSiteManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\ContextInterface');
         Phake::when($this->currentSiteManager)->getCurrentSiteId()->thenReturn($this->currentSiteId);
 
         $this->manager = new NodeManager($this->nodeRepository, $this->siteRepository, $this->currentSiteManager);

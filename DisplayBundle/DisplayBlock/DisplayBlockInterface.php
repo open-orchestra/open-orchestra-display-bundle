@@ -2,7 +2,7 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock;
 
-use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
+use OpenOrchestra\DisplayBundle\Manager\ContextInterface;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -69,7 +69,7 @@ interface DisplayBlockInterface
     /**
      * Set the current site manager
      *
-     * @param CurrentSiteIdInterface $currentSiteManager
+     * @param ContextInterface $currentSiteManager
      */
-    public function setCurrentSiteManager(CurrentSiteIdInterface $currentSiteManager);
+    public function setCurrentSiteManager(ContextInterface $currentSiteManager);
 }

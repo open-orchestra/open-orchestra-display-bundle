@@ -8,6 +8,7 @@ use OpenOrchestra\DisplayBundle\Manager\SiteManager;
 
 /**
  * Test SiteManagerTest
+ * @deprecated
  */
 class SiteManagerTest extends AbstractBaseTestCase
 {

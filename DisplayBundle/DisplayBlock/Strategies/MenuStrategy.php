@@ -88,7 +88,7 @@ class MenuStrategy extends AbstractAuthorizationCheckerStrategy
      */
     protected function getNodes()
     {
-        $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+        $language = $this->currentSiteManager->getCurrentSiteLanguage();
         $siteId = $this->currentSiteManager->getCurrentSiteId();
         $nodes = $this->nodeRepository->getMenuTree($language, $siteId);
 

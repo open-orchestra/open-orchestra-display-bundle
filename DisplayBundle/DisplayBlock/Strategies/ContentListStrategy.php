@@ -90,7 +90,7 @@ class ContentListStrategy extends AbstractAuthorizationCheckerStrategy
             );
 
             if ('' != $block->getAttribute('contentNodeId')) {
-                $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+                $language = $this->currentSiteManager->getCurrentSiteLanguage();
                 $siteId = $this->currentSiteManager->getCurrentSiteId();
                 $node = $this->nodeRepository->findOnePublished($block->getAttribute('contentNodeId'), $language, $siteId);
                 $parameters['contentNodeId'] = $node->getId();
@@ -120,7 +120,7 @@ class ContentListStrategy extends AbstractAuthorizationCheckerStrategy
             'choiceType' => ReadContentRepositoryInterface::CHOICE_AND,
             'keywords' => null,
         ), $searchCriterias);
-        $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
+        $language = $this->currentSiteManager->getCurrentSiteLanguage();
         $siteId = $this->currentSiteManager->getCurrentSiteId();
 
         return $this->contentRepository->findByContentTypeAndCondition($language, $searchCriterias['contentType'], $searchCriterias['choiceType'], $searchCriterias['keywords'], $siteId);

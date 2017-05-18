@@ -3,65 +3,22 @@
 namespace OpenOrchestra\DisplayBundle\Manager;
 
 use OpenOrchestra\BaseBundle\Context\CurrentSiteIdInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class SiteManager
+ *
+ * @deprecated use OpenOrchestra\DisplayBundle\Manager\ContextManager
  */
-class SiteManager implements CurrentSiteIdInterface
+class SiteManager extends ContextManager implements CurrentSiteIdInterface
 {
-    protected $siteId;
-    protected $requestStack;
-    protected $currentLanguage;
-
     /**
-     * @param RequestStack $requestStack
-     */
-    public function __construct(RequestStack $requestStack)
-    {
-        $this->requestStack = $requestStack;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCurrentSiteId()
-    {
-        if (is_null($this->siteId)) {
-            $this->siteId = $this->requestStack->getMasterRequest()->get('siteId');
-        }
-
-        return $this->siteId;
-    }
-
-    /**
-     * @param string $siteId
-     */
-    public function setSiteId($siteId)
-    {
-        $this->siteId = $siteId;
-    }
-
-    /**
-     * Get the current default language of the current site
-     * Return false if current site is off
+     * Get the current language of the current site
      *
+     * @deprecated use OpenOrchestra\DisplayBundle\Manager\ContextManager::getCurrentSiteLanguage
      * @return string
      */
     public function getCurrentSiteDefaultLanguage()
     {
-        if (is_null($this->currentLanguage) && ($request = $this->requestStack->getMasterRequest())) {
-            $this->currentLanguage = $request->get('language', $request->getLocale());
-        }
-
-        return $this->currentLanguage;
-    }
-
-    /**
-     * @param string $currentLanguage
-     */
-    public function setCurrentLanguage($currentLanguage)
-    {
-        $this->currentLanguage = $currentLanguage;
+        return parent::getCurrentSiteLanguage();
     }
 }
