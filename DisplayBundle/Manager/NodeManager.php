@@ -39,7 +39,7 @@ class NodeManager
      */
     public function getRouteDocumentName(array $parameters)
     {
-        $siteId = array_key_exists('site', $parameters) && array_key_exists('siteId', $parameters['site']) ? $parameters['site']['siteId'] : $this->currentSiteManager->getCurrentSiteId();
+        $siteId = array_key_exists('site', $parameters) && array_key_exists('siteId', $parameters['site']) ? $parameters['site']['siteId'] : $this->currentSiteManager->getSiteId();
         $site = $this->siteRepository->findOneBySiteId($siteId);
         $siteAlias = array_key_exists('site', $parameters) && array_key_exists('aliasId', $parameters['site'])  ? $site->getAliases()[$parameters['site']['aliasId']] : $site->getMainAlias();
         $language = $siteAlias->getLanguage();

@@ -88,8 +88,8 @@ class MenuStrategy extends AbstractAuthorizationCheckerStrategy
      */
     protected function getNodes()
     {
-        $language = $this->currentSiteManager->getCurrentSiteLanguage();
-        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $language = $this->currentSiteManager->getSiteLanguage();
+        $siteId = $this->currentSiteManager->getSiteId();
         $nodes = $this->nodeRepository->getMenuTree($language, $siteId);
 
         return $this->getGrantedNodes($nodes);
@@ -108,7 +108,7 @@ class MenuStrategy extends AbstractAuthorizationCheckerStrategy
 
         $nodes = $this->getNodes();
 
-        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $siteId = $this->currentSiteManager->getSiteId();
         $tags[] = $this->tagManager->formatMenuTag($siteId);
 
         if ($nodes) {

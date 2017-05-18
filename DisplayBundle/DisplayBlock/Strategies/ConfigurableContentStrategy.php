@@ -70,7 +70,7 @@ class ConfigurableContentStrategy extends AbstractDisplayBlockStrategy
         }
 
         $contentId = $contentSearch['contentId'];
-        $language = $this->currentSiteManager->getCurrentSiteLanguage();
+        $language = $this->currentSiteManager->getSiteLanguage();
         $content = $this->contentRepository->findPublishedVersion($contentId, $language);
 
         if ($content) {

@@ -10,7 +10,7 @@ interface ContextInterface
     /**
      * @return string
      */
-    public function getCurrentSiteId();
+    public function getSiteId();
 
     /**
      * @param string $siteId
@@ -22,10 +22,10 @@ interface ContextInterface
      *
      * @return string
      */
-    public function getCurrentSiteLanguage();
+    public function getSiteLanguage();
 
     /**
      * @param string $currentLanguage
      */
-    public function setCurrentLanguage($currentLanguage);
+    public function setLanguage($currentLanguage);
 }

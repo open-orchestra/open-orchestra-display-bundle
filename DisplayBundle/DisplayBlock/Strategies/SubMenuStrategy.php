@@ -104,7 +104,7 @@ class SubMenuStrategy extends AbstractAuthorizationCheckerStrategy
     {
         $nodes = null;
         $nodeName = $block->getAttribute('nodeName');
-        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $siteId = $this->currentSiteManager->getSiteId();
 
         if (!is_null($nodeName)) {
             $nodes = $this->nodeRepository->getSubMenu($nodeName, $block->getAttribute('nbLevel'), $this->request->getLocale(), $siteId);
@@ -126,7 +126,7 @@ class SubMenuStrategy extends AbstractAuthorizationCheckerStrategy
         $tags = array();
 
         $nodes = $this->getNodes($block);
-        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $siteId = $this->currentSiteManager->getSiteId();
         $tags[] = $this->tagManager->formatMenuTag($siteId);
 
         if ($nodes) {

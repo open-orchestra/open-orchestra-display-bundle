@@ -11,7 +11,7 @@ class ContextManager implements ContextInterface
 {
     protected $siteId;
     protected $requestStack;
-    protected $currentLanguage;
+    protected $language;
 
     /**
      * @param RequestStack $requestStack
@@ -24,7 +24,7 @@ class ContextManager implements ContextInterface
     /**
      * @return string
      */
-    public function getCurrentSiteId()
+    public function getSiteId()
     {
         if (is_null($this->siteId)) {
             $this->siteId = $this->requestStack->getMasterRequest()->get('siteId');
@@ -46,20 +46,20 @@ class ContextManager implements ContextInterface
      *
      * @return string
      */
-    public function getCurrentSiteLanguage()
+    public function getSiteLanguage()
     {
-        if (is_null($this->currentLanguage) && ($request = $this->requestStack->getMasterRequest())) {
-            $this->currentLanguage = $request->get('language', $request->getLocale());
+        if (is_null($this->language) && ($request = $this->requestStack->getMasterRequest())) {
+            $this->language = $request->get('language', $request->getLocale());
         }
 
-        return $this->currentLanguage;
+        return $this->language;
     }
 
     /**
-     * @param string $currentLanguage
+     * @param string $language
      */
-    public function setCurrentLanguage($currentLanguage)
+    public function setLanguage($language)
     {
-        $this->currentLanguage = $currentLanguage;
+        $this->language = $language;
     }
 }

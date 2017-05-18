@@ -40,8 +40,8 @@ class SiteManagerTest extends AbstractBaseTestCase
         $siteId = '1';
         Phake::when($this->masterRequest)->get(Phake::anyParameters())->thenReturn($siteId);
 
-        $this->assertSame($siteId, $this->manager->getCurrentSiteId());
-        $this->assertSame($siteId, $this->manager->getCurrentSiteId());
+        $this->assertSame($siteId, $this->manager->getSiteId());
+        $this->assertSame($siteId, $this->manager->getSiteId());
         Phake::verify($this->masterRequest)->get('siteId');
     }
 
@@ -53,7 +53,7 @@ class SiteManagerTest extends AbstractBaseTestCase
         $siteId = '2';
         $this->manager->setSiteId($siteId);
 
-        $this->assertSame($siteId, $this->manager->getCurrentSiteId());
+        $this->assertSame($siteId, $this->manager->getSiteId());
     }
 
     /**
@@ -78,7 +78,7 @@ class SiteManagerTest extends AbstractBaseTestCase
      */
     public function testSetGetCurrentLanguage($language)
     {
-        $this->manager->setCurrentLanguage($language);
+        $this->manager->setLanguage($language);
         $this->assertSame($language, $this->manager->getCurrentSiteDefaultLanguage());
     }
 

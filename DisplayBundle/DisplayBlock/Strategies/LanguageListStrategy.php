@@ -80,7 +80,7 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
      */
     public function show(ReadBlockInterface $block)
     {
-        $site = $this->siteRepository->findOneBySiteId($this->currentSiteIdInterface->getCurrentSiteId());
+        $site = $this->siteRepository->findOneBySiteId($this->currentSiteIdInterface->getSiteId());
         $nodeId = $this->requestStack->getMasterRequest()->get('nodeId');
 
         $routes = array();
