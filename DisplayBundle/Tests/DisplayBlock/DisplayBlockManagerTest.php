@@ -48,7 +48,7 @@ class DisplayBlockManagerTest extends AbstractBaseTestCase
         Phake::when($this->strategy)->support(Phake::anyParameters())->thenReturn(true);
         Phake::when($this->strategy)->getName()->thenReturn('right');
 
-        $currentSiteManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\SiteManager');
+        $currentSiteManager = Phake::mock('OpenOrchestra\DisplayBundle\Manager\ContextInterface');
 
         $this->eventDispatcher = Phake::mock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
 

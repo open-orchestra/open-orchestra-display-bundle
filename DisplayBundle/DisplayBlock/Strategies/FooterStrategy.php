@@ -88,8 +88,8 @@ class FooterStrategy extends AbstractAuthorizationCheckerStrategy
      */
     protected function getNodes()
     {
-        $language = $this->currentSiteManager->getCurrentSiteDefaultLanguage();
-        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $language = $this->currentSiteManager->getSiteLanguage();
+        $siteId = $this->currentSiteManager->getSiteId();
         $nodes = $this->nodeRepository->getFooterTree($language, $siteId);
 
         return $this->getGrantedNodes($nodes);
@@ -105,7 +105,7 @@ class FooterStrategy extends AbstractAuthorizationCheckerStrategy
     public function getCacheTags(ReadBlockInterface $block)
     {
         $tags = array();
-        $siteId = $this->currentSiteManager->getCurrentSiteId();
+        $siteId = $this->currentSiteManager->getSiteId();
         $tags[] = $this->tagManager->formatMenuTag($siteId);
 
         $nodes = $this->getNodes();

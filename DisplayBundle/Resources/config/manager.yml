@@ -1,23 +1,33 @@
 parameters:
     open_orchestra_display.manager.tree.class: OpenOrchestra\DisplayBundle\Manager\TreeManager
     open_orchestra_display.manager.site.class: OpenOrchestra\DisplayBundle\Manager\SiteManager
+    open_orchestra_display.manager.context.class: OpenOrchestra\DisplayBundle\Manager\ContextManager
     open_orchestra_display.manager.cacheable.class: OpenOrchestra\DisplayBundle\Manager\CacheableManager
     open_orchestra_display.manager.node.class: OpenOrchestra\DisplayBundle\Manager\NodeManager
 
 services:
     open_orchestra_display.manager.tree:
         class: '%open_orchestra_display.manager.tree.class%'
+
     open_orchestra_display.manager.site:
         class: '%open_orchestra_display.manager.site.class%'
+        deprecated: ~
         arguments:
             - '@request_stack'
+
+    open_orchestra_display.manager.context:
+        class: '%open_orchestra_display.manager.context.class%'
+        arguments:
+            - '@request_stack'
+
     open_orchestra_display.manager.cacheable:
         class: '%open_orchestra_display.manager.cacheable.class%'
         arguments:
             - '@fos_http_cache.handler.tag_handler'
+
     open_orchestra_display.manager.node:
         class: '%open_orchestra_display.manager.node.class%'
         arguments:
             - '@open_orchestra_model.repository.node'
             - '@open_orchestra_model.repository.site'
-            - '@open_orchestra_display.manager.site'
+            - '@open_orchestra_display.manager.context'

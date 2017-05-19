@@ -23,7 +23,7 @@ services:
             - '@templating'
             - '@open_orchestra_display.manager.cacheable'
             - '@open_orchestra_base.manager.tag'
-            - '@open_orchestra_display.manager.site'
+            - '@open_orchestra_display.manager.context'
             - '@event_dispatcher'
 
     open_orchestra_display.display.contact:
@@ -99,7 +99,7 @@ services:
         class: '%open_orchestra_display.display.language_list.class%'
         arguments:
             - '@router'
-            - '@open_orchestra_display.manager.site'
+            - '@open_orchestra_display.manager.context'
             - '@open_orchestra_model.repository.site'
             - '@request_stack'
             - '%open_orchestra_display.display.language_list.template%'
