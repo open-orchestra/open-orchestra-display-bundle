@@ -3,17 +3,16 @@
 namespace OpenOrchestra\DisplayBundle\Tests\Manager;
 
 use OpenOrchestra\BaseBundle\Tests\AbstractTest\AbstractBaseTestCase;
+use OpenOrchestra\DisplayBundle\Manager\ContextManager;
 use Phake;
-use OpenOrchestra\DisplayBundle\Manager\SiteManager;
 
 /**
- * Test SiteManagerTest
- * @deprecated
+ * Test ContextManagerTest
  */
-class SiteManagerTest extends AbstractBaseTestCase
+class ContextManagerTest extends AbstractBaseTestCase
 {
     /**
-     * @var SiteManager
+     * @var ContextManager
      */
     protected $manager;
 
@@ -29,23 +28,23 @@ class SiteManagerTest extends AbstractBaseTestCase
         $this->requestStack = Phake::mock('Symfony\Component\HttpFoundation\RequestStack');
         Phake::when($this->requestStack)->getMasterRequest()->thenReturn($this->masterRequest);
 
-        $this->manager = new SiteManager($this->requestStack);
+        $this->manager = new ContextManager($this->requestStack);
     }
 
     /**
-     * Test current site id
+     * Test site id
      */
     public function testGetCurrentSiteId()
     {
         $siteId = '1';
         Phake::when($this->masterRequest)->get(Phake::anyParameters())->thenReturn($siteId);
 
-        $this->assertSame($siteId, $this->manager->getCurrentSiteId());
+        $this->assertSame($siteId, $this->manager->getSiteId());
         Phake::verify($this->masterRequest)->get('siteId');
     }
 
     /**
-     * Test set current site id
+     * Test set site id
      */
     public function testSetSiteId()
     {
@@ -56,16 +55,15 @@ class SiteManagerTest extends AbstractBaseTestCase
     }
 
     /**
-     * Test get default locale
+     * Test get site language
      */
-    public function testGetCurrentSiteDefaultLanguage()
+    public function testGetSiteLanguage()
     {
         $locale = 'fr';
         Phake::when($this->masterRequest)->get(Phake::anyParameters())->thenReturn($locale);
         Phake::when($this->masterRequest)->getLocale()->thenReturn($locale);
 
-        $this->assertSame($locale, $this->manager->getCurrentSiteDefaultLanguage());
-        $this->assertSame($locale, $this->manager->getCurrentSiteDefaultLanguage());
+        $this->assertSame($locale, $this->manager->getSiteLanguage());
         Phake::verify($this->masterRequest)->getLocale();
         Phake::verify($this->masterRequest)->get('language', $locale);
     }
@@ -75,10 +73,10 @@ class SiteManagerTest extends AbstractBaseTestCase
      *
      * @dataProvider provideLanguage
      */
-    public function testSetGetCurrentLanguage($language)
+    public function testSetSiteLanguage($language)
     {
         $this->manager->setLanguage($language);
-        $this->assertSame($language, $this->manager->getCurrentSiteDefaultLanguage());
+        $this->assertSame($language, $this->manager->getSiteLanguage());
     }
 
     /**
