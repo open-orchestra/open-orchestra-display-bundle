@@ -2,11 +2,9 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\Manager\ContextInterface;
 use OpenOrchestra\FrontBundle\Routing\Database\OpenOrchestraDatabaseUrlGenerator;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadSiteRepositoryInterface;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
