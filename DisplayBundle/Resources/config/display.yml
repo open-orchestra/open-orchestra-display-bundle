@@ -99,7 +99,6 @@ services:
         class: '%open_orchestra_display.display.language_list.class%'
         arguments:
             - '@router'
-            - '@open_orchestra_display.manager.context'
             - '@open_orchestra_model.repository.site'
             - '@request_stack'
             - '%open_orchestra_display.display.language_list.template%'
