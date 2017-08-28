@@ -81,8 +81,6 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
         if (!array_key_exists('siteId', $parameters) || !array_key_exists('nodeId', $parameters)) {
             throw new RouteNotFoundException();
         }
-
-
         $site = $this->siteRepository->findOneBySiteId($parameters['siteId']);
         $routes = array();
         if (!\is_null($site)) {
