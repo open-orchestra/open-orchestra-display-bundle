@@ -81,11 +81,16 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
         if (!array_key_exists('siteId', $parameters) || !array_key_exists('nodeId', $parameters)) {
             throw new RouteNotFoundException();
         }
+
+
         $site = $this->siteRepository->findOneBySiteId($parameters['siteId']);
         $routes = array();
         if (!\is_null($site)) {
             foreach ($site->getLanguages() as $language) {
                 try {
+                    unset($parameters['_locale']);
+                    unset($parameters['aliasId']);
+
                     $routes[$language] = $this->urlGenerator->generate($parameters['nodeId'], array_merge(
                         $parameters,
                         array(OpenOrchestraDatabaseUrlGenerator::REDIRECT_TO_LANGUAGE => $language)
