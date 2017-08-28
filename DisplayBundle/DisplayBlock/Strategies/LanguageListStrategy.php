@@ -2,12 +2,12 @@
 
 namespace OpenOrchestra\DisplayBundle\DisplayBlock\Strategies;
 
-use OpenOrchestra\DisplayBundle\Manager\ContextInterface;
 use OpenOrchestra\FrontBundle\Routing\Database\OpenOrchestraDatabaseUrlGenerator;
 use OpenOrchestra\ModelInterface\Model\ReadBlockInterface;
 use OpenOrchestra\ModelInterface\Repository\ReadSiteRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -19,7 +19,6 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
 {
     const NAME = 'language_list';
 
-    protected $currentSiteIdInterface;
     protected $siteRepository;
     protected $urlGenerator;
     protected $template;
@@ -27,21 +26,18 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
 
     /**
      * @param UrlGeneratorInterface       $urlGenerator
-     * @param ContextInterface            $currentSiteIdInterface
      * @param ReadSiteRepositoryInterface $siteRepository
      * @param RequestStack                $requestStack
      * @param string                      $template
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
-        ContextInterface $currentSiteIdInterface,
         ReadSiteRepositoryInterface $siteRepository,
         RequestStack $requestStack,
         $template
     )
     {
         $this->urlGenerator = $urlGenerator;
-        $this->currentSiteIdInterface = $currentSiteIdInterface;
         $this->siteRepository = $siteRepository;
         $this->requestStack = $requestStack;
         $this->template = $template;
@@ -76,22 +72,27 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
      *
      * @param ReadBlockInterface $block
      *
+     * @throws RouteNotFoundException
      * @return Response
      */
     public function show(ReadBlockInterface $block)
     {
-        $site = $this->siteRepository->findOneBySiteId($this->currentSiteIdInterface->getSiteId());
-        $nodeId = $this->requestStack->getMasterRequest()->get('nodeId');
-
+        $parameters = $this->requestStack->getMasterRequest()->get('_route_params');
+        if (!array_key_exists('siteId', $parameters) || !array_key_exists('nodeId', $parameters)) {
+            throw new RouteNotFoundException();
+        }
+        $site = $this->siteRepository->findOneBySiteId($parameters['siteId']);
         $routes = array();
         if (!\is_null($site)) {
             foreach ($site->getLanguages() as $language) {
                 try {
-                    $routes[$language] = $this->urlGenerator->generate($nodeId, array(OpenOrchestraDatabaseUrlGenerator::REDIRECT_TO_LANGUAGE => $language));
+                    $routes[$language] = $this->urlGenerator->generate($parameters['nodeId'], array_merge(
+                        $parameters,
+                        array(OpenOrchestraDatabaseUrlGenerator::REDIRECT_TO_LANGUAGE => $language)
+                    ));
                 } catch (ResourceNotFoundException $e) {
-
                 } catch (RouteNotFoundException $e) {
-
+                } catch (MissingMandatoryParametersException $e) {
                 }
             }
         }
