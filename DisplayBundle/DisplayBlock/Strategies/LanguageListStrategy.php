@@ -77,25 +77,25 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
      */
     public function show(ReadBlockInterface $block)
     {
-        $parameters = $this->requestStack->getMasterRequest()->get('_route_params');
-        if (!array_key_exists('siteId', $parameters) || !array_key_exists('nodeId', $parameters)) {
-            throw new RouteNotFoundException();
-        }
-        $site = $this->siteRepository->findOneBySiteId($parameters['siteId']);
+        $parameters = $this->requestStack->getMasterRequest()->get('_route_params', array());
         $routes = array();
-        if (!\is_null($site)) {
-            foreach ($site->getLanguages() as $language) {
-                try {
-                    unset($parameters['_locale']);
-                    unset($parameters['aliasId']);
 
-                    $routes[$language] = $this->urlGenerator->generate($parameters['nodeId'], array_merge(
-                        $parameters,
-                        array(OpenOrchestraDatabaseUrlGenerator::REDIRECT_TO_LANGUAGE => $language)
-                    ));
-                } catch (ResourceNotFoundException $e) {
-                } catch (RouteNotFoundException $e) {
-                } catch (MissingMandatoryParametersException $e) {
+        if (array_key_exists('siteId', $parameters) || array_key_exists('nodeId', $parameters)) {
+            $site = $this->siteRepository->findOneBySiteId($parameters['siteId']);
+            if (!\is_null($site)) {
+                foreach ($site->getLanguages() as $language) {
+                    try {
+                        unset($parameters['_locale']);
+                        unset($parameters['aliasId']);
+
+                        $routes[$language] = $this->urlGenerator->generate($parameters['nodeId'], array_merge(
+                            $parameters,
+                            array(OpenOrchestraDatabaseUrlGenerator::REDIRECT_TO_LANGUAGE => $language)
+                        ));
+                    } catch (ResourceNotFoundException $e) {
+                    } catch (RouteNotFoundException $e) {
+                    } catch (MissingMandatoryParametersException $e) {
+                    }
                 }
             }
         }
