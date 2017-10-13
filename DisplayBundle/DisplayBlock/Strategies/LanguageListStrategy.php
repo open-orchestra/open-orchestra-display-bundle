@@ -86,6 +86,9 @@ class LanguageListStrategy extends AbstractDisplayBlockStrategy
         if (!\is_null($site)) {
             foreach ($site->getLanguages() as $language) {
                 try {
+                    unset($parameters['_locale']);
+                    unset($parameters['aliasId']);
+
                     $routes[$language] = $this->urlGenerator->generate($parameters['nodeId'], array_merge(
                         $parameters,
                         array(OpenOrchestraDatabaseUrlGenerator::REDIRECT_TO_LANGUAGE => $language)
