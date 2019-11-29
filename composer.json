@@ -20,9 +20,9 @@
     "gregwar/captcha-bundle": "~2.0.2",
     "jbbcode/jbbcode": "~1.3.0",
     "symfony/swiftmailer-bundle": "~2.3.0",
-    "open-orchestra/open-orchestra-base-bundle": "self.version",
-    "open-orchestra/open-orchestra-bbcode-bundle": "self.version",
-    "open-orchestra/open-orchestra-model-interface": "self.version"
+    "open-orchestra/open-orchestra-base-bundle": "dev-test-7.2",
+    "open-orchestra/open-orchestra-bbcode-bundle": "dev-test-7.2",
+    "open-orchestra/open-orchestra-model-interface": "dev-test-7.2"
   },
 
   "require-dev": {
@@ -30,7 +30,7 @@
     "phake/phake": "~2.3.0",
     "codeclimate/php-test-reporter": "~0.3.2",
 
-    "open-orchestra/open-orchestra-libs": "self.version"
+    "open-orchestra/open-orchestra-libs": "dev-test-7.2"
   },
 
   "config": {
